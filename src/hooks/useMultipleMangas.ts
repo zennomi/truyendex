@@ -1,14 +1,10 @@
 "use client"
 
 import useSWR from 'swr'
-import { mangadexAxios } from '../utils/axios';
-import MFA from "mangadex-full-api"
+import { Manga as MangaApi } from '../api'
 
-export default function useMultipleMangas(ids: string[]) {
-    return useSWR(ids, () => mangadexAxios({
-        url: 'manga',
-        params: {
-            ids
-        }
+export default function useMultipleMangas(ids: string[], enable: boolean) {
+    return useSWR(enable ? ids : null, () => MangaApi.getSearchManga({
+        ids
     }))
 }

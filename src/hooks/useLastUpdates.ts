@@ -1,13 +1,31 @@
 "use client"
 
 import useSWR from 'swr'
-import { mangadexAxios } from '../utils/axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Chapter as ChapterApi, Manga as MangaApi } from '../api';
+import { ChapterList, Chapter } from '../api/schema';
+import { MangaContentRating } from '../api/manga';
+import { Order } from '../api/static';
+import { ExtendChapter } from '../api/extend';
+import extendRelationship from '../utils/extendRelationship';
 
 export default function useLastUpdates() {
-    const [chapters, setChapters] = useState([])
-    const { data, isLoading, error, } = useSWR('last-updates', () => mangadexAxios.get("chapter?includes%5B%5D=scanlation_group&translatedLanguage%5B%5D=en&translatedLanguage%5B%5D=ja&translatedLanguage%5B%5D=vi&contentRating%5B%5D=safe&contentRating%5B%5D=suggestive&contentRating%5B%5D=erotica&contentRating%5B%5D=pornographic&order%5BreadableAt%5D=desc&limit=64"))
-    // const {data: mangasData} = useSWR((isLoading || error) ? null : data?.data.)
+    const [chapters, setChapters] = useState<ExtendChapter[]>([])
+
+    const { data, isLoading, error } = useSWR('last-updates', () => ChapterApi.getChapter({
+        includes: ['scanlation_group'],
+        translatedLanguage: ['vi'],
+        contentRating: [MangaContentRating.SAFE, MangaContentRating.SUGGESTIVE],
+        order: {
+            readableAt: Order.DESC
+        },
+        limit: 64
+    }))
+
+    useEffect(() => {
+        if (data && data.data?.result === "ok") setChapters(((data.data as ChapterList).data).map(c => extendRelationship(c) as ExtendChapter))
+    }, [data])
+
     return {
         chapters, isLoading, error
     }
