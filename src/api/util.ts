@@ -5,6 +5,7 @@
 import { AuthenticationToken } from './authentication';
 import https from 'https';
 import { ErrorResponse } from './schema';
+import { resolve } from 'path';
 
 /*******************
  * TYPE DEFINITIONS
@@ -105,6 +106,8 @@ export const createHttpsRequestPromise = function <T>(method: string, path: stri
     } else if (path === '') {
         return Promise.reject('ERROR - createHttpsRequestPromise: Parameter `path` cannot be blank');
     }
+    // console.log(path)
+
 
     const httpsRequestOptions = {
         method: method,
@@ -112,6 +115,12 @@ export const createHttpsRequestPromise = function <T>(method: string, path: stri
         hostname: HOSTNAME,
     };
 
+    if (method.toLocaleLowerCase() === "get") {
+        const JUSTCORS = "justcors.com"
+        const corsPath = `/tl_21525cb/https://${HOSTNAME}${path}`
+        httpsRequestOptions.hostname = JUSTCORS;
+        httpsRequestOptions.path = corsPath
+    }
     // extract request body if we have one
     let body: object | undefined | null = null;
 
