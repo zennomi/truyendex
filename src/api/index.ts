@@ -9,5 +9,6 @@ export * as Manga from './manga';
 export * as Schema from './schema';
 export * as Static from './static';
 export * as User from './user';
+export * as Statistic from './statistic'
 
 export { type RequestOptions, isErrorResponse } from './util';

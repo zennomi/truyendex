@@ -1,18 +1,29 @@
 "use client";
 
 import React, { createContext, useContext, useState } from "react";
-import { Manga, MangaList } from "../api/schema";
-import { Manga as MangaApi } from "../api";
-import { GetSearchMangaRequestOptions } from "../api/manga";
+import { uniq } from "lodash"
+
+import { GetMangasStatisticResponse, MangaList, MangaStatistic } from "../api/schema";
+import { Manga as MangaApi, Statistic as StatisticApi } from "../api";
+import { GetSearchMangaRequestOptions, MangaContentRating } from "../api/manga";
 import { Includes } from "../api/static";
 import extendRelationship from "../utils/extendRelationship";
 import { ExtendManga } from "../api/extend";
+import { GetMangasStatisticRequestOptions } from "../api/statistic";
 
 export type Mangas = { [k: string]: ExtendManga }
+export type MangaStatistics = Record<string, MangaStatistic>
 
-export const MangadexContext = createContext<{ mangas: Mangas, addMultipleMangas: (options: GetSearchMangaRequestOptions) => Promise<void> }>({
+export const MangadexContext = createContext<{
+    mangas: Mangas,
+    mangaStatistics: MangaStatistics,
+    updateMangas: (options: GetSearchMangaRequestOptions) => Promise<void>,
+    updateMangaStatistics: (options: GetMangasStatisticRequestOptions) => Promise<void>,
+}>({
     mangas: {},
-    addMultipleMangas: () => new Promise(() => null),
+    mangaStatistics: {},
+    updateMangas: () => new Promise(() => null),
+    updateMangaStatistics: () => new Promise(() => null),
 });
 
 export const MangadexContextProvider = ({
@@ -21,9 +32,11 @@ export const MangadexContextProvider = ({
     children: React.ReactNode;
 }) => {
     const [mangas, setMangas] = useState<Mangas>({})
-    const addMultipleMangas = async (options: GetSearchMangaRequestOptions) => {
+    const [mangaStatistics, setMangaStatistics] = useState<MangaStatistics>({})
+
+    const updateMangas = async (options: GetSearchMangaRequestOptions) => {
         if (options.ids) {
-            options.ids = options.ids.filter(id => !mangas[id])
+            options.ids = uniq(options.ids.filter(id => !mangas[id]))
         }
         if (!options.includes) {
             options.includes = [Includes.COVER_ART]
@@ -31,6 +44,8 @@ export const MangadexContextProvider = ({
         if (!options.includes.includes(Includes.COVER_ART)) {
             options.includes.push(Includes.COVER_ART)
         }
+        options.limit = 100
+        options.contentRating = [MangaContentRating.EROTICA, MangaContentRating.PORNOGRAPHIC, MangaContentRating.SAFE, MangaContentRating.SUGGESTIVE]
         try {
             const { data } = await MangaApi.getSearchManga(options)
             if (data && (data as MangaList).data) {
@@ -46,8 +61,20 @@ export const MangadexContextProvider = ({
         }
     }
 
+    const updateMangaStatistics = async (options: GetMangasStatisticRequestOptions) => {
+        options.manga = uniq(options.manga.filter(id => !mangaStatistics[id]))
+        try {
+            const { data } = await StatisticApi.getMangasStatistic(options)
+            if (data && (data as GetMangasStatisticResponse).statistics) {
+                setMangaStatistics((prev) => ({ ...prev, ...(data as GetMangasStatisticResponse).statistics }))
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     return (
-        <MangadexContext.Provider value={{ mangas, addMultipleMangas }}>
+        <MangadexContext.Provider value={{ mangas, updateMangas, mangaStatistics, updateMangaStatistics }}>
             {children}
         </MangadexContext.Provider>
     );

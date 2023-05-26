@@ -19,7 +19,7 @@ export default function useLastUpdates() {
         order: {
             readableAt: Order.DESC
         },
-        limit: 64
+        limit: 100
     }))
 
     useEffect(() => {

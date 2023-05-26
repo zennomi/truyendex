@@ -1,6 +1,10 @@
+import "@fortawesome/fontawesome-free/css/all.css";
+import Image from "next/image";
+
 import MainNav from "../../components/nettrom/mainNav";
 import "./style.css"
-import "@fortawesome/fontawesome-free/css/all.css";
+
+import NettromLogo from "../../assets/nettrom-logo.png"
 
 export default function NettromLayout({
     children,
@@ -14,8 +18,8 @@ export default function NettromLayout({
                     <div className="container">
                         <div className="navbar-header">
                             <div className="navbar-brand">
-                                <a className="logo" title="Truyện tranh online" href="/">
-                                    <img alt="Logo NetTruyen" src="//st.nettruyento.com/data/logos/logo-nettruyen.png" width="150" style={{ "aspectRatio": 5 }} />
+                                <a className="logo !flex !items-center" title="Truyện tranh online" href="/">
+                                    <Image alt="Logo NetTrom" className="my-auto" src={NettromLogo} width="150" style={{ "aspectRatio": 5 }} />
                                 </a>
                             </div>
                             <div className="navbar-form navbar-left hidden-xs search-box comicsearchbox">
@@ -34,7 +38,10 @@ export default function NettromLayout({
                                 <i className="fa fa-bars"></i>
                             </button>
                         </div>
-                        <ul className="nav-account list-inline hidden-xs pull-right"><li className="login-link"><a rel="nofollow" href="/Secure/Login.aspx?returnurl=%2F">Đăng nhập</a></li><li className="register-link"><a rel="nofollow" href="/Secure/Register.aspx?returnurl=%2F">Đăng ký</a></li></ul>
+                        <ul className="nav-account list-inline hidden-xs pull-right mt-[13px]">
+                            <li className="login-link"><a rel="nofollow" href="/Secure/Login.aspx?returnurl=%2F">Đăng nhập</a></li>
+                            <li className="register-link"><a rel="nofollow" href="/Secure/Register.aspx?returnurl=%2F">Đăng ký</a></li>
+                        </ul>
                     </div>
                 </div>
             </header>

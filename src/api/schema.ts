@@ -1004,3 +1004,17 @@ export type StatisticsDetailsComments = {
      */
     repliesCount: number
 } | null;
+
+export type MangaStatistic = {
+    comments: StatisticsDetailsComments
+    rating: {
+        average: number
+        bayesian: number
+    }
+    follows: number
+}
+
+export type GetMangasStatisticResponse = {
+    result: string
+    statistics: Record<string, MangaStatistic>
+}

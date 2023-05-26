@@ -1,4 +1,5 @@
 import FeaturedTitles from "../../sections/nettrom/featuredTitles";
+import NewUpdates from "../../sections/nettrom/newUpdates";
 
 export const metadata = {
     title: 'Đọc Truyện Tranh Online - Website chính thức - NetTrom',
@@ -9,6 +10,9 @@ export default function Nettrom() {
     return (
         <>
             <FeaturedTitles />
+            <div className="row">
+            <NewUpdates />
+            </div>
         </>
     )
 }

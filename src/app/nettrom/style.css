@@ -7556,15 +7556,19 @@ a.visited {
     no-repeat center center;
 }
 
+.slick-slide {
+  padding: 0 7px;
+}
+
 .items-slide {
   position: relative;
-  margin: 0 -7px;
+  /* margin: 0 -7px; */
   height: 240px;
 }
 
 .items-slide .item {
   border: 1px solid #f2f2f2;
-  margin: 0 7px;
+  /* margin: 0 7px; */
   position: relative;
   height: 220px;
   text-align: center;
