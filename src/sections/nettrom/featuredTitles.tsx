@@ -97,8 +97,8 @@ export default function FeaturedTitles() {
                                     })
                                 }
                             </Slider>
-                            <Link href="#" className="prev" aria-label="Trước" onClick={handlePrevious}></Link>
-                            <Link href="#" className="next" aria-label="Sau" onClick={handleNext}></Link>
+                            <a href="#" className="prev" aria-label="Trước" onClick={handlePrevious}></a>
+                            <a href="#" className="next" aria-label="Sau" onClick={handleNext}></a>
                         </div>
                     </div>
                 </div>
