@@ -11,4 +11,4 @@ export * as Static from './static';
 export * as User from './user';
 export * as Statistic from './statistic'
 
-export { type RequestOptions, isErrorResponse } from './util';
+export { isErrorResponse } from './util';
