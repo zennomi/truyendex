@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function MainNav() {
     return (
         <nav className="main-nav hidden-xs" id="mainNav" style={{ "zIndex": 1000, "position": "relative", "top": "0px" }}>
@@ -5,11 +7,11 @@ export default function MainNav() {
                 <div className="container">
                     <div className="Module Module-144"><div className="ModuleContent"><ul className="nav navbar-nav main-menu">
                         <li className="active">
-                            <a target="_self" href="/">
+                            <Link target="_self" href="/nettrom">
                                 <i className="fa fa-home hidden-xs">
                                 </i>
                                 <span className="visible-xs">Trang chủ</span>
-                            </a>
+                            </Link>
                         </li>
                         <li>
                             <a target="_self" href="https://www.nettruyento.com/hot">Hot</a>

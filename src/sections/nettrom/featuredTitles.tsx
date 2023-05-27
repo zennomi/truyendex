@@ -8,6 +8,7 @@ import useFeaturedTitles from "../../hooks/useFeaturedTitles"
 import getCoverArt from "../../utils/getCoverArt"
 import getTitleManga from "../../utils/getTitleManga"
 import { useRef } from 'react';
+import Link from 'next/link';
 
 
 export default function FeaturedTitles() {
@@ -61,8 +62,8 @@ export default function FeaturedTitles() {
                                         const title = getTitleManga(manga)
                                         return (
                                             <div key={manga.id} className="item px-[3.5px]">
-                                                <a
-                                                    href="https://www.nettruyento.com/truyen-tranh/vo-luyen-dinh-phong-176960"
+                                                <Link
+                                                    href={`/nettrom/truyen-tranh/${manga.id}`}
                                                     title={title}
                                                 >
                                                     <img
@@ -71,22 +72,22 @@ export default function FeaturedTitles() {
                                                         alt={title}
                                                         style={{}}
                                                     />
-                                                </a>
+                                                </Link>
                                                 <div className="slide-caption">
                                                     <h3>
-                                                        <a
-                                                            href="https://www.nettruyento.com/truyen-tranh/vo-luyen-dinh-phong-176960"
+                                                        <Link
+                                                            href={`/nettrom/truyen-tranh/${manga.id}`}
                                                             title={title}
                                                         >
                                                             {title}
-                                                        </a>
+                                                        </Link>
                                                     </h3>
-                                                    <a
-                                                        href="https://www.nettruyento.com/truyen-tranh/vo-luyen-dinh-phong/chap-3320/1001775"
+                                                    <Link
+                                                        href={`/nettrom/truyen-tranh/${manga.id}`}
                                                         title="Chapter 3320"
                                                     >
                                                         {manga.author?.attributes?.name || ""}
-                                                    </a>
+                                                    </Link>
                                                     <span className="time">
                                                         <i className="fa fa-clock-o"></i> {formatDistance(new Date(manga.attributes.updatedAt), new Date(), { locale: vi })}
                                                     </span>
@@ -96,8 +97,8 @@ export default function FeaturedTitles() {
                                     })
                                 }
                             </Slider>
-                            <a href="#" className="prev" aria-label="Trước" onClick={handlePrevious}></a>
-                            <a href="#" className="next" aria-label="Sau" onClick={handleNext}></a>
+                            <Link href="#" className="prev" aria-label="Trước" onClick={handlePrevious}></Link>
+                            <Link href="#" className="next" aria-label="Sau" onClick={handleNext}></Link>
                         </div>
                     </div>
                 </div>

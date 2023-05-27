@@ -1,7 +1,8 @@
-import LastUpdates from "../sections/home/lastUpdates";
+import { redirect } from 'next/navigation';
 
 export default function Home() {
+  redirect("nettrom")
   return (
-    <LastUpdates />
+    <div>Đang trộm...</div>
   )
 }

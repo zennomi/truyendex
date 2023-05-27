@@ -7,4 +7,5 @@ export type ExtendChapter = Chapter & {
 export type ExtendManga = Manga & {
     cover_art?: Partial<Cover> & Pick<Cover, 'id' | 'type'>,
     author?: Partial<Author> & Pick<Author, 'id' | 'type'>,
+    artist?: Partial<Author> & Pick<Author, 'id' | 'type'>,
 }

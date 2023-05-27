@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link";
 import { useEffect } from "react";
 
 import useLastUpdates from "../../hooks/useLastUpdates"
@@ -67,9 +68,9 @@ export default function NewUpdates() {
                                         <div className="item" key={mangaId}>
                                             <figure className="clearfix">
                                                 <div className="image">
-                                                    <a
+                                                    <Link
                                                         title={mangaTitle}
-                                                        href="https://www.nettruyento.com/truyen-tranh/anh-chong-giau-co-chieu-hu-toi-83823"
+                                                        href={`/nettrom/truyen-tranh/${mangaId}`}
                                                     >
                                                         <img
                                                             src={coverArt}
@@ -77,7 +78,7 @@ export default function NewUpdates() {
                                                             data-original={coverArt}
                                                             alt={mangaTitle}
                                                         />
-                                                    </a>
+                                                    </Link>
                                                     <div className="view clearfix">
                                                         <span className="pull-left">
                                                             <i className="fa fa-star"></i> {mangaStatistics[mangaId] && Math.round((mangaStatistics[mangaId].rating.bayesian || 0) * 10) / 10 || "N/A"}{" "}
@@ -88,13 +89,13 @@ export default function NewUpdates() {
                                                 </div>
                                                 <figcaption>
                                                     <h3>
-                                                        <a
+                                                        <Link
                                                             className="jtip"
                                                             data-jtip="#truyen-tranh-83823"
-                                                            href="https://www.nettruyento.com/truyen-tranh/anh-chong-giau-co-chieu-hu-toi-83823"
+                                                            href={`/nettrom/truyen-tranh/${mangaId}`}
                                                         >
                                                             {mangaTitle}
-                                                        </a>
+                                                        </Link>
                                                     </h3>
                                                     <ul className="comic-item">
                                                         {chapterList.slice(0, 3).map(chapter => (
@@ -123,7 +124,7 @@ export default function NewUpdates() {
                                                         <div className="box_img">
                                                             <a
                                                                 title="Anh Chồng Giàu Có Chiều Hư Tôi"
-                                                                href="https://www.nettruyento.com/truyen-tranh/anh-chong-giau-co-chieu-hu-toi-83823"
+                                                                href={`/nettrom/truyen-tranh/${mangaId}`}
                                                             >
                                                                 <img
                                                                     className="img_a"
@@ -169,7 +170,7 @@ export default function NewUpdates() {
                             <li className="hidden">Trang 1 / 589 </li>
                             <li className="active">
                                 <a
-                                    href="https://www.nettruyento.com/"
+                                    href="/nettrom/"
                                     title="Đang hiện kết quả 1 tới 36 / 21200"
                                 >
                                     1
@@ -177,7 +178,7 @@ export default function NewUpdates() {
                             </li>
                             <li>
                                 <a
-                                    href="https://www.nettruyento.com/?page=2"
+                                    href="/nettrom/?page=2"
                                     title="Hiện kết quả 37 tới 72 / 21200"
                                 >
                                     2
@@ -185,7 +186,7 @@ export default function NewUpdates() {
                             </li>
                             <li>
                                 <a
-                                    href="https://www.nettruyento.com/?page=3"
+                                    href="/nettrom/?page=3"
                                     title="Hiện kết quả 73 tới 108 / 21200"
                                 >
                                     3
@@ -193,7 +194,7 @@ export default function NewUpdates() {
                             </li>
                             <li>
                                 <a
-                                    href="https://www.nettruyento.com/?page=4"
+                                    href="/nettrom/?page=4"
                                     title="Hiện kết quả 109 tới 144 / 21200"
                                 >
                                     4
@@ -201,7 +202,7 @@ export default function NewUpdates() {
                             </li>
                             <li>
                                 <a
-                                    href="https://www.nettruyento.com/?page=5"
+                                    href="/nettrom/?page=5"
                                     title="Hiện kết quả 145 tới 180 / 21200"
                                 >
                                     5
@@ -209,7 +210,7 @@ export default function NewUpdates() {
                             </li>
                             <li className="PagerSSCCells">
                                 <a
-                                    href="https://www.nettruyento.com/?page=100"
+                                    href="/nettrom/?page=100"
                                     title="Hiện kết quả 3565 tới 3600 / 21200"
                                 >
                                     100
@@ -217,7 +218,7 @@ export default function NewUpdates() {
                             </li>
                             <li className="PagerSSCCells">
                                 <a
-                                    href="https://www.nettruyento.com/?page=200"
+                                    href="/nettrom/?page=200"
                                     title="Hiện kết quả 7165 tới 7200 / 21200"
                                 >
                                     200
@@ -225,7 +226,7 @@ export default function NewUpdates() {
                             </li>
                             <li className="PagerSSCCells">
                                 <a
-                                    href="https://www.nettruyento.com/?page=290"
+                                    href="/nettrom/?page=290"
                                     title="Hiện kết quả 10405 tới 10440 / 21200"
                                 >
                                     290
@@ -233,7 +234,7 @@ export default function NewUpdates() {
                             </li>
                             <li className="PagerSSCCells">
                                 <a
-                                    href="https://www.nettruyento.com/?page=390"
+                                    href="/nettrom/?page=390"
                                     title="Hiện kết quả 14005 tới 14040 / 21200"
                                 >
                                     390
@@ -241,7 +242,7 @@ export default function NewUpdates() {
                             </li>
                             <li className="PagerSSCCells">
                                 <a
-                                    href="https://www.nettruyento.com/?page=490"
+                                    href="/nettrom/?page=490"
                                     title="Hiện kết quả 17605 tới 17640 / 21200"
                                 >
                                     490
@@ -250,14 +251,14 @@ export default function NewUpdates() {
                             <li>
                                 <a
                                     className="next-page"
-                                    href="https://www.nettruyento.com/?page=2"
+                                    href="/nettrom/?page=2"
                                     title="Chuyển đến trang 2"
                                 >
                                     ›
                                 </a>{" "}
                             </li>
                             <li>
-                                <a href="https://www.nettruyento.com/?page=589" title="Trang cuối">
+                                <a href="/nettrom/?page=589" title="Trang cuối">
                                     »
                                 </a>{" "}
                             </li>

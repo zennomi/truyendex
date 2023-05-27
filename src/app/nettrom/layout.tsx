@@ -5,6 +5,7 @@ import MainNav from "../../components/nettrom/mainNav";
 import "./style.css"
 
 import NettromLogo from "../../assets/nettrom-logo.png"
+import Link from "next/link";
 
 export default function NettromLayout({
     children,
@@ -18,9 +19,9 @@ export default function NettromLayout({
                     <div className="container">
                         <div className="navbar-header">
                             <div className="navbar-brand">
-                                <a className="logo !flex !items-center" title="Truyện tranh online" href="/">
+                                <Link className="logo !flex !items-center" title="Truyện tranh online" href="/nettrom">
                                     <Image alt="Logo NetTrom" className="my-auto" src={NettromLogo} width="150" style={{ "aspectRatio": 5 }} />
-                                </a>
+                                </Link>
                             </div>
                             <div className="navbar-form navbar-left hidden-xs search-box comicsearchbox">
                                 <div className="input-group">

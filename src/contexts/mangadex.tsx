@@ -35,15 +35,24 @@ export const MangadexContextProvider = ({
     const [mangaStatistics, setMangaStatistics] = useState<MangaStatistics>({})
 
     const updateMangas = async (options: GetSearchMangaRequestOptions) => {
-        if (options.ids) {
-            options.ids = uniq(options.ids.filter(id => !mangas[id]))
-        }
         if (!options.includes) {
             options.includes = [Includes.COVER_ART]
+        }
+        if (options.ids) {
+            options.ids = uniq(options.ids.filter(id => {
+                if (!mangas[id]) return true
+                if (options.includes?.includes(Includes.AUTHOR) && !mangas[id].author?.attributes)
+                    return true
+                if (options.includes?.includes(Includes.ARTIST) && !mangas[id].artist?.attributes)
+                    return true
+                return false
+            }))
         }
         if (!options.includes.includes(Includes.COVER_ART)) {
             options.includes.push(Includes.COVER_ART)
         }
+
+        // rewrite
         options.limit = 100
         options.contentRating = [MangaContentRating.EROTICA, MangaContentRating.PORNOGRAPHIC, MangaContentRating.SAFE, MangaContentRating.SUGGESTIVE]
         try {
