@@ -3,24 +3,27 @@
  ********************/
 
 import { AuthenticationToken } from './authentication';
-import https from 'https';
+import axios, { AxiosRequestConfig } from 'axios';
 import { ErrorResponse } from './schema';
-import { resolve } from 'path';
+import config from '../config';
 
 /*******************
  * TYPE DEFINITIONS
  *******************/
 
 /** HTTPS request options with an optional body property */
-export type RequestOptions = https.RequestOptions & {
-    body?: object
-};
+// export type AxiosRequestConfig = https.AxiosRequestConfig & {
+//     body?: object
+// };
 
 /************************
  * CONSTANT DECLARATIONS
  ************************/
 
-const HOSTNAME = 'api.mangadex.org';
+const MANGADEX_API_URL = 'https://api.mangadex.org';
+const CORS = config.corsUrl;
+
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = process.env.NODE_ENV === "production" ? "1" : "0";
 
 /************************
 * FUNCTION DECLARATIONS
@@ -93,10 +96,10 @@ export const buildQueryStringFromOptions = function (options?: { [key: string]: 
  * @template T
  * @param {string} method The HTTP method.
  * @param {string} path The endpoint path.
- * @param {RequestOptions} [options] Additional request options (such as request body, headers, etc.)
+ * @param {AxiosRequestConfig} [options] Additional request options (such as request body, headers, etc.)
  * @returns A promise that resolves to a specific response object T.
  */
-export const createHttpsRequestPromise = function <T>(method: string, path: string, options?: RequestOptions) {
+export const createHttpsRequestPromise = function <T>(method: string, path: string, options?: AxiosRequestConfig) {
     if (method === undefined) {
         return Promise.reject('ERROR - createHttpsRequestPromise: Parameter `method` cannot be undefined');
     } else if (method === '') {
@@ -108,21 +111,20 @@ export const createHttpsRequestPromise = function <T>(method: string, path: stri
     }
     // console.log(path)
 
-
-    const httpsRequestOptions = {
+    const encodedUrl = btoa(`${MANGADEX_API_URL}${path}`).replace(/\+/g, "-").replace(/\//g, "_")
+    const headers = new Headers()
+    headers.set('x-requested-with', 'cubari')
+    const httpsRequestOptions: AxiosRequestConfig = {
         method: method,
-        path: path,
-        hostname: HOSTNAME,
+        url: `${CORS}/v1/cors/${encodedUrl}`,
+        headers: {
+            'x-requested-with': 'cubari'
+        }
     };
 
-    if (method.toLocaleLowerCase() === "get") {
-        const JUSTCORS = "justcors.com"
-        const corsPath = `/tl_21525cb/https://${HOSTNAME}${path}`
-        httpsRequestOptions.hostname = JUSTCORS;
-        httpsRequestOptions.path = corsPath
-    }
-    // extract request body if we have one
-    let body: object | undefined | null = null;
+    console.log(httpsRequestOptions)
+
+    let body: unknown = null;
 
     if (options && ('body' in options)) {
         body = options.body;
@@ -135,36 +137,46 @@ export const createHttpsRequestPromise = function <T>(method: string, path: stri
     }
 
     return new Promise<{ data: T | ErrorResponse, statusCode?: number, statusMessage?: string }>((resolve, reject) => {
-        const req = https.request(httpsRequestOptions, res => {
-            const chunks: Buffer[] = [];
+        console.log('hello')
 
-            res.on('data', chunk => {
-                chunks.push(Buffer.from(chunk));
-            });
+        axios(httpsRequestOptions).then(res => {
+            const resObj = {
+                data: res.data,
+                statusCode: res.status,
+                statusMessage: res.statusText,
+            }
+            resolve(resObj)
+        })
+        // const req = https.request(httpsRequestOptions, res => {
+        //     const chunks: Buffer[] = [];
 
-            res.on('error', err => {
-                reject(err);
-            });
+        //     res.on('data', chunk => {
+        //         chunks.push(Buffer.from(chunk));
+        //     });
 
-            res.on('end', () => {
-                const s = Buffer.concat(chunks).toString('utf8');
+        //     res.on('error', err => {
+        //         reject(err);
+        //     });
 
-                if (['{', '['].includes(s.charAt(0))) {
-                    const resObj = {
-                        data: JSON.parse(s),
-                        statusCode: res.statusCode,
-                        statusMessage: res.statusMessage,
-                    }
-                    resolve(resObj);
-                }
-            });
-        });
+        //     res.on('end', () => {
+        //         const s = Buffer.concat(chunks).toString('utf8');
 
-        if (body !== null) {
-            req.write(JSON.stringify(body));
-        }
+        //         if (['{', '['].includes(s.charAt(0))) {
+        //             const resObj = {
+        //                 data: JSON.parse(s),
+        //                 statusCode: res.statusCode,
+        //                 statusMessage: res.statusMessage,
+        //             }
+        //             resolve(resObj);
+        //         }
+        //     });
+        // });
 
-        req.end();
+        // if (body !== null) {
+        //     req.write(JSON.stringify(body));
+        // }
+
+        // req.end();
     });
 };
 
@@ -172,10 +184,10 @@ export const createHttpsRequestPromise = function <T>(method: string, path: stri
  * Adds an authorization header to a request options object.
  * 
  * @param {AuthenticationToken} token See {@link AuthenticationToken}
- * @param {RequestOptions} [request] RequestOptions object to add the token to
- * @returns A new {@link RequestOptions} object with the added authorization token
+ * @param {AxiosRequestConfig} [request] AxiosRequestConfig object to add the token to
+ * @returns A new {@link AxiosRequestConfig} object with the added authorization token
  */
-export const addTokenAuthorization = function (token: AuthenticationToken, request?: RequestOptions) {
+export const addTokenAuthorization = function (token: AuthenticationToken, request?: AxiosRequestConfig) {
     if (token === undefined) {
         throw new Error('ERROR - addTokenAuthorization: Parameter `token` cannot be undefined');
     } else if (!('session' in token)) {
