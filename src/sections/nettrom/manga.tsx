@@ -6,6 +6,7 @@ import getTitleManga from "../../utils/getTitleManga"
 import { formatNowDistance } from "../../utils/dateFns"
 import getCoverArt from "../../utils/getCoverArt"
 import { Includes } from "../../api/static"
+import ChapterList from "./chapterList"
 
 export default function Manga({ mangaId }: { mangaId: string }) {
     const { mangas, updateMangas } = useMangadex()
@@ -238,93 +239,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                         <i className="fa fa-angle-left" /> Thu gọn
                     </a>
                 </div>
-                <div className="list-chapter" id="nt_listchapter">
-                    <h2 className="list-title clearfix">
-                        <i className="fa fa-list"></i> Danh sách chương
-                    </h2>
-                    <div className="row heading">
-                        <div className="col-xs-5 no-wrap">Số chương</div>
-                        <div className="col-xs-4 no-wrap text-center">Cập nhật</div>
-                        <div className="col-xs-3 no-wrap text-center">Xem</div>
-                    </div>
-                    <nav>
-                        <ul>
-                            <li className="row">
-                                <div className="col-xs-5 chapter">
-                                    <a
-                                        href="https://www.nettruyento.com/truyen-tranh/dai-quan-gia-la-ma-hoang/chap-400/1002325"
-                                        data-id={1002325}
-                                    >
-                                        Chapter 400
-                                    </a>
-                                </div>
-                                <div className="col-xs-4 text-center no-wrap small">
-                                    11 phút trước
-                                </div>
-                                <div className="col-xs-3 text-center small">N/A</div>
-                            </li>
-                            <li className="row">
-                                <div className="col-xs-5 chapter">
-                                    <a
-                                        href="https://www.nettruyento.com/truyen-tranh/dai-quan-gia-la-ma-hoang/chap-399/1002321"
-                                        data-id={1002321}
-                                    >
-                                        Chapter 399
-                                    </a>
-                                </div>
-                                <div className="col-xs-4 text-center no-wrap small">
-                                    19 phút trước
-                                </div>
-                                <div className="col-xs-3 text-center small">N/A</div>
-                            </li>
-                            <li className="row">
-                                <div className="col-xs-5 chapter">
-                                    <a
-                                        href="https://www.nettruyento.com/truyen-tranh/dai-quan-gia-la-ma-hoang/chap-398/1001800"
-                                        data-id={1001800}
-                                    >
-                                        Chapter 398
-                                    </a>
-                                </div>
-                                <div className="col-xs-4 text-center no-wrap small">
-                                    1 ngày trước
-                                </div>
-                                <div className="col-xs-3 text-center small">N/A</div>
-                            </li>
-                            <li className="row">
-                                <div className="col-xs-5 chapter">
-                                    <a
-                                        href="https://www.nettruyento.com/truyen-tranh/dai-quan-gia-la-ma-hoang/chap-397/999731"
-                                        data-id={999731}
-                                    >
-                                        Chapter 397
-                                    </a>
-                                </div>
-                                <div className="col-xs-4 text-center no-wrap small">
-                                    6 ngày trước
-                                </div>
-                                <div className="col-xs-3 text-center small">N/A</div>
-                            </li>
-                            <li className="row">
-                                <div className="col-xs-5 chapter">
-                                    <a
-                                        href="https://www.nettruyento.com/truyen-tranh/dai-quan-gia-la-ma-hoang/chap-396/999730"
-                                        data-id={999730}
-                                    >
-                                        Chapter 396
-                                    </a>
-                                </div>
-                                <div className="col-xs-4 text-center no-wrap small">
-                                    6 ngày trước
-                                </div>
-                                <div className="col-xs-3 text-center small">N/A</div>
-                            </li>
-                        </ul>
-                        <a className="hidden view-more" href="#">
-                            <i className="fa fa-plus"></i> Xem thêm
-                        </a>
-                    </nav>
-                </div>
+                <ChapterList mangaId={mangaId} />
             </article>
             {/*googleoff: index*/}
             <ul className="nav nav-tabs main-tab lazy-module" data-type="facebook">
