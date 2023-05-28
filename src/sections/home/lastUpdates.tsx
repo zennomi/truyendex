@@ -7,7 +7,7 @@ import getCoverArt from "../../utils/getCoverArt";
 import Image from "next/image";
 
 export default function LastUpdates() {
-    const { chapters, isLoading, error } = useLastUpdates();
+    const { chapters, isLoading, error } = useLastUpdates(0);
     const { mangas, updateMangas } = useMangadex()
 
     useEffect(() => {
