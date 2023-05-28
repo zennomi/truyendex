@@ -21,6 +21,7 @@ export const ChapterContext = createContext<{
     goTo: (id: string) => void,
     canNext: boolean,
     canPrev: boolean,
+    others: string[],
 }>({
     chapter: null,
     chapters: [],
@@ -30,6 +31,7 @@ export const ChapterContext = createContext<{
     goTo: (id: string) => null,
     canNext: false,
     canPrev: false,
+    others: []
 });
 
 export const ChapterContextProvider = ({
@@ -52,6 +54,8 @@ export const ChapterContextProvider = ({
     const currentChapterIndex = chapters.findIndex(c => c.id === chapterId)
     const canPrev = currentChapterIndex > 0
     const canNext = currentChapterIndex >= 0 && currentChapterIndex < chapters.length - 1
+
+    const others = currentChapterIndex >= 0 && chapters[currentChapterIndex]?.others || []
 
     const prev = () => {
         if (canPrev) {
@@ -99,7 +103,7 @@ export const ChapterContextProvider = ({
             }
             updateChapterList()
         }
-    }, [mangaId])
+    }, [mangaId, groupId])
 
     useEffect(() => {
         const updateChapter = async () => {
@@ -123,7 +127,8 @@ export const ChapterContextProvider = ({
             prev,
             goTo,
             canNext,
-            canPrev
+            canPrev,
+            others
         }}>
             {children}
         </ChapterContext.Provider>

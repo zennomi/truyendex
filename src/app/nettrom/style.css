@@ -6104,7 +6104,7 @@ p {
 
 .reading {
   overflow: initial;
-  overflow: hidden;
+  /* overflow: hidden; */
   padding: 0;
 }
 
@@ -6208,7 +6208,7 @@ p {
 .reading .reading-control {
   background: none repeat scroll 0 0 #f6f7f8;
   margin-bottom: 10px;
-  overflow: hidden;
+  /* overflow: hidden; */
   padding: 10px;
   text-align: center;
 }
@@ -6292,7 +6292,7 @@ p {
 }
 
 .reading .reading-control .follow-link {
-  margin-bottom: 4px;
+  /* margin-bottom: 4px; */
 }
 
 .reading .reading-control .action,

@@ -8,9 +8,7 @@ export default function ChapterReading() {
     return (
         <>
             <div className="reading">
-                <div className="container">
-                    <ChapterControl />
-                </div>
+                <ChapterControl />
             </div>
             <ChapterPages />
         </>

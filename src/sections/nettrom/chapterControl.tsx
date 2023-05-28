@@ -4,9 +4,11 @@ import getTitleManga from "../../utils/getTitleManga";
 import { useChapterContext } from "../../contexts/chapter";
 import getTitleChapter from "../../utils/getTitleChapter";
 import { useParams } from "next/navigation";
+import useOffSetTop from "../../hooks/useOffSetTop";
 
 export default function ChapterControl() {
-    const { manga, chapter, canNext, canPrev, next, prev, chapters, goTo } = useChapterContext()
+    const { manga, chapter, canNext, canPrev, next, prev, chapters, goTo, others } = useChapterContext()
+    const offsetTop = useOffSetTop(100)
     const params = useParams()
     const chapterId = params.chapterId
     const mangaTitle = getTitleManga(manga)
@@ -93,47 +95,32 @@ export default function ChapterControl() {
                 </div>
             }
             <div className="reading-control">
-                <div className="mrb5">
-                    Nếu không xem được truyện vui lòng đổi "SERVER ẢNH" bên dưới
-                    <div className="mrt10">
-                        <a
-                            rel="nofollow"
-
-                            data-server={1}
-                            className="loadchapter btn btn-primary btn-success mrb5"
-                        >
-                            Server 1
-                        </a>
-                        <a
-                            rel="nofollow"
-
-                            data-server={2}
-                            className="loadchapter btn btn-primary mrb5"
-                        >
-                            Server 2
-                        </a>
-                        <a
-                            rel="nofollow"
-
-                            data-server={4}
-                            className="loadchapter btn btn-primary mrb5 hidden"
-                        >
-                            <i className="fa fa-diamond" /> Server VIP
-                        </a>
-                        <a
-                            rel="nofollow"
-
-                            data-server={5}
-                            className="loadchapter btn btn-primary mrb5 hidden"
-                        >
-                            <i className="fa fa-diamond" /> Server VIP 2
-                        </a>
+                {
+                    others.length > 0 &&
+                    <div className="mrb5">
+                        Chuyển sang đọc bản dịch nhóm khác
+                        <div className="mrt10">
+                            {
+                                others.map((other, idx) => (
+                                    <Link
+                                        rel="nofollow"
+                                        key={other}
+                                        data-server={1}
+                                        className="loadchapter btn btn-primary btn-success mrb5"
+                                        href={routes.nettrom.chapter(other)}
+                                    >
+                                        Nhóm {idx}
+                                    </Link>
+                                ))
+                            }
+                        </div>
                     </div>
-                </div>
+                }
                 <div className="mrb10">
                     <a
                         rel="nofollow"
-
+                        href="https://www.facebook.com/Zennomi"
+                        target="_blank"
                         className="alertError btn btn-warning"
                     >
                         <i className="fa fa-exclamation-triangle" /> Báo lỗi
@@ -144,57 +131,59 @@ export default function ChapterControl() {
                     <em>Sử dụng mũi tên trái (←) hoặc phải (→) để chuyển chapter</em>
                 </div>
                 <div
-                    className="chapter-nav"
+                    className={`chapter-nav mx-auto flex justify-around items-center gap-x-1 ${offsetTop ? "fixed bottom-0 right-0 w-full bg-black" : ""}`}
                     id="chapterNav"
-                    style={{ zIndex: "auto", position: "static", top: "auto" }}
                 >
-                    <a className="home" href="/" title="Trang chủ">
-                        <i className="fa fa-home" />
-                    </a>
-                    <Link
-                        className="home backward"
-                        href="https://www.nettruyento.com/truyen-tranh/ba-vuong-sung-ai-co-vo-mu-66961#nt_listchapter"
-                        title={mangaTitle}
-                    >
-                        <i className="fa fa-list" />
-                    </Link>
-                    <a className="home changeserver" href="#" title="Đổi server">
-                        <i className="fa fa-undo error" />
-                        <span>1</span>
-                    </a>
-                    <a
-                        className={`prev a_prev ${canPrev ? "" : "disabled"}`}
-                        onClick={() => prev()}
-                    >
-                        <i className="fa fa-chevron-left" />
-                    </a>
-                    <select
-                        name="ctl00$mainContent$ddlSelectChapter"
-                        id="ctl00_mainContent_ddlSelectChapter"
-                        className="select-chapter"
-                        value={chapterId}
-                        onChange={(event) => { goTo(event.target.value) }}
-                    >
-                        {
-                            chapters.map(item => (
-                                <option value={item.id} key={item.id}>
-                                    Tập {item.volume} Chương {item.chapter}
-                                </option>
-                            ))
-                        }
-                    </select>
-                    <a
-                        className={`next a_next ${canNext ? "" : "disabled"}`}
-                        onClick={() => next()}
-                    >
-                        <i className="fa fa-chevron-right" />
-                    </a>
+                    <div className="flex items-center justify-center gap-x-1">
+                        <Link className="home" href="/" title="Trang chủ">
+                            <i className="fa fa-home" />
+                        </Link>
+                        <Link
+                            className="home backward"
+                            href={`${routes.nettrom.manga(manga?.id || "")}#nt_listchapter`}
+                            title={mangaTitle}
+                        >
+                            <i className="fa fa-list" />
+                        </Link>
+                        <a className="home changeserver" href="#" title="Đổi server">
+                            <i className="fa fa-undo error" />
+                            <span>1</span>
+                        </a>
+                    </div>
+                    <div className="flex items-center justify-center gap-x-1">
+                        <a
+                            className={`prev a_prev ${canPrev ? "" : "disabled"}`}
+                            onClick={() => prev()}
+                        >
+                            <i className="fa fa-chevron-left" />
+                        </a>
+                        <select
+                            name="ctl00$mainContent$ddlSelectChapter"
+                            id="ctl00_mainContent_ddlSelectChapter"
+                            className="select-chapter min-w-[100px] md:min-w-[200px]"
+                            value={chapterId}
+                            onChange={(event) => { goTo(event.target.value) }}
+                        >
+                            {
+                                chapters.map(item => (
+                                    <option value={item.id} key={item.id}>
+                                        Tập {item.volume} Chương {item.chapter}
+                                    </option>
+                                ))
+                            }
+                        </select>
+                        <a
+                            className={`next a_next ${canNext ? "" : "disabled"}`}
+                            onClick={() => next()}
+                        >
+                            <i className="fa fa-chevron-right" />
+                        </a>
+                    </div>
                     <a
                         className="follow-link btn btn-success"
-
                         data-id={66961}
                     >
-                        <i className="fa fa-heart" /> <span>Theo dõi</span>
+                        <i className="fa fa-heart" /> <span>Nhóm dịch</span>
                     </a>
                 </div>
                 <div style={{ display: "none", width: 920, height: 42, float: "none" }} />

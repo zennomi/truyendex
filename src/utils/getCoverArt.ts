@@ -1,6 +1,6 @@
 import { ExtendManga } from "../api/extend";
 
-const defaultImage = 'https://mangadex.org/covers/f5597893-afed-4537-ab77-80e9b328c6b6/8f6ac9dd-f762-48f0-acbf-4abc5cbec1d8.jpg.256.jpg'
+const defaultImage = '/images/placeholder.jpg'
 
 export default function getCoverArt(manga: ExtendManga | undefined) {
     if (!manga) return defaultImage
