@@ -15,7 +15,6 @@ import { formatNowDistance } from "../../utils/dateFns";
 export default function NewUpdates() {
     const { chapters, isLoading, error } = useLastUpdates();
     const { mangas, updateMangas, updateMangaStatistics, mangaStatistics } = useMangadex()
-    console.log(mangas['579cfcf1-10fc-48fa-895a-689aae889847'])
     const updates: Record<string, ExtendChapter[]> = {}
 
     if (chapters) {

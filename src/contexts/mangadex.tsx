@@ -41,6 +41,7 @@ export const MangadexContextProvider = ({
         if (options.ids) {
             options.ids = uniq(options.ids.filter(id => {
                 if (!mangas[id]) return true
+                if (options.includes?.length === 1) return false
                 if (options.includes?.includes(Includes.AUTHOR) && !mangas[id].author?.attributes)
                     return true
                 if (options.includes?.includes(Includes.ARTIST) && !mangas[id].artist?.attributes)
@@ -52,6 +53,8 @@ export const MangadexContextProvider = ({
             options.includes.push(Includes.COVER_ART)
         }
 
+        // nothing to update
+        if (options.ids?.length === 0) return
         // rewrite
         options.limit = 100
         options.contentRating = [MangaContentRating.EROTICA, MangaContentRating.PORNOGRAPHIC, MangaContentRating.SAFE, MangaContentRating.SUGGESTIVE]

@@ -1,6 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { MangadexContextProvider } from '../contexts/mangadex'
+import { ChapterContextProvider } from '../contexts/chapter';
 
 // slick-carousel
 import 'slick-carousel/slick/slick.css';
@@ -20,13 +21,16 @@ export const metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode,
+
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`vi-vn site1 ${inter.className}`}>
         <MangadexContextProvider>
+          {/* <ChapterContextProvider> */}
           {children}
+          {/* </ChapterContextProvider> */}
         </MangadexContextProvider>
       </body>
     </html>

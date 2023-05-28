@@ -109,9 +109,9 @@ export const createHttpsRequestPromise = function <T>(method: string, path: stri
     } else if (path === '') {
         return Promise.reject('ERROR - createHttpsRequestPromise: Parameter `path` cannot be blank');
     }
-    // console.log(path)
 
     const encodedUrl = btoa(`${MANGADEX_API_URL}${path}`).replace(/\+/g, "-").replace(/\//g, "_")
+    console.log('call api...', path, encodedUrl)
     const headers = new Headers()
     headers.set('x-requested-with', 'cubari')
     const httpsRequestOptions: AxiosRequestConfig = {
@@ -121,8 +121,6 @@ export const createHttpsRequestPromise = function <T>(method: string, path: stri
             'x-requested-with': 'cubari'
         }
     };
-
-    console.log(httpsRequestOptions)
 
     let body: unknown = null;
 
@@ -137,8 +135,6 @@ export const createHttpsRequestPromise = function <T>(method: string, path: stri
     }
 
     return new Promise<{ data: T | ErrorResponse, statusCode?: number, statusMessage?: string }>((resolve, reject) => {
-        console.log('hello')
-
         axios(httpsRequestOptions).then(res => {
             const resObj = {
                 data: res.data,

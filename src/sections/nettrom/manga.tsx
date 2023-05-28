@@ -190,7 +190,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                             <div className="follow">
                                 <a
                                     className="follow-link btn btn-success"
-                                    href="javascript:void(0)"
+                                    
                                     data-id={21948}
                                 >
                                     <i className="fa fa-heart" /> <span>Theo dõi</span>

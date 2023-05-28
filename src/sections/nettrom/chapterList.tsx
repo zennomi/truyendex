@@ -1,9 +1,11 @@
 import { useState } from "react"
 import ReactPaginate from 'react-paginate';
+import Link from "next/link";
 
 import useChapterList, { chaptersPerPage } from "../../hooks/useChapterList"
 import { ChapterList } from "../../api/schema"
 import getTitleChapter from "../../utils/getTitleChapter"
+import routes from "../../routes";
 
 export default function ListChapter({ mangaId }: { mangaId: string }) {
     const [page, setPage] = useState(0)
@@ -27,13 +29,13 @@ export default function ListChapter({ mangaId }: { mangaId: string }) {
                 <ul>
                     {
                         chapters.map(chapter => (
-                            <li className="row">
+                            <li className="row" key={chapter.id}>
                                 <div className="col-xs-5 chapter" key={chapter.id}>
-                                    <a
-                                        href="https://www.nettruyento.com/truyen-tranh/dai-quan-gia-la-ma-hoang/chap-400/1002325"
+                                    <Link
+                                        href={routes.nettrom.chapter(chapter.id)}
                                     >
                                         {getTitleChapter(chapter)}
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="col-xs-4 text-center no-wrap small">
                                     11 phút trước
@@ -58,6 +60,8 @@ export default function ListChapter({ mangaId }: { mangaId: string }) {
                 activeClassName="active"
                 previousClassName="text-center"
                 nextClassName="text-center"
+                breakClassName="text-center"
+                forcePage={page}
             />
         </div>
     )
