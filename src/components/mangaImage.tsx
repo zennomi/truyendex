@@ -4,7 +4,9 @@ import { LazyLoadImage, LazyLoadImageProps } from 'react-lazy-load-image-compone
 type IProps = LazyLoadImageProps;
 
 interface Props extends IProps {
+    index?: number;
     disabledEffect?: boolean;
+    threshold?: number;
     fullWidth?: boolean
 }
 
@@ -12,6 +14,8 @@ export default function MangaImage({
     className = "",
     disabledEffect = false,
     effect = 'opacity',
+    index = 0,
+    threshold = 0,
     ...other
 }: Props) {
     const [loaded, setLoaded] = useState(false);
@@ -23,6 +27,7 @@ export default function MangaImage({
                 placeholderSrc={"/images/loading.jpg"}
                 className="w-full h-full object-cover"
                 afterLoad={() => setLoaded(true)}
+                threshold={threshold}
                 {...other}
             />
         </span>
