@@ -1,5 +1,6 @@
 import { useParams } from "next/navigation"
 import useChapterPages from "../../hooks/useChapterPages"
+import MangaImage from "../../components/mangaImage"
 
 
 export default function ChapterPages() {
@@ -11,11 +12,10 @@ export default function ChapterPages() {
             {
                 pages.map((page, index) => (
                     <div key={page} className="page-chapter">
-                        <img
-                            alt="Bá Vương Sủng Ái Cô Vợ Mù chap 43 - Trang 1"
+                        <MangaImage
+                            alt={`Trang ${index}`}
                             data-index={index}
                             src={page}
-                            loading="lazy"
                         />
                     </div>
                 ))

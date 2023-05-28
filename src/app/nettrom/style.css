@@ -6117,8 +6117,7 @@ p {
 
 .reading .reading-detail .page-chapter {
   position: relative;
-  background: url(https://st.nettruyento.com/Data/Sites/1/skins/comic/images/loading-small.gif)
-    center center no-repeat;
+  background: url("/images/loading.jpg") center center no-repeat;
   text-align: center;
 }
 
