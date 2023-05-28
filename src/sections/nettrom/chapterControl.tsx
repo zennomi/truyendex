@@ -44,14 +44,14 @@ export default function ChapterControl() {
 
                             itemType="http://schema.org/ListItem"
                         >
-                            <a
-                                href="https://www.nettruyento.com/tim-truyen"
+                            <Link
+                                href={routes.nettrom.search}
                                 className="itemcrumb"
                                 itemProp="item"
                                 itemType="http://schema.org/Thing"
                             >
                                 <span itemProp="name">Truyện tranh</span>
-                            </a>
+                            </Link>
                             <meta itemProp="position" content={"2"} />
                         </li>
                         <li

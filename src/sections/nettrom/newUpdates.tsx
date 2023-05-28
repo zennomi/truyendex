@@ -53,13 +53,13 @@ export default function NewUpdates() {
                             <h1 className="page-title">
                                 Truyện mới cập nhật <i className="fa fa-angle-right" />
                             </h1>
-                            <a
+                            <Link
                                 className="filter-icon"
                                 title="Tìm truyện nâng cao"
-                                href="/tim-truyen-nang-cao"
+                                href={routes.nettrom.search}
                             >
                                 <i className="fa fa-filter"></i>
-                            </a>
+                            </Link>
                         </div>
                         <div className="row">
                             {

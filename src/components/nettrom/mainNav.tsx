@@ -254,7 +254,7 @@ export default function MainNav() {
                             </div>
                         </li>
                         <li>
-                            <a target="_self" href="https://www.nettruyento.com/tim-truyen-nang-cao">Tìm truyện</a>
+                            <Link target="_self" href={routes.nettrom.search}>Tìm truyện</Link>
                         </li>
                         <li>
                             <a target="_self" href="https://www.nettruyento.com/truyen-con-gai">Con gái</a>

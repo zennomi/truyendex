@@ -49,14 +49,14 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                     itemProp="itemListElement"
                     itemType="http://schema.org/ListItem"
                 >
-                    <a
-                        href="https://www.nettruyento.com/tim-truyen"
+                    <Link
+                        href={routes.nettrom.search}
                         className="itemcrumb"
                         itemProp="item"
                         itemType="http://schema.org/Thing"
                     >
                         <span itemProp="name">Truyện Tranh</span>
-                    </a>
+                    </Link>
                     <meta itemProp="position" content={"2"} />
                 </li>
                 <li
