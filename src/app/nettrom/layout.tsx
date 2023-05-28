@@ -6,6 +6,7 @@ import "./style.css"
 
 import NettromLogo from "../../assets/nettrom-logo.png"
 import Link from "next/link";
+import routes from "../../routes";
 
 export default function NettromLayout({
     children,
@@ -19,7 +20,7 @@ export default function NettromLayout({
                     <div className="container">
                         <div className="navbar-header">
                             <div className="navbar-brand">
-                                <Link className="logo !flex !items-center" title="Truyện tranh online" href="/nettrom">
+                                <Link className="logo !flex !items-center" title="Truyện tranh online" href={routes.nettrom.index}>
                                     <Image alt="Logo NetTrom" className="my-auto" src={NettromLogo} width="150" style={{ "aspectRatio": 5 }} />
                                 </Link>
                             </div>

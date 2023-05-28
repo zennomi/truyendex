@@ -9,6 +9,7 @@ import getCoverArt from "../../utils/getCoverArt"
 import getTitleManga from "../../utils/getTitleManga"
 import { useRef } from 'react';
 import Link from 'next/link';
+import routes from '../../routes';
 
 
 export default function FeaturedTitles() {
@@ -63,7 +64,7 @@ export default function FeaturedTitles() {
                                         return (
                                             <div key={manga.id} className="item px-[3.5px]">
                                                 <Link
-                                                    href={`/nettrom/truyen-tranh/${manga.id}`}
+                                                    href={routes.nettrom.manga(manga.id)}
                                                     title={title}
                                                 >
                                                     <img
@@ -76,14 +77,14 @@ export default function FeaturedTitles() {
                                                 <div className="slide-caption">
                                                     <h3>
                                                         <Link
-                                                            href={`/nettrom/truyen-tranh/${manga.id}`}
+                                                            href={routes.nettrom.manga(manga.id)}
                                                             title={title}
                                                         >
                                                             {title}
                                                         </Link>
                                                     </h3>
                                                     <Link
-                                                        href={`/nettrom/truyen-tranh/${manga.id}`}
+                                                        href={routes.nettrom.manga(manga.id)}
                                                         title="Chapter 3320"
                                                     >
                                                         {manga.author?.attributes?.name || ""}

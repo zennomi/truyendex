@@ -1,4 +1,5 @@
 import Link from "next/link";
+import routes from "../../routes";
 
 export default function MainNav() {
     return (
@@ -7,7 +8,7 @@ export default function MainNav() {
                 <div className="container">
                     <div className="Module Module-144"><div className="ModuleContent"><ul className="nav navbar-nav main-menu">
                         <li className="active">
-                            <Link target="_self" href="/nettrom">
+                            <Link target="_self" href={routes.nettrom.index}>
                                 <i className="fa fa-home hidden-xs">
                                 </i>
                                 <span className="visible-xs">Trang chủ</span>

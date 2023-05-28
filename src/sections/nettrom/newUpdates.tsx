@@ -10,6 +10,7 @@ import { ExtendChapter } from "../../api/extend";
 import getTitleManga from "../../utils/getTitleManga";
 import getTitleChapter from "../../utils/getTitleChapter";
 import { formatNowDistance } from "../../utils/dateFns";
+import routes from "../../routes";
 
 
 export default function NewUpdates() {
@@ -69,7 +70,7 @@ export default function NewUpdates() {
                                                 <div className="image">
                                                     <Link
                                                         title={mangaTitle}
-                                                        href={`/nettrom/truyen-tranh/${mangaId}`}
+                                                        href={routes.nettrom.manga(mangaId)}
                                                     >
                                                         <img
                                                             src={coverArt}
@@ -91,7 +92,7 @@ export default function NewUpdates() {
                                                         <Link
                                                             className="jtip"
                                                             data-jtip="#truyen-tranh-83823"
-                                                            href={`/nettrom/truyen-tranh/${mangaId}`}
+                                                            href={routes.nettrom.manga(mangaId)}
                                                         >
                                                             {mangaTitle}
                                                         </Link>
@@ -99,13 +100,13 @@ export default function NewUpdates() {
                                                     <ul className="comic-item">
                                                         {chapterList.slice(0, 3).map(chapter => (
                                                             <li className="flex gap-x-1 items-center justify-between" key={chapter.id}>
-                                                                <a
-                                                                    href="#"
+                                                                <Link
+                                                                    href={routes.nettrom.chapter(chapter.id)}
                                                                     title={getTitleChapter(chapter)}
                                                                     className="flex-grow text-[13px] whitespace-nowrap overflow-hidden !text-white text-ellipsis"
                                                                 >
                                                                     {getTitleChapter(chapter)}
-                                                                </a>
+                                                                </Link>
                                                                 <i className="text-[11px] text-[#999] italic leading-[13px] whitespace-nowrap">{formatNowDistance(new Date(chapter.attributes.readableAt))}</i>
                                                             </li>
                                                         ))}
@@ -123,7 +124,7 @@ export default function NewUpdates() {
                                                         <div className="box_img">
                                                             <a
                                                                 title="Anh Chồng Giàu Có Chiều Hư Tôi"
-                                                                href={`/nettrom/truyen-tranh/${mangaId}`}
+                                                                href={routes.nettrom.manga(mangaId)}
                                                             >
                                                                 <img
                                                                     className="img_a"
