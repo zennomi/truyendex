@@ -23,6 +23,7 @@
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-markdown": "^8.0.7",
     "react-paginate": "^8.2.0",
     "react-slick": "^0.29.0",
     "slick-carousel": "^1.8.1",

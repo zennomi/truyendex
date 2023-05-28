@@ -9,24 +9,28 @@ import { Order } from '../api/static';
 import { ExtendChapter } from '../api/extend';
 import extendRelationship from '../utils/extendRelationship';
 
-export default function useLastUpdates() {
-    const [chapters, setChapters] = useState<ExtendChapter[]>([])
+export const chaptersPerPage = 100
 
-    const { data, isLoading, error } = useSWR('last-updates', () => ChapterApi.getChapter({
+export default function useLastUpdates(page: number) {
+    let chapters: ExtendChapter[] = []
+    console.log(chapters)
+    let total = 0
+    const { data, isLoading, error } = useSWR(['last-updates', page], () => ChapterApi.getChapter({
         includes: ['scanlation_group'],
         translatedLanguage: ['vi'],
         contentRating: [MangaContentRating.SAFE, MangaContentRating.SUGGESTIVE],
         order: {
             readableAt: Order.DESC
         },
-        limit: 100
+        limit: chaptersPerPage,
+        offset: chaptersPerPage * page
     }))
-
-    useEffect(() => {
-        if (data && data.data?.result === "ok") setChapters(((data.data as ChapterList).data).map(c => extendRelationship(c) as ExtendChapter))
-    }, [data])
-
+    const successData = data && data.data?.result === "ok" ? (data.data as ChapterList) : null
+    if (successData) {
+        chapters = ((successData.data).map(c => extendRelationship(c) as ExtendChapter))
+        total = successData.total
+    }
     return {
-        chapters, isLoading, error
+        chapters, isLoading, error, total
     }
 }

@@ -75,6 +75,7 @@ export const MangadexContextProvider = ({
 
     const updateMangaStatistics = async (options: GetMangasStatisticRequestOptions) => {
         options.manga = uniq(options.manga.filter(id => !mangaStatistics[id]))
+        if (options.manga.length === 0) return;
         try {
             const { data } = await StatisticApi.getMangasStatistic(options)
             if (data && (data as GetMangasStatisticResponse).statistics) {

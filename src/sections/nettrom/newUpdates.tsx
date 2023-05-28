@@ -1,9 +1,9 @@
 "use client"
 
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-import useLastUpdates from "../../hooks/useLastUpdates"
+import useLastUpdates, { chaptersPerPage } from "../../hooks/useLastUpdates"
 import { useMangadex } from "../../contexts/mangadex";
 import getCoverArt from "../../utils/getCoverArt";
 import { ExtendChapter } from "../../api/extend";
@@ -11,10 +11,12 @@ import getTitleManga from "../../utils/getTitleManga";
 import getTitleChapter from "../../utils/getTitleChapter";
 import { formatNowDistance } from "../../utils/dateFns";
 import routes from "../../routes";
+import ReactPaginate from "react-paginate";
 
 
 export default function NewUpdates() {
-    const { chapters, isLoading, error } = useLastUpdates();
+    const [page, setPage] = useState(0)
+    const { chapters, isLoading, error, total } = useLastUpdates(page);
     const { mangas, updateMangas, updateMangaStatistics, mangaStatistics } = useMangadex()
     const updates: Record<string, ExtendChapter[]> = {}
 
@@ -166,103 +168,23 @@ export default function NewUpdates() {
                         </div>
                     </div>
                     <div id="ctl00_mainContent_ctl00_divPager" className="pagination-outter">
-                        <ul className="pagination">
-                            <li className="hidden">Trang 1 / 589 </li>
-                            <li className="active">
-                                <a
-                                    href="/nettrom/"
-                                    title="Đang hiện kết quả 1 tới 36 / 21200"
-                                >
-                                    1
-                                </a>{" "}
-                            </li>
-                            <li>
-                                <a
-                                    href="/nettrom/?page=2"
-                                    title="Hiện kết quả 37 tới 72 / 21200"
-                                >
-                                    2
-                                </a>{" "}
-                            </li>
-                            <li>
-                                <a
-                                    href="/nettrom/?page=3"
-                                    title="Hiện kết quả 73 tới 108 / 21200"
-                                >
-                                    3
-                                </a>{" "}
-                            </li>
-                            <li>
-                                <a
-                                    href="/nettrom/?page=4"
-                                    title="Hiện kết quả 109 tới 144 / 21200"
-                                >
-                                    4
-                                </a>{" "}
-                            </li>
-                            <li>
-                                <a
-                                    href="/nettrom/?page=5"
-                                    title="Hiện kết quả 145 tới 180 / 21200"
-                                >
-                                    5
-                                </a>{" "}
-                            </li>
-                            <li className="PagerSSCCells">
-                                <a
-                                    href="/nettrom/?page=100"
-                                    title="Hiện kết quả 3565 tới 3600 / 21200"
-                                >
-                                    100
-                                </a>{" "}
-                            </li>
-                            <li className="PagerSSCCells">
-                                <a
-                                    href="/nettrom/?page=200"
-                                    title="Hiện kết quả 7165 tới 7200 / 21200"
-                                >
-                                    200
-                                </a>{" "}
-                            </li>
-                            <li className="PagerSSCCells">
-                                <a
-                                    href="/nettrom/?page=290"
-                                    title="Hiện kết quả 10405 tới 10440 / 21200"
-                                >
-                                    290
-                                </a>{" "}
-                            </li>
-                            <li className="PagerSSCCells">
-                                <a
-                                    href="/nettrom/?page=390"
-                                    title="Hiện kết quả 14005 tới 14040 / 21200"
-                                >
-                                    390
-                                </a>{" "}
-                            </li>
-                            <li className="PagerSSCCells">
-                                <a
-                                    href="/nettrom/?page=490"
-                                    title="Hiện kết quả 17605 tới 17640 / 21200"
-                                >
-                                    490
-                                </a>{" "}
-                            </li>
-                            <li>
-                                <a
-                                    className="next-page"
-                                    href="/nettrom/?page=2"
-                                    title="Chuyển đến trang 2"
-                                >
-                                    ›
-                                </a>{" "}
-                            </li>
-                            <li>
-                                <a href="/nettrom/?page=589" title="Trang cuối">
-                                    »
-                                </a>{" "}
-                            </li>
-                        </ul>
+                        <ReactPaginate
+                            breakLabel="..."
+                            nextLabel=">"
+                            onPageChange={(event) => { setPage(event.selected) }}
+                            pageRangeDisplayed={5}
+                            pageCount={Math.floor(total / chaptersPerPage)}
+                            previousLabel="<"
+                            renderOnZeroPageCount={null}
+                            marginPagesDisplayed={2}
+                            pageClassName="text-center"
+                            containerClassName="pagination"
+                            activeClassName="active"
+                            previousClassName="text-center"
+                            nextClassName="text-center"
+                            breakClassName="text-center"
+                            forcePage={page}
+                        />
                     </div>
                 </div>
             </div>

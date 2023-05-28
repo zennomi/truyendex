@@ -7,7 +7,7 @@ import { ChapterItem } from "../hooks/useAggregate";
 import { useParams, useRouter } from "next/navigation";
 import routes from "../routes";
 import { Chapter, Manga } from "../api";
-import { GetMangaIdAggregateResponse } from "../api/manga";
+import { GetMangaIdAggregateRequestOptions, GetMangaIdAggregateResponse } from "../api/manga";
 import { Includes } from "../api/static";
 import { ChapterResponse } from "../api/schema";
 import extendRelationship from "../utils/extendRelationship";
@@ -73,9 +73,11 @@ export const ChapterContextProvider = ({
         if (mangaId) {
             updateMangas({ ids: [mangaId] })
         }
-        if (mangaId && groupId) {
+        if (mangaId) {
             const updateChapterList = async () => {
-                const { data } = await Manga.getMangaIdAggregate(mangaId, { groups: [groupId], translatedLanguage: ['vi'] })
+                const options: GetMangaIdAggregateRequestOptions = { translatedLanguage: ['vi'] }
+                if (groupId) options.groups = [groupId]
+                const { data } = await Manga.getMangaIdAggregate(mangaId, options)
                 const aggregate = data && (data as GetMangaIdAggregateResponse).volumes ? (data as GetMangaIdAggregateResponse).volumes : null
                 let chapterList: ChapterItem[] = []
                 if (aggregate) {

@@ -1,23 +1,30 @@
 "use client"
 
 import { useEffect } from "react"
+import ReactMarkdown from 'react-markdown'
+
 import { useMangadex } from "../../contexts/mangadex"
 import getTitleManga from "../../utils/getTitleManga"
 import { formatNowDistance } from "../../utils/dateFns"
 import getCoverArt from "../../utils/getCoverArt"
 import { Includes } from "../../api/static"
 import ChapterList from "./chapterList"
+import Link from "next/link"
+import routes from "../../routes"
+import { parseStatus } from "../../utils/parseMangadex"
 
 export default function Manga({ mangaId }: { mangaId: string }) {
-    const { mangas, updateMangas } = useMangadex()
+    const { mangas, updateMangas, updateMangaStatistics, mangaStatistics } = useMangadex()
     const manga = mangas[mangaId]
     useEffect(() => {
         updateMangas({ ids: [mangaId], includes: [Includes.ARTIST, Includes.AUTHOR] })
+        updateMangaStatistics({ manga: [mangaId] })
     }, [])
 
     if (!manga) return <div>Loading...</div>
 
     const title = getTitleManga(manga)
+    const url = routes.nettrom.manga(mangaId)
     return (
         <div id="ctl00_divCenter" className="center-side col-md-8">
             <ul
@@ -28,14 +35,14 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                     itemProp="itemListElement"
                     itemType="http://schema.org/ListItem"
                 >
-                    <a
-                        href="https://www.nettruyento.com"
+                    <Link
+                        href={routes.nettrom.index}
                         className="itemcrumb"
                         itemProp="item"
                         itemType="http://schema.org/Thing"
                     >
                         <span itemProp="name">Trang chủ</span>
-                    </a>
+                    </Link>
                     <meta itemProp="position" content={"1"} />
                 </li>
                 <li
@@ -57,7 +64,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                     itemType="http://schema.org/ListItem"
                 >
                     <a
-                        href="https://www.nettruyento.com/truyen-tranh/dai-quan-gia-la-ma-hoang-219482"
+                        href={url}
                         className="itemcrumb active"
                         itemProp="item"
                         itemType="http://schema.org/Thing"
@@ -69,7 +76,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
             </ul>
             <article id="item-detail">
                 <h1 className="title-detail">{title}</h1>
-                <time className="small">[Cập nhật lúc: {formatNowDistance(new Date(manga.attributes.updatedAt))}]</time>
+                <time className="small">[Cập nhật lúc: {formatNowDistance(new Date(manga.attributes.updatedAt))} trước]</time>
                 <div className="detail-info">
                     <div className="row">
                         <div className="col-xs-4 col-image">
@@ -90,24 +97,25 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                                     <p className="name col-xs-4">
                                         <i className="fa fa-rss"></i> Tình trạng
                                     </p>
-                                    <p className="col-xs-8">Đang tiến hành</p>
+                                    <p className="col-xs-8">{parseStatus(manga.attributes.status)}</p>
                                 </li>
                                 <li className="kind row">
                                     <p className="name col-xs-4">
                                         <i className="fa fa-tags"></i> Thể loại
                                     </p>
                                     <p className="col-xs-8">
-                                        <a href="https://www.nettruyento.com/tim-truyen/adventure">
-                                            Adventure
-                                        </a>{" "}
-                                        -{" "}
-                                        <a href="https://www.nettruyento.com/tim-truyen/manhua">
-                                            Manhua
-                                        </a>{" "}
-                                        -{" "}
-                                        <a href="https://www.nettruyento.com/tim-truyen/truyen-mau-214">
-                                            Truyện Màu
-                                        </a>
+                                        {
+                                            manga.attributes.tags.map((tag, idx) => (
+                                                <>
+                                                    <Link key={tag.id} href="https://www.nettruyento.com/tim-truyen/adventure">
+                                                        {tag.attributes.name.en}
+                                                    </Link>
+                                                    {
+                                                        idx !== manga.attributes.tags.length && ", "
+                                                    }
+                                                </>
+                                            ))
+                                        }
                                     </p>
                                 </li>
                                 <li className="row">
@@ -121,7 +129,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                                 className="mrt5 mrb10"
                                 itemType="http://schema.org/Book"
                             >
-                                <a href="https://www.nettruyento.com/truyen-tranh/dai-quan-gia-la-ma-hoang-219482">
+                                <a href={routes.nettrom.manga(manga.id)}>
                                     <span itemProp="name">{title}</span>
                                 </a>
                                 <span
@@ -129,79 +137,14 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                                     itemType="https://schema.org/AggregateRating"
                                 >
                                     {" "}
-                                    Xếp hạng: <span itemProp="ratingValue">4.1</span>/
-                                    <span itemProp="bestRating">5</span> -{" "}
-                                    <span itemProp="ratingCount">183860</span> Lượt đánh giá.
-                                </span>
-                            </div>
-                            <div className="row rating">
-                                <div className="col-xs-6">
-                                    <div
-                                        className="star"
-                                        data-id={21948}
-                                        data-rating="4.1"
-                                        data-allowrating="true"
-                                        style={{ cursor: "pointer" }}
-                                    >
-                                        <img
-                                            src="//st.nettruyento.com/Data/Sites/1/skins/comic/images/star-on.png"
-                                            title="bad"
-                                        />
-                                        &nbsp;
-                                        <img
-                                            src="//st.nettruyento.com/Data/Sites/1/skins/comic/images/star-on.png"
-                                            title="poor"
-                                        />
-                                        &nbsp;
-                                        <img
-                                            src="//st.nettruyento.com/Data/Sites/1/skins/comic/images/star-on.png"
-                                            title="regular"
-                                        />
-                                        &nbsp;
-                                        <img
-                                            src="//st.nettruyento.com/Data/Sites/1/skins/comic/images/star-on.png"
-                                            title="good"
-                                        />
-                                        &nbsp;
-                                        <img
-                                            src="//st.nettruyento.com/Data/Sites/1/skins/comic/images/star-off.png"
-                                            title="gorgeous"
-                                        />
-                                        <input type="hidden" name="score" defaultValue="4.1" />
-                                    </div>
-                                </div>
-                                <div
-                                    className="col-xs-6 lazy-module"
-                                    data-type="facebook"
-                                    style={{ overflow: "hidden" }}
-                                >
-                                    <div
-                                        data-share="true"
-                                        data-show-faces="true"
-                                        data-action="like"
-                                        data-layout="button_count"
-                                        className="fb-like fb_iframe_widget"
-                                        fb-xfbml-state="rendered"
-                                        fb-iframe-plugin-query="action=like&app_id=745819368841087&container_width=0&href=http%3A%2F%2Fwww.nettruyen.com&layout=button_count&locale=vi_VN&sdk=joey&share=true&show_faces=true"
-                                        data-href="https://www.nettruyen.uk/truyen-tranh/dai-quan-gia-la-ma-hoang-21948"
-                                    ></div>
-                                </div>
-                            </div>
-                            <div className="follow">
-                                <a
-                                    className="follow-link btn btn-success"
-                                    
-                                    data-id={21948}
-                                >
-                                    <i className="fa fa-heart" /> <span>Theo dõi</span>
-                                </a>
-                                <span>
-                                    <b>446.703</b> Lượt theo dõi
+                                    Xếp hạng: <span itemProp="ratingValue">{mangaStatistics[mangaId]?.rating.bayesian.toFixed(2) || 10}</span>/
+                                    <span itemProp="bestRating">10</span> -{" "}
+                                    <span itemProp="ratingCount">{mangaStatistics[mangaId]?.follows}</span> Lượt theo dõi.
                                 </span>
                             </div>
                             <div className="read-action mrt10">
                                 <a
-                                    className="btn btn-warning mrb5"
+                                    className="btn btn-warning mrb5 mr-2"
                                     href="https://www.nettruyento.com/truyen-tranh/dai-quan-gia-la-ma-hoang/chap-0/459973"
                                 >
                                     {" "}
@@ -223,14 +166,17 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                         <i className="fa fa-file-text-o"></i> Nội dung
                     </h3>
                     <p className="">
-                        <a href="/">Truyện tranh</a>{" "}
-                        <a href="https://www.nettruyento.com/truyen-tranh/dai-quan-gia-la-ma-hoang-219482">
+                        <ReactMarkdown>
+                            {manga.attributes.description.vi || manga.attributes.description.en || ""}
+                        </ReactMarkdown>
+                        <Link href="/">Truyện tranh</Link>{" "}
+                        <Link href={url}>
                             {title}
-                        </a>{" "}
-                        được cập nhật nhanh và đầy đủ nhất tại NetTruyen. Bạn đọc đừng quên để
-                        lại bình luận và chia sẻ, ủng hộ NetTruyen ra các chương mới nhất của
+                        </Link>{" "}
+                        được cập nhật nhanh và đầy đủ nhất tại NetTrom. Bạn đọc đừng quên để
+                        lại bình luận và chia sẻ, ủng hộ NetTrom ra các chương mới nhất của
                         truyện{" "}
-                        <a href="https://www.nettruyento.com/truyen-tranh/dai-quan-gia-la-ma-hoang-219482">
+                        <a href={url}>
                             {title}
                         </a>
                         .
@@ -245,7 +191,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
             <ul className="nav nav-tabs main-tab lazy-module" data-type="facebook">
                 <li className="active">
                     <a data-toggle="tab" href="#nt_comments">
-                        <i className="fa fa-comments" /> NetTruyen (
+                        <i className="fa fa-comments" /> NetTrom (
                         <span className="comment-count">107.889</span>)
                     </a>
                 </li>

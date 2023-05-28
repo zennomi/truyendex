@@ -15,6 +15,7 @@ export default function ChapterPages() {
                             alt="Bá Vương Sủng Ái Cô Vợ Mù chap 43 - Trang 1"
                             data-index={index}
                             src={page}
+                            loading="lazy"
                         />
                     </div>
                 ))
