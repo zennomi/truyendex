@@ -16,14 +16,14 @@ export default function AdvancedSearch() {
                         itemProp="itemListElement"
                         itemType="http://schema.org/ListItem"
                     >
-                        <a
-                            href="https://www.nettruyento.com"
+                        <Link
+                            href={routes.nettrom.index}
                             className="itemcrumb"
                             itemProp="item"
                             itemType="http://schema.org/Thing"
                         >
                             <span itemProp="name">Trang chủ</span>
-                        </a>
+                        </Link>
                         <meta itemProp="position" content={"1"} />
                     </li>
                     <li

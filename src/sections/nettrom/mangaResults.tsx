@@ -16,7 +16,6 @@ export default function MangaResults() {
     const router = useRouter()
     const params = useSearchParams()
     const options = normalizeParams(params)
-    console.log(options)
     const { mangaList, data } = useSearchManga(options)
     const { updateMangaStatistics, mangaStatistics, addMangas } = useMangadex()
     const offset = params.get("offset") ? parseInt(params.get("offset")!) : 0

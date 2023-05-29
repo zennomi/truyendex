@@ -1,7 +1,7 @@
 "use client"
 
 import { useForm, SubmitHandler } from "react-hook-form";
-import { GetSearchMangaRequestOptions, MangaContentRating, MangaPublicationStatus, MangadexMangaState } from "../../api/manga";
+import { GetSearchMangaRequestOptions, MangaContentRating, MangaPublicationDemographic, MangaPublicationStatus, MangadexMangaState } from "../../api/manga";
 import useTags from "../../hooks/useTags";
 import { Tag } from "../../api/schema";
 import { parseStatus } from "../../utils/parseMangadex";
@@ -10,7 +10,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import routes from "../../routes";
 import { useEffect } from "react";
 import normalizeParams from "../../utils/normalizeParams";
-type Inputs = GetSearchMangaRequestOptions;
+import { Order } from "../../api/static";
+type Inputs = GetSearchMangaRequestOptions & {
+    orderType?: string,
+};
 
 const getCheckboxIcon = (state: number) => {
     switch (state) {
@@ -27,29 +30,12 @@ export default function SearchMangaForm() {
     const router = useRouter()
     const params = useSearchParams()
 
-    const { register, handleSubmit, watch, formState: { errors }, reset, setValue } = useForm<Inputs>({
-        defaultValues: {
-            authors: [],
-            artists: [],
-            includedTags: [],
-            includedTagsMode: 'AND',
-            excludedTags: [],
-            excludedTagsMode: 'OR',
-            status: [],
-            originalLanguage: ['vi'],
-            excludedOriginalLanguage: [],
-            availableTranslatedLanguage: ['vi'],
-            publicationDemographic: [],
-            contentRating: [MangaContentRating.SAFE, MangaContentRating.SUGGESTIVE],
-        }
-    });
+    const { register, handleSubmit, watch, formState: { errors }, reset, setValue } = useForm<Inputs>({});
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         const queryString = buildQueryStringFromOptions(data)
         router.push(`${routes.nettrom.search}${queryString.replaceAll("[]", "")}#results`)
     }
     const values = watch()
-
-    console.log({ ...values })
 
     const getStateTag = (tag: Tag) => {
         if (values.includedTags?.includes(tag.id)) return 1
@@ -76,8 +62,34 @@ export default function SearchMangaForm() {
     const { tags, isLoading } = useTags()
 
     useEffect(() => {
-        reset(normalizeParams(params))
+        reset({ ...normalizeParams(params) })
     }, [params])
+
+    useEffect(() => {
+        const orderType = values.orderType
+        switch (orderType) {
+            case "0":
+                setValue('order', { createdAt: Order.DESC })
+                break;
+            case "1":
+                setValue('order', { createdAt: Order.DESC })
+                break;
+            case "2":
+                setValue('order', { followedCount: Order.DESC })
+                break;
+            case "3":
+                setValue('order', { title: Order.ASC })
+                break;
+            case "4":
+                setValue('order', { relevance: Order.DESC })
+                break;
+            case "5":
+                setValue('order', { rating: Order.DESC })
+                break;
+            default:
+                break;
+        }
+    }, [values.orderType])
 
     if (isLoading) return <div>Loading...</div>
     return (
@@ -153,7 +165,7 @@ export default function SearchMangaForm() {
                                         >{parseStatus(status)}</option>
                                     ))
                                 }
-                                <option selected={values.status?.length === 0} onClick={() => setValue('status', [])}>
+                                <option selected={!values.status || values.status?.length === 0} onClick={() => setValue('status', [])}>
                                     Tất cả
                                 </option>
                             </select>
@@ -165,9 +177,22 @@ export default function SearchMangaForm() {
                         </div>
                         <div className="col-sm-4">
                             <select className="form-control select-gender">
-                                <option value={1}>Con gái</option>
-                                <option value={2}>Con trai</option>
-                                <option selected={true} value={-1}>
+                                <option
+                                    selected={values.publicationDemographic?.includes(MangaPublicationDemographic.SHOUJO)}
+                                    onClick={() => setValue('publicationDemographic', [MangaPublicationDemographic.JOSEI, MangaPublicationDemographic.SHOUJO])}
+                                >
+                                    Con gái
+                                </option>
+                                <option
+                                    selected={values.publicationDemographic?.includes(MangaPublicationDemographic.SHOUNEN)}
+                                    onClick={() => setValue('publicationDemographic', [MangaPublicationDemographic.SHOUNEN, MangaPublicationDemographic.SEINEN])}
+                                >
+                                    Con trai
+                                </option>
+                                <option
+                                    selected={!values.publicationDemographic || values.publicationDemographic.length === 0}
+                                    onClick={() => setValue('publicationDemographic', [])}
+                                >
                                     Tất cả
                                 </option>
                             </select>
@@ -176,24 +201,21 @@ export default function SearchMangaForm() {
                             <label htmlFor="status">Sắp xếp theo</label>
                         </div>
                         <div className="col-sm-4">
-                            <select className="form-control select-sort">
-                                <option selected={true} value={0}>
-                                    Chapter mới
+                            <select className="form-control select-sort" {...register("orderType")}>
+                                <option value={0}>
+                                    Mới cập nhật
                                 </option>
-                                <option value={15}>Truyện mới</option>
-                                <option value={10}>Xem nhiều nhất</option>
-                                <option value={11}>Xem nhiều nhất tháng</option>
-                                <option value={12}>Xem nhiều nhất tuần</option>
-                                <option value={13}>Xem nhiều nhất hôm nay</option>
-                                <option value={20}>Theo dõi nhiều nhất</option>
-                                <option value={25}>Bình luận nhiều nhất</option>
-                                <option value={30}>Số chapter nhiều nhất</option>
+                                <option value={1}>Truyện mới</option>
+                                <option value={2}>Theo dõi nhiều nhất</option>
+                                <option value={3}>Bảng chữ cái</option>
+                                <option value={4}>Liên quan nhất</option>
+                                <option value={5}>Đánh giá cao nhất</option>
                             </select>
                         </div>
                     </div>
                     <div className="form-group clearfix">
                         <div className="col-sm-4 col-sm-offset-2">
-                            <input type="submit" className="btn btn-success btn-search" title="Tìm kiếm" />
+                            <button type="submit" className="btn btn-success btn-search">Tìm kiếm</button>
                         </div>
                     </div>
                 </div>

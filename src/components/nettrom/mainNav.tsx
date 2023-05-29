@@ -15,25 +15,25 @@ export default function MainNav() {
                             </Link>
                         </li>
                         <li>
-                            <a target="_self" href="https://www.nettruyento.com/hot">Hot</a>
+                            <Link target="_self" href={`${routes.nettrom.search}`}>Hot</Link>
                         </li>
                         <li>
-                            <a target="_self" href="https://www.nettruyento.com/theo-doi">Theo dõi</a>
+                            <Link target="_self" href={`${routes.nettrom.search}`}>Theo dõi</Link>
                         </li>
                         <li>
-                            <a target="_self" href="https://www.nettruyento.com/lich-su">Lịch sử</a>
+                            <Link target="_self" href={`${routes.nettrom.search}`}>Lịch sử</Link>
                         </li>
                         <li className="dropdown">
-                            <a className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" target="_self" href="https://www.nettruyento.com/tim-truyen">Thể loại <i className="fa fa-caret-down"></i></a>
+                            <Link className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" target="_self" href={routes.nettrom.search}>Thể loại <i className="fa fa-caret-down"></i></Link>
                             <ul className="dropdown-menu megamenu">
                                 <li>
                                     <div className="clearfix">
                                         <div className="col-sm-3">
                                             <ul className="nav">
                                                 <li>
-                                                    <a data-title="Tất cả thể loại truyện tranh" href="https://www.nettruyento.com/tim-truyen" target="_self">
+                                                    <Link data-title="Tất cả thể loại truyện tranh" href={routes.nettrom.search} target="_self">
                                                         <strong>Tất cả</strong>
-                                                    </a>
+                                                    </Link>
                                                 </li>
                                                 <li>
                                                     <a title="Action" data-title="Thể loại này thường có nội dung về đánh nhau, bạo lực, hỗn loạn, với diễn biến nhanh" href="https://www.nettruyento.com/tim-truyen/action-95" target="_self">Action</a>

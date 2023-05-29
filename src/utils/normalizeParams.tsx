@@ -1,5 +1,6 @@
 import { ReadonlyURLSearchParams } from "next/navigation";
 import { GetSearchMangaRequestOptions, MangaPublicationDemographic } from "../api/manga";
+import { Order } from "../api/static";
 
 export default function normalizeParams(params: ReadonlyURLSearchParams): GetSearchMangaRequestOptions {
     const result: GetSearchMangaRequestOptions = {}
@@ -39,6 +40,26 @@ export default function normalizeParams(params: ReadonlyURLSearchParams): GetSea
     const excludedTagsMode = params.get('excludedTagsMode')
     if (excludedTagsMode) {
         result.excludedTagsMode = excludedTagsMode === "AND" ? "AND" : "OR"
+    }
+    // order
+    result.order = {}
+    if (params.get("order[latestUploadedChapter]")) {
+        result.order.latestUploadedChapter = params.get("order[latestUploadedChapter]") as Order
+    }
+    if (params.get("order[title]")) {
+        result.order.title = params.get("order[title]") as Order
+    }
+    if (params.get("order[createdAt]")) {
+        result.order.createdAt = params.get("order[createdAt]") as Order
+    }
+    if (params.get("order[followedCount]")) {
+        result.order.followedCount = params.get("order[followedCount]") as Order
+    }
+    if (params.get("order[relevance]")) {
+        result.order.relevance = params.get("order[relevance]") as Order
+    }
+    if (params.get("order[rating]")) {
+        result.order.rating = params.get("order[rating]") as Order
     }
     return result
 }
