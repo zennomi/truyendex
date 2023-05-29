@@ -7,13 +7,15 @@ import Slider from "react-slick";
 import useFeaturedTitles from "../../hooks/useFeaturedTitles"
 import getCoverArt from "../../utils/getCoverArt"
 import getTitleManga from "../../utils/getTitleManga"
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import routes from '../../routes';
+import { useMangadex } from '../../contexts/mangadex';
 
 
 export default function FeaturedTitles() {
     const { featuredTitles, isLoading, error } = useFeaturedTitles()
+    const { addMangas } = useMangadex()
     const carouselRef = useRef<Slider | null>(null);
     const carouselSettings = {
         dots: false,
@@ -46,6 +48,10 @@ export default function FeaturedTitles() {
         carouselRef.current?.slickNext();
     };
 
+    useEffect(() => {
+        if (featuredTitles.length > 0)
+            addMangas(featuredTitles)
+    }, [featuredTitles])
 
     if (isLoading || error) return <></>
     return (

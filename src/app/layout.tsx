@@ -1,7 +1,6 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { MangadexContextProvider } from '../contexts/mangadex'
-import { ChapterContextProvider } from '../contexts/chapter';
 
 // slick-carousel
 import 'slick-carousel/slick/slick.css';
@@ -28,9 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`vi-vn site1 ${inter.className}`}>
         <MangadexContextProvider>
-          {/* <ChapterContextProvider> */}
           {children}
-          {/* </ChapterContextProvider> */}
         </MangadexContextProvider>
       </body>
     </html>

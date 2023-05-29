@@ -19,11 +19,13 @@ export const MangadexContext = createContext<{
     mangaStatistics: MangaStatistics,
     updateMangas: (options: GetSearchMangaRequestOptions) => Promise<void>,
     updateMangaStatistics: (options: GetMangasStatisticRequestOptions) => Promise<void>,
+    addMangas: (mangaList: ExtendManga[]) => void
 }>({
     mangas: {},
     mangaStatistics: {},
     updateMangas: () => new Promise(() => null),
     updateMangaStatistics: () => new Promise(() => null),
+    addMangas: ([]) => null
 });
 
 export const MangadexContextProvider = ({
@@ -73,6 +75,15 @@ export const MangadexContextProvider = ({
         }
     }
 
+    const addMangas = (mangaList: ExtendManga[]) => {
+        setMangas((prevMangas) => {
+            for (const manga of mangaList) {
+                prevMangas[manga.id] = extendRelationship(manga) as ExtendManga;
+            }
+            return { ...prevMangas };
+        })
+    }
+
     const updateMangaStatistics = async (options: GetMangasStatisticRequestOptions) => {
         options.manga = uniq(options.manga.filter(id => !mangaStatistics[id]))
         if (options.manga.length === 0) return;
@@ -87,7 +98,7 @@ export const MangadexContextProvider = ({
     }
 
     return (
-        <MangadexContext.Provider value={{ mangas, updateMangas, mangaStatistics, updateMangaStatistics }}>
+        <MangadexContext.Provider value={{ mangas, updateMangas, mangaStatistics, updateMangaStatistics, addMangas }}>
             {children}
         </MangadexContext.Provider>
     );

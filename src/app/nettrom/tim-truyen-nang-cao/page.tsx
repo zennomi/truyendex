@@ -1,6 +1,7 @@
 import Link from "next/link";
 import routes from "../../../routes";
 import SearchMangaForm from "../../../sections/nettrom/searchMangaForm";
+import MangaResults from "../../../sections/nettrom/mangaResults";
 
 export default function AdvancedSearch() {
 
@@ -70,6 +71,7 @@ export default function AdvancedSearch() {
                             <SearchMangaForm />
                         </div>
                     </div>
+                    <MangaResults />
                 </div>
             </div>
         </>

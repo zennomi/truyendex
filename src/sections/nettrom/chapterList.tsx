@@ -52,7 +52,7 @@ export default function ListChapter({ mangaId }: { mangaId: string }) {
                 nextLabel=">"
                 onPageChange={(event) => { setPage(event.selected) }}
                 pageRangeDisplayed={5}
-                pageCount={Math.floor(chapterListData.total / chaptersPerPage)}
+                pageCount={Math.floor(chapterListData.total / chaptersPerPage) + 1}
                 previousLabel="<"
                 renderOnZeroPageCount={null}
                 marginPagesDisplayed={2}

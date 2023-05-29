@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react"
 import useSWR from "swr"
+import { useMemo } from "react"
 import { ExtendManga } from "../api/extend"
 import { MangaContentRating } from "../api/manga"
 import { MangaList } from "../api/schema"
@@ -9,7 +9,6 @@ import { Manga as MangaApi } from "../api"
 
 export default function useFeaturedTitles() {
     const createdAtSince = new Date(Date.now() - 30 * 24 * 3600 * 1000)
-    // const [featuredTitles, setFeaturedTitles] = useState<ExtendManga[]>([])
     const { data, isLoading, error } = useSWR('featured-titles', () => MangaApi.getSearchManga({
         includes: [Includes.COVER_ART, Includes.ARTIST, Includes.AUTHOR],
         order: {
@@ -21,7 +20,11 @@ export default function useFeaturedTitles() {
         createdAtSince: createdAtSince.toISOString().slice(0, -5)
     }))
 
-    const featuredTitles = data && (data.data as MangaList).data ? (data.data as MangaList).data.map(m => extendRelationship(m) as ExtendManga) : []
+    const featuredTitles = useMemo(() => {
+        const successData = data && data.data.result === "ok" && (data.data as MangaList)
+        if (successData) return successData.data.map(m => extendRelationship(m) as ExtendManga)
+        return []
+    }, [data])
 
     return { featuredTitles, isLoading, error }
 }

@@ -13,7 +13,6 @@ export const chaptersPerPage = 100
 
 export default function useLastUpdates(page: number) {
     let chapters: ExtendChapter[] = []
-    console.log(chapters)
     let total = 0
     const { data, isLoading, error } = useSWR(['last-updates', page], () => ChapterApi.getChapter({
         includes: ['scanlation_group'],

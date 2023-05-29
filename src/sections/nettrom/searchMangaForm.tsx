@@ -8,6 +8,8 @@ import { parseStatus } from "../../utils/parseMangadex";
 import { buildQueryStringFromOptions } from "../../api/util";
 import { useRouter, useSearchParams } from "next/navigation";
 import routes from "../../routes";
+import { useEffect } from "react";
+import normalizeParams from "../../utils/normalizeParams";
 type Inputs = GetSearchMangaRequestOptions;
 
 const getCheckboxIcon = (state: number) => {
@@ -24,7 +26,7 @@ const getCheckboxIcon = (state: number) => {
 export default function SearchMangaForm() {
     const router = useRouter()
     const params = useSearchParams()
-    console.log(params.entries())
+
     const { register, handleSubmit, watch, formState: { errors }, reset, setValue } = useForm<Inputs>({
         defaultValues: {
             authors: [],
@@ -43,10 +45,11 @@ export default function SearchMangaForm() {
     });
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         const queryString = buildQueryStringFromOptions(data)
-        console.log(queryString)
-        router.push(`${routes.nettrom.search}?${queryString}`)
+        router.push(`${routes.nettrom.search}${queryString.replaceAll("[]", "")}#results`)
     }
     const values = watch()
+
+    console.log({ ...values })
 
     const getStateTag = (tag: Tag) => {
         if (values.includedTags?.includes(tag.id)) return 1
@@ -71,6 +74,10 @@ export default function SearchMangaForm() {
     }
 
     const { tags, isLoading } = useTags()
+
+    useEffect(() => {
+        reset(normalizeParams(params))
+    }, [params])
 
     if (isLoading) return <div>Loading...</div>
     return (
