@@ -107,7 +107,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                                         {
                                             manga.attributes.tags.map((tag, idx) => (
                                                 <>
-                                                    <Link key={tag.id} href="https://www.nettruyento.com/tim-truyen/adventure">
+                                                    <Link key={tag.id} href={`${routes.nettrom.search}?includedTags=${tag.id}`}>
                                                         {tag.attributes.name.en}
                                                     </Link>
                                                     {

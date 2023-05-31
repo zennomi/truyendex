@@ -1,4 +1,4 @@
-import useSWR from "swr"
+import useSWR from "swr/immutable"
 import { Manga } from "../api"
 import { Tag, TagResponse } from "../api/schema"
 

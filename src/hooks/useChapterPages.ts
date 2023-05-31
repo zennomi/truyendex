@@ -1,5 +1,4 @@
-import useSWR from "swr"
-import { Chapter } from "../api"
+import useSWR from "swr/immutable"
 import { getAtHomeServerChapterId } from "../api/atHome"
 import { GetAtHomeServerChapterIdResponse } from "../api/atHome"
 

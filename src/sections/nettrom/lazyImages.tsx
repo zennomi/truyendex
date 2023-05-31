@@ -4,7 +4,7 @@ import MangaImage from "../../components/mangaImage";
 const Gallery = ({ images, threshold, scrollPosition }: { images: string[], scrollPosition: ScrollPosition, threshold: number }) => (
     <div>
         {images.map((image, index) =>
-            <div className="page-chapter">
+            <div className="page-chapter" key={image}>
                 <MangaImage
                     key={image}
                     // Make sure to pass down the scrollPosition,

@@ -1,4 +1,4 @@
-import useSWR from "swr"
+import useSWR from "swr/immutable"
 import { GetMangaIdAggregateRequestOptions, GetMangaIdAggregateResponse } from "../api/manga";
 import { Manga } from "../api";
 

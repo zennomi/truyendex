@@ -1,4 +1,4 @@
-import useSWR from "swr"
+import useSWR from "swr/immutable"
 import { useMemo } from "react"
 import { ExtendManga } from "../api/extend"
 import { MangaContentRating } from "../api/manga"

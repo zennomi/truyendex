@@ -1,4 +1,4 @@
-import useSWR from "swr";
+import useSWR from "swr/immutable";
 import { Chapter as ChapterApi } from "../api";
 import { Includes } from "../api/static";
 import { ChapterResponse } from "../api/schema";

@@ -11,6 +11,7 @@ import routes from "../../routes";
 import { useEffect } from "react";
 import normalizeParams from "../../utils/normalizeParams";
 import { Order } from "../../api/static";
+import Loading from "../../components/nettrom/loading";
 type Inputs = GetSearchMangaRequestOptions & {
     orderType?: string,
 };
@@ -30,12 +31,14 @@ export default function SearchMangaForm() {
     const router = useRouter()
     const params = useSearchParams()
 
+
     const { register, handleSubmit, watch, formState: { errors }, reset, setValue } = useForm<Inputs>({});
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         const queryString = buildQueryStringFromOptions(data)
         router.push(`${routes.nettrom.search}${queryString.replaceAll("[]", "")}#results`)
     }
     const values = watch()
+    console.log({ values })
 
     const getStateTag = (tag: Tag) => {
         if (values.includedTags?.includes(tag.id)) return 1
@@ -91,7 +94,7 @@ export default function SearchMangaForm() {
         }
     }, [values.orderType])
 
-    if (isLoading) return <div>Loading...</div>
+    if (isLoading) return (<Loading />)
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -179,7 +182,10 @@ export default function SearchMangaForm() {
                             <select className="form-control select-gender">
                                 <option
                                     selected={values.publicationDemographic?.includes(MangaPublicationDemographic.SHOUJO)}
-                                    onClick={() => setValue('publicationDemographic', [MangaPublicationDemographic.JOSEI, MangaPublicationDemographic.SHOUJO])}
+                                    onClick={() => {
+                                        console.log("Clock genfer")
+                                        setValue('publicationDemographic', [MangaPublicationDemographic.JOSEI, MangaPublicationDemographic.SHOUJO])
+                                    }}
                                 >
                                     Con gái
                                 </option>

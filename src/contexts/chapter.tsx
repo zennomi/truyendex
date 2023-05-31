@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext, useState, useEffect, useContext, useMemo, useCallback } from "react";
 import { ExtendChapter, ExtendManga } from "../api/extend";
 import { useMangadex } from "./mangadex";
 import { ChapterItem } from "../hooks/useAggregate";
@@ -51,27 +51,27 @@ export const ChapterContextProvider = ({
     const manga = mangaId ? mangas[mangaId] : null
     const groupId = chapter?.scanlation_group?.id ? chapter.scanlation_group.id : null
 
-    const currentChapterIndex = chapters.findIndex(c => c.id === chapterId)
+    const currentChapterIndex = useMemo(() => chapters.findIndex(c => c.id === chapterId), [chapters, chapterId])
     const canPrev = currentChapterIndex > 0
     const canNext = currentChapterIndex >= 0 && currentChapterIndex < chapters.length - 1
 
     const others = currentChapterIndex >= 0 && chapters[currentChapterIndex]?.others || []
 
-    const prev = () => {
+    const prev = useCallback(() => {
         if (canPrev) {
             router.push(routes.nettrom.chapter(chapters[currentChapterIndex - 1].id))
         }
-    }
+    }, [currentChapterIndex, chapters])
 
-    const next = () => {
+    const next = useCallback(() => {
         if (canNext) {
             router.push(routes.nettrom.chapter(chapters[currentChapterIndex + 1].id))
         }
-    }
+    }, [currentChapterIndex, chapters])
 
-    const goTo = (desId: string) => {
+    const goTo = useCallback((desId: string) => {
         router.push(routes.nettrom.chapter(desId))
-    }
+    }, [])
 
     useEffect(() => {
         if (mangaId) {

@@ -7,13 +7,14 @@ import { ChapterList } from "../../api/schema"
 import getTitleChapter from "../../utils/getTitleChapter"
 import routes from "../../routes";
 import { formatDateTime } from "../../utils/dateFns";
+import Loading from "../../components/nettrom/loading";
 
 export default function ListChapter({ mangaId }: { mangaId: string }) {
     const [page, setPage] = useState(0)
     const { data, isLoading, error, chapters } = useChapterList(mangaId, {
         offset: page * chaptersPerPage
     })
-    if (!data?.data || !(data.data as ChapterList).data) return <div>Loading...</div>
+    if (!data?.data || !(data.data as ChapterList).data) return (<Loading />)
     const chapterListData = (data.data as ChapterList)
 
     return (
