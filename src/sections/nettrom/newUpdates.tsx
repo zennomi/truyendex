@@ -12,6 +12,8 @@ import getTitleChapter from "../../utils/getTitleChapter";
 import { formatNowDistance } from "../../utils/dateFns";
 import routes from "../../routes";
 import ReactPaginate from "react-paginate";
+import { chunk } from "lodash";
+import Loading from "../../components/nettrom/loading";
 
 
 export default function NewUpdates() {
@@ -41,7 +43,7 @@ export default function NewUpdates() {
 
     }, [mangas])
 
-    if (isLoading) return <div>loading...</div>;
+    if (isLoading) return <Loading />;
     if (error) return <div>error</div>;
 
     return (
@@ -66,8 +68,8 @@ export default function NewUpdates() {
                                 Object.entries(updates).map(([mangaId, chapterList]) => {
                                     const coverArt = getCoverArt(mangas[mangaId])
                                     const mangaTitle = getTitleManga(mangas[mangaId])
-                                    return (
-                                        <div className="item" key={mangaId}>
+                                    return chunk(chapterList, 3).map(item => (
+                                        <div className="item" key={item[0].id}>
                                             <figure className="clearfix">
                                                 <div className="image">
                                                     <Link
@@ -100,7 +102,7 @@ export default function NewUpdates() {
                                                         </Link>
                                                     </h3>
                                                     <ul className="comic-item">
-                                                        {chapterList.slice(0, 3).map(chapter => (
+                                                        {item.map(chapter => (
                                                             <li className="flex gap-x-1 items-center justify-between" key={chapter.id}>
                                                                 <Link
                                                                     href={routes.nettrom.chapter(chapter.id)}
@@ -161,7 +163,8 @@ export default function NewUpdates() {
                                                     <div className="box_text" />
                                                 </div>
                                             </div>
-                                        </div>)
+                                        </div>
+                                    ))
                                 })
                             }
 

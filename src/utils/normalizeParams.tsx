@@ -1,5 +1,5 @@
 import { ReadonlyURLSearchParams } from "next/navigation";
-import { GetSearchMangaRequestOptions, MangaPublicationDemographic } from "../api/manga";
+import { GetSearchMangaRequestOptions, MangaContentRating, MangaPublicationDemographic, MangaPublicationStatus } from "../api/manga";
 import { Order } from "../api/static";
 
 export default function normalizeParams(params: ReadonlyURLSearchParams): GetSearchMangaRequestOptions {
@@ -30,6 +30,21 @@ export default function normalizeParams(params: ReadonlyURLSearchParams): GetSea
     }
     if (params.getAll('publicationDemographic').length > 0) {
         result.publicationDemographic = params.getAll('publicationDemographic') as MangaPublicationDemographic[]
+    } else {
+        result.publicationDemographic = []
+    }
+    if (params.getAll('contentRating').length > 0) {
+        result.contentRating = params.getAll('contentRating') as MangaContentRating[]
+    } else {
+        result.contentRating = []
+    }
+    if (params.getAll('status').length > 0) {
+        result.status = params.getAll('status') as MangaPublicationStatus[]
+    } else {
+        result.status = []
+    }
+    if (params.get("title")) {
+        result.title = params.get("title")!
     }
     const availableTranslatedLanguage = params.getAll('availableTranslatedLanguage')
     result.availableTranslatedLanguage = availableTranslatedLanguage.length > 0 ? availableTranslatedLanguage : ['vi']

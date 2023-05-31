@@ -1,20 +1,22 @@
 "use client"
 
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import Select, { StylesConfig } from 'react-select';
+
 import { GetSearchMangaRequestOptions, MangaContentRating, MangaPublicationDemographic, MangaPublicationStatus, MangadexMangaState } from "../../api/manga";
-import useTags from "../../hooks/useTags";
 import { Tag } from "../../api/schema";
-import { parseStatus } from "../../utils/parseMangadex";
+import { parseContentRating, parseStatus } from "../../utils/parseMangadex";
 import { buildQueryStringFromOptions } from "../../api/util";
 import { useRouter, useSearchParams } from "next/navigation";
 import routes from "../../routes";
 import { useEffect } from "react";
 import normalizeParams from "../../utils/normalizeParams";
 import { Order } from "../../api/static";
-import Loading from "../../components/nettrom/loading";
 type Inputs = GetSearchMangaRequestOptions & {
     orderType?: string,
 };
+import { tags } from "../../constants"
+import SearchInput from "./searchInput";
 
 const getCheckboxIcon = (state: number) => {
     switch (state) {
@@ -27,18 +29,34 @@ const getCheckboxIcon = (state: number) => {
     }
 }
 
+const optionlize = (t: string, parser: (t: string) => string = (t => t.toUpperCase())) => ({ value: t, label: parser(t) })
+
+const selectStyles: StylesConfig<{ value: string, label: string }, true> = {
+    control: (styles) => ({ ...styles, }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => ({
+        ...styles,
+        color: "black",
+        // backgroundColor: isDisabled
+        // ? undefined
+        // : isSelected
+        // ? data.color
+        // : isFocused
+        // ? color.alpha(0.1).css()
+        // : undefined,
+    })
+}
+
+
 export default function SearchMangaForm() {
     const router = useRouter()
     const params = useSearchParams()
 
-
-    const { register, handleSubmit, watch, formState: { errors }, reset, setValue } = useForm<Inputs>({});
+    const { register, handleSubmit, watch, formState: { errors }, reset, setValue, control } = useForm<Inputs>({});
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         const queryString = buildQueryStringFromOptions(data)
         router.push(`${routes.nettrom.search}${queryString.replaceAll("[]", "")}#results`)
     }
     const values = watch()
-    console.log({ values })
 
     const getStateTag = (tag: Tag) => {
         if (values.includedTags?.includes(tag.id)) return 1
@@ -61,8 +79,6 @@ export default function SearchMangaForm() {
                 break;
         }
     }
-
-    const { tags, isLoading } = useTags()
 
     useEffect(() => {
         reset({ ...normalizeParams(params) })
@@ -94,7 +110,6 @@ export default function SearchMangaForm() {
         }
     }, [values.orderType])
 
-    if (isLoading) return (<Loading />)
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -116,6 +131,10 @@ export default function SearchMangaForm() {
                                 <i className="fa fa-refresh" /> Reset
                             </a>
                         </p>
+                    </div>
+                    <div className="form-group clearfix">
+                        <label className="col-sm-2 control-label mrt5 mrt5">Tựa đề</label>
+                        <input className="form-control" {...register("title")} />
                     </div>
                     <div className="form-group clearfix">
                         <label className="col-sm-2 control-label mrt5 mrt5">Thể loại</label>
@@ -146,32 +165,53 @@ export default function SearchMangaForm() {
                             <label htmlFor="status">Sếch?</label>
                         </div>
                         <div className="col-sm-4">
-                            <select className="form-control select-minchapter">
-                                <option selected={values.contentRating?.includes(MangaContentRating.SAFE)}
-                                    onClick={() => setValue('contentRating', [MangaContentRating.SAFE, MangaContentRating.SUGGESTIVE])}
-                                >Thôi
-                                </option>
-                                <option selected={values.contentRating?.length === 0}
-                                    onClick={() => setValue('contentRating', [])}
-                                >Yesss</option>
-                            </select>
+                            <Controller
+                                control={control}
+                                name="contentRating"
+                                render={({
+                                    field: { onChange, onBlur, value, name, ref },
+                                }) => (
+                                    <Select
+                                        options={Object.values(MangaContentRating).map(v => optionlize(v, parseContentRating))}
+                                        onChange={(newValue) => {
+                                            onChange(newValue.map(item => item.value))
+                                        }}
+                                        isMulti={true}
+                                        onBlur={onBlur}
+                                        value={value?.map(v => optionlize(v, parseContentRating))}
+                                        name={name}
+                                        ref={ref}
+                                        placeholder="Tất cả"
+                                        styles={selectStyles}
+                                    />
+                                )}
+                            />
                         </div>
                         <div className="col-sm-2 control-label mrt5">
                             <label htmlFor="status">Tình trạng</label>
                         </div>
                         <div className="col-sm-4">
-                            <select className="form-control select-status">
-                                {
-                                    Object.values(MangaPublicationStatus).map(status => (
-                                        <option key={status} selected={values.status?.includes(status)}
-                                            onClick={() => setValue('status', [status])}
-                                        >{parseStatus(status)}</option>
-                                    ))
-                                }
-                                <option selected={!values.status || values.status?.length === 0} onClick={() => setValue('status', [])}>
-                                    Tất cả
-                                </option>
-                            </select>
+                            <Controller
+                                control={control}
+                                name="status"
+                                render={({
+                                    field: { onChange, onBlur, value, name, ref },
+                                }) => (
+                                    <Select
+                                        options={Object.values(MangaPublicationStatus).map(v => optionlize(v, parseStatus))}
+                                        onChange={(newValue) => {
+                                            onChange(newValue.map(item => item.value))
+                                        }}
+                                        isMulti={true}
+                                        onBlur={onBlur}
+                                        value={value?.map(v => optionlize(v, parseStatus))}
+                                        name={name}
+                                        ref={ref}
+                                        placeholder="Tất cả"
+                                        styles={selectStyles}
+                                    />
+                                )}
+                            />
                         </div>
                     </div>
                     <div className="form-group clearfix">
@@ -179,29 +219,27 @@ export default function SearchMangaForm() {
                             <label htmlFor="status">Dành cho</label>
                         </div>
                         <div className="col-sm-4">
-                            <select className="form-control select-gender">
-                                <option
-                                    selected={values.publicationDemographic?.includes(MangaPublicationDemographic.SHOUJO)}
-                                    onClick={() => {
-                                        console.log("Clock genfer")
-                                        setValue('publicationDemographic', [MangaPublicationDemographic.JOSEI, MangaPublicationDemographic.SHOUJO])
-                                    }}
-                                >
-                                    Con gái
-                                </option>
-                                <option
-                                    selected={values.publicationDemographic?.includes(MangaPublicationDemographic.SHOUNEN)}
-                                    onClick={() => setValue('publicationDemographic', [MangaPublicationDemographic.SHOUNEN, MangaPublicationDemographic.SEINEN])}
-                                >
-                                    Con trai
-                                </option>
-                                <option
-                                    selected={!values.publicationDemographic || values.publicationDemographic.length === 0}
-                                    onClick={() => setValue('publicationDemographic', [])}
-                                >
-                                    Tất cả
-                                </option>
-                            </select>
+                            <Controller
+                                control={control}
+                                name="publicationDemographic"
+                                render={({
+                                    field: { onChange, onBlur, value, name, ref },
+                                }) => (
+                                    <Select
+                                        options={Object.values(MangaPublicationDemographic).map(v => optionlize(v))}
+                                        onChange={(newValue) => {
+                                            onChange(newValue.map(item => item.value))
+                                        }}
+                                        isMulti={true}
+                                        onBlur={onBlur}
+                                        value={value?.map(v => optionlize(v))}
+                                        name={name}
+                                        ref={ref}
+                                        placeholder="Tất cả"
+                                        styles={selectStyles}
+                                    />
+                                )}
+                            />
                         </div>
                         <div className="col-sm-2 control-label mrt5">
                             <label htmlFor="status">Sắp xếp theo</label>

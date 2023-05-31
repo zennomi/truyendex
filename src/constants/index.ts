@@ -1,1 +1,1 @@
-import { default as tags } from "./tags"
+export { default as tags } from "./tags"

@@ -7,6 +7,7 @@ import "./style.css"
 import NettromLogo from "../../assets/nettrom-logo.png"
 import Link from "next/link";
 import routes from "../../routes";
+import SearchInput from "../../sections/nettrom/searchInput";
 
 export default function NettromLayout({
     children,
@@ -25,12 +26,7 @@ export default function NettromLayout({
                                 </Link>
                             </div>
                             <div className="navbar-form navbar-left hidden-xs search-box comicsearchbox">
-                                <div className="input-group">
-                                    <input type="text" className="searchinput form-control" placeholder="Tìm truyện..." />
-                                    <div className="input-group-btn">
-                                        <input type="submit" value="" className="searchbutton btn btn-default" />
-                                    </div>
-                                </div>
+                                <SearchInput />
                             </div>
                             <i className="fa fa-lightbulb-o toggle-dark"></i>
                             <div className="notifications"><a href="#" title="Thông báo"><i className="fa fa-comment"></i></a></div><button type="button" className="search-button-icon visible-xs" aria-label="Search">
@@ -41,8 +37,8 @@ export default function NettromLayout({
                             </button>
                         </div>
                         <ul className="nav-account list-inline hidden-xs pull-right mt-[13px]">
-                            <li className="login-link"><a rel="nofollow" href="/Secure/Login.aspx?returnurl=%2F">Đăng nhập</a></li>
-                            <li className="register-link"><a rel="nofollow" href="/Secure/Register.aspx?returnurl=%2F">Đăng ký</a></li>
+                            <li className="login-link"><Link rel="nofollow" href="#">Đăng truyện</Link></li>
+                            <li className="register-link"><Link rel="nofollow" href="#">Đăng ký</Link></li>
                         </ul>
                     </div>
                 </div>

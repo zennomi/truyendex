@@ -20,13 +20,13 @@ export default function MainNav() {
                             </Link>
                         </li>
                         <li>
-                            <Link target="_self" href={`${routes.nettrom.search}`}>Hot</Link>
+                            <Link target="_self" href={`${routes.nettrom.search}?order[followedCount]=desc#results`}>Hot</Link>
                         </li>
                         <li>
-                            <Link target="_self" href={`${routes.nettrom.search}`}>Theo dõi</Link>
+                            <Link target="_self" href={`${routes.nettrom.search}?order[rating]=desc#results`}>Yêu thích</Link>
                         </li>
                         <li>
-                            <Link target="_self" href={`${routes.nettrom.search}`}>Lịch sử</Link>
+                            <Link target="_self" href={`${routes.nettrom.search}?order[createdAt]=desc#results`}>Mới cập nhật</Link>
                         </li>
                         <li className="dropdown">
                             <Link className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" target="_self" href={routes.nettrom.search}>Thể loại <i className="fa fa-caret-down"></i></Link>
@@ -40,7 +40,7 @@ export default function MainNav() {
                                                         {
                                                             col.map(tag => (
                                                                 <li key={tag.id}>
-                                                                    <Link title={transLocalizedStr(tag.attributes.description)} data-title={transLocalizedStr(tag.attributes.description)} href={`${routes.nettrom.search}?includedTags=${tag.id}`}>{transLocalizedStr(tag.attributes.name)}</Link>
+                                                                    <Link title={transLocalizedStr(tag.attributes.description)} data-title={transLocalizedStr(tag.attributes.description)} href={`${routes.nettrom.search}?includedTags=${tag.id}#results`}>{transLocalizedStr(tag.attributes.name)}</Link>
                                                                 </li>
                                                             ))
                                                         }
@@ -56,45 +56,14 @@ export default function MainNav() {
                                 </li>
                             </ul>
                         </li>
-                        <li className="dropdown">
-                            <a rel="nofollow" href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Xếp hạng <i className="fa fa-sort"></i></a>
-                            <div className="dropdown-menu navbar-dropdown">
-                                <a rel="nofollow" href="/tim-truyen?status=-1&amp;sort=10">
-                                    <i className="fa fa-eye">
-                                    </i> Top all</a>
-                                <a href="/truyen-full">
-                                    <strong>
-                                        <i className="fa fa-signal">
-                                        </i> Truyện full</strong>
-                                </a>
-                                <a rel="nofollow" href="/tim-truyen?status=-1&amp;sort=11">
-                                    <i className="fa fa-eye">
-                                    </i> Top tháng</a>
-                                <a rel="nofollow" href="/tim-truyen?status=-1&amp;sort=20">
-                                    <i className="fa fa-thumbs-o-up">
-                                    </i> Yêu Thích</a>
-                                <a rel="nofollow" href="/tim-truyen?status=-1&amp;sort=12">
-                                    <i className="fa fa-eye">
-                                    </i> Top tuần</a>
-                                <a href="/tim-truyen">
-                                    <i className="fa fa fa-refresh">
-                                    </i> Mới cập nhật</a>
-                                <a rel="nofollow" href="/tim-truyen?status=-1&amp;sort=13">
-                                    <i className="fa fa-eye">
-                                    </i> Top ngày</a>
-                                <a rel="nofollow" href="/tim-truyen?status=-1&amp;sort=15">
-                                    <i className="fa fa-cloud-upload">
-                                    </i> Truyện mới</a>
-                            </div>
-                        </li>
                         <li>
                             <Link target="_self" href={routes.nettrom.search}>Tìm truyện</Link>
                         </li>
                         <li>
-                            <Link target="_self" href={`${routes.nettrom.search}?`}>Con gái</Link>
+                            <Link target="_self" href={`${routes.nettrom.search}?publicationDemographic=josei&publicationDemographic=shoujo#results`}>Con gái</Link>
                         </li>
                         <li>
-                            <Link target="_self" href={`${routes.nettrom.search}?`}>Con trai</Link>
+                            <Link target="_self" href={`${routes.nettrom.search}?publicationDemographic=seinen&publicationDemographic=shounen#results`}>Con trai</Link>
                         </li>
                     </ul></div></div>
                 </div>

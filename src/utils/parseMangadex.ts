@@ -1,4 +1,4 @@
-export const parseStatus = (status: 'completed' | 'ongoing' | 'cancelled' | 'hiatus') => {
+export const parseStatus = (status: string) => {
     switch (status) {
         case 'cancelled':
             return "Bị huỷ"
@@ -8,5 +8,18 @@ export const parseStatus = (status: 'completed' | 'ongoing' | 'cancelled' | 'hia
             return "Tạm ngưng"
         default:
             return "Đang tiến hành"
+    }
+}
+
+export const parseContentRating = (rating: string) => {
+    switch (rating) {
+        case 'suggestive':
+            return 'Hơi hơi'
+        case 'erotica':
+            return 'Yesss'
+        case 'pornographic':
+            return 'Bùng lổ'
+        default:
+            return 'Không'
     }
 }

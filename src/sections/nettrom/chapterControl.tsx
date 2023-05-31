@@ -167,7 +167,12 @@ export default function ChapterControl() {
                             {
                                 chapters.map(item => (
                                     <option value={item.id} key={item.id}>
-                                        Tập {item.volume} Chương {item.chapter}
+                                        {
+                                            item.volume !== "none" ?
+                                                `Tập ${item.volume} Chương ${item.chapter}` :
+                                                item.chapter !== "none" ? `Chương ${item.chapter}` : "Oneshot"
+                                        }
+
                                     </option>
                                 ))
                             }
