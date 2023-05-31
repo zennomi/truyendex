@@ -20,22 +20,20 @@ export default function SearchInput() {
     }
 
     return (
-        <div className="input-group">
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    className="searchinput form-control"
-                    placeholder="Tìm truyện..."
-                    value={title}
-                    onChange={(event) => setTitle(event.target.value)}
-                />
-                <div className="input-group-btn">
-                    <input type="submit" value="" className="searchbutton btn btn-default"
+        <form onSubmit={handleSubmit} className="input-group">
+            <input
+                type="text"
+                className="searchinput form-control"
+                placeholder="Tìm truyện..."
+                value={title}
+                onChange={(event) => setTitle(event.target.value)}
+            />
+            <div className="input-group-btn">
+                <input type="submit" value="" className="searchbutton btn btn-default"
 
-                        onClick={handleSubmit}
-                    />
-                </div>
-            </form>
-        </div>
+                    onClick={handleSubmit}
+                />
+            </div>
+        </form>
     )
 }

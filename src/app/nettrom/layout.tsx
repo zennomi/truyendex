@@ -6,8 +6,7 @@ import "./style.css"
 
 import NettromLogo from "../../assets/nettrom-logo.png"
 import Link from "next/link";
-import routes from "../../routes";
-import SearchInput from "../../sections/nettrom/searchInput";
+import Header from "../../components/nettrom/header";
 
 export default function NettromLayout({
     children,
@@ -16,39 +15,148 @@ export default function NettromLayout({
 }) {
     return (
         <div className="min-h-screen w-full dark">
-            <header className="header" id="header">
-                <div className="navbar">
+            <Header />
+            <nav className="main-nav hidden-xs" id="mainNav" style={{ "zIndex": 1000, "position": "relative", "top": "0px" }}>
+                <div className="inner">
                     <div className="container">
-                        <div className="navbar-header">
-                            <div className="navbar-brand">
-                                <Link className="logo !flex !items-center" title="Truyện tranh online" href={routes.nettrom.index}>
-                                    <Image alt="Logo NetTrom" className="my-auto" src={NettromLogo} width="150" style={{ "aspectRatio": 5 }} />
-                                </Link>
-                            </div>
-                            <div className="navbar-form navbar-left hidden-xs search-box comicsearchbox">
-                                <SearchInput />
-                            </div>
-                            <i className="fa fa-lightbulb-o toggle-dark"></i>
-                            <div className="notifications"><a href="#" title="Thông báo"><i className="fa fa-comment"></i></a></div><button type="button" className="search-button-icon visible-xs" aria-label="Search">
-                                <i className="fa fa-search"></i>
-                            </button>
-                            <button type="button" className="navbar-toggle" aria-label="Menu">
-                                <i className="fa fa-bars"></i>
-                            </button>
-                        </div>
-                        <ul className="nav-account list-inline hidden-xs pull-right mt-[13px]">
-                            <li className="login-link"><Link rel="nofollow" href="#">Đăng truyện</Link></li>
-                            <li className="register-link"><Link rel="nofollow" href="#">Đăng ký</Link></li>
-                        </ul>
+                        <MainNav />
                     </div>
                 </div>
-            </header>
-            <MainNav />
+            </nav>
             <main className="main">
                 <div className="container">
                     {children}
                 </div>
             </main>
+            <footer className="footer">
+                <div className="container">
+                    <div className="row">
+                        <div
+                            className="col-sm-4 copyright"
+                            itemType="http://schema.org/Organization"
+                        >
+                            <a itemProp="url" href="/">
+                                <Image
+                                    itemProp="logo"
+                                    src={NettromLogo}
+                                    width={150}
+                                    style={{ aspectRatio: 5 }}
+                                    alt="NetTrom - Truyện tranh Online"
+                                />
+                            </a>
+                            <div className="mrt10 row">
+                                <div className="col-xs-6">
+                                    <Link href="/contact" rel="nofollow noopener">
+                                        Liên hệ bản quyền
+                                    </Link>
+                                </div>
+                                <div className="col-xs-6">
+                                    <a href="/chinh-sach-bao-mat">Chính sách bảo mật</a>
+                                </div>
+                            </div>
+                            <p></p>
+                            <p>Copyright © 2023 NetTrom</p>
+                        </div>
+                        <div className="col-sm-8">
+                            <div className="link-footer">
+                                <h4>Từ khóa</h4>
+                                <ul>
+                                    <li>
+                                        <Link target="_self" href="/">
+                                            Truyện tranh
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link target="_self" href="/">
+                                            Truyen tranh online
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link target="_self" href="/">
+                                            Đọc truyện tranh
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link target="_self" href="/hot">
+                                            Truyện tranh hot
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link target="_self" href="/">
+                                            Truyện tranh hay
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link target="_self" href="/tim-truyen/ngon-tinh">
+                                            Truyện ngôn tình
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link target="_self" href="/tim-truyen/manhwa-11400">
+                                            Manhwa
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link target="_self" href="/tim-truyen/manga-112">
+                                            Manga
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link target="_self" href="/tim-truyen/manhua">
+                                            Manhua
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link target="_self" href="/tag/truyenqq">
+                                            truyenqq
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link target="_self" href="/">
+                                            mi2manga
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link target="_self" href="/">
+                                            doctruyen3q
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link target="_self" href="/">
+                                            toptruyen
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link target="_self" href="/">
+                                            cmanga
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link target="_self" href="/">
+                                            vlogtruyen
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link target="_self" href="/">
+                                            blogtruyen
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link target="_self" href="/">
+                                            truyentranhaudio
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link target="_self" href="/">
+                                            vcomi
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
     )
 }

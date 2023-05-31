@@ -51,7 +51,7 @@ export default function AdvancedSearch() {
                                     <em className="fa fa-info-circle" />
                                 </div>
                                 Mẹo: Nếu bạn không thích thể loại Trung Quốc có thể bỏ check{" "}
-                                <span className="icon-cross"> </span> Manhua.{" "}
+                                <span className="icon-cross"> </span> Harem.{" "}
                                 <span style={{ color: "#ff0000" }}>Nhấn 2 lần để bỏ check</span>
                             </div>
                         </div>
@@ -61,13 +61,13 @@ export default function AdvancedSearch() {
                             <div className="comic-filter mrb10">
                                 <h1 className="text-center">Tìm truyện nâng cao</h1>
                             </div>
-                            <div className="text-center mrb5">
+                            {/* <div className="text-center mrb5">
                                 <button type="button" className="btn btn-info btn-collapse">
                                     <span className="show-text hidden">Hiện </span>
                                     <span className="hide-text">Ẩn </span>khung tìm kiếm{" "}
                                     <i className="fa fa-angle-double-up" />
                                 </button>
-                            </div>
+                            </div> */}
                             <SearchMangaForm />
                         </div>
                     </div>
