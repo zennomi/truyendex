@@ -19,6 +19,14 @@ export default function NettromLayout({
             <nav className="main-nav hidden-xs" id="mainNav" style={{ "zIndex": 1000, "position": "relative", "top": "0px" }}>
                 <div className="inner">
                     <div className="container">
+                        <div className="notify_block" style={{ margin: 0, borderRadius: 0 }}>
+                            <div className="info">
+                                <em className="fa fa-info-circle" />
+                            </div>
+                            <span className="error">
+                                Fact: Web giả mạo chủ yếu là để cướp nguồn view từ nettruyen thôi chứ chả ai hack cái nick nettruyen của bạn làm gì đâu.
+                            </span>
+                        </div>
                         <MainNav />
                     </div>
                 </div>
