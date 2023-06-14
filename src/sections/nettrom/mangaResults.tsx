@@ -4,7 +4,7 @@ import { useSearchParams, useRouter } from "next/navigation"
 import normalizeParams from "../../utils/normalizeParams"
 import { useEffect } from "react"
 import useSearchManga from "../../hooks/useSearchManga"
-import getTitleManga from "../../utils/getTitleManga"
+import { getMangaTitle } from "../../utils/getMangaTitle"
 import routes from "../../routes"
 import getCoverArt from "../../utils/getCoverArt"
 import { useMangadex } from "../../contexts/mangadex"
@@ -42,7 +42,7 @@ export default function MangaResults() {
                     <div className="row">
                         {
                             mangaList.map(manga => {
-                                const mangaTitle = getTitleManga(manga)
+                                const mangaTitle = getMangaTitle(manga)
                                 const coverArt = getCoverArt(manga)
                                 return (
                                     <div className="item" key={manga.id}>

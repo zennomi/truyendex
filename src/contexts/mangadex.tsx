@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState } from "react";
 import { uniq } from "lodash"
 
-import { GetMangasStatisticResponse, MangaList, MangaStatistic } from "../api/schema";
+import { GetMangasStatisticResponse, MangaList, MangaResponse, MangaStatistic } from "../api/schema";
 import { Manga as MangaApi, Statistic as StatisticApi } from "../api";
 import { GetSearchMangaRequestOptions, MangaContentRating } from "../api/manga";
 import { Includes } from "../api/static";
@@ -57,6 +57,22 @@ export const MangadexContextProvider = ({
 
         // nothing to update
         if (options.ids?.length === 0) return
+
+        // only one
+        if (options.ids?.length === 1) {
+            const mangaId = options.ids[0]
+            const { data } = await MangaApi.getMangaId(mangaId, {
+                includes: options.includes
+            })
+            if (data && (data as MangaResponse).data) {
+                setMangas((prevMangas) => {
+                    prevMangas[mangaId] = extendRelationship((data as MangaResponse).data) as ExtendManga;
+                    return { ...prevMangas }
+                })
+            }
+            return
+        }
+
         // rewrite
         options.limit = 100
         options.contentRating = [MangaContentRating.EROTICA, MangaContentRating.PORNOGRAPHIC, MangaContentRating.SAFE, MangaContentRating.SUGGESTIVE]

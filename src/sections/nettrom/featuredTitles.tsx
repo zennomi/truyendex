@@ -6,7 +6,7 @@ import Slider from "react-slick";
 
 import useFeaturedTitles from "../../hooks/useFeaturedTitles"
 import getCoverArt from "../../utils/getCoverArt"
-import getTitleManga from "../../utils/getTitleManga"
+import { getMangaTitle } from "../../utils/getMangaTitle"
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import routes from '../../routes';
@@ -14,7 +14,7 @@ import { useMangadex } from '../../contexts/mangadex';
 
 
 export default function FeaturedTitles() {
-    const { featuredTitles, isLoading, error } = useFeaturedTitles()
+    const { mangaList: featuredTitles, isLoading, error } = useFeaturedTitles()
     const { addMangas } = useMangadex()
     const carouselRef = useRef<Slider | null>(null);
     const carouselSettings = {
@@ -66,7 +66,7 @@ export default function FeaturedTitles() {
                             <Slider ref={carouselRef} {...carouselSettings}>
                                 {
                                     featuredTitles.map(manga => {
-                                        const title = getTitleManga(manga)
+                                        const title = getMangaTitle(manga)
                                         return (
                                             <div key={manga.id} className="item px-[3.5px]">
                                                 <Link

@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import ReactMarkdown from 'react-markdown'
 
 import { useMangadex } from "../../contexts/mangadex"
-import getTitleManga from "../../utils/getTitleManga"
+import { getMangaTitle } from "../../utils/getMangaTitle"
 import { formatNowDistance } from "../../utils/dateFns"
 import getCoverArt from "../../utils/getCoverArt"
 import { Includes } from "../../api/static"
@@ -23,7 +23,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
 
     if (!manga) return <div>Loading...</div>
 
-    const title = getTitleManga(manga)
+    const title = getMangaTitle(manga)
     const url = routes.nettrom.manga(mangaId)
     return (
         <div id="ctl00_divCenter" className="center-side col-md-8">

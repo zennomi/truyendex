@@ -1,6 +1,6 @@
 import Link from "next/link";
 import routes from "../../routes";
-import getTitleManga from "../../utils/getTitleManga";
+import { getMangaTitle } from "../../utils/getMangaTitle";
 import { useChapterContext } from "../../contexts/chapter";
 import getTitleChapter from "../../utils/getTitleChapter";
 import { useParams } from "next/navigation";
@@ -11,7 +11,7 @@ export default function ChapterControl() {
     const offsetTop = useOffSetTop(100)
     const params = useParams()
     const chapterId = params.chapterId
-    const mangaTitle = getTitleManga(manga)
+    const mangaTitle = getMangaTitle(manga)
     const chapterTitle = getTitleChapter(chapter)
     console.log("ChapterControl reload")
     return (
@@ -65,7 +65,7 @@ export default function ChapterControl() {
                                 itemProp="item"
                                 itemType="http://schema.org/Thing"
                             >
-                                <span itemProp="name">{getTitleManga(manga)}</span>
+                                <span itemProp="name">{getMangaTitle(manga)}</span>
                             </Link>
                             <meta itemProp="position" content={"3"} />
                         </li>
