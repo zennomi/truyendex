@@ -17,7 +17,7 @@ export default function useFeaturedTitles() {
         contentRating: [MangaContentRating.SAFE, MangaContentRating.SUGGESTIVE],
         hasAvailableChapters: "true",
         availableTranslatedLanguage: ['vi'],
-        createdAtSince: createdAtSince.toISOString().slice(0, -5)
+        createdAtSince: createdAtSince.toISOString().slice(0, -13) + "00:00:00"
     }))
 
     const featuredTitles = useMemo(() => {
