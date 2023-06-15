@@ -1,5 +1,6 @@
 import FeaturedTitles from "../../sections/nettrom/featuredTitles";
 import NewUpdates from "../../sections/nettrom/newUpdates";
+import ReadingHistory from "../../sections/nettrom/readingHistory";
 import TopTitles from "../../sections/nettrom/topTitles";
 
 export const metadata = {
@@ -16,6 +17,7 @@ export default function Nettrom() {
                     <NewUpdates />
                 </div>
                 <div className="right-side col-md-4 cmszone" id="ctl00_divRight">
+                    <ReadingHistory />
                     <TopTitles />
                 </div>
             </div>

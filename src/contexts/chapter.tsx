@@ -11,6 +11,10 @@ import { GetMangaIdAggregateRequestOptions, GetMangaIdAggregateResponse } from "
 import { Includes } from "../api/static";
 import { ChapterResponse } from "../api/schema";
 import extendRelationship from "../utils/extendRelationship";
+import useReadingHistory from "../hooks/useReadingHistory";
+import { getMangaTitle } from "../utils/getMangaTitle";
+import getCoverArt from "../utils/getCoverArt";
+import getTitleChapter from "../utils/getTitleChapter";
 
 export const ChapterContext = createContext<{
     chapter: ExtendChapter | null,
@@ -47,6 +51,9 @@ export const ChapterContextProvider = ({
 
     const [chapter, setChapter] = useState<ExtendChapter | null>(null)
     const { updateMangas, mangas } = useMangadex()
+
+    const { addHistory } = useReadingHistory()
+
     const mangaId = chapter?.manga?.id ? chapter.manga.id : null
     const manga = mangaId ? mangas[mangaId] : null
     const groupId = chapter?.scanlation_group?.id ? chapter.scanlation_group.id : null
@@ -117,6 +124,17 @@ export const ChapterContextProvider = ({
         }
         updateChapter()
     }, [chapterId])
+
+    useEffect(() => {
+        if (manga && chapter) {
+            addHistory(manga.id, {
+                mangaTitle: getMangaTitle(manga),
+                cover: getCoverArt(manga),
+                chapterTitle: getTitleChapter(chapter),
+                chapterId: chapter.id,
+            })
+        }
+    }, [manga, chapter])
 
     return (
         <ChapterContext.Provider value={{
