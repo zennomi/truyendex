@@ -1,8 +1,8 @@
 import { useParams } from "next/navigation"
-import useChapterPages from "../../hooks/useChapterPages"
+import useChapterPages from "../../../hooks/useChapterPages"
 import LazyImages from "./lazyImages"
-import useWindowSize from "../../hooks/useWindowSize"
-import Loading from "../../components/nettrom/loading"
+import useWindowSize from "../../../hooks/useWindowSize"
+import Loading from "../../../components/nettrom/loading"
 
 export default function ChapterPages() {
     const params = useParams()

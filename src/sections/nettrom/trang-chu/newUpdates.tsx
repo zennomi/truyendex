@@ -3,17 +3,17 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import useLastUpdates, { chaptersPerPage } from "../../hooks/useLastUpdates"
-import { useMangadex } from "../../contexts/mangadex";
-import getCoverArt from "../../utils/getCoverArt";
-import { ExtendChapter } from "../../api/extend";
-import { getMangaTitle } from "../../utils/getMangaTitle";
-import getTitleChapter from "../../utils/getTitleChapter";
-import { formatNowDistance } from "../../utils/dateFns";
-import routes from "../../routes";
+import useLastUpdates, { chaptersPerPage } from "../../../hooks/useLastUpdates"
+import { useMangadex } from "../../../contexts/mangadex";
+import getCoverArt from "../../../utils/getCoverArt";
+import { ExtendChapter } from "../../../api/extend";
+import { getMangaTitle } from "../../../utils/getMangaTitle";
+import getTitleChapter from "../../../utils/getTitleChapter";
+import { formatNowDistance } from "../../../utils/dateFns";
+import routes from "../../../routes";
 import ReactPaginate from "react-paginate";
 import { chunk } from "lodash";
-import Loading from "../../components/nettrom/loading";
+import Loading from "../../../components/nettrom/loading";
 
 
 export default function NewUpdates() {

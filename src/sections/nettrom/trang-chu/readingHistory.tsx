@@ -1,8 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import useReadingHistory from "../../hooks/useReadingHistory"
-import routes from "../../routes"
+import useReadingHistory from "../../../hooks/useReadingHistory"
+import routes from "../../../routes"
 
 export default function ReadingHistory() {
     const { history, removeHistory } = useReadingHistory()

@@ -4,13 +4,13 @@ import formatDistance from 'date-fns/formatDistance'
 import vi from 'date-fns/locale/vi'
 import Slider from "react-slick";
 
-import useFeaturedTitles from "../../hooks/useFeaturedTitles"
-import getCoverArt from "../../utils/getCoverArt"
-import { getMangaTitle } from "../../utils/getMangaTitle"
+import useFeaturedTitles from "../../../hooks/useFeaturedTitles"
+import getCoverArt from "../../../utils/getCoverArt"
+import { getMangaTitle } from "../../../utils/getMangaTitle"
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
-import routes from '../../routes';
-import { useMangadex } from '../../contexts/mangadex';
+import routes from '../../../routes';
+import { useMangadex } from '../../../contexts/mangadex';
 
 
 export default function FeaturedTitles() {

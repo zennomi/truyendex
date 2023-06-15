@@ -1,7 +1,7 @@
 import Link from "next/link";
 import routes from "../../../routes";
-import SearchMangaForm from "../../../sections/nettrom/searchMangaForm";
-import MangaResults from "../../../sections/nettrom/mangaResults";
+import SearchMangaForm from "../../../sections/nettrom/tim-kiem/searchMangaForm";
+import MangaResults from "../../../sections/nettrom/tim-kiem/mangaResults";
 
 export default function AdvancedSearch() {
 

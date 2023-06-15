@@ -2,12 +2,12 @@ import { useState } from "react"
 import ReactPaginate from 'react-paginate';
 import Link from "next/link";
 
-import useChapterList, { chaptersPerPage } from "../../hooks/useChapterList"
-import { ChapterList } from "../../api/schema"
-import getTitleChapter from "../../utils/getTitleChapter"
-import routes from "../../routes";
-import { formatDateTime } from "../../utils/dateFns";
-import Loading from "../../components/nettrom/loading";
+import useChapterList, { chaptersPerPage } from "../../../hooks/useChapterList"
+import { ChapterList } from "../../../api/schema"
+import getTitleChapter from "../../../utils/getTitleChapter"
+import routes from "../../../routes";
+import { formatDateTime } from "../../../utils/dateFns";
+import Loading from "../../../components/nettrom/loading";
 
 export default function ListChapter({ mangaId }: { mangaId: string }) {
     const [page, setPage] = useState(0)

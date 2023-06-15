@@ -1,14 +1,14 @@
 "use client"
 
 import { useEffect } from "react"
-import { MangaContentRating } from "../../api/manga"
-import { Includes, Order } from "../../api/static"
-import { useMangadex } from "../../contexts/mangadex"
-import useSearchManga from "../../hooks/useSearchManga"
+import { MangaContentRating } from "../../../api/manga"
+import { Includes, Order } from "../../../api/static"
+import { useMangadex } from "../../../contexts/mangadex"
+import useSearchManga from "../../../hooks/useSearchManga"
 import Link from "next/link"
-import routes from "../../routes"
-import { getMangaTitle, getAltMangaTitle } from "../../utils/getMangaTitle"
-import getCoverArt from "../../utils/getCoverArt"
+import routes from "../../../routes"
+import { getMangaTitle, getAltMangaTitle } from "../../../utils/getMangaTitle"
+import getCoverArt from "../../../utils/getCoverArt"
 
 export default function TopTitles() {
     const { mangaList } = useSearchManga({

@@ -1,10 +1,10 @@
 import Link from "next/link";
-import routes from "../../routes";
-import { getMangaTitle } from "../../utils/getMangaTitle";
-import { useChapterContext } from "../../contexts/chapter";
-import getTitleChapter from "../../utils/getTitleChapter";
+import routes from "../../../routes";
+import { getMangaTitle } from "../../../utils/getMangaTitle";
+import { useChapterContext } from "../../../contexts/chapter";
+import getTitleChapter from "../../../utils/getTitleChapter";
 import { useParams } from "next/navigation";
-import useOffSetTop from "../../hooks/useOffSetTop";
+import useOffSetTop from "../../../hooks/useOffSetTop";
 
 export default function ChapterControl() {
     const { manga, chapter, canNext, canPrev, next, prev, chapters, goTo, others } = useChapterContext()

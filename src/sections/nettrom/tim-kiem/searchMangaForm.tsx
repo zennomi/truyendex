@@ -3,20 +3,20 @@
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Select, { StylesConfig } from 'react-select';
 
-import { GetSearchMangaRequestOptions, MangaContentRating, MangaPublicationDemographic, MangaPublicationStatus, MangadexMangaState } from "../../api/manga";
-import { Tag } from "../../api/schema";
-import { parseContentRating, parseStatus } from "../../utils/parseMangadex";
-import { buildQueryStringFromOptions } from "../../api/util";
+import { GetSearchMangaRequestOptions, MangaContentRating, MangaPublicationDemographic, MangaPublicationStatus, MangadexMangaState } from "../../../api/manga";
+import { Tag } from "../../../api/schema";
+import { parseContentRating, parseStatus } from "../../../utils/parseMangadex";
+import { buildQueryStringFromOptions } from "../../../api/util";
 import { useRouter, useSearchParams } from "next/navigation";
-import routes from "../../routes";
+import routes from "../../../routes";
 import { useEffect } from "react";
-import normalizeParams from "../../utils/normalizeParams";
-import { Order } from "../../api/static";
+import normalizeParams from "../../../utils/normalizeParams";
+import { Order } from "../../../api/static";
 type Inputs = GetSearchMangaRequestOptions & {
     orderType?: string,
 };
-import { tags } from "../../constants"
-import SearchInput from "./searchInput";
+import { tags } from "../../../constants"
+import SearchInput from "../searchInput";
 
 const getCheckboxIcon = (state: number) => {
     switch (state) {

@@ -3,15 +3,15 @@
 import { useEffect } from "react"
 import ReactMarkdown from 'react-markdown'
 
-import { useMangadex } from "../../contexts/mangadex"
-import { getMangaTitle } from "../../utils/getMangaTitle"
-import { formatNowDistance } from "../../utils/dateFns"
-import getCoverArt from "../../utils/getCoverArt"
-import { Includes } from "../../api/static"
+import { useMangadex } from "../../../contexts/mangadex"
+import { getMangaTitle } from "../../../utils/getMangaTitle"
+import { formatNowDistance } from "../../../utils/dateFns"
+import getCoverArt from "../../../utils/getCoverArt"
+import { Includes } from "../../../api/static"
 import ChapterList from "./chapterList"
 import Link from "next/link"
-import routes from "../../routes"
-import { parseStatus } from "../../utils/parseMangadex"
+import routes from "../../../routes"
+import { parseStatus } from "../../../utils/parseMangadex"
 
 export default function Manga({ mangaId }: { mangaId: string }) {
     const { mangas, updateMangas, updateMangaStatistics, mangaStatistics } = useMangadex()

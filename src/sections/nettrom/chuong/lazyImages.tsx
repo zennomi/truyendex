@@ -1,5 +1,5 @@
 import { ScrollPosition, trackWindowScroll } from "react-lazy-load-image-component";
-import MangaImage from "../../components/mangaImage";
+import MangaImage from "../../../components/mangaImage";
 
 const Gallery = ({ images, threshold, scrollPosition }: { images: string[], scrollPosition: ScrollPosition, threshold: number }) => (
     <div>
