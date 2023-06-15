@@ -11,13 +11,8 @@ import transLocalizedStr from '../../../../utils/transLocalizedStr'
 //     }
 // }
 
-type Props = {
-    params: { mangaId: string }
-    searchParams: { [key: string]: string | string[] | undefined }
-}
-
 export async function generateMetadata(
-    { params, searchParams }: Props,
+    { params }: { params: { mangaId: string } },
     parent: ResolvingMetadata
 ): Promise<Metadata> {
     // read route params
