@@ -36,13 +36,12 @@ export default function NewUpdates() {
         if (chapters?.length > 0) {
             updateMangas({ ids: chapters.filter(c => !!c?.manga?.id).map(c => c.manga?.id!) })
             updateMangaStatistics({ manga: chapters.filter(c => !!c?.manga?.id).map(c => c.manga?.id!) })
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }, [chapters])
 
     useEffect(() => {
-
-    }, [mangas])
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [page])
 
     if (isLoading) return <Loading />;
     if (error) return <div>error</div>;
