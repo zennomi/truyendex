@@ -7,7 +7,7 @@ export default function useChapterPages(chapterId: string | null) {
         forcePort443: false
     }))
     const successData = data && (data.data as GetAtHomeServerChapterIdResponse)?.chapter
-    const pages = successData ? successData.data.map(data => `https://uploads.mangadex.org/data/${successData.hash}/${data}`) : []
+    const pages = successData ? successData.data.map(originalData => `${(data.data as GetAtHomeServerChapterIdResponse).baseUrl}/data/${successData.hash}/${originalData}`) : []
 
     return { pages, isLoading, error }
 }
