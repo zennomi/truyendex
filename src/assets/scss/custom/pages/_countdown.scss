@@ -1,0 +1,25 @@
+
+/*********************************/
+/*         Countdown             */
+/*===============================*/
+#token-sale .count-number .count-head {
+    @apply relative block uppercase md:-mt-5 md:text-base text-sm leading-[1px] font-bold;
+}
+#countdown {
+    .count-down {
+        .count-number {
+            @apply text-[40px] leading-[110px] h-[130px] w-[130px] rounded-full shadow-md bg-white/10;
+            backdrop-filter: blur(5px);
+        }
+        .count-head {
+            @apply relative block -translate-y-[25px] uppercase text-sm tracking-[1px];
+        }
+    }
+}
+
+/* //maintenance */
+#maintenance {
+    .indicator {
+        @apply text-lg;
+    }
+}

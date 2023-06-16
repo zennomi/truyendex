@@ -1,0 +1,14 @@
+/* // _footer.scss */
+
+/*********************************/
+/*         Footer                */
+/*===============================*/
+.footer {
+    .foot-subscribe {
+        input{
+            &::placeholder{
+                @apply text-gray-200;
+            }
+        }
+    } 
+}

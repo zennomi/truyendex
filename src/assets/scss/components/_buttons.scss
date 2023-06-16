@@ -1,0 +1,34 @@
+
+
+/********************/
+/*     Buttons      */
+/*==================*/
+/* Note: If you want to add your own colors, you can do so by going to this tailwind.config.js file  */
+.btn {
+    @apply py-2 px-5 inline-block font-semibold tracking-wide border align-middle transition duration-500 ease-in-out text-base text-center;
+    &.btn-lg{
+        @apply py-2.5 px-6 text-lg;
+    }
+    &.btn-sm{
+        @apply py-[5px] px-4 text-sm;
+    }
+    /*  Button icons */
+    &.btn-icon {
+        @apply p-0 h-9 w-9 inline-flex items-center text-center justify-center text-base;
+        &.btn-lg {
+            @apply h-12 w-12;
+        }
+        &.btn-sm {
+            @apply h-8 w-8;
+        }
+    }
+
+    /* Button Link */
+    &.btn-link {
+        @apply relative p-0 border-none after:content-[''] after:absolute after:h-px after:w-0 after:right-0 after:bottom-0 after:left-0 after:transition-all after:duration-500;
+    
+        &:hover {
+            @apply after:w-full after:right-auto;
+        }
+    }
+}

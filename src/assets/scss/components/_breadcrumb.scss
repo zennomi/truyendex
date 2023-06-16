@@ -1,0 +1,18 @@
+/********************/
+/*    Breadcrumb    */
+/*==================*/
+
+.breadcrumb {
+    .breadcrumb-item {
+        @apply before:content-[''] after:text-sm after:text-black after:dark:text-white after:pl-[5px] last:after:hidden;
+        &:after {
+            content: "\F0142" !important;
+            font-family: 'Material Design Icons';
+        }     
+    }
+    &.breadcrumb-light {
+        .breadcrumb-item {
+            @apply after:text-white/50;
+        }
+    }
+}

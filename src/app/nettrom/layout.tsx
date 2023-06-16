@@ -23,7 +23,7 @@ export default function NettromLayout({
                             <div className="info">
                                 <em className="fa fa-info-circle" />
                             </div>
-                            <span className="error">
+                            <span className="error !block">
                                 Fact: Web giả mạo chủ yếu là để cướp nguồn view từ nettruyen thôi chứ chả ai hack cái nick nettruyen của bạn làm gì đâu.
                             </span>
                         </div>

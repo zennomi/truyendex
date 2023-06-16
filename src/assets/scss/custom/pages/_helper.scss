@@ -1,0 +1,92 @@
+/*********************************/
+/*             Helper            */
+/*===============================*/
+.container {
+    @apply relative;
+}
+
+/* Cookies */
+.cookie-popup-not-accepted {
+    @apply block;
+    animation: cookie-popup-in .5s ease forwards;
+}
+
+.cookie-popup-accepted {
+    @apply hidden;
+}
+
+@keyframes cookie-popup-in {
+    from {
+        bottom: -6.25rem;
+    }
+
+    to {
+        bottom: 1.25rem;
+    }
+}
+
+/* Shapes */
+.shape {
+    &>svg {
+        transform: scale(2);
+        transform-origin: theme('transformOrigin.top') theme('transformOrigin.center');
+    }
+
+    &.marketing-hero {
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);        
+    }
+}
+
+
+/* Preloader */
+#preloader {
+    background-image: linear-gradient(45deg, #ffffff, #ffffff);
+    z-index: 99999;
+    @apply fixed inset-0;
+    #status {
+        @apply absolute left-0 right-0 top-1/2 -translate-y-1/2;
+        .spinner {
+            @apply w-10 h-10 relative my-[100px] mx-auto;
+            .double-bounce1, .double-bounce2 {
+                @apply w-full h-full rounded-full bg-indigo-600/60 absolute top-0 left-0;
+                animation: sk-bounce 2.0s infinite ease-in-out;
+            }
+            .double-bounce2 {
+                animation-delay: -1.0s;
+            }
+        }
+    }
+}
+
+@keyframes sk-bounce {
+    0%, 100% { 
+      transform: scale(0.0);
+    } 50% { 
+      transform: scale(1.0);
+    }
+}
+
+/* Switcher */
+.label {
+    .ball {
+        transition: transform 0.2s linear;
+        @apply translate-x-0;
+    }
+}
+
+.checkbox:checked + .label .ball {
+	@apply translate-x-6;
+}
+
+//Mover
+.mover {
+    animation: mover 1.5s infinite alternate;
+}
+@keyframes mover {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(10px);
+    }
+}

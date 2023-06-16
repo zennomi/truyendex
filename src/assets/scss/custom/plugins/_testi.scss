@@ -1,0 +1,66 @@
+/*********************************/
+/*         Testimonial           */
+/*===============================*/
+.client-testi {
+    @apply cursor-e-resize;
+    .content {
+        @apply before:content-[''] before:absolute before:top-8 before:left-0 before:ml-3 before:box-border before:border-8 before:border-solid before:origin-[0] before:rotate-[135deg] before:shadow before:border-t-transparent before:border-r-white dark:before:border-r-slate-900 before:border-b-white dark:before:border-b-slate-900 before:border-l-transparent;
+        /* border-color: transparent theme('colors.white') theme('colors.white') transparent; */
+    }
+}
+
+.customer-testi {
+    @apply cursor-e-resize;
+    .content {
+        &:before {
+            transform-origin: 0 0;
+        }
+
+        @apply before:content-[''] before:absolute before:left-1/2 before:-bottom-[4px] before:box-border before:border-8 before:rotate-[45deg] before:border-t-transparent before:border-r-white dark:before:border-r-slate-900 before:border-b-white dark:before:border-b-slate-900 before:border-l-transparent before:shadow-testi dark:before:shadow-gray-700;
+    }
+}
+
+.tns-nav {
+    @apply text-center mt-3;
+    button {
+        @apply rounded-[3px] bg-indigo-600/30 transition-all duration-500 ease-in-out border-0 m-1 p-[5px];
+        &.tns-nav-active {
+            @apply bg-indigo-600 rotate-[45deg];
+        }
+    }
+}
+
+/* Tns control */
+.tns-controls {
+    button[data-controls="prev"],
+    button[data-controls="next"] {
+        @apply absolute top-2/4 -translate-y-2/4 text-base w-8 h-8 rounded-full bg-white dark:bg-slate-900 text-dark dark:text-white border-0 transition-all duration-500 ease-in-out z-10 shadow-md dark:shadow-gray-800;
+
+        &:hover {
+            @apply bg-indigo-600 text-white;
+        }
+    }
+    button[data-controls="prev"] {
+        @apply left-0;
+    }
+    button[data-controls="next"] {
+        @apply right-0;
+    }
+}
+
+
+//Smoth Slider
+$animationSpeed: 120s;
+@keyframes scroll {
+	0% { transform: translateX(0); }
+	100% { transform: translateX(calc(-360px * 6))}
+}
+.slider {
+	&:after {
+		transform: rotateZ(360deg);
+	}
+	.slide-track {
+		animation: scroll $animationSpeed linear infinite;
+		width: calc(360px * 20);
+	}
+}

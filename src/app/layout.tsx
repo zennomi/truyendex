@@ -1,4 +1,4 @@
-import './globals.css'
+import '../assets/scss/tailwind.scss'
 import { Inter } from 'next/font/google'
 import { MangadexContextProvider } from '../contexts/mangadex'
 
@@ -23,7 +23,7 @@ export default function RootLayout({
 
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className='dark'>
       <body className={`vi-vn site1 ${inter.className}`}>
         <MangadexContextProvider>
           {children}

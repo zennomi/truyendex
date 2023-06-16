@@ -1,0 +1,52 @@
+
+/*****************/
+/*  Swiper Slider     */
+/*****************/
+.swiper-slider-hero {
+    .swiper-container,
+    .swiper-slide .slide-inner {
+        @apply absolute right-0 top-0 w-full h-full;
+    }
+    .swiper-container {
+        .swiper-button-prev,
+        .swiper-button-next {
+            @apply bg-transparent w-[35px] h-[35px] leading-[35px] -mt-[30px] bg-none border border-solid border-white/50;
+            &:before {
+                @apply font-bold text-white;
+                font-family: "Material Design Icons";
+            }
+            &:hover {
+                @apply bg-indigo-600 border-indigo-600;
+            }
+        }
+        .swiper-button-prev {
+            &:before {
+                content: "\f0141";
+            }
+        }
+
+        .swiper-button-next {
+            &:before {
+                content: "\f0142";
+            }
+        }
+    }
+    .swiper-pagination-bullet {
+        @apply text-gray-50 bg-transparent;
+    }
+    .swiper-pagination-bullet-active {
+        @apply text-white;
+    }
+    .swiper-container-horizontal > .swiper-pagination-bullets,
+    .swiper-pagination-custom,
+    .swiper-pagination-fraction {
+        @apply bottom-[45px];
+    }
+    .swiper-container-horizontal {
+        > .swiper-pagination-bullets {
+            .swiper-pagination-bullet {
+                @apply my-0 mx-[13px];
+            }
+        }
+    }
+}
