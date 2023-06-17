@@ -7,6 +7,7 @@ import "./style.css"
 import NettromLogo from "../../assets/nettrom-logo.png"
 import Link from "next/link";
 import Header from "../../components/nettrom/header";
+import routes from "../../routes";
 
 export default function NettromLayout({
     children,
@@ -85,7 +86,7 @@ export default function NettromLayout({
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link target="_self" href="/hot">
+                                        <Link target="_self" href={`${routes.nettrom.search}?order[followedCount]=desc#results`}>
                                             Truyện tranh hot
                                         </Link>
                                     </li>
@@ -95,27 +96,27 @@ export default function NettromLayout({
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link target="_self" href="/tim-truyen/ngon-tinh">
+                                        <Link target="_self" href={`${routes.nettrom.search}?publicationDemographic=josei&publicationDemographic=shoujo#results`}>
                                             Truyện ngôn tình
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link target="_self" href="/tim-truyen/manhwa-11400">
+                                        <Link target="_self" href="/">
                                             Manhwa
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link target="_self" href="/tim-truyen/manga-112">
+                                        <Link target="_self" href="/">
                                             Manga
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link target="_self" href="/tim-truyen/manhua">
+                                        <Link target="_self" href="/">
                                             Manhua
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link target="_self" href="/tag/truyenqq">
+                                        <Link target="_self" href="/">
                                             truyenqq
                                         </Link>
                                     </li>

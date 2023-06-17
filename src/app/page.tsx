@@ -6,33 +6,33 @@ import Iconify from "../components/iconify";
 
 import LaptopIllustration from "../assets/images/laptop.png"
 import MangaDexHomepage from "../assets/images/mangadex-homepage.png"
+import ContextImage from "../assets/images/context.png"
 
 export default function Home() {
   return (
     <div className=" text-base text-black dark:text-white dark:bg-slate-900">
       <TopNav />
-      <section className="relative table w-full py-36 lg:py-44 overflow-hidden z-1">
+      <section className="relative table w-full py-20 lg:py-44 overflow-hidden z-1">
         <div className="container">
           <div className="relative grid md:grid-cols-12 grid-cols-1 items-center mt-10 gap-[30px]">
             <div className="md:col-span-7">
               <div className="md:mr-6">
                 <h4 className="font-bold lg:leading-normal leading-normal text-4xl lg:text-5xl mb-5 text-black dark:text-white relative">
-                  Fast and clean help <br />{" "}
+                  Một phiên bản bù đắp thiếu sót {" "}
                   <span className="after:absolute after:right-0 after:left-0 after:bottom-3 after:lg:h-3 after:h-2 after:w-auto after:rounded-md after:bg-indigo-600/30 relative text-indigo-600">
-                    NetTrom
-                  </span>{" "}
-                  your work
+                    NetTruyen
+                  </span>
                 </h4>
                 <p className="text-slate-400 text-lg max-w-xl">
-                  Launch your campaign and benefit from our expertise on designing
-                  and managing conversion centered Tailwind CSS v3.x html page.
+                  Ở vũ trụ Earth-3041975, NetTrom trở thành ngôi nhà của cả cộng đồng.
+                  Nhóm dịch được tôn trọng, độc giả thoải mái công khai mình đọc trên NetTrom mà không cần khúm núm.
                 </p>
                 <div className="relative mt-8">
                   <Link
                     href={routes.nettrom.index}
                     className="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mr-2"
                   >
-                    Đọc Trộm
+                    Đọc Trộm Ngay
                   </Link>
                   <a
                     href="https://github.com/zennomi/truyendex"
@@ -72,11 +72,10 @@ export default function Home() {
         <div className="container lg mx-auto">
           <div className="grid grid-cols-1 pb-8 text-center">
             <h3 className="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal font-semibold">
-              Features
+              Ước mơ
             </h3>
             <p className="text-slate-400 max-w-xl mx-auto">
-              Start working with Tailwind CSS that can provide everything you need to
-              generate awareness, drive traffic, connect.
+              Tôi đã mơ. Một giấc chiêm bao về Website NetTrom. Đó là nơi...
             </p>
           </div>
           {/*end grid*/}
@@ -86,19 +85,20 @@ export default function Home() {
               <div className="relative overflow-hidden text-transparent -m-3">
                 <Iconify icon="tabler:hexagon-filled" className="h-28 w-28 text-indigo-600/5 mx-auto rotate-[30deg]" />
                 <div className="absolute top-2/4 -translate-y-2/4 left-0 right-0 mx-auto text-indigo-600 rounded-xl transition duration-500 ease-in-out text-3xl flex align-middle justify-center items-center">
-                  <Iconify icon="uil:adjust-circle" />
+                  <Iconify icon="icon-park-outline:respect" />
                 </div>
               </div>
               <div className="mt-6">
                 <a
-                  href=""
+                  href="#"
                   className="text-xl font-medium hover:text-indigo-600 duration-500 ease-in-out"
                 >
-                  Grow Your Business
+                  Tôn trọng nhóm dịch
                 </a>
                 <p className="text-slate-400 transition duration-500 ease-in-out mt-3">
-                  If the distribution of letters and 'words' is random, the reader
-                  will not be distracted from making.
+                  Ở đây, các nhóm dịch được đăng truyện và ghi nguồn đầy đủ.
+                  Họ toàn quyền kiểm soát công sức mà họ tạo ra.
+                  Họ nên được tôn trọng từ những quyền cơ bản nhất.
                 </p>
               </div>
             </div>
@@ -108,19 +108,19 @@ export default function Home() {
               <div className="relative overflow-hidden text-transparent -m-3">
                 <Iconify icon="tabler:hexagon-filled" className="h-28 w-28 text-indigo-600/5 mx-auto rotate-[30deg]" />
                 <div className="absolute top-2/4 -translate-y-2/4 left-0 right-0 mx-auto text-indigo-600 rounded-xl transition duration-500 ease-in-out text-3xl flex align-middle justify-center items-center">
-                  <Iconify icon="uil:circuit" />
+                  <Iconify icon="fluent-mdl2:add-group" />
                 </div>
               </div>
               <div className="mt-6">
                 <a
-                  href=""
+                  href="#"
                   className="text-xl font-medium hover:text-indigo-600 duration-500 ease-in-out"
                 >
-                  Drive More Sales
+                  Sức mạnh cộng đồng
                 </a>
                 <p className="text-slate-400 transition duration-500 ease-in-out mt-3">
-                  If the distribution of letters and 'words' is random, the reader
-                  will not be distracted from making.
+                  Ngoài nhóm dịch, mọi người có thể đóng góp xây dựng mọi thông tin xoay quanh một bộ truyện.
+                  Tác giả, hình thức, thể loại... Giả sử tôi muốn đọc RomCom, sao lại lẫn cả NTR vào đây 😭
                 </p>
               </div>
             </div>
@@ -130,19 +130,19 @@ export default function Home() {
               <div className="relative overflow-hidden text-transparent -m-3">
                 <Iconify icon="tabler:hexagon-filled" className="h-28 w-28 text-indigo-600/5 mx-auto rotate-[30deg]" />
                 <div className="absolute top-2/4 -translate-y-2/4 left-0 right-0 mx-auto text-indigo-600 rounded-xl transition duration-500 ease-in-out text-3xl flex align-middle justify-center items-center">
-                  <Iconify icon="uil:fire" />
+                  <Iconify icon="uil:money-bill-slash" />
                 </div>
               </div>
               <div className="mt-6">
                 <a
-                  href=""
+                  href="#"
                   className="text-xl font-medium hover:text-indigo-600 duration-500 ease-in-out"
                 >
-                  Handled By Expert
+                  Phi lợi nhuận
                 </a>
                 <p className="text-slate-400 transition duration-500 ease-in-out mt-3">
-                  If the distribution of letters and 'words' is random, the reader
-                  will not be distracted from making.
+                  Nguồn tiền vừa đủ duy trì cộng đồng. Không có của cải dư thừa, không xuất hiện chế độ tư hữu.
+                  Không có "trâu ăn" để "trâu buộc" ghét. Việc ai người đấy làm vì đam mê.
                 </p>
               </div>
             </div>
@@ -154,46 +154,28 @@ export default function Home() {
         <div className="container md:mt-24 mt-16">
           <div className="grid md:grid-cols-2 grid-cols-1 items-center mt-16 gap-[30px]">
             <div className="relative">
-              <div className="md:mr-10">
-                <Image
-                  src={MangaDexHomepage}
-                  className="rounded-lg shadow-md dark:shadow-gray-800"
-                  alt=""
-                />
-              </div>
-              <div className="absolute -bottom-10 right-0 p-6 rounded-lg shadow-md dark:shadow-gray-800 bg-white dark:bg-slate-900 md:w-80 w-60">
-                <h5 className="text-lg font-semibold mb-3">Helpcenter Software</h5>
-                <p className="text-slate-400">
-                  If the distribution of letters and 'words' is random
-                </p>
-                <div className="flex justify-between mt-3 mb-2">
-                  <span className="text-slate-400">Work in progress</span>
-                  <span className="text-slate-400">84%</span>
-                </div>
-                <div className="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-[6px]">
-                  <div
-                    className="bg-indigo-600 h-[6px] rounded-full"
-                    style={{ width: "84%" }}
-                  />
-                </div>
-              </div>
+              <Image
+                src={ContextImage}
+                className="rounded-lg shadow-md dark:shadow-gray-800"
+                alt=""
+              />
             </div>
             <div className="lg:ml-8 mt-8 md:mt-0">
               <h4 className="mb-4 md:text-3xl text-2xl md:leading-normal leading-normal font-semibold">
-                Manage all your tasks <br /> on this one plateform
+                Hoàn cảnh lịch sử
               </h4>
               <p className="text-slate-400">
-                Due to its widespread use as filler text for layouts, non-readability
-                is of great importance: human perception is tuned to recognize certain
-                patterns and repetitions in texts. If the distribution of letters
-                visual impact.
+                Đau xót trước cảnh blogtruyen mất, cộng đồng tan rã, đồng thời nhìn thấy những mặt hạn chế của
+                các phong trào chống NetTruyen đầu thế kỉ XXI, đã thôi thúc tôi ra đi tìm
+                con đường cứu truyện mới cho cộng đồng.
               </p>
               <div className="mt-4">
                 <a
-                  href="page-aboutus.html"
+                  href="https://www.facebook.com/100063838084923/videos/550876680578076"
+                  target="_blank"
                   className="btn btn-link text-indigo-600 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out"
                 >
-                  Find Out More <i className="uil uil-angle-right-b align-middle" />
+                  Video tình hình <Iconify icon="uil:angle-right-b" className="inline" />
                 </a>
               </div>
             </div>
@@ -204,43 +186,61 @@ export default function Home() {
         <div className="container md:mt-24 mt-16">
           <div className="grid md:grid-cols-2 grid-cols-1 items-center gap-[30px]">
             <div className="relative order-1 md:order-2">
-              <img
-                src="assets/images/saas/classic03.png"
-                className="rounded-lg shadow-md dark:shadow-gray-800"
-                alt=""
-              />
+              <div className="md:mr-10">
+                <Image
+                  src={MangaDexHomepage}
+                  className="rounded-lg shadow-md dark:shadow-gray-800"
+                  alt=""
+                />
+              </div>
+              <div className="absolute -bottom-10 right-0 p-6 rounded-lg shadow-md dark:shadow-gray-800 bg-white dark:bg-slate-900 md:w-80 w-60">
+                <h5 className="text-lg font-semibold mb-3">MangaDex + NetTruyen</h5>
+                <p className="text-slate-400">
+                  Hệ thống phía sau website dựa trên API của MangaDex.
+                </p>
+                <div className="flex justify-between mt-3 mb-2">
+                  <span className="text-slate-400">Đang hoàn thiện</span>
+                  <span className="text-slate-400">30%</span>
+                </div>
+                <div className="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-[6px]">
+                  <div
+                    className="bg-indigo-600 h-[6px] rounded-full"
+                    style={{ width: "30%" }}
+                  />
+                </div>
+              </div>
             </div>
-            <div className="lg:mr-8 order-2 md:order-1">
+            <div className="lg:mr-8 order-2 md:order-1 mt-10 md:mt-0">
               <h4 className="mb-4 text-2xl leading-normal font-medium">
-                Get Notified About Importent Email
+                À thôi xàm loz đấy
               </h4>
               <p className="text-slate-400">
-                Due to its widespread use as filler text for layouts, non-readability
-                is of great importance: human perception is tuned to recognize certain
-                patterns and repetitions in texts. If the distribution of letters
-                visual impact.
+                BlogTruyen sau vài thoả thuận mua bán gì đó đã trở lại.
+                NetTruyen vẫn cứ ăn cắp như trước, CuuTruyen có thêm chút traffic.
+                Độc giả cũng chả quan tâm lắm, tự dưng thấy NetTruyen lại có truyện đều như mọi khi.
+                Và thế là tôi nhận ra mình cần:
               </p>
               <ul className="list-none text-slate-400 mt-4">
                 <li className="mb-1 flex">
-                  <i className="uil uil-check-circle text-indigo-600 text-xl mr-2" />{" "}
-                  Digital Marketing Solutions for Tomorrow
+                  <Iconify icon="uil:check-circle" className="text-indigo-600 text-xl mr-2" />{" "}
+                  Nâng cao nhận thức của độc giả về nhóm dịch
                 </li>
                 <li className="mb-1 flex">
-                  <i className="uil uil-check-circle text-indigo-600 text-xl mr-2" />{" "}
-                  Our Talented &amp; Experienced Marketing Agency
+                  <Iconify icon="uil:check-circle" className="text-indigo-600 text-xl mr-2" />{" "}
+                  Pressing NetTruyen đến khi họ không còn là NetTrom nữa
                 </li>
                 <li className="mb-1 flex">
-                  <i className="uil uil-check-circle text-indigo-600 text-xl mr-2" />{" "}
-                  Create your own skin to match your brand
+                  <Iconify icon="uil:check-circle" className="text-indigo-600 text-xl mr-2" />{" "}
+                  Làm gì đó cho các nhóm dịch
                 </li>
               </ul>
               <div className="mt-4">
-                <a
-                  href="page-aboutus.html"
+                <Link
+                  href={routes.nettrom.index}
                   className="btn btn-link text-indigo-600 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out"
                 >
-                  Find Out More <i className="uil uil-angle-right-b align-middle" />
-                </a>
+                  Trải nghiệm NetTrom <Iconify icon="uil:angle-right-b" className="inline" />
+                </Link>
               </div>
             </div>
           </div>
