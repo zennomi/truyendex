@@ -1,3 +1,5 @@
+const plugin = require('tailwindcss/plugin');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -45,5 +47,26 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(({ addBase, theme }) => {
+      addBase({
+        '.scrollbar': {
+          overflowY: 'auto',
+          scrollbarColor: `${theme('colors.indigo.600')} ${theme('colors.indigo.200')}`,
+          scrollbarWidth: 'thin',
+        },
+        '.scrollbar::-webkit-scrollbar': {
+          height: '4px',
+          width: '4px',
+          borderRadius: '99px',
+        },
+        '.scrollbar::-webkit-scrollbar-thumb': {
+          backgroundColor: theme('colors.indigo.600'),
+        },
+        '.scrollbar::-webkit-scrollbar-track-piece': {
+          backgroundColor: theme('colors.indigo.200'),
+        },
+      });
+    }),
+  ],
 }

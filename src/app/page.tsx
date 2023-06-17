@@ -7,6 +7,7 @@ import Iconify from "../components/iconify";
 import LaptopIllustration from "../assets/images/laptop.png"
 import MangaDexHomepage from "../assets/images/mangadex-homepage.png"
 import ContextImage from "../assets/images/context.png"
+import Collapse from "../components/collapse";
 
 export default function Home() {
   return (
@@ -246,6 +247,53 @@ export default function Home() {
           </div>
         </div>
         {/*end container*/}
+      </section>
+
+      <section className="relative md:py-24 py-16">
+        <div className="container md:mt-24 mt-16">
+          <div className="grid grid-cols-1 pb-8 text-center">
+            <h3 className="mb-4 md:text-3xl md:leading-normal text-2xl leading-normal font-semibold">
+              Các câu hỏi thường gặp
+            </h3>
+            <p className="text-slate-400 max-w-xl mx-auto">
+              Thật ra NetTruyen không chỉ là NetTruyen.com, NetTruyenTo, NetTruyenZ, NetTruyenPlus, NetTruyenMax,...
+              Nó ám chỉ cả một hệ tư tưởng ăn cắp truyện gắn quảng cáo.
+            </p>
+          </div>
+          {/*end grid*/}
+          <div className="relative grid md:grid-cols-12 grid-cols-1 items-center mt-8 gap-[30px]">
+            <div className="md:col-span-6">
+              <Collapse
+                title="NetTrom liệu có thể thay thế NetTruyen?"
+                content={
+                  <>
+                    NetTrom là một phiên bản demo cho thấy NetTruyen cần cải thiện điều gì.<br />
+                    Tất nhiên NetTrom vẫn đầy đủ các tính năng để trải nghiệm đọc manga không quảng cáo, 
+                    tải chương với chất lượng ảnh gốc do nhóm dịch đăng tải, tìm truyện với đúng thể loại mong muốn,...
+                  </>
+                }
+              />
+            </div>
+            {/*end col*/}
+            <div className="md:col-span-6">
+              <Collapse
+                title="Nhóm dịch cũng dịch lậu mà, có gì hay ho mà chửi NetTruyen"
+                content={
+                  <>
+                    Trước hết, bạn vào đây tức là đã và đang đọc truyện lậu nên chúng ta không bàn tới việc bản quyền.<br />
+                    99% các nhóm dịch (fan-trans) đều bỏ công sức ra vì sở thích, vì đam mê, vì fame...
+                    Vì lý do gì thì cũng chủ yếu là mục đích phi lợi nhuận, nhưng nhờ NetTruyen bê về site
+                    họ (có chứa quảng cáo) nên mục đích ấy đã tiếp tay cho NetTruyen tạo lợi nhuận.
+                    Mà đã tạo lợi nhuận thì sẽ thành cái gai trong mắt NXB và Đơn Vị Bản Quyền,
+                    nên thành ra nhóm dịch vừa bị ăn cắp vừa bị đổ oan.
+                  </>
+                }
+              />
+            </div>
+            {/*end col*/}
+          </div>
+          {/*end grid*/}
+        </div>
       </section>
     </div>
   )

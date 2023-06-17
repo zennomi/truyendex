@@ -76,5 +76,6 @@ export default function normalizeParams(params: ReadonlyURLSearchParams): GetSea
     if (params.get("order[rating]")) {
         result.order.rating = params.get("order[rating]") as Order
     }
+    console.log({ result })
     return result
 }

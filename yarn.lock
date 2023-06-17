@@ -1509,6 +1509,11 @@ react-paginate@^8.2.0:
   dependencies:
     prop-types "^15"
 
+react-photo-album@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/react-photo-album/-/react-photo-album-2.2.2.tgz#fba27903ca183a8f5910b3fad99d57182599ea57"
+  integrity sha512-UYtfJCUBNgrXVG50tVzXYStOY/Tljqzo/tPFQqm/qldm6Vr2STrxEMfGdc+7KCpBK7X111Y8ceKEWNaS8T+oGA==
+
 react-select@^5.7.3:
   version "5.7.3"
   resolved "https://registry.npmjs.org/react-select/-/react-select-5.7.3.tgz"

@@ -10,7 +10,7 @@ import getCoverArt from "../../../utils/getCoverArt"
 import { useMangadex } from "../../../contexts/mangadex"
 import Link from "next/link"
 import ReactPaginate from "react-paginate"
-import { buildQueryStringFromOptions } from "../../../api/util"
+import { getSearchNetTromUrl } from "../../../utils/url"
 
 export default function MangaResults() {
     const router = useRouter()
@@ -24,8 +24,7 @@ export default function MangaResults() {
     const page = Math.floor(offset / limit)
     const goToPage = (toPage: number) => {
         options.offset = (toPage * limit)
-        const queryString = buildQueryStringFromOptions(options)
-        router.push(`${routes.nettrom.search}${queryString.replaceAll("[]", "")}#results`)
+        router.push(getSearchNetTromUrl(options))
     }
 
     useEffect(() => {

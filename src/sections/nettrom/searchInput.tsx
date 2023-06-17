@@ -2,9 +2,8 @@
 
 import { useSearchParams, useRouter } from "next/navigation"
 import { useState } from "react"
-import routes from "../../routes"
 import normalizeParams from "../../utils/normalizeParams"
-import { buildQueryStringFromOptions } from "../../api/util"
+import { getSearchNetTromUrl } from "../../utils/url"
 
 export default function SearchInput() {
     const params = useSearchParams()
@@ -15,8 +14,7 @@ export default function SearchInput() {
         event.preventDefault()
         const options = normalizeParams(params)
         options.title = title
-        const queryString = buildQueryStringFromOptions(options)
-        router.push(`${routes.nettrom.search}${queryString.replaceAll("[]", "")}#results`)
+        router.push(getSearchNetTromUrl(options))
     }
 
     return (

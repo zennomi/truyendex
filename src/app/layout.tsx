@@ -23,7 +23,7 @@ export default function RootLayout({
 
 }) {
   return (
-    <html lang="en" className='dark'>
+    <html lang="vi" className='dark'>
       <body className={`vi-vn site1 ${inter.className}`}>
         <MangadexContextProvider>
           {children}
