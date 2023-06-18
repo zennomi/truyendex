@@ -1,7 +1,7 @@
 import { Metadata, ResolvingMetadata } from 'next'
-import { ExtendManga } from '../../../../api/extend'
-import { getMangaTitle } from '../../../../utils/getMangaTitle'
-import transLocalizedStr from '../../../../utils/transLocalizedStr'
+import { ExtendManga } from '../../../../../api/extend'
+import { getMangaTitle } from '../../../../../utils/getMangaTitle'
+import transLocalizedStr from '../../../../../utils/transLocalizedStr'
 
 // export const metadata: Metadata = {
 //     title: 'Truyện tranh',

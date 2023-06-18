@@ -1,13 +1,13 @@
-import TopNav from "../components/home/topNav";
+import TopNav from "../../components/home/topNav";
 import Image from "next/image";
 import Link from "next/link";
-import routes from "../routes";
-import Iconify from "../components/iconify";
+import routes from "../../routes";
+import Iconify from "../../components/iconify";
 
-import LaptopIllustration from "../assets/images/laptop.png"
-import MangaDexHomepage from "../assets/images/mangadex-homepage.png"
-import ContextImage from "../assets/images/context.png"
-import Collapse from "../components/collapse";
+import LaptopIllustration from "../../assets/images/laptop.png"
+import MangaDexHomepage from "../../assets/images/mangadex-homepage.png"
+import ContextImage from "../../assets/images/context.png"
+import Collapse from "../../components/collapse";
 
 export default function Home() {
   return (

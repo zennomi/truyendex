@@ -106,14 +106,14 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                                     <p className="col-xs-8">
                                         {
                                             manga.attributes.tags.map((tag, idx) => (
-                                                <>
-                                                    <Link key={tag.id} href={`${routes.nettrom.search}?includedTags=${tag.id}`}>
+                                                <span key={tag.id}>
+                                                    <Link href={`${routes.nettrom.search}?includedTags=${tag.id}`}>
                                                         {tag.attributes.name.en}
                                                     </Link>
                                                     {
-                                                        idx !== manga.attributes.tags.length && ", "
+                                                        idx !== manga.attributes.tags.length - 1 && ", "
                                                     }
-                                                </>
+                                                </span>
                                             ))
                                         }
                                     </p>

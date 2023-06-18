@@ -1,4 +1,4 @@
-import { ChapterContextProvider } from "../../../contexts/chapter"
+import { ChapterContextProvider } from "../../../../contexts/chapter"
 
 export const metadata = {
     title: 'Đọc truyện trộm tại NetTrom',

@@ -1,6 +1,6 @@
-import '../assets/scss/tailwind.scss'
+import '../../assets/scss/tailwind.scss'
 import { Inter } from 'next/font/google'
-import { MangadexContextProvider } from '../contexts/mangadex'
+import { MangadexContextProvider } from '../../contexts/mangadex'
 
 // slick-carousel
 import 'slick-carousel/slick/slick.css';
@@ -20,11 +20,10 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode,
-
 }) {
   return (
     <html lang="vi" className='dark'>
-      <body className={`vi-vn site1 ${inter.className}`}>
+      <body className={`${inter.className}`}>
         <MangadexContextProvider>
           {children}
         </MangadexContextProvider>
