@@ -186,7 +186,7 @@ export default function ChapterControl() {
                     </div>
                     <a
                         className="follow-link btn btn-success"
-                        data-id={66961}
+                        href={routes.scanlationGroup(chapter?.scanlation_group?.id || "")}
                     >
                         <i className="fa fa-heart" /> <span>Nhóm dịch</span>
                     </a>

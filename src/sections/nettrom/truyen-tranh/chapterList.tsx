@@ -42,7 +42,10 @@ export default function ListChapter({ mangaId }: { mangaId: string }) {
                                 <div className="col-xs-4 text-center no-wrap small">
                                     {formatDateTime(new Date(chapter.attributes.readableAt))}
                                 </div>
-                                <div className="col-xs-3 text-center">{chapter.scanlation_group?.attributes?.name || "N/A"}</div>
+                                {
+                                    chapter.scanlation_group?.attributes &&
+                                    <Link href={routes.scanlationGroup(chapter.scanlation_group.id)} className="col-xs-3 text-center">{chapter.scanlation_group.attributes.name}</Link>
+                                }
                             </li>
                         ))
                     }
