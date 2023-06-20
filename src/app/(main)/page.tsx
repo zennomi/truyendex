@@ -268,7 +268,7 @@ export default function Home() {
                 content={
                   <>
                     NetTrom là một phiên bản demo cho thấy NetTruyen cần cải thiện điều gì.<br />
-                    Tất nhiên NetTrom vẫn đầy đủ các tính năng để trải nghiệm đọc manga không quảng cáo, 
+                    Tất nhiên NetTrom vẫn đầy đủ các tính năng để trải nghiệm đọc manga không quảng cáo,
                     tải chương với chất lượng ảnh gốc do nhóm dịch đăng tải, tìm truyện với đúng thể loại mong muốn,...
                   </>
                 }
@@ -291,10 +291,259 @@ export default function Home() {
               />
             </div>
             {/*end col*/}
+            <div className="md:col-span-6">
+              <Collapse
+                title="Kệ thôi, tao đọc đâu là việc của tao"
+                content={
+                  <>
+                    Đúng rồi, việc của bạn mà. Mình chỉ muốn nhắc rằng
+                    “Không có bữa ăn nào là miễn phí”, những trang truyện
+                    mà bạn đã và đang đọc lậu đều là công sức của người dịch, người biên tập,...
+                    đóng góp chứ không phải tự dưng nó xuất hiện trên NetTruyen.
+                    Có biết ơn thì nên chọn đúng người.
+                  </>
+                }
+              />
+            </div>
+            <div className="md:col-span-6">
+              <Collapse
+                title="Đăng nhập trên NetTrom?"
+                content={
+                  <>
+                    Vì hạn chế của API MangaDex hiện tại và
+                    mình lười nên chưa có chức năng đăng nhập và theo dõi hehe.
+                    À chắc rảnh thì thêm chức năng lưu truyện trên thiết bị,
+                    theo dõi theo nhóm dịch… Tương lai xa hơn nữa thì mong
+                    API MangaDex có lẽ sẽ hỗ trợ đăng nhập.
+                    Hiện tại mình đã tìm hiểu xong kha khá về NextJS 13 và chưa có gì muốn tìm hiểu thêm.
+                  </>
+                }
+              />
+            </div>
+            <div className="md:col-span-6">
+              <Collapse
+                title="Bạn rảnh vkl thế"
+                content={
+                  <>
+                    Tính ra mình code cái web này có 1 tuần,
+                    chính xác theo tiếng thì chắc khoảng 50 tiếng thôi nên cũng khá rảnh.
+                    Nhân dịp mình tìm hiểu về tech ấy mà (NextJS v13, Google Analytics, TailwindCSS,...)
+                  </>
+                }
+              />
+            </div>
+            <div className="md:col-span-6">
+              <Collapse
+                title="Chi phí duy trì cái web này"
+                content={
+                  <>
+                    Tên miền: $10.95/month<br />
+                    Server: $7/month<br />
+                    Khoảng 200k/tháng 🥺<br />
+
+                  </>
+                }
+              />
+            </div>
           </div>
           {/*end grid*/}
         </div>
       </section>
+
+      <div className="container relative md:mt-24 mt-16">
+        <div className="grid grid-cols-1 pb-8 text-center">
+          <h3 className="mb-4 md:text-3xl md:leading-normal text-2xl leading-normal font-semibold">
+            Key Features
+          </h3>
+          <p className="text-slate-400 max-w-xl mx-auto">
+            Create, collaborate, and turn your ideas into incredible products with the
+            definitive platform for digital design.
+          </p>
+        </div>
+        {/*end grid*/}
+        <div className="grid lg:grid-cols-12 md:grid-cols-12 grid-cols-1 mt-8 gap-[30px] items-center">
+          <div className="lg:col-span-4 md:col-span-6 lg:order-1 order-2">
+            <div className="grid grid-cols-1 gap-[30px]">
+              <div className="group flex transition-all duration-500 ease-in-out xl:p-3">
+                <div className="flex md:order-2 order-1 align-middle justify-center items-center w-14 h-14 mt-1 bg-indigo-600/5 group-hover:bg-indigo-600 group-hover:text-white text-indigo-600 rounded-full text-2xl shadow-sm dark:shadow-gray-800 transition-all duration-500 ease-in-out">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={24}
+                    height={24}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="feather feather-monitor w-5 h-5"
+                  >
+                    <rect x={2} y={3} width={20} height={14} rx={2} ry={2} />
+                    <line x1={8} y1={21} x2={16} y2={21} />
+                    <line x1={12} y1={17} x2={12} y2={21} />
+                  </svg>
+                </div>
+                <div className="flex-1 md:order-1 order-2 md:text-end md:me-4 md:ms-0 ms-4">
+                  <h4 className="mb-0 text-lg font-medium">Use On Any Device</h4>
+                  <p className="text-slate-400 mt-3">
+                    One disadvantage of Lorum Ipsum is that in Latin frequently than
+                    others
+                  </p>
+                </div>
+              </div>
+              {/*end feature*/}
+              <div className="group flex transition-all duration-500 ease-in-out xl:p-3">
+                <div className="flex md:order-2 order-1 align-middle justify-center items-center w-14 h-14 mt-1 bg-indigo-600/5 group-hover:bg-indigo-600 group-hover:text-white text-indigo-600 rounded-full text-2xl shadow-sm dark:shadow-gray-800 transition-all duration-500 ease-in-out">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={24}
+                    height={24}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="feather feather-feather w-5 h-5"
+                  >
+                    <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z" />
+                    <line x1={16} y1={8} x2={2} y2={22} />
+                    <line x1="17.5" y1={15} x2={9} y2={15} />
+                  </svg>
+                </div>
+                <div className="flex-1 md:order-1 order-2 md:text-end md:me-4 md:ms-0 ms-4">
+                  <h4 className="mb-0 text-lg font-medium">Feather Icons</h4>
+                  <p className="text-slate-400 mt-3">
+                    One disadvantage of Lorum Ipsum is that in Latin frequently than
+                    others
+                  </p>
+                </div>
+              </div>
+              {/*end feature*/}
+              <div className="group flex transition-all duration-500 ease-in-out xl:p-3">
+                <div className="flex md:order-2 order-1 align-middle justify-center items-center w-14 h-14 mt-1 bg-indigo-600/5 group-hover:bg-indigo-600 group-hover:text-white text-indigo-600 rounded-full text-2xl shadow-sm dark:shadow-gray-800 transition-all duration-500 ease-in-out">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={24}
+                    height={24}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="feather feather-eye w-5 h-5"
+                  >
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx={12} cy={12} r={3} />
+                  </svg>
+                </div>
+                <div className="flex-1 md:order-1 order-2 md:text-end md:me-4 md:ms-0 ms-4">
+                  <h4 className="mb-0 text-lg font-medium">Retina Ready</h4>
+                  <p className="text-slate-400 mt-3">
+                    One disadvantage of Lorum Ipsum is that in Latin frequently than
+                    others
+                  </p>
+                </div>
+              </div>
+              {/*end feature*/}
+            </div>
+          </div>
+          <div className="lg:col-span-4 md:col-span-12 lg:mx-8 lg:order-2 order-1">
+            <img
+              src="assets/images/feature.png"
+              className="mx-auto md:max-w-[300px]"
+              alt=""
+            />
+          </div>
+          <div className="lg:col-span-4 md:col-span-6 order-3">
+            <div className="grid grid-cols-1 gap-[30px]">
+              <div className="group flex transition-all duration-500 ease-in-out xl:p-3">
+                <div className="flex align-middle justify-center items-center w-14 h-14 mt-1 bg-indigo-600/5 group-hover:bg-indigo-600 group-hover:text-white text-indigo-600 rounded-full text-2xl shadow-sm dark:shadow-gray-800 transition-all duration-500 ease-in-out">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={24}
+                    height={24}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="feather feather-user-check w-5 h-5"
+                  >
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="8.5" cy={7} r={4} />
+                    <polyline points="17 11 19 13 23 9" />
+                  </svg>
+                </div>
+                <div className="flex-1 ms-4">
+                  <h4 className="mb-0 text-lg font-medium">W3c Valid Code</h4>
+                  <p className="text-slate-400 mt-3">
+                    One disadvantage of Lorum Ipsum is that in Latin frequently than
+                    others
+                  </p>
+                </div>
+              </div>
+              {/*end feature*/}
+              <div className="group flex transition-all duration-500 ease-in-out xl:p-3">
+                <div className="flex align-middle justify-center items-center w-14 h-14 mt-1 bg-indigo-600/5 group-hover:bg-indigo-600 group-hover:text-white text-indigo-600 rounded-full text-2xl shadow-sm dark:shadow-gray-800 transition-all duration-500 ease-in-out">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={24}
+                    height={24}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="feather feather-smartphone w-5 h-5"
+                  >
+                    <rect x={5} y={2} width={14} height={20} rx={2} ry={2} />
+                    <line x1={12} y1={18} x2="12.01" y2={18} />
+                  </svg>
+                </div>
+                <div className="flex-1 ms-4">
+                  <h4 className="mb-0 text-lg font-medium">Fully Responsive</h4>
+                  <p className="text-slate-400 mt-3">
+                    One disadvantage of Lorum Ipsum is that in Latin frequently than
+                    others
+                  </p>
+                </div>
+              </div>
+              {/*end feature*/}
+              <div className="group flex transition-all duration-500 ease-in-out xl:p-3">
+                <div className="flex align-middle justify-center items-center w-14 h-14 mt-1 bg-indigo-600/5 group-hover:bg-indigo-600 group-hover:text-white text-indigo-600 rounded-full text-2xl shadow-sm dark:shadow-gray-800 transition-all duration-500 ease-in-out">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={24}
+                    height={24}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="feather feather-heart w-5 h-5"
+                  >
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                  </svg>
+                </div>
+                <div className="flex-1 ms-4">
+                  <h4 className="mb-0 text-lg font-medium">Browser Compatibility</h4>
+                  <p className="text-slate-400 mt-3">
+                    One disadvantage of Lorum Ipsum is that in Latin frequently than
+                    others
+                  </p>
+                </div>
+              </div>
+              {/*end feature*/}
+            </div>
+          </div>
+        </div>
+        {/*end grid*/}
+      </div>
     </div>
   )
 }
