@@ -5,6 +5,7 @@ import { MangadexContextProvider } from '../../contexts/mangadex'
 // slick-carousel
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import Gtag from '../../components/gtag';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,6 +28,7 @@ export default function RootLayout({
         <MangadexContextProvider>
           {children}
         </MangadexContextProvider>
+        <Gtag />
       </body>
     </html>
   )

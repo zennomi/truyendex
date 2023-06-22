@@ -451,7 +451,7 @@ export default function Home() {
           </div>
           <div className="lg:col-span-4 md:col-span-12 lg:mx-8 lg:order-2 order-1">
             <img
-              src="assets/images/feature.png"
+              src=""
               className="mx-auto md:max-w-[300px]"
               alt=""
             />

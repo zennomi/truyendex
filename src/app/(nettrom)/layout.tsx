@@ -15,6 +15,7 @@ import NettromLogo from "../../assets/nettrom-logo.png"
 import Header from "../../components/nettrom/header";
 import routes from "../../routes";
 import { MangadexContextProvider } from "../../contexts/mangadex";
+import Gtag from '../../components/gtag';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -33,7 +34,7 @@ export default function NettromLayout({
 }) {
     return (
         <html lang="vi" className='dark'>
-            <body className={`homepage vi-vn site1 dark vsc-initialized ${inter.className}`}>
+            <body className={`homepage vi-vn site1 dark ${inter.className}`}>
                 <MangadexContextProvider>
                     <Header />
                     <nav className="main-nav hidden-xs" id="mainNav" style={{ "zIndex": 1000, "position": "relative", "top": "0px" }}>
@@ -186,6 +187,7 @@ export default function NettromLayout({
                         </div>
                     </footer>
                 </MangadexContextProvider>
+                <Gtag />
             </body>
         </html>
     )

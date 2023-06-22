@@ -67,11 +67,11 @@ export default function TopNav() {
                             </Link>
                         </li>
                         <li className="has-submenu parent-parent-menu-item">
-                            <a href="javascript:void(0)">Tìm truyện</a>
+                            <a href="#">Tìm truyện</a>
                             <span className="menu-arrow" />
                             <ul className="submenu">
                                 <li className="has-submenu parent-menu-item">
-                                    <a href="javascript:void(0)"> Chủ đề</a>
+                                    <a href="#"> Chủ đề</a>
                                     <span className="submenu-arrow" />
                                     <ul className="submenu max-h-screen overflow-scroll scrollbar">
                                         {
@@ -86,7 +86,7 @@ export default function TopNav() {
                                     </ul>
                                 </li>
                                 <li className="has-submenu parent-menu-item">
-                                    <a href="javascript:void(0)"> Thể loại</a>
+                                    <a href="#"> Thể loại</a>
                                     <span className="submenu-arrow" />
                                     <ul className="submenu max-h-screen overflow-scroll scrollbar">
                                         {
@@ -101,7 +101,7 @@ export default function TopNav() {
                                     </ul>
                                 </li>
                                 <li className="has-submenu parent-menu-item">
-                                    <a href="javascript:void(0)"> Đối tượng </a>
+                                    <a href="#"> Đối tượng </a>
                                     <span className="submenu-arrow" />
                                     <ul className="submenu">
                                         {
@@ -117,7 +117,7 @@ export default function TopNav() {
                                     </ul>
                                 </li>
                                 <li className="has-submenu parent-menu-item">
-                                    <a href="javascript:void(0)"> Hình thức</a>
+                                    <a href="#"> Hình thức</a>
                                     <span className="submenu-arrow" />
                                     <ul className="submenu">
                                         {
