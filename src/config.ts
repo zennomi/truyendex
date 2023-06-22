@@ -1,8 +1,6 @@
-const isProductionEnv = process.env.NODE_ENV === "production"
-
 const config = {
-    corsUrl: isProductionEnv ? "https://cors.zenno.moe" : "https://cors.zenno.moe",
-    isProductionEnv,
+    corsUrl: process.env.NEXT_PUBLIC_CORS_URL!,
+    gaMeasurementId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID!,
 }
 
 export default config

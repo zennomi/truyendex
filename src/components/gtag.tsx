@@ -1,9 +1,10 @@
 "use client";
 
 import Script from 'next/script'
+import config from '../config';
 
 function Gtag() {
-    const GA_MEASUREMENT_ID = "G-0NL2866GY7"
+    const GA_MEASUREMENT_ID = config.gaMeasurementId
     return (
         <div>
             <Script
