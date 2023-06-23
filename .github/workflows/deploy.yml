@@ -4,10 +4,16 @@ on:
   push:
     branches:
       - main
+env:
+  NEXT_PUBLIC_CORS_URL: ${{secrets.NEXT_PUBLIC_CORS_URL}}
+  NEXT_PUBLIC_GA_MEASUREMENT_ID: ${{secrets.NEXT_PUBLIC_GA_MEASUREMENT_ID}}
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Install rsync
+        uses: GuillaumeFalourd/setup-rsync@v1.1
+      - run: rsync --version
       - name: Checkout Main Branch
         uses: actions/checkout@v3
         with:
