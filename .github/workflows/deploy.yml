@@ -52,7 +52,7 @@ jobs:
           port: 22
           script: |
             cd ~/truyendex-frontend
-            git pull origin master
+            git pull origin main
             git status
             yarn install
             pm2 restart truyendex-frontend
