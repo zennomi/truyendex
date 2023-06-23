@@ -40,7 +40,19 @@ jobs:
       - name: Install rsync
         uses: GuillaumeFalourd/setup-rsync@v1.1
 
-      - run: rsync --version
-      
-      - name: Deploy with rsync
-        run: rsync -avz --delete . ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.TARGET_DIRECTORY }}
+      - name: Push .next with rsync
+        run: rsync -avz --delete ./.next ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.TARGET_DIRECTORY }}
+
+      - name: Restart Sever
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            cd ~/truyendex-frontend
+            git pull origin master
+            git status
+            yarn install
+            pm2 restart truyendex-frontend
