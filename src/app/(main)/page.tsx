@@ -7,6 +7,7 @@ import Iconify from "../../components/iconify";
 import LaptopIllustration from "../../assets/images/laptop.png"
 import MangaDexHomepage from "../../assets/images/mangadex-homepage.png"
 import ContextImage from "../../assets/images/context.png"
+import EatShit from "../../assets/images/nettrom-an-cut.jpg"
 import Collapse from "../../components/collapse";
 
 export default function Home() {
@@ -19,7 +20,7 @@ export default function Home() {
             <div className="md:col-span-7">
               <div className="md:mr-6">
                 <h4 className="font-bold lg:leading-normal leading-normal text-4xl lg:text-5xl mb-5 text-black dark:text-white relative">
-                  Một phiên bản bù đắp thiếu sót {" "}
+                  Một phiên bản bù đắp thiếu sót của {" "}
                   <span className="after:absolute after:right-0 after:left-0 after:bottom-3 after:lg:h-3 after:h-2 after:w-auto after:rounded-md after:bg-indigo-600/30 relative text-indigo-600">
                     NetTruyen
                   </span>
@@ -154,19 +155,19 @@ export default function Home() {
         {/*end container*/}
         <div className="container md:mt-24 mt-16">
           <div className="grid md:grid-cols-2 grid-cols-1 items-center mt-16 gap-[30px]">
-            <div className="relative">
+            <div className="relative order-2 md:order-1">
               <Image
                 src={ContextImage}
                 className="rounded-lg shadow-md dark:shadow-gray-800"
                 alt=""
               />
             </div>
-            <div className="lg:ml-8 mt-8 md:mt-0">
-              <h4 className="mb-4 md:text-3xl text-2xl md:leading-normal leading-normal font-semibold">
+            <div className="lg:ml-8 mt-8 md:mt-0 order-1 md:order-2">
+              <h4 className="mb-4 text-2xl md:leading-normal leading-normal font-semibold">
                 Hoàn cảnh lịch sử
               </h4>
               <p className="text-slate-400">
-                Đau xót trước cảnh blogtruyen mất, cộng đồng tan rã, đồng thời nhìn thấy những mặt hạn chế của
+                Đau xót trước cảnh BlogTruyen mất, cộng đồng tan rã, đồng thời nhìn thấy những mặt hạn chế của
                 các phong trào chống NetTruyen đầu thế kỉ XXI, đã thôi thúc tôi ra đi tìm
                 con đường cứu truyện mới cho cộng đồng.
               </p>
@@ -176,7 +177,7 @@ export default function Home() {
                   target="_blank"
                   className="btn btn-link text-indigo-600 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out"
                 >
-                  Video tình hình <Iconify icon="uil:angle-right-b" className="inline" />
+                  Buồn của NetTruyen <Iconify icon="uil:angle-right-b" className="inline" />
                 </a>
               </div>
             </div>
@@ -186,14 +187,40 @@ export default function Home() {
         {/*end container*/}
         <div className="container md:mt-24 mt-16">
           <div className="grid md:grid-cols-2 grid-cols-1 items-center gap-[30px]">
-            <div className="relative order-1 md:order-2">
-              <div className="md:mr-10">
-                <Image
-                  src={MangaDexHomepage}
-                  className="rounded-lg shadow-md dark:shadow-gray-800"
-                  alt=""
-                />
+            <div className="lg:mr-8 mt-10 md:mt-0">
+              <h4 className="mb-4 text-2xl leading-normal font-semibold">
+                À thôi xạo loz đấy
+              </h4>
+              <p className="text-slate-400">
+                BlogTruyen sau vài thoả thuận mua bán gì đó đã trở lại.
+                NetTruyen vẫn cứ ăn cắp như trước, CuuTruyen có thêm chút traffic.
+                Độc giả cũng chả quan tâm lắm, tự dưng thấy NetTruyen lại có truyện đều như mọi khi.
+                Và thế là tôi nhận ra mình cần:
+              </p>
+              <ul className="list-none text-slate-400 mt-4">
+                <li className="mb-1 flex  gap-x-1 items-start">
+                  <div><Iconify icon="uil:check-circle" className="text-indigo-600 text-xl w-[24px]" />{" "}</div>
+                  Nâng cao nhận thức của độc giả về vai trò nhóm dịch
+                </li>
+                <li className="mb-1 flex  gap-x-1 items-start">
+                  <div><Iconify icon="uil:check-circle" className="text-indigo-600 text-xl w-[24px]" />{" "}</div>
+                  Pressing NetTruyen đến khi họ không còn là NetTrom nữa
+                </li>
+                <li className="mb-1 flex  gap-x-1 items-start">
+                  <div><Iconify icon="uil:check-circle" className="text-indigo-600 text-xl w-[24px]" />{" "}</div>
+                  Làm gì đó cho các nhóm dịch
+                </li>
+              </ul>
+              <div className="mt-4">
+                <Link
+                  href={routes.nettrom.index}
+                  className="btn btn-link text-indigo-600 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out"
+                >
+                  Trải nghiệm NetTrom <Iconify icon="uil:angle-right-b" className="inline" />
+                </Link>
               </div>
+            </div>
+            <div className="relative">
               <div className="absolute -bottom-10 right-0 p-6 rounded-lg shadow-md dark:shadow-gray-800 bg-white dark:bg-slate-900 md:w-80 w-60">
                 <h5 className="text-lg font-semibold mb-3">MangaDex + NetTruyen</h5>
                 <p className="text-slate-400">
@@ -210,50 +237,76 @@ export default function Home() {
                   />
                 </div>
               </div>
-            </div>
-            <div className="lg:mr-8 order-2 md:order-1 mt-10 md:mt-0">
-              <h4 className="mb-4 text-2xl leading-normal font-medium">
-                À thôi xàm loz đấy
-              </h4>
-              <p className="text-slate-400">
-                BlogTruyen sau vài thoả thuận mua bán gì đó đã trở lại.
-                NetTruyen vẫn cứ ăn cắp như trước, CuuTruyen có thêm chút traffic.
-                Độc giả cũng chả quan tâm lắm, tự dưng thấy NetTruyen lại có truyện đều như mọi khi.
-                Và thế là tôi nhận ra mình cần:
-              </p>
-              <ul className="list-none text-slate-400 mt-4">
-                <li className="mb-1 flex">
-                  <Iconify icon="uil:check-circle" className="text-indigo-600 text-xl mr-2" />{" "}
-                  Nâng cao nhận thức của độc giả về nhóm dịch
-                </li>
-                <li className="mb-1 flex">
-                  <Iconify icon="uil:check-circle" className="text-indigo-600 text-xl mr-2" />{" "}
-                  Pressing NetTruyen đến khi họ không còn là NetTrom nữa
-                </li>
-                <li className="mb-1 flex">
-                  <Iconify icon="uil:check-circle" className="text-indigo-600 text-xl mr-2" />{" "}
-                  Làm gì đó cho các nhóm dịch
-                </li>
-              </ul>
-              <div className="mt-4">
-                <Link
-                  href={routes.nettrom.index}
-                  className="btn btn-link text-indigo-600 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out"
-                >
-                  Trải nghiệm NetTrom <Iconify icon="uil:angle-right-b" className="inline" />
-                </Link>
+              <div className="md:mr-10">
+                <Image
+                  src={MangaDexHomepage}
+                  className="rounded-lg shadow-md dark:shadow-gray-800"
+                  alt=""
+                />
               </div>
             </div>
           </div>
         </div>
         {/*end container*/}
+        <div className="container md:mt-24 mt-16">
+          <div className="grid md:grid-cols-2 grid-cols-1 items-center gap-[30px]">
+            <div className="relative order-2 md:order-1">
+              <Image
+                src={EatShit}
+                className="rounded-lg shadow-md dark:shadow-gray-800"
+                alt=""
+              />
+              <div className="overflow-hidden absolute lg:h-[400px] h-[320px] lg:w-[400px] w-[320px] bg-indigo-600/5 dark:bg-indigo-600/20 bottom-0 left-0 rotate-45 -z-1 rounded-3xl" />
+            </div>
+            <div className="lg:ml-8 order-1 md:order-2">
+              <h4 className="mb-4 text-2xl leading-normal font-semibold">
+                Nhưng không, tôi đã hiểu nhầm <br />  người anh cả NetTruyen
+              </h4>
+              <p className="text-slate-400">
+                Cả cộng đồng ngã ngửa khi biết thực ra NetTruyen ăn cắp là để che mắt triều đình.
+                Cú plot twist vẹo gãy xương bọn anti-nettruyen.
+              </p>
+              <ul className="list-none text-slate-400 mt-4">
+                <li className="mb-1 flex gap-x-1">
+                  <div>
+                    <Iconify icon="uil:check-circle" className="text-indigo-600 text-xl" />
+                  </div>
+                  <div>
+                    Không ghi credit để triều đình không mò được tới nhóm dịch gốc
+                  </div>
+                </li>
+                <li className="mb-1 flex gap-x-1 items-start">
+                  <div><Iconify icon="uil:check-circle" className="text-indigo-600 text-xl" /></div>
+                  <div>
+                    Chạy SEO Google lấn át blogtruyen, cuutruyen,... hi sinh thân mình lấp kết quả tìm kiếm
+                  </div>
+                </li>
+                <li className="mb-1 flex  gap-x-1 items-start">
+                  <div><Iconify icon="uil:check-circle" className="text-indigo-600 text-xl" /></div>
+                  <div>
+                    Cắm quảng cáo thu lợi nhuận đánh lạc hướng NXB & Đơn Vị Bản Quyền
+                  </div>
+                </li>
+              </ul>
+              <div className="mt-4">
+                <a
+                  href="https://youtu.be/sACeJD8WnJ4?t=24"
+                  target="_blank"
+                  className="btn btn-link text-indigo-600 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out"
+                >
+                  NetTruyen lên VTV <Iconify icon="uil:angle-right-b" className="inline" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="relative md:py-24 py-16">
         <div className="container md:mt-24 mt-16">
           <div className="grid grid-cols-1 pb-8 text-center">
             <h3 className="mb-4 md:text-3xl md:leading-normal text-2xl leading-normal font-semibold">
-              Các câu hỏi thường gặp
+              Joke thôi, nói thật này
             </h3>
             <p className="text-slate-400 max-w-xl mx-auto">
               Thật ra NetTruyen không chỉ là NetTruyen.com, NetTruyenTo, NetTruyenZ, NetTruyenPlus, NetTruyenMax,...
@@ -349,201 +402,6 @@ export default function Home() {
           {/*end grid*/}
         </div>
       </section>
-
-      <div className="container relative md:mt-24 mt-16">
-        <div className="grid grid-cols-1 pb-8 text-center">
-          <h3 className="mb-4 md:text-3xl md:leading-normal text-2xl leading-normal font-semibold">
-            Key Features
-          </h3>
-          <p className="text-slate-400 max-w-xl mx-auto">
-            Create, collaborate, and turn your ideas into incredible products with the
-            definitive platform for digital design.
-          </p>
-        </div>
-        {/*end grid*/}
-        <div className="grid lg:grid-cols-12 md:grid-cols-12 grid-cols-1 mt-8 gap-[30px] items-center">
-          <div className="lg:col-span-4 md:col-span-6 lg:order-1 order-2">
-            <div className="grid grid-cols-1 gap-[30px]">
-              <div className="group flex transition-all duration-500 ease-in-out xl:p-3">
-                <div className="flex md:order-2 order-1 align-middle justify-center items-center w-14 h-14 mt-1 bg-indigo-600/5 group-hover:bg-indigo-600 group-hover:text-white text-indigo-600 rounded-full text-2xl shadow-sm dark:shadow-gray-800 transition-all duration-500 ease-in-out">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={24}
-                    height={24}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="feather feather-monitor w-5 h-5"
-                  >
-                    <rect x={2} y={3} width={20} height={14} rx={2} ry={2} />
-                    <line x1={8} y1={21} x2={16} y2={21} />
-                    <line x1={12} y1={17} x2={12} y2={21} />
-                  </svg>
-                </div>
-                <div className="flex-1 md:order-1 order-2 md:text-end md:me-4 md:ms-0 ms-4">
-                  <h4 className="mb-0 text-lg font-medium">Use On Any Device</h4>
-                  <p className="text-slate-400 mt-3">
-                    One disadvantage of Lorum Ipsum is that in Latin frequently than
-                    others
-                  </p>
-                </div>
-              </div>
-              {/*end feature*/}
-              <div className="group flex transition-all duration-500 ease-in-out xl:p-3">
-                <div className="flex md:order-2 order-1 align-middle justify-center items-center w-14 h-14 mt-1 bg-indigo-600/5 group-hover:bg-indigo-600 group-hover:text-white text-indigo-600 rounded-full text-2xl shadow-sm dark:shadow-gray-800 transition-all duration-500 ease-in-out">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={24}
-                    height={24}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="feather feather-feather w-5 h-5"
-                  >
-                    <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z" />
-                    <line x1={16} y1={8} x2={2} y2={22} />
-                    <line x1="17.5" y1={15} x2={9} y2={15} />
-                  </svg>
-                </div>
-                <div className="flex-1 md:order-1 order-2 md:text-end md:me-4 md:ms-0 ms-4">
-                  <h4 className="mb-0 text-lg font-medium">Feather Icons</h4>
-                  <p className="text-slate-400 mt-3">
-                    One disadvantage of Lorum Ipsum is that in Latin frequently than
-                    others
-                  </p>
-                </div>
-              </div>
-              {/*end feature*/}
-              <div className="group flex transition-all duration-500 ease-in-out xl:p-3">
-                <div className="flex md:order-2 order-1 align-middle justify-center items-center w-14 h-14 mt-1 bg-indigo-600/5 group-hover:bg-indigo-600 group-hover:text-white text-indigo-600 rounded-full text-2xl shadow-sm dark:shadow-gray-800 transition-all duration-500 ease-in-out">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={24}
-                    height={24}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="feather feather-eye w-5 h-5"
-                  >
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                    <circle cx={12} cy={12} r={3} />
-                  </svg>
-                </div>
-                <div className="flex-1 md:order-1 order-2 md:text-end md:me-4 md:ms-0 ms-4">
-                  <h4 className="mb-0 text-lg font-medium">Retina Ready</h4>
-                  <p className="text-slate-400 mt-3">
-                    One disadvantage of Lorum Ipsum is that in Latin frequently than
-                    others
-                  </p>
-                </div>
-              </div>
-              {/*end feature*/}
-            </div>
-          </div>
-          <div className="lg:col-span-4 md:col-span-12 lg:mx-8 lg:order-2 order-1">
-            <img
-              src=""
-              className="mx-auto md:max-w-[300px]"
-              alt=""
-            />
-          </div>
-          <div className="lg:col-span-4 md:col-span-6 order-3">
-            <div className="grid grid-cols-1 gap-[30px]">
-              <div className="group flex transition-all duration-500 ease-in-out xl:p-3">
-                <div className="flex align-middle justify-center items-center w-14 h-14 mt-1 bg-indigo-600/5 group-hover:bg-indigo-600 group-hover:text-white text-indigo-600 rounded-full text-2xl shadow-sm dark:shadow-gray-800 transition-all duration-500 ease-in-out">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={24}
-                    height={24}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="feather feather-user-check w-5 h-5"
-                  >
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                    <circle cx="8.5" cy={7} r={4} />
-                    <polyline points="17 11 19 13 23 9" />
-                  </svg>
-                </div>
-                <div className="flex-1 ms-4">
-                  <h4 className="mb-0 text-lg font-medium">W3c Valid Code</h4>
-                  <p className="text-slate-400 mt-3">
-                    One disadvantage of Lorum Ipsum is that in Latin frequently than
-                    others
-                  </p>
-                </div>
-              </div>
-              {/*end feature*/}
-              <div className="group flex transition-all duration-500 ease-in-out xl:p-3">
-                <div className="flex align-middle justify-center items-center w-14 h-14 mt-1 bg-indigo-600/5 group-hover:bg-indigo-600 group-hover:text-white text-indigo-600 rounded-full text-2xl shadow-sm dark:shadow-gray-800 transition-all duration-500 ease-in-out">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={24}
-                    height={24}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="feather feather-smartphone w-5 h-5"
-                  >
-                    <rect x={5} y={2} width={14} height={20} rx={2} ry={2} />
-                    <line x1={12} y1={18} x2="12.01" y2={18} />
-                  </svg>
-                </div>
-                <div className="flex-1 ms-4">
-                  <h4 className="mb-0 text-lg font-medium">Fully Responsive</h4>
-                  <p className="text-slate-400 mt-3">
-                    One disadvantage of Lorum Ipsum is that in Latin frequently than
-                    others
-                  </p>
-                </div>
-              </div>
-              {/*end feature*/}
-              <div className="group flex transition-all duration-500 ease-in-out xl:p-3">
-                <div className="flex align-middle justify-center items-center w-14 h-14 mt-1 bg-indigo-600/5 group-hover:bg-indigo-600 group-hover:text-white text-indigo-600 rounded-full text-2xl shadow-sm dark:shadow-gray-800 transition-all duration-500 ease-in-out">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={24}
-                    height={24}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="feather feather-heart w-5 h-5"
-                  >
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                  </svg>
-                </div>
-                <div className="flex-1 ms-4">
-                  <h4 className="mb-0 text-lg font-medium">Browser Compatibility</h4>
-                  <p className="text-slate-400 mt-3">
-                    One disadvantage of Lorum Ipsum is that in Latin frequently than
-                    others
-                  </p>
-                </div>
-              </div>
-              {/*end feature*/}
-            </div>
-          </div>
-        </div>
-        {/*end grid*/}
-      </div>
     </div>
   )
 }

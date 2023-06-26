@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { Inter } from 'next/font/google'
 import Image from "next/image";
 import Link from "next/link";
@@ -16,15 +17,17 @@ import Header from "../../components/nettrom/header";
 import routes from "../../routes";
 import { MangadexContextProvider } from "../../contexts/mangadex";
 import Gtag from '../../components/gtag';
+import config from '../../config';
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
+export const metadata: Metadata = {
     title: 'Đọc Truyện Tranh Online - Website chính thức - NetTrom',
     description: 'Web đọc truyện tranh online lớn nhất được cập nhật liên tục mỗi ngày - Cùng tham gia đọc truyện và thảo luận với hơn 💚10 triệu thành viên tại NetTrom',
     other: {
         referrer: "same-origin"
-    }
+    },
+    metadataBase: new URL(config.appUrl),
 }
 
 export default function NettromLayout({
