@@ -20,7 +20,7 @@ export default function Header() {
     }, [pathname, params])
     
     return (
-        <header className={`header ${openMenu ? "menu-open" : ""}`} id="header">
+        <header className={`header ${openMenu ? "menu-open fixed top-0 right-0 z-999" : ""}`} id="header">
             <div className="navbar">
                 <div className="container">
                     <div className="navbar-header">

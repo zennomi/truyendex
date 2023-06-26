@@ -1,7 +1,6 @@
 "use client"
 
 import { useParams } from "next/navigation"
-import PhotoAlbum from "react-photo-album";
 import useSearchManga from "../../hooks/useSearchManga"
 import { Includes } from "../../api/static"
 import { useEffect } from "react"
@@ -9,7 +8,6 @@ import { useMangadex } from "../../contexts/mangadex"
 import getCoverArt from "../../utils/getCoverArt";
 import useScanlationGroup from "../../hooks/useScanlationGroup";
 import Iconify from "../../components/iconify";
-import Link from "next/link";
 
 export default function GroupPage() {
     const params = useParams()
@@ -31,16 +29,11 @@ export default function GroupPage() {
     return (
         <>
             <section className="relative md:py-52 py-36 items-center overflow-hidden bg-gradient-to-br to-orange-600/20 via-fuchsia-600/20 from-indigo-600/20">
-                <div className="absolute w-1/2 h-full inset-0 top-[74px] left-2/3 rotate-12">
-                    {/* <PhotoAlbum 
-                        layout="masonry" 
-                        photos={mangaList.map(manga => ({ src: getCoverArt(manga), width: 256, height: 364 }))} 
-                        
-                        /> */}
+                <div className="absolute w-1/2 h-full inset-0 top-0 md:top-[74px] -left-1/3 md:left-2/3 rotate-12">
                     <div className="h-[100vh] flex flex-col flex-wrap items-baseline gap-2">
                         {
                             mangaList.map(manga => (
-                                <img key={manga.id} src={getCoverArt(manga)} className="rounded md:rounded-lg" />
+                                <img key={manga.id} src={getCoverArt(manga)} className="rounded md:rounded-lg opacity-25 md:opacity-100" />
                             ))
                         }
                     </div>
@@ -85,7 +78,7 @@ export default function GroupPage() {
                         <div className="flex justify-around items-center gap-[30px] mt-8">
                             {
                                 group.attributes.website &&
-                                <a className="w-full max-w-[25%]" target="_blank" href={group.attributes.website}>
+                                <a className="w-full md:max-w-[25%]" target="_blank" href={group.attributes.website}>
                                     <div className="flex transition-all duration-500 hover:scale-105 shadow dark:shadow-gray-800 hover:shadow-md dark:hover:shadow-gray-700 ease-in-out items-center p-3 rounded-md bg-white dark:bg-slate-900">
                                         <div className="flex items-center justify-center h-[45px] min-w-[45px] bg-gradient-to-r from-transparent to-indigo-600/10 text-indigo-600 text-center rounded-full mr-3">
                                             <Iconify className="w-[24px] h-[24px]" icon={group.attributes.website.includes("facebook") ? "mingcute:facebook-line" : "mdi:web"} />
@@ -98,7 +91,7 @@ export default function GroupPage() {
                             }
                             {
                                 group.attributes.discord &&
-                                <a className="w-full max-w-[25%]" target="_blank" href={`https://discord.gg/${group.attributes.discord}`}>
+                                <a className="w-full md:max-w-[25%]" target="_blank" href={`https://discord.gg/${group.attributes.discord}`}>
                                     <div className="flex transition-all duration-500 hover:scale-105 shadow dark:shadow-gray-800 hover:shadow-md dark:hover:shadow-gray-700 ease-in-out items-center p-3 rounded-md bg-white dark:bg-slate-900">
                                         <div className="flex items-center justify-center h-[45px] min-w-[45px] bg-gradient-to-r from-transparent to-indigo-600/10 text-indigo-600 text-center rounded-full mr-3">
                                             <Iconify className="w-[24px] h-[24px]" icon="teenyicons:discord-outline" />

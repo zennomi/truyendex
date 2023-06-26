@@ -73,7 +73,7 @@ export default function TopNav() {
                                 <li className="has-submenu parent-menu-item">
                                     <a href="#"> Chủ đề</a>
                                     <span className="submenu-arrow" />
-                                    <ul className="submenu max-h-screen overflow-scroll scrollbar">
+                                    <ul className="submenu max-h-[80vh] overflow-scroll scrollbar">
                                         {
                                             tags.filter(tag => tag.attributes.group === "theme").map(tag =>
                                                 <li key={tag.id}>
@@ -88,7 +88,7 @@ export default function TopNav() {
                                 <li className="has-submenu parent-menu-item">
                                     <a href="#"> Thể loại</a>
                                     <span className="submenu-arrow" />
-                                    <ul className="submenu max-h-screen overflow-scroll scrollbar">
+                                    <ul className="submenu max-h-[80vh] overflow-scroll scrollbar">
                                         {
                                             tags.filter(tag => tag.attributes.group === "genre").map(tag =>
                                                 <li key={tag.id}>
@@ -132,11 +132,6 @@ export default function TopNav() {
                                     </ul>
                                 </li>
                             </ul>
-                        </li>
-                        <li>
-                            <a href="contact-one.html" className="sub-menu-item">
-                                Contact
-                            </a>
                         </li>
                     </ul>
                     {/*end navigation menu*/}
