@@ -143,20 +143,39 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                                 </span>
                             </div>
                             <div className="read-action mrt10">
-                                <a
-                                    className="btn btn-warning mrb5 mr-2"
-                                    href="https://www.nettruyento.com/truyen-tranh/dai-quan-gia-la-ma-hoang/chap-0/459973"
-                                >
-                                    {" "}
-                                    Đọc từ đầu
-                                </a>
-                                <a
-                                    className="btn btn-warning mrb5"
-                                    href="https://www.nettruyento.com/truyen-tranh/dai-quan-gia-la-ma-hoang/chap-400/1002325"
-                                >
-                                    {" "}
-                                    Đọc mới nhất
-                                </a>
+                                {
+                                    manga.attributes.links.raw &&
+                                    <a
+                                        className="btn btn-warning mrb5 mr-2"
+                                        href={manga.attributes.links.raw}
+                                        target="_blank"
+                                    >
+                                        {" "}
+                                        Link Raw
+                                    </a>
+                                }
+                                {
+                                    manga.attributes.links.amz &&
+                                    <a
+                                        className="btn btn-warning mrb5 mr-2"
+                                        href={manga.attributes.links.amz}
+                                        target="_blank"
+                                    >
+                                        {" "}
+                                        Link Amazon
+                                    </a>
+                                }
+                                {
+                                    manga.attributes.links.mu &&
+                                    <a
+                                        className="btn btn-warning mrb5 mr-2"
+                                        href={`https://www.mangaupdates.com/series.html?id=${manga.attributes.links.mu}`}
+                                        target="_blank"
+                                    >
+                                        {" "}
+                                        MangaUpdates
+                                    </a>
+                                }
                             </div>
                         </div>
                     </div>
@@ -181,9 +200,9 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                         </a>
                         .
                     </p>
-                    <a href="#" className="morelink less">
+                    {/* <a href="#" className="morelink less">
                         <i className="fa fa-angle-left" /> Thu gọn
-                    </a>
+                    </a> */}
                 </div>
                 <ChapterList mangaId={mangaId} />
             </article>
