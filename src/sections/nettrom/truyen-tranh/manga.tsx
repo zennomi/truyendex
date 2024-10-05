@@ -12,6 +12,7 @@ import ChapterList from "./chapterList"
 import Link from "next/link"
 import routes from "../../../routes"
 import { parseStatus } from "../../../utils/parseMangadex"
+import config from "@/config"
 
 export default function Manga({ mangaId }: { mangaId: string }) {
     const { mangas, updateMangas, updateMangaStatistics, mangaStatistics } = useMangadex()
@@ -197,8 +198,8 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                         <Link href={url}>
                             {title}
                         </Link>{" "}
-                        được cập nhật nhanh và đầy đủ nhất tại NetTrom. Bạn đọc đừng quên để
-                        lại bình luận và chia sẻ, ủng hộ NetTrom ra các chương mới nhất của
+                        được cập nhật nhanh và đầy đủ nhất tại {config.appName}. Bạn đọc đừng quên để
+                        lại bình luận và chia sẻ, ủng hộ {config.appName} ra các chương mới nhất của
                         truyện{" "}
                         <a href={url}>
                             {title}

@@ -12,9 +12,9 @@ import config from '../../config';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'NetTrom - Web đọc truyện cao cả nhất Việt Nam',
-  description: 'Web đọc truyện tranh online lớn nhất được cập nhật liên tục mỗi ngày - Cùng tham gia đọc truyện và thảo luận với hơn 💚10 tỷ thành viên tại NetTrom',
-  applicationName: 'NetTrom',
+  title: `${config.appName} - Web đọc truyện cao cả nhất Việt Nam`,
+  description: `Web đọc truyện tranh online lớn nhất được cập nhật liên tục mỗi ngày - Cùng tham gia đọc truyện và thảo luận với hơn 💚10 tỷ thành viên tại ${config.appName}`,
+  applicationName: config.appName,
   authors: [{ name: 'Zennomi', url: 'https://www.facebook.com/Zennomi' }],
   keywords: ['truyện tranh', 'manga', 'nettruyen', 'nettrom', 'blogtruyen'],
   metadataBase: new URL(config.appUrl),

@@ -36,7 +36,7 @@ export default function MainNav() {
                             <div className="clearfix">
                                 {
                                     chunk(tags, 13).map((col, idx) => (
-                                        <div className="col-sm-3">
+                                        <div className="col-sm-3" key={col[0].id}>
                                             <ul className="nav">
                                                 {
                                                     col.map(tag => (

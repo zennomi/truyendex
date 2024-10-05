@@ -72,11 +72,9 @@ export const buildQueryStringFromOptions = function (options?: { [key: string]: 
         if (options[key] instanceof Array) {
             queryParams.push(transformArrayForQueryString(key, options[key]));
         } else if (options[key] instanceof Date) {
-            if (!isNaN(options[key])) {
-                /** @type {Date} */
-                const d = options[key];
-                queryParams.push(`${key}=${d.toISOString().substring(0, d.toISOString().indexOf('.'))}`);
-            }
+            // /** @type {Date} */
+            const d = options[key];
+            queryParams.push(`${key}=${d.toISOString().substring(0, d.toISOString().indexOf('.'))}`);
         } else if (key === 'order') {
             const order = options[key];
 
@@ -99,81 +97,34 @@ export const buildQueryStringFromOptions = function (options?: { [key: string]: 
  * @param {AxiosRequestConfig} [options] Additional request options (such as request body, headers, etc.)
  * @returns A promise that resolves to a specific response object T.
  */
-export const createHttpsRequestPromise = function <T>(method: string, path: string, options?: AxiosRequestConfig) {
+export const createHttpsRequestPromise = async function <T>(method: string, path: string, options?: AxiosRequestConfig): Promise<{ data: T }> {
     if (method === undefined) {
-        return Promise.reject('ERROR - createHttpsRequestPromise: Parameter `method` cannot be undefined');
+        throw new Error('ERROR - createHttpsRequestPromise: Parameter `method` cannot be undefined');
     } else if (method === '') {
-        return Promise.reject('ERROR - createHttpsRequestPromise: Parameter `method` cannot be blank');
+        throw new Error('ERROR - createHttpsRequestPromise: Parameter `method` cannot be blank');
     } else if (path === undefined) {
-        return Promise.reject('ERROR - createHttpsRequestPromise: Parameter `path` cannot be undefined');
+        throw new Error('ERROR - createHttpsRequestPromise: Parameter `path` cannot be undefined');
     } else if (path === '') {
-        return Promise.reject('ERROR - createHttpsRequestPromise: Parameter `path` cannot be blank');
+        throw new Error('ERROR - createHttpsRequestPromise: Parameter `path` cannot be blank');
     }
 
     const encodedUrl = btoa(`${MANGADEX_API_URL}${path}`).replace(/\+/g, "-").replace(/\//g, "_")
-    console.log('call api...', path, encodedUrl)
     const headers = new Headers()
     headers.set('x-requested-with', 'cubari')
-    const httpsRequestOptions: AxiosRequestConfig = {
+    const httpsRequestOptions: RequestInit = {
         method: method,
-        url: `${CORS}/v1/cors/${encodedUrl}`,
-        headers: {
-            'x-requested-with': 'cubari'
-        }
+        headers
     };
-
-    let body: unknown = null;
-
-    if (options && ('body' in options)) {
-        body = options.body;
-        delete options.body;
-    }
 
     // merge the options object if it was provided
     if (options) {
         Object.assign(httpsRequestOptions, options);
     }
 
-    return new Promise<{ data: T | ErrorResponse, statusCode?: number, statusMessage?: string }>((resolve, reject) => {
-        axios(httpsRequestOptions).then(res => {
-            const resObj = {
-                data: res.data,
-                statusCode: res.status,
-                statusMessage: res.statusText,
-            }
-            resolve(resObj)
-        })
-        // const req = https.request(httpsRequestOptions, res => {
-        //     const chunks: Buffer[] = [];
+    const data = await fetch(`${CORS}/v1/cors/${encodedUrl}`, httpsRequestOptions).then(res => res.json())
 
-        //     res.on('data', chunk => {
-        //         chunks.push(Buffer.from(chunk));
-        //     });
+    return { data }
 
-        //     res.on('error', err => {
-        //         reject(err);
-        //     });
-
-        //     res.on('end', () => {
-        //         const s = Buffer.concat(chunks).toString('utf8');
-
-        //         if (['{', '['].includes(s.charAt(0))) {
-        //             const resObj = {
-        //                 data: JSON.parse(s),
-        //                 statusCode: res.statusCode,
-        //                 statusMessage: res.statusMessage,
-        //             }
-        //             resolve(resObj);
-        //         }
-        //     });
-        // });
-
-        // if (body !== null) {
-        //     req.write(JSON.stringify(body));
-        // }
-
-        // req.end();
-    });
 };
 
 /**

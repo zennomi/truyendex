@@ -22,8 +22,8 @@ import config from '../../config';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-    title: 'Đọc Truyện Tranh Online - Website chính thức - NetTrom',
-    description: 'Web đọc truyện tranh online lớn nhất được cập nhật liên tục mỗi ngày - Cùng tham gia đọc truyện và thảo luận với hơn 💚10 triệu thành viên tại NetTrom',
+    title: `Đọc Truyện Tranh Online - Website chính thức - ${config.appName}`,
+    description: `Web đọc truyện tranh online lớn nhất được cập nhật liên tục mỗi ngày - Cùng tham gia đọc truyện và thảo luận với hơn 💚10 triệu thành viên tại ${config.appName}`,
     other: {
         referrer: "same-origin"
     },
@@ -73,7 +73,7 @@ export default function NettromLayout({
                                             src={NettromLogo}
                                             width={150}
                                             style={{ aspectRatio: 5 }}
-                                            alt="NetTrom - Truyện tranh Online"
+                                            alt={`${config.appName} - Truyện tranh Online`}
                                         />
                                     </a>
                                     <div className="mrt10 row">
@@ -87,7 +87,7 @@ export default function NettromLayout({
                                         </div>
                                     </div>
                                     <p></p>
-                                    <p>Copyright © 2023 NetTrom</p>
+                                    <p>Copyright © 2023 {config.appName}</p>
                                 </div>
                                 <div className="col-sm-8">
                                     <div className="link-footer">
