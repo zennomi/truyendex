@@ -16,7 +16,7 @@ export default function useAggregate(id: string | null, options: GetMangaIdAggre
     if (aggregate) {
         for (const volume of Object.values(aggregate)) {
             for (const chapter of Object.values(volume.chapters)) {
-                chapterList.push({ volume: volume.volume, chapter: chapter.chapter, id: chapter.id, others: chapter.others })
+                chapterList.push({ volume: volume.volume, chapter: chapter.chapter, id: chapter.id, })
             }
         }
         chapterList = chapterList.sort((a, b) => {

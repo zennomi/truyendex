@@ -3,11 +3,10 @@
 import React, { createContext, useState, useEffect, useContext, useMemo, useCallback } from "react";
 import { ExtendChapter, ExtendManga } from "../api/extend";
 import { useMangadex } from "./mangadex";
-import { ChapterItem } from "../hooks/useAggregate";
+import useAggregate, { ChapterItem } from "../hooks/useAggregate";
 import { useParams, useRouter } from "next/navigation";
 import routes from "../routes";
-import { Chapter, Manga } from "../api";
-import { GetMangaIdAggregateRequestOptions, GetMangaIdAggregateResponse } from "../api/manga";
+import { Chapter } from "../api";
 import { Includes } from "../api/static";
 import { ChapterResponse } from "../api/schema";
 import extendRelationship from "../utils/extendRelationship";
@@ -47,8 +46,6 @@ export const ChapterContextProvider = ({
     const router = useRouter()
     const params = useParams()
     const chapterId = params.chapterId
-    const [chapters, setChapters] = useState<ChapterItem[]>([])
-
     const [chapter, setChapter] = useState<ExtendChapter | null>(null)
     const { updateMangas, mangas } = useMangadex()
 
@@ -57,6 +54,7 @@ export const ChapterContextProvider = ({
     const mangaId = chapter?.manga?.id ? chapter.manga.id : null
     const manga = mangaId ? mangas[mangaId] : null
     const groupId = chapter?.scanlation_group?.id ? chapter.scanlation_group.id : null
+    const { chapterList: chapters } = useAggregate(mangaId, { translatedLanguage: ["vi"], groups: groupId ? [groupId] : undefined })
 
     const currentChapterIndex = useMemo(() => chapters.findIndex(c => c.id === chapterId), [chapters, chapterId])
     const canPrev = currentChapterIndex > 0
@@ -66,13 +64,13 @@ export const ChapterContextProvider = ({
 
     const prev = useCallback(() => {
         if (canPrev) {
-            router.push(routes.nettrom.chapter(chapters[currentChapterIndex - 1].id))
+            router.replace(routes.nettrom.chapter(chapters[currentChapterIndex - 1].id))
         }
     }, [currentChapterIndex, chapters])
 
     const next = useCallback(() => {
         if (canNext) {
-            router.push(routes.nettrom.chapter(chapters[currentChapterIndex + 1].id))
+            router.replace(routes.nettrom.chapter(chapters[currentChapterIndex + 1].id))
         }
     }, [currentChapterIndex, chapters])
 
@@ -83,32 +81,6 @@ export const ChapterContextProvider = ({
     useEffect(() => {
         if (mangaId) {
             updateMangas({ ids: [mangaId] })
-        }
-        if (mangaId) {
-            const updateChapterList = async () => {
-                const options: GetMangaIdAggregateRequestOptions = { translatedLanguage: ['vi'] }
-                if (groupId) options.groups = [groupId]
-                const { data } = await Manga.getMangaIdAggregate(mangaId, options)
-                const aggregate = data && (data as GetMangaIdAggregateResponse).volumes ? (data as GetMangaIdAggregateResponse).volumes : null
-                let chapterList: ChapterItem[] = []
-                if (aggregate) {
-                    for (const volume of Object.values(aggregate)) {
-                        for (const chapter of Object.values(volume.chapters)) {
-                            chapterList.push({ volume: volume.volume, chapter: chapter.chapter, id: chapter.id, })
-                        }
-                    }
-                    chapterList = chapterList.sort((a, b) => {
-                        if (a.volume === b.volume) {
-                            return parseFloat(a.chapter) - parseFloat(b.chapter)
-                        }
-                        if (a.volume === "none") return 1
-                        if (b.volume === "none") return -1
-                        return parseFloat(a.volume) - parseFloat(b.volume)
-                    })
-                }
-                setChapters(chapterList)
-            }
-            updateChapterList()
         }
     }, [mangaId, groupId])
 
@@ -123,6 +95,8 @@ export const ChapterContextProvider = ({
             }
         }
         updateChapter()
+
+        return () => setChapter(null)
     }, [chapterId])
 
     useEffect(() => {
