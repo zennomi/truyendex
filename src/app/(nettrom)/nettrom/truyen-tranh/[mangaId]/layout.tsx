@@ -19,6 +19,7 @@ export async function generateMetadata(
     const id = params.mangaId
 
     const previousImages = (await parent).openGraph?.images || []
+    const imageUrl = `https://og.mangadex.org/og-image/manga/${id}`
     try {
         // fetch data
         const { data: manga }: { data: ExtendManga } = await fetch(`https://api.mangadex.org/manga/${id}`).then((res) => res.json())
@@ -26,8 +27,11 @@ export async function generateMetadata(
             title: `${getMangaTitle(manga)} - Đọc ngay tại NetTrom`,
             description: transLocalizedStr(manga.attributes.description),
             openGraph: {
-                images: [`https://og.mangadex.org/og-image/manga/${id}`, ...previousImages],
+                images: [{ url: imageUrl }],
             },
+            twitter: {
+                images: [{ url: imageUrl }]
+            }
         }
     } catch (error) {
 
@@ -38,7 +42,7 @@ export async function generateMetadata(
         title: "Đọc ngay tại NetTrom",
         description: "NetTrom - Website Trộm Truyện Văn Minh",
         openGraph: {
-            images: [`https://og.mangadex.org/og-image/manga/${id}`, ...previousImages],
+            images: [...previousImages],
         },
     }
 }
