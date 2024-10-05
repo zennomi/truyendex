@@ -11,12 +11,13 @@ import { useMangadex } from "../../../contexts/mangadex"
 import Link from "next/link"
 import ReactPaginate from "react-paginate"
 import { getSearchNetTromUrl } from "../../../utils/url"
+import Loading from "@/components/nettrom/loading"
 
 export default function MangaResults() {
     const router = useRouter()
     const params = useSearchParams()
     const options = normalizeParams(params)
-    const { mangaList, data } = useSearchManga(options)
+    const { mangaList, data, isLoading } = useSearchManga(options)
     const { updateMangaStatistics, mangaStatistics, addMangas } = useMangadex()
     const offset = params.get("offset") ? parseInt(params.get("offset")!) : 0
     const total = data ? data.total : 0
@@ -33,6 +34,8 @@ export default function MangaResults() {
             updateMangaStatistics({ manga: mangaList.map(m => m.id) })
         }
     }, [mangaList])
+
+    if (isLoading) return (<Loading />)
 
     return (
         <div className={`Module Module-223 ${mangaList.length > 0 ? "min-h-0" : "min-h-screen"}`} id="results">

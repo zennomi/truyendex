@@ -142,6 +142,11 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                                     <span itemProp="ratingCount">{mangaStatistics[mangaId]?.follows}</span> Lượt theo dõi.
                                 </span>
                             </div>
+                            <div className="follow">
+                                <a className="btn btn-danger" href={`https://mangadex.org/title/${manga.id}`} target="_blank">
+                                    <i className="fa fa-cat mr-2" /><span>Link Mangadex</span>
+                                </a>
+                            </div>
                             <div className="read-action mrt10">
                                 {
                                     manga.attributes.links.raw &&
