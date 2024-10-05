@@ -67,8 +67,8 @@ export default function NewUpdates() {
                             Object.entries(updates).map(([mangaId, chapterList]) => {
                                 const coverArt = getCoverArt(mangas[mangaId])
                                 const mangaTitle = getMangaTitle(mangas[mangaId])
-                                return chunk(chapterList, 3).map(item => (
-                                    <div className="item" key={item[0].id}>
+                                return (
+                                    <div className="item" key={chapterList[0].id}>
                                         <figure className="clearfix">
                                             <div className="image">
                                                 <Link
@@ -101,7 +101,7 @@ export default function NewUpdates() {
                                                     </Link>
                                                 </h3>
                                                 <ul className="comic-item">
-                                                    {item.map(chapter => (
+                                                    {chapterList.slice(0, 3).map(chapter => (
                                                         <li className="flex gap-x-1 items-center justify-between" key={chapter.id}>
                                                             <Link
                                                                 href={routes.nettrom.chapter(chapter.id)}
@@ -163,7 +163,7 @@ export default function NewUpdates() {
                                             </div>
                                         </div>
                                     </div>
-                                ))
+                                )
                             })
                         }
 
