@@ -1,5 +1,5 @@
 import config from "@/config"
-import { ChapterContextProvider } from "../../../../../contexts/chapter"
+import { ChapterContextProvider } from "@/contexts/chapter"
 import { Metadata, ResolvingMetadata } from "next"
 import { Chapter } from "@/api"
 import getTitleChapter from "@/utils/getTitleChapter"
@@ -12,16 +12,16 @@ export async function generateMetadata(
     const id = params.chapterId
 
     const previousImages = (await parent).openGraph?.images || []
-    const imageUrl = `https://og.mangadex.org/og-image/chapter/${id}`
+    const mdImage = { url: `https://og.mangadex.org/og-image/chapter/${id}`, width: 1200, height: 630 }
     try {
         const { data: { data: chapter } } = await Chapter.getChapterId(id)
         return {
             title: `Đọc chương ${getTitleChapter(chapter)} tại ${config.appName}`,
             openGraph: {
-                images: [{ url: imageUrl, ...previousImages }],
+                images: [mdImage, ...previousImages],
             },
             twitter: {
-                images: [{ url: imageUrl, ...previousImages }]
+                images: [mdImage, ...previousImages]
             }
         }
     } catch (error) {
@@ -31,10 +31,10 @@ export async function generateMetadata(
     return {
         title: `Đọc chương mới nhất tại ${config.appName}`,
         openGraph: {
-            images: [{ url: imageUrl, ...previousImages }],
+            images: [mdImage, ...previousImages],
         },
         twitter: {
-            images: [{ url: imageUrl, ...previousImages }]
+            images: [mdImage, ...previousImages]
         }
     }
 }

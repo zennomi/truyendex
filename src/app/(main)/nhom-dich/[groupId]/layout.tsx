@@ -10,7 +10,7 @@ export async function generateMetadata(
     const id = params.groupId
 
     const previousImages = (await parent).openGraph?.images || []
-    const imageUrl = `https://og.mangadex.org/og-image/group/${id}`
+    const mdImage = { url: `https://og.mangadex.org/og-image/group/${id}`, width: 1200, height: 630 }
     try {
         // fetch data
         const { data: { data: group } } = await Group.getGroupId(id)
@@ -19,10 +19,10 @@ export async function generateMetadata(
             title: `Nhóm dịch ${group.attributes.name} - Đọc ngay tại ${config.appName}`,
             description: `${group.attributes.description}`,
             openGraph: {
-                images: [{ url: imageUrl }],
+                images: [mdImage],
             },
             twitter: {
-                images: [{ url: imageUrl }]
+                images: [mdImage]
             }
         }
     } catch (error) {

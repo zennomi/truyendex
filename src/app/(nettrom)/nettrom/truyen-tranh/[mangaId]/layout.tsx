@@ -1,7 +1,7 @@
 import { Metadata, ResolvingMetadata } from 'next'
-import { ExtendManga } from '../../../../../api/extend'
-import { getMangaTitle } from '../../../../../utils/getMangaTitle'
-import transLocalizedStr from '../../../../../utils/transLocalizedStr'
+import { ExtendManga } from '@/api/extend'
+import { getMangaTitle } from '@/utils/getMangaTitle'
+import transLocalizedStr from '@/utils/transLocalizedStr'
 import config from '@/config'
 
 export async function generateMetadata(
@@ -12,7 +12,7 @@ export async function generateMetadata(
     const id = params.mangaId
 
     const previousImages = (await parent).openGraph?.images || []
-    const imageUrl = `https://og.mangadex.org/og-image/manga/${id}`
+    const mdImage = { url: `https://og.mangadex.org/og-image/manga/${id}`, width: 1200, height: 630 }
     try {
         // fetch data
         const { data: manga }: { data: ExtendManga } = await fetch(`https://api.mangadex.org/manga/${id}`).then((res) => res.json())
@@ -20,10 +20,10 @@ export async function generateMetadata(
             title: `${getMangaTitle(manga)} - Đọc ngay tại ${config.appName}`,
             description: transLocalizedStr(manga.attributes.description),
             openGraph: {
-                images: [{ url: imageUrl }],
+                images: [mdImage],
             },
             twitter: {
-                images: [{ url: imageUrl }]
+                images: [mdImage]
             }
         }
     } catch (error) {
@@ -35,7 +35,7 @@ export async function generateMetadata(
         title: "Đọc ngay tại NetTrom",
         description: "NetTrom - Website Trộm Truyện Văn Minh",
         openGraph: {
-            images: [...previousImages],
+            images: [mdImage, ...previousImages],
         },
     }
 }
