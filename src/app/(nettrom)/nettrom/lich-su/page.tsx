@@ -1,5 +1,11 @@
-import HistoryList from "../../../../sections/nettrom/lich-su/HistoryList";
-import TopTitles from "../../../../sections/nettrom/trang-chu/topTitles";
+import { Metadata } from "next";
+import config from "@/config";
+import HistoryList from "@/sections/nettrom/lich-su/HistoryList";
+import TopTitles from "@/sections/nettrom/trang-chu/topTitles";
+
+export const metadata: Metadata = {
+    title: `Lịch sử đọc truyện tại ${config.appName}`
+}
 
 export default function History() {
     return (

@@ -1,7 +1,13 @@
 import Link from "next/link";
-import routes from "../../../../routes";
-import SearchMangaForm from "../../../../sections/nettrom/tim-kiem/searchMangaForm";
-import MangaResults from "../../../../sections/nettrom/tim-kiem/mangaResults";
+import { Metadata } from "next";
+import routes from "@/routes";
+import SearchMangaForm from "@/sections/nettrom/tim-kiem/searchMangaForm";
+import MangaResults from "@/sections/nettrom/tim-kiem/mangaResults";
+import config from "@/config";
+
+export const metadata: Metadata = {
+    title: `Tìm truyện đọc tại ${config.appName}`
+}
 
 export default function AdvancedSearch() {
 
