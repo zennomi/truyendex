@@ -59,16 +59,8 @@ export default function Header() {
                 </div>
                 <MainNav />
                 <ul className="nav-account list-inline">
-                    <li className="login-link">
-                        <a rel="nofollow" href="/Secure/Login.aspx?returnurl=%2F">
-                            Đăng nhập
-                        </a>
-                    </li>
-                    <li className="register-link">
-                        <a rel="nofollow" href="/Secure/Register.aspx?returnurl=%2F">
-                            Đăng ký
-                        </a>
-                    </li>
+                    <li className="login-link"><a rel="nofollow" href="https://github.com/zennomi/truyendex" target="_blank">Source code</a></li>
+                    <li className="register-link"><a rel="nofollow" href="https://mangadex.org/" target="_blank">MangaDex</a></li>
                 </ul>
             </div>
         </header>
