@@ -1,16 +1,16 @@
-import Link from "next/link";
-import routes from "../../../routes";
-import { getMangaTitle } from "../../../utils/getMangaTitle";
-import { useChapterContext } from "../../../contexts/chapter";
-import getTitleChapter from "../../../utils/getTitleChapter";
 import { useParams } from "next/navigation";
-import useOffSetTop from "../../../hooks/useOffSetTop";
+import Link from "next/link";
+import routes from "@/routes";
+import { getMangaTitle } from "@/utils/getMangaTitle";
+import { useChapterContext } from "@/contexts/chapter";
+import getTitleChapter from "@/utils/getTitleChapter";
+import useOffSetTop from "@/hooks/useOffSetTop";
 
 export default function ChapterControl() {
-    const { manga, chapter, canNext, canPrev, next, prev, chapters, goTo, others } = useChapterContext()
+    const { manga, chapter, canNext, canPrev, next, prev, chapters, goTo, others, chapterId } = useChapterContext()
     const offsetTop = useOffSetTop(100)
     const params = useParams()
-    const chapterId = params.chapterId
+
     const mangaTitle = getMangaTitle(manga)
     const chapterTitle = getTitleChapter(chapter)
     console.log("ChapterControl reload")
@@ -145,10 +145,10 @@ export default function ChapterControl() {
                         >
                             <i className="fa fa-list" />
                         </Link>
-                        <a className="home changeserver" href="#" title="Đổi server">
+                        {/* <a className="home changeserver" href="#" title="Đổi server">
                             <i className="fa fa-undo error" />
                             <span>1</span>
-                        </a>
+                        </a> */}
                     </div>
                     <div className="flex items-center justify-center gap-x-1">
                         <a
@@ -161,7 +161,7 @@ export default function ChapterControl() {
                             name="ctl00$mainContent$ddlSelectChapter"
                             id="ctl00_mainContent_ddlSelectChapter"
                             className="select-chapter min-w-[100px] md:min-w-[200px]"
-                            value={chapterId}
+                            value={chapterId || ""}
                             onChange={(event) => { goTo(event.target.value) }}
                         >
                             {

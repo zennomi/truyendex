@@ -1,21 +1,22 @@
 "use client";
 
 import React, { createContext, useState, useEffect, useContext, useMemo, useCallback } from "react";
-import { ExtendChapter, ExtendManga } from "../api/extend";
+import { ExtendChapter, ExtendManga } from "@/api/extend";
 import { useMangadex } from "./mangadex";
-import useAggregate, { ChapterItem } from "../hooks/useAggregate";
+import useAggregate, { ChapterItem } from "@/hooks/useAggregate";
 import { useParams, useRouter } from "next/navigation";
-import routes from "../routes";
-import { Chapter } from "../api";
-import { Includes } from "../api/static";
-import { ChapterResponse } from "../api/schema";
-import extendRelationship from "../utils/extendRelationship";
-import useReadingHistory from "../hooks/useReadingHistory";
-import { getMangaTitle } from "../utils/getMangaTitle";
-import getCoverArt from "../utils/getCoverArt";
-import getTitleChapter from "../utils/getTitleChapter";
+import routes from "@/routes";
+import { Chapter } from "@/api";
+import { Includes } from "@/api/static";
+import { ChapterResponse } from "@/api/schema";
+import extendRelationship from "@/utils/extendRelationship";
+import useReadingHistory from "@/hooks/useReadingHistory";
+import { getMangaTitle } from "@/utils/getMangaTitle";
+import getCoverArt from "@/utils/getCoverArt";
+import getTitleChapter from "@/utils/getTitleChapter";
 
 export const ChapterContext = createContext<{
+    chapterId: string | null,
     chapter: ExtendChapter | null,
     manga: ExtendManga | null,
     chapters: ChapterItem[],
@@ -26,12 +27,13 @@ export const ChapterContext = createContext<{
     canPrev: boolean,
     others: string[],
 }>({
+    chapterId: null,
     chapter: null,
     chapters: [],
     manga: null,
     next: () => null,
     prev: () => null,
-    goTo: (id: string) => null,
+    goTo: (_: string) => null,
     canNext: false,
     canPrev: false,
     others: []
@@ -45,7 +47,8 @@ export const ChapterContextProvider = ({
 
     const router = useRouter()
     const params = useParams()
-    const chapterId = params.chapterId
+    const [chapterId, setChapterId] = useState(params.chapterId)
+
     const [chapter, setChapter] = useState<ExtendChapter | null>(null)
     const { updateMangas, mangas } = useMangadex()
 
@@ -64,19 +67,22 @@ export const ChapterContextProvider = ({
 
     const prev = useCallback(() => {
         if (canPrev) {
-            router.replace(routes.nettrom.chapter(chapters[currentChapterIndex - 1].id))
+            setChapterId(chapters[currentChapterIndex - 1].id);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-    }, [currentChapterIndex, chapters])
+    }, [currentChapterIndex, chapters, router, setChapterId])
 
     const next = useCallback(() => {
         if (canNext) {
-            router.replace(routes.nettrom.chapter(chapters[currentChapterIndex + 1].id))
+            setChapterId(chapters[currentChapterIndex + 1].id);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-    }, [currentChapterIndex, chapters])
+    }, [currentChapterIndex, chapters, router, setChapterId])
 
     const goTo = useCallback((desId: string) => {
-        router.push(routes.nettrom.chapter(desId))
-    }, [])
+        setChapterId(desId);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [setChapterId])
 
     useEffect(() => {
         if (mangaId) {
@@ -95,8 +101,12 @@ export const ChapterContextProvider = ({
             }
         }
         updateChapter()
-
-        return () => setChapter(null)
+        const newPath = routes.nettrom.chapter(chapterId)
+        window.history.pushState(
+            { ...window.history.state, as: newPath, url: newPath },
+            '',
+            newPath
+        );
     }, [chapterId])
 
     useEffect(() => {
@@ -112,6 +122,7 @@ export const ChapterContextProvider = ({
 
     return (
         <ChapterContext.Provider value={{
+            chapterId,
             chapter,
             manga,
             chapters,
