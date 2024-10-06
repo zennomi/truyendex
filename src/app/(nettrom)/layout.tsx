@@ -4,20 +4,20 @@ import Image from "next/image";
 import Link from "next/link";
 
 import "@fortawesome/fontawesome-free/css/all.css";
-import '../../assets/scss/tailwind.scss'
+import '@/assets/scss/tailwind.scss'
 import "./style.css"
 // slick-carousel
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import MainNav from "../../components/nettrom/mainNav";
+import MainNav from "@/components/nettrom/mainNav";
 
-import NettromLogo from "../../assets/nettrom-logo.png"
-import Header from "../../components/nettrom/header";
-import routes from "../../routes";
-import { MangadexContextProvider } from "../../contexts/mangadex";
-import Gtag from '../../components/gtag';
-import config from '../../config';
+import NettromLogo from "@/assets/nettrom-logo.png"
+import Header from "@/components/nettrom/header";
+import routes from "@/routes";
+import { MangadexContextProvider } from "@/contexts/mangadex";
+import Gtag from '@/components/gtag';
+import config from '@/config';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -48,7 +48,7 @@ export default function NettromLayout({
                                         <em className="fa fa-info-circle" />
                                     </div>
                                     <span className="!block">
-                                        Fact: Web giả mạo chủ yếu là để cướp nguồn view từ nettruyen thôi chứ chả ai hack cái nick nettruyen của bạn làm gì đâu.
+                                        TruyenDex chỉ xây dựng giao diện tiếng Việt, toàn bộ dữ liệu thuộc về MangaDex
                                     </span>
                                 </div>
                                 <MainNav />

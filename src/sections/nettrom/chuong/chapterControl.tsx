@@ -5,6 +5,7 @@ import { getMangaTitle } from "@/utils/getMangaTitle";
 import { useChapterContext } from "@/contexts/chapter";
 import getTitleChapter from "@/utils/getTitleChapter";
 import useOffSetTop from "@/hooks/useOffSetTop";
+import { format } from "date-fns";
 
 export default function ChapterControl() {
     const { manga, chapter, canNext, canPrev, next, prev, chapters, goTo, others, chapterId } = useChapterContext()
@@ -91,7 +92,7 @@ export default function ChapterControl() {
                         </Link>{" "}
                         <span>- {chapterTitle}</span>
                     </h1>
-                    <i>[Cập nhật lúc: 09:28 28/05/2023]</i>
+                    <i>[Cập nhật lúc: {format(new Date(chapter.attributes.publishAt), "HH:mm dd/MM/yyyy")}]</i>
                 </div>
             }
             <div className="reading-control">
@@ -128,27 +129,29 @@ export default function ChapterControl() {
                 </div>
                 <div className="alert alert-info mrb10 hidden-xs hidden-sm">
                     <i className="fa fa-info-circle" />{" "}
-                    <em>Sử dụng mũi tên trái (←) hoặc phải (→) để chuyển chapter</em>
+                    <em>TruyenDex là một website mã nguồn mở, trong quá trình trải nghiệm rất mong nhận được phản hồi từ mọi người</em>
                 </div>
                 <div
-                    className={`chapter-nav mx-auto flex justify-around items-center gap-x-1 ${offsetTop ? "fixed bottom-0 right-0 w-full bg-black" : ""}`}
+                    className={`chapter-nav mx-auto flex justify-around items-center gap-x-1 z-10 ${offsetTop ? "fixed bottom-0 right-0 w-full bg-black" : ""}`}
                     id="chapterNav"
                 >
                     <div className="flex items-center justify-center gap-x-1">
-                        <Link className="home" href="/" title="Trang chủ">
+                        <Link className="home hidden md:block" href="/" title="Trang chủ">
                             <i className="fa fa-home" />
                         </Link>
                         <Link
-                            className="home backward"
+                            className="home backward hidden md:block"
                             href={`${routes.nettrom.manga(manga?.id || "")}#nt_listchapter`}
                             title={mangaTitle}
                         >
                             <i className="fa fa-list" />
                         </Link>
-                        {/* <a className="home changeserver" href="#" title="Đổi server">
-                            <i className="fa fa-undo error" />
-                            <span>1</span>
-                        </a> */}
+                        {
+                            offsetTop &&
+                            <a className="home changeserver" href="#" title="Lên trên cùng" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                                <i className="fa fa-arrow-circle-up" />
+                            </a>
+                        }
                     </div>
                     <div className="flex items-center justify-center gap-x-1">
                         <a

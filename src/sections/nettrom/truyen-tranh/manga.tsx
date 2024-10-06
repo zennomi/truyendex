@@ -3,15 +3,15 @@
 import { useEffect } from "react"
 import ReactMarkdown from 'react-markdown'
 
-import { useMangadex } from "../../../contexts/mangadex"
-import { getMangaTitle } from "../../../utils/getMangaTitle"
-import { formatNowDistance } from "../../../utils/dateFns"
-import getCoverArt from "../../../utils/getCoverArt"
-import { Includes } from "../../../api/static"
+import { useMangadex } from "@/contexts/mangadex"
+import { getMangaTitle, getMangaAltTitles } from "@/utils/getMangaTitle"
+import { formatNowDistance } from "@/utils/dateFns"
+import getCoverArt from "@/utils/getCoverArt"
+import { Includes } from "@/api/static"
 import ChapterList from "./chapterList"
 import Link from "next/link"
-import routes from "../../../routes"
-import { parseStatus } from "../../../utils/parseMangadex"
+import routes from "@/routes"
+import { parseStatus } from "@/utils/parseMangadex"
 import config from "@/config"
 
 export default function Manga({ mangaId }: { mangaId: string }) {
@@ -25,9 +25,10 @@ export default function Manga({ mangaId }: { mangaId: string }) {
     if (!manga) return <div>Loading...</div>
 
     const title = getMangaTitle(manga)
+    const altTitles = getMangaAltTitles(manga)
     const url = routes.nettrom.manga(mangaId)
     return (
-        <div id="ctl00_divCenter" className="center-side col-md-8">
+        <>
             <ul
                 className="breadcrumb"
                 itemType="http://schema.org/BreadcrumbList"
@@ -88,6 +89,15 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                         </div>
                         <div className="col-xs-8 col-info">
                             <ul className="list-info">
+                                {
+                                    altTitles.length > 0 &&
+                                    <li className="othername row">
+                                        <p className="name col-xs-4">
+                                            <i className="fa fa-plus-square"></i> Tên khác
+                                        </p>
+                                        <p className="other-name col-xs-8">{altTitles.join("; ")}</p>
+                                    </li>
+                                }
                                 <li className="author row">
                                     <p className="name col-xs-4">
                                         <i className="fa fa-user"></i> Tác giả
@@ -212,6 +222,6 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                 </div>
                 <ChapterList mangaId={mangaId} />
             </article>
-        </div>
+        </>
     )
 } 

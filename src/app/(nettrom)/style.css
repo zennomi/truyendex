@@ -81,10 +81,10 @@ audio:not([controls]) {
   height: 0;
 }
 
-[hidden],
+/* [hidden],
 template {
   display: none;
-}
+} */
 
 a {
   background-color: transparent;
@@ -3998,7 +3998,7 @@ a.thumbnail:hover {
   display: block !important;
 }
 
-.hidden,
+/* .hidden, */
 .visible-lg,
 .visible-lg-block,
 .visible-lg-inline,

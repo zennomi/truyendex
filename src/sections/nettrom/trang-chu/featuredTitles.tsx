@@ -4,13 +4,13 @@ import formatDistance from 'date-fns/formatDistance'
 import vi from 'date-fns/locale/vi'
 import Slider from "react-slick";
 
-import useFeaturedTitles from "../../../hooks/useFeaturedTitles"
-import getCoverArt from "../../../utils/getCoverArt"
-import { getMangaTitle } from "../../../utils/getMangaTitle"
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
-import routes from '../../../routes';
-import { useMangadex } from '../../../contexts/mangadex';
+import useFeaturedTitles from "@/hooks/useFeaturedTitles"
+import getCoverArt from "@/utils/getCoverArt"
+import { getMangaTitle } from "@/utils/getMangaTitle"
+import routes from '@/routes';
+import { useMangadex } from '@/contexts/mangadex';
 
 
 export default function FeaturedTitles() {
@@ -68,17 +68,19 @@ export default function FeaturedTitles() {
                                     featuredTitles.map(manga => {
                                         const title = getMangaTitle(manga)
                                         return (
-                                            <div key={manga.id} className="item px-[3.5px]">
+                                            <div
+                                                key={manga.id}
+                                                className={`item bg-cover bg-black`}
+                                            >
                                                 <Link
                                                     href={routes.nettrom.manga(manga.id)}
                                                     title={title}
+                                                    className='block h-full w-full'
+                                                    style={{
+                                                        backgroundImage: `url(${getCoverArt(manga)})`,
+                                                    }}
                                                 >
-                                                    <img
-                                                        className="lazyOwl center"
-                                                        src={getCoverArt(manga)}
-                                                        alt={title}
-                                                        style={{}}
-                                                    />
+
                                                 </Link>
                                                 <div className="slide-caption">
                                                     <h3>

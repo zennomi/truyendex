@@ -3,10 +3,10 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import routes from "../../routes";
-import SearchInput from "../../sections/nettrom/searchInput";
-import NettromLogo from "../../assets/nettrom-logo.png"
 import { useEffect, useState } from "react";
+import routes from "@/routes";
+import SearchInput from "@/sections/nettrom/searchInput";
+import NettromLogo from "@/assets/nettrom-logo.png"
 import MainNav from "./mainNav";
 import { usePathname, useSearchParams } from "next/navigation";
 
@@ -18,7 +18,7 @@ export default function Header() {
     useEffect(() => {
         setOpenMenu(false)
     }, [pathname, params])
-    
+
     return (
         <header className={`header ${openMenu ? "menu-open fixed top-0 right-0 z-999" : ""}`} id="header">
             <div className="navbar">
@@ -48,8 +48,8 @@ export default function Header() {
                         </button>
                     </div>
                     <ul className="nav-account list-inline hidden-xs pull-right mt-[13px]">
-                        <li className="login-link"><Link rel="nofollow" href="#">Đăng truyện</Link></li>
-                        <li className="register-link"><Link rel="nofollow" href="#">Đăng ký</Link></li>
+                        <li className="login-link"><a rel="nofollow" href="https://github.com/zennomi/truyendex" target="_blank">Source code</a></li>
+                        <li className="register-link"><a rel="nofollow" href="https://mangadex.org/" target="_blank">MangaDex</a></li>
                     </ul>
                 </div>
             </div>

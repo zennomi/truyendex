@@ -7,7 +7,7 @@ import { Includes, Order } from "@/api/static"
 import { useMangadex } from "@/contexts/mangadex"
 import useSearchManga from "@/hooks/useSearchManga"
 import routes from "@/routes"
-import { getMangaTitle, getAltMangaTitle } from "@/utils/getMangaTitle"
+import { getMangaTitle, getOriginalMangaTitle } from "@/utils/getMangaTitle"
 import getCoverArt from "@/utils/getCoverArt"
 
 export default function TopTitles() {
@@ -96,7 +96,7 @@ export default function TopTitles() {
                                                             title={title}
                                                             href={routes.nettrom.manga(manga.id)}
                                                         >
-                                                            {getAltMangaTitle(manga)}
+                                                            {getOriginalMangaTitle(manga)}
                                                         </Link>
                                                         <span className="view pull-right">
                                                             <i className="fa fa-star"></i> {mangaStatistics[manga.id]?.follows || 0}
