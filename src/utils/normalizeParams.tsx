@@ -1,6 +1,6 @@
 import { ReadonlyURLSearchParams } from "next/navigation";
-import { GetSearchMangaRequestOptions, MangaContentRating, MangaPublicationDemographic, MangaPublicationStatus } from "../api/manga";
-import { Order } from "../api/static";
+import { GetSearchMangaRequestOptions, MangaContentRating, MangaPublicationDemographic, MangaPublicationStatus } from "@/api/manga";
+import { Order } from "@/api/static";
 
 export default function normalizeParams(params: ReadonlyURLSearchParams): GetSearchMangaRequestOptions {
     const result: GetSearchMangaRequestOptions = {}
@@ -76,6 +76,6 @@ export default function normalizeParams(params: ReadonlyURLSearchParams): GetSea
     if (params.get("order[rating]")) {
         result.order.rating = params.get("order[rating]") as Order
     }
-    console.log({ result })
+
     return result
 }

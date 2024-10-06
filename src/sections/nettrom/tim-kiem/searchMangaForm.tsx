@@ -4,17 +4,18 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Select, { StylesConfig } from 'react-select';
 
 import { GetSearchMangaRequestOptions, MangaContentRating, MangaPublicationDemographic, MangaPublicationStatus } from "../../../api/manga";
-import { Tag } from "../../../api/schema";
-import { parseContentRating, parseStatus } from "../../../utils/parseMangadex";
+import { Tag } from "@/api/schema";
+import { parseContentRating, parseStatus } from "@/utils/parseMangadex";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import normalizeParams from "../../../utils/normalizeParams";
-import { Order } from "../../../api/static";
+import normalizeParams from "@/utils/normalizeParams";
+import { Order } from "@/api/static";
+import { tags } from "@/constants"
+import { getSearchNetTromUrl } from "@/utils/url";
+
 type Inputs = GetSearchMangaRequestOptions & {
     orderType?: string,
 };
-import { tags } from "../../../constants"
-import { getSearchNetTromUrl } from "../../../utils/url";
 
 const getCheckboxIcon = (state: number) => {
     switch (state) {
@@ -78,14 +79,23 @@ export default function SearchMangaForm() {
     }
 
     useEffect(() => {
-        reset({ ...normalizeParams(params) })
+        const normalizedParams: Inputs = normalizeParams(params)
+        if (!params.get("orderType") && normalizedParams.order) {
+            if (normalizedParams.order.latestUploadedChapter === Order.DESC) normalizedParams.orderType = "0";
+            else if (normalizedParams.order.createdAt === Order.DESC) normalizedParams.orderType = "1";
+            else if (normalizedParams.order.followedCount === Order.DESC) normalizedParams.orderType = "2";
+            else if (normalizedParams.order.title === Order.ASC) normalizedParams.orderType = "3";
+            else if (normalizedParams.order.relevance === Order.DESC) normalizedParams.orderType = "4";
+            else if (normalizedParams.order.rating === Order.DESC) normalizedParams.orderType = "5";
+        }
+        reset({ ...normalizedParams })
     }, [params])
 
     useEffect(() => {
         const orderType = values.orderType
         switch (orderType) {
             case "0":
-                setValue('order', { createdAt: Order.DESC })
+                setValue('order', { latestUploadedChapter: Order.DESC })
                 break;
             case "1":
                 setValue('order', { createdAt: Order.DESC })
@@ -243,14 +253,14 @@ export default function SearchMangaForm() {
                         </div>
                         <div className="col-sm-4">
                             <select className="form-control select-sort" {...register("orderType")}>
-                                <option value={0}>
+                                <option value={"0"}>
                                     Mới cập nhật
                                 </option>
-                                <option value={1}>Truyện mới</option>
-                                <option value={2}>Theo dõi nhiều nhất</option>
-                                <option value={3}>Bảng chữ cái</option>
-                                <option value={4}>Liên quan nhất</option>
-                                <option value={5}>Đánh giá cao nhất</option>
+                                <option value={"1"}>Truyện mới</option>
+                                <option value={"2"}>Theo dõi nhiều nhất</option>
+                                <option value={"3"}>Bảng chữ cái</option>
+                                <option value={"4"}>Liên quan nhất</option>
+                                <option value={"5"}>Đánh giá cao nhất</option>
                             </select>
                         </div>
                     </div>
