@@ -11,6 +11,7 @@ import getCoverArt from "@/utils/getCoverArt"
 import { getMangaTitle } from "@/utils/getMangaTitle"
 import routes from '@/routes';
 import { useMangadex } from '@/contexts/mangadex';
+import { getResizeImgUrl } from '@/utils/url';
 
 
 export default function FeaturedTitles() {
@@ -77,7 +78,7 @@ export default function FeaturedTitles() {
                                                     title={title}
                                                     className='block h-full w-full'
                                                     style={{
-                                                        backgroundImage: `url(${getCoverArt(manga)})`,
+                                                        backgroundImage: `url(${getResizeImgUrl(getCoverArt(manga))})`,
                                                     }}
                                                 >
 
