@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import { useEffect, useState } from "react";
 import routes from "@/routes";
-import SearchInput from "@/sections/nettrom/searchInput";
+import SearchInput from "@/sections/nettrom/common/searchInput";
 import NettromLogo from "@/assets/nettrom-logo.png"
 import MainNav from "./mainNav";
 import { usePathname, useSearchParams } from "next/navigation";

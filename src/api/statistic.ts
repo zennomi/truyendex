@@ -11,3 +11,9 @@ export const getMangasStatistic = function (options?: GetMangasStatisticRequestO
 
     return util.createHttpsRequestPromise<GetMangasStatisticResponse>('GET', path);
 };
+
+export const getGroupStatistic = function (groupId: string) {
+    const path = `/statistics/group/${groupId}`;
+
+    return util.createHttpsRequestPromise<GetMangasStatisticResponse>('GET', path);
+};

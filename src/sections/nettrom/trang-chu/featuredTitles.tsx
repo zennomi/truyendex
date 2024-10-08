@@ -77,11 +77,12 @@ export default function FeaturedTitles() {
                                                     href={routes.nettrom.manga(manga.id)}
                                                     title={title}
                                                     className='block h-full w-full'
-                                                    style={{
-                                                        backgroundImage: `url(${getResizeImgUrl(getCoverArt(manga))})`,
-                                                    }}
                                                 >
-
+                                                    <img
+                                                        src={getCoverArt(manga)}
+                                                        className='lazy w-full h-full object-cover'
+                                                        alt={title}
+                                                    />
                                                 </Link>
                                                 <div className="slide-caption">
                                                     <h3>

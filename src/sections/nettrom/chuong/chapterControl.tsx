@@ -189,7 +189,7 @@ export default function ChapterControl() {
                     </div>
                     <a
                         className="follow-link btn btn-success"
-                        href={routes.scanlationGroup(chapter?.scanlation_group?.id || "")}
+                        href={routes.nettrom.scanlationGroup(chapter?.scanlation_group?.id || "")}
                     >
                         <i className="fa fa-heart" /> <span>Nhóm dịch</span>
                     </a>

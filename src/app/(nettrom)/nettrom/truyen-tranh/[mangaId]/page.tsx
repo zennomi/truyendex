@@ -1,4 +1,4 @@
-import TopTitles from "@/sections/nettrom/topTitles"
+import TopTitles from "@/sections/nettrom/common/topTitles"
 import Manga from "@/sections/nettrom/truyen-tranh/manga"
 
 export default function TruyenTranh({ params }: { params: { mangaId: string } }) {

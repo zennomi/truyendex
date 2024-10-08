@@ -10,7 +10,7 @@ import routes from "@/routes"
 import { getMangaTitle, getOriginalMangaTitle } from "@/utils/getMangaTitle"
 import getCoverArt from "@/utils/getCoverArt"
 
-export default function TopTitles() {
+export default function TopTitles({ groupId }: { groupId?: string }) {
     const { mangaList } = useSearchManga({
         limit: 7,
         includes: [Includes.COVER_ART,],
@@ -20,6 +20,7 @@ export default function TopTitles() {
         contentRating: [MangaContentRating.SAFE, MangaContentRating.SUGGESTIVE],
         hasAvailableChapters: "true",
         availableTranslatedLanguage: ['vi'],
+        group: groupId ? groupId : undefined
     })
 
     const { addMangas, updateMangaStatistics, mangaStatistics } = useMangadex()
@@ -81,7 +82,7 @@ export default function TopTitles() {
                                                         href={routes.nettrom.manga(manga.id)}
                                                     >
                                                         <img
-                                                            className="lazy center"
+                                                            className="lazy w-full h-full object-cover"
                                                             src={getCoverArt(manga)}
                                                             alt={title}
                                                         />

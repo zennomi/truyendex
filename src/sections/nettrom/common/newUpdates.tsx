@@ -3,22 +3,21 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import useLastUpdates, { chaptersPerPage } from "../../../hooks/useLastUpdates"
-import { useMangadex } from "../../../contexts/mangadex";
-import getCoverArt from "../../../utils/getCoverArt";
-import { ExtendChapter } from "../../../api/extend";
-import { getMangaTitle } from "../../../utils/getMangaTitle";
-import getTitleChapter from "../../../utils/getTitleChapter";
-import { formatNowDistance } from "../../../utils/dateFns";
-import routes from "../../../routes";
 import ReactPaginate from "react-paginate";
-import { chunk } from "lodash";
-import Loading from "../../../components/nettrom/loading";
+import useLastUpdates, { chaptersPerPage } from "@/hooks/useLastUpdates"
+import { useMangadex } from "@/contexts/mangadex";
+import getCoverArt from "@/utils/getCoverArt";
+import { ExtendChapter } from "@/api/extend";
+import { getMangaTitle } from "@/utils/getMangaTitle";
+import getTitleChapter from "@/utils/getTitleChapter";
+import { formatNowDistance } from "@/utils/dateFns";
+import routes from "@/routes";
+import Loading from "@/components/nettrom/loading";
 
 
-export default function NewUpdates() {
+export default function NewUpdates({ title, groupId }: { title?: string, groupId?: string }) {
     const [page, setPage] = useState(0)
-    const { chapters, isLoading, error, total } = useLastUpdates(page);
+    const { chapters, isLoading, error, total } = useLastUpdates({ page, groupId });
     const { mangas, updateMangas, updateMangaStatistics, mangaStatistics } = useMangadex()
     const updates: Record<string, ExtendChapter[]> = {}
 
@@ -52,7 +51,7 @@ export default function NewUpdates() {
                 <div className="items">
                     <div className="relative">
                         <h1 className="page-title">
-                            Truyện mới cập nhật <i className="fa fa-angle-right" />
+                            {title ?? "Truyện mới cập nhật"} <i className="fa fa-angle-right" />
                         </h1>
                         <Link
                             className="filter-icon"
@@ -77,7 +76,7 @@ export default function NewUpdates() {
                                                 >
                                                     <img
                                                         src={coverArt}
-                                                        className="lazy center"
+                                                        className="lazy w-full h-full object-cover"
                                                         data-original={coverArt}
                                                         alt={mangaTitle}
                                                     />

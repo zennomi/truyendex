@@ -44,7 +44,7 @@ export default function ListChapter({ mangaId }: { mangaId: string }) {
                                 </div>
                                 {
                                     chapter.scanlation_group?.attributes &&
-                                    <Link href={routes.scanlationGroup(chapter.scanlation_group.id)} className="col-xs-3 text-center">{chapter.scanlation_group.attributes.name}</Link>
+                                    <Link href={routes.nettrom.scanlationGroup(chapter.scanlation_group.id)} className="col-xs-3 text-center">{chapter.scanlation_group.attributes.name}</Link>
                                 }
                             </li>
                         ))

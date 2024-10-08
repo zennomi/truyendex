@@ -319,7 +319,7 @@ export type ScanlationGroupAttributes = {
      */
     mangaUpdates: string | null
     /** Pattern: `^[a-z]{2}(-[a-z]{2})?$` */
-    focusedLanguage: string[] | null
+    focusedLanguages: string[] | null
     locked: boolean
     official: boolean
     inactive: boolean

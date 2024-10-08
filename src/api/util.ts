@@ -69,6 +69,7 @@ export const buildQueryStringFromOptions = function (options?: { [key: string]: 
     }
 
     for (const key of Object.keys(options)) {
+        if (options[key] === undefined) continue;
         if (options[key] instanceof Array) {
             queryParams.push(transformArrayForQueryString(key, options[key]));
         } else if (options[key] instanceof Date) {
@@ -107,6 +108,8 @@ export const createHttpsRequestPromise = async function <T>(method: string, path
     } else if (path === '') {
         throw new Error('ERROR - createHttpsRequestPromise: Parameter `path` cannot be blank');
     }
+
+    console.info("Request to API Mangadex: ", path)
 
     const encodedUrl = btoa(`${MANGADEX_API_URL}${path}`).replace(/\+/g, "-").replace(/\//g, "_")
     const headers = new Headers()

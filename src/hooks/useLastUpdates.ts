@@ -11,10 +11,11 @@ import extendRelationship from '../utils/extendRelationship';
 
 export const chaptersPerPage = 100
 
-export default function useLastUpdates(page: number) {
+export default function useLastUpdates(options: { page: number, groupId?: string }) {
+    const { page, groupId } = options
     let chapters: ExtendChapter[] = []
     let total = 0
-    const { data, isLoading, error } = useSWR(['last-updates', page], () => ChapterApi.getChapter({
+    const { data, isLoading, error } = useSWR(['last-updates', options], () => ChapterApi.getChapter({
         includes: ['scanlation_group'],
         translatedLanguage: ['vi'],
         contentRating: [MangaContentRating.SAFE, MangaContentRating.SUGGESTIVE],
@@ -22,7 +23,8 @@ export default function useLastUpdates(page: number) {
             readableAt: Order.DESC
         },
         limit: chaptersPerPage,
-        offset: chaptersPerPage * page
+        offset: chaptersPerPage * page,
+        groups: groupId ? [groupId] : undefined
     }))
     const successData = data && data.data?.result === "ok" ? (data.data as ChapterList) : null
     if (successData) {

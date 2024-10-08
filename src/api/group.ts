@@ -38,7 +38,7 @@ export type GetSearchGroupRequestOptions = {
      */
     ids?: string[]
     name?: string
-    focusedLanguage?: string
+    focusedLanguages?: string
     includes?: Includes[]
     /**
      * Default: { latestUploadedChapter: 'desc' }

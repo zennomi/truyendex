@@ -39,6 +39,8 @@ export enum Includes {
     TAG = 'tag',
     USER = 'user',
     CUSTOM_LIST = 'custom_list',
+    LEADER = 'leader',
+    MEMBER = 'member',
 }
 
 /*******************
