@@ -168,7 +168,7 @@ export default function ChapterControl() {
                             onChange={(event) => { goTo(event.target.value) }}
                         >
                             {
-                                chapters.map(item => (
+                                chapters.length > 0 ? chapters.map(item => (
                                     <option value={item.id} key={item.id}>
                                         {
                                             item.volume !== "none" ?
@@ -177,7 +177,9 @@ export default function ChapterControl() {
                                         }
 
                                     </option>
-                                ))
+                                )) : (
+                                    <option selected>Đang tải...</option>
+                                )
                             }
                         </select>
                         <a

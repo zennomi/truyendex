@@ -35,7 +35,7 @@ export default function MangaResults() {
         }
     }, [mangaList])
 
-    if (isLoading) return (<Loading />)
+    if (isLoading) return (<Loading title="Đang tìm truyện..." />)
 
     return (
         <div className={`Module Module-223 ${mangaList.length > 0 ? "min-h-0" : "min-h-screen"}`} id="results">

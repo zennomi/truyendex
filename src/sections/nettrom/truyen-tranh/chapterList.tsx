@@ -14,7 +14,7 @@ export default function ListChapter({ mangaId }: { mangaId: string }) {
     const { data, isLoading, error, chapters } = useChapterList(mangaId, {
         offset: page * chaptersPerPage
     })
-    if (!data?.data || !(data.data as ChapterList).data) return (<Loading />)
+    if (!data?.data || !(data.data as ChapterList).data) return (<Loading title="Đang tải danh sách chương..." />)
     const chapterListData = (data.data as ChapterList)
 
     return (

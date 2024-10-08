@@ -15,6 +15,10 @@ export default function useLastUpdates(options: { page: number, groupId?: string
     const { page, groupId } = options
     let chapters: ExtendChapter[] = []
     let total = 0
+    let offset = chaptersPerPage * page
+    if (offset > 10000) {
+        offset = 10000 - chaptersPerPage
+    }
     const { data, isLoading, error } = useSWR(['last-updates', options], () => ChapterApi.getChapter({
         includes: ['scanlation_group'],
         translatedLanguage: ['vi'],
@@ -23,7 +27,7 @@ export default function useLastUpdates(options: { page: number, groupId?: string
             readableAt: Order.DESC
         },
         limit: chaptersPerPage,
-        offset: chaptersPerPage * page,
+        offset,
         groups: groupId ? [groupId] : undefined
     }))
     const successData = data && data.data?.result === "ok" ? (data.data as ChapterList) : null

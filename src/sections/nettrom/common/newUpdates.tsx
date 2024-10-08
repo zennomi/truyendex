@@ -42,7 +42,7 @@ export default function NewUpdates({ title, groupId }: { title?: string, groupId
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [page])
 
-    if (isLoading) return <Loading />;
+    if (isLoading) return <Loading title="Đang tải các chương mới" />;
     if (error) return <div>error</div>;
 
     return (

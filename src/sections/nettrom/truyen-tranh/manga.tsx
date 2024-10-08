@@ -13,6 +13,7 @@ import Link from "next/link"
 import routes from "@/routes"
 import { parseStatus } from "@/utils/parseMangadex"
 import config from "@/config"
+import Loading from "@/components/nettrom/loading"
 
 export default function Manga({ mangaId }: { mangaId: string }) {
     const { mangas, updateMangas, updateMangaStatistics, mangaStatistics } = useMangadex()
@@ -22,7 +23,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
         updateMangaStatistics({ manga: [mangaId] })
     }, [])
 
-    if (!manga) return <div>Loading...</div>
+    if (!manga) return <Loading title="Đang tải thông tin manga" />
 
     const title = getMangaTitle(manga)
     const altTitles = getMangaAltTitles(manga)
@@ -154,6 +155,9 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                                 </span>
                             </div>
                             <div className="follow">
+                                <a className="btn btn-danger mr-2" href="#nt_listchapter">
+                                    <i className="fa fa-eye mr-2" /><span>Đọc ngay</span>
+                                </a>
                                 <a className="btn btn-danger" href={`https://mangadex.org/title/${manga.id}`} target="_blank">
                                     <i className="fa fa-cat mr-2" /><span>Link Mangadex</span>
                                 </a>

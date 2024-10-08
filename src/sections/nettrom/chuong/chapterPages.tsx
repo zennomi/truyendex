@@ -10,7 +10,7 @@ export default function ChapterPages() {
     const { chapterId } = useChapterContext()
 
     const { pages, isLoading } = useChapterPages(chapterId)
-    if (isLoading) return (<Loading />)
+    if (isLoading) return (<Loading title="Đang tải trang truyện..." />)
     return (
         <div className="reading-detail box_doc">
             <LazyImages images={pages} threshold={(height || 1000) * 3} />

@@ -20,6 +20,9 @@ export default function useChapterList(mangaId: string, options: GetMangaIdFeedR
     }
     options.contentRating = [MangaContentRating.EROTICA, MangaContentRating.PORNOGRAPHIC, MangaContentRating.SAFE, MangaContentRating.SUGGESTIVE]
     options.limit = chaptersPerPage;
+    if (options.offset && options.offset > 10000) {
+        options.offset = 10000 - options.limit
+    }
     const { data, isLoading, error } = useSWR([mangaId, options], () => MangaApi.getMangaIdFeed(mangaId, options))
     const successData = data && (data.data as ChapterList).data
     if (successData) {

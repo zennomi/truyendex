@@ -78,9 +78,9 @@ export default function NettromLayout({
                                     </a>
                                     <div className="mrt10 row">
                                         <div className="col-xs-6">
-                                            <Link href="/contact" rel="nofollow noopener">
-                                                Liên hệ bản quyền
-                                            </Link>
+                                            <a href="https://mangadex.org/about" rel="nofollow noopener" target='_blank'>
+                                                MangaDex
+                                            </a>
                                         </div>
                                         <div className="col-xs-6">
                                             <a href="/chinh-sach-bao-mat">Chính sách bảo mật</a>

@@ -9,8 +9,24 @@ import MangaDexHomepage from "../../assets/images/mangadex-homepage.png"
 import ContextImage from "../../assets/images/context.png"
 import EatShit from "../../assets/images/nettrom-an-cut.jpg"
 import Collapse from "../../components/collapse";
+import config from "@/config";
+import LastUpdatedTitles from "@/sections/main/lastUpdatedTitles";
+import { Manga } from "@/api";
+import { Includes, Order } from "@/api/static";
+import { MangaContentRating } from "@/api/manga";
 
-export default function Home() {
+export default async function Home() {
+  const { data: { data: mangas } } = await Manga.getSearchManga({
+    includes: [Includes.COVER_ART, Includes.ARTIST, Includes.AUTHOR],
+    order: {
+      latestUploadedChapter: Order.DESC,
+    },
+    contentRating: [MangaContentRating.SAFE, MangaContentRating.SUGGESTIVE],
+    hasAvailableChapters: "true",
+    availableTranslatedLanguage: ['vi'],
+    limit: 12,
+  })
+
   return (
     <div className=" text-base text-black dark:text-white dark:bg-slate-900">
       <TopNav />
@@ -20,21 +36,21 @@ export default function Home() {
             <div className="md:col-span-7">
               <div className="md:mr-6">
                 <h4 className="font-bold lg:leading-normal leading-normal text-4xl lg:text-5xl mb-5 text-black dark:text-white relative">
-                  Một phiên bản bù đắp thiếu sót của {" "}
+                  NetTruyen + MangaDex = {" "}
                   <span className="after:absolute after:right-0 after:left-0 after:bottom-3 after:lg:h-3 after:h-2 after:w-auto after:rounded-md after:bg-indigo-600/30 relative text-indigo-600">
-                    NetTruyen
+                    TruyenDex
                   </span>
                 </h4>
                 <p className="text-slate-400 text-lg max-w-xl">
-                  Ở vũ trụ Earth-3041975, NetTrom trở thành ngôi nhà của cả cộng đồng.
-                  Nhóm dịch được tôn trọng, độc giả thoải mái công khai mình đọc trên NetTrom mà không cần khúm núm.
+                  Rạng sáng ngày 08/10/2024, BlogTruyen chính thức ra đi và đề lại cộng đồng dịch manga bơ vơ chỉ còn nơi nương tựa duy nhất là MangaDex.
+                  Dự án Da NetTrom Hồn MangaDex được tái sinh.
                 </p>
                 <div className="relative mt-8">
                   <Link
                     href={routes.nettrom.index}
                     className="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mr-2"
                   >
-                    Đọc Trộm Ngay
+                    Truy Cập Ngay
                   </Link>
                   <a
                     href="https://github.com/zennomi/truyendex"
@@ -67,6 +83,7 @@ export default function Home() {
         </div>
         {/*end container*/}
       </section>
+      <LastUpdatedTitles mangas={mangas} />
       <section
         className="relative md:py-24 py-16 bg-gray-50 dark:bg-slate-800"
         id="features"
@@ -77,7 +94,7 @@ export default function Home() {
               Ước mơ
             </h3>
             <p className="text-slate-400 max-w-xl mx-auto">
-              Tôi đã mơ. Một giấc chiêm bao về Website NetTrom. Đó là nơi...
+              Tôi đã mơ. Một giấc chiêm bao về Website {config.appName}. Đó là nơi...
             </p>
           </div>
           {/*end grid*/}
@@ -189,26 +206,25 @@ export default function Home() {
           <div className="grid md:grid-cols-2 grid-cols-1 items-center gap-[30px]">
             <div className="lg:mr-8 mt-10 md:mt-0">
               <h4 className="mb-4 text-2xl leading-normal font-semibold">
-                À thôi xạo loz đấy
+                À đấy là 1 năm trước rồi...
               </h4>
               <p className="text-slate-400">
-                BlogTruyen sau vài thoả thuận mua bán gì đó đã trở lại.
-                NetTruyen vẫn cứ ăn cắp như trước, CuuTruyen có thêm chút traffic.
-                Độc giả cũng chả quan tâm lắm, tự dưng thấy NetTruyen lại có truyện đều như mọi khi.
-                Và thế là tôi nhận ra mình cần:
+                NetTruyen bốc hơi không dấu vết.
+                BlogTruyen trở lại nhưng cũng thọ thêm 1 năm và cho nhóm dịch/độc giả 3 ngày để backup truyện.
+                Cộng đồng náo loạn di tản sang MangaDex, CuuTruyen,... Nhưng còn nhiều bất cập:
               </p>
               <ul className="list-none text-slate-400 mt-4">
                 <li className="mb-1 flex  gap-x-1 items-start">
                   <div><Iconify icon="uil:check-circle" className="text-indigo-600 text-xl w-[24px]" />{" "}</div>
-                  Nâng cao nhận thức của độc giả về vai trò nhóm dịch
+                  MangaDex giao diện chưa thân thiện với người dùng Việt Nam
                 </li>
                 <li className="mb-1 flex  gap-x-1 items-start">
                   <div><Iconify icon="uil:check-circle" className="text-indigo-600 text-xl w-[24px]" />{" "}</div>
-                  Pressing NetTruyen đến khi họ không còn là NetTrom nữa
+                  CuuTruyen chưa backup kịp hàng nghìn đầu truyện của BlogTruyen
                 </li>
                 <li className="mb-1 flex  gap-x-1 items-start">
                   <div><Iconify icon="uil:check-circle" className="text-indigo-600 text-xl w-[24px]" />{" "}</div>
-                  Làm gì đó cho các nhóm dịch
+                  Các website khác cũng đang rén
                 </li>
               </ul>
               <div className="mt-4">
@@ -224,10 +240,10 @@ export default function Home() {
               <div className="absolute -bottom-10 right-0 p-6 rounded-lg shadow-md dark:shadow-gray-800 bg-white dark:bg-slate-900 md:w-80 w-60">
                 <h5 className="text-lg font-semibold mb-3">MangaDex + NetTruyen</h5>
                 <p className="text-slate-400">
-                  Hệ thống phía sau website dựa trên API của MangaDex.
+                  Toàn bộ data manga là của MangaDex.
                 </p>
                 <div className="flex justify-between mt-3 mb-2">
-                  <span className="text-slate-400">Đang hoàn thiện</span>
+                  <span className="text-slate-400">Hoàn thiện</span>
                   <span className="text-slate-400">30%</span>
                 </div>
                 <div className="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-[6px]">
@@ -260,7 +276,7 @@ export default function Home() {
             </div>
             <div className="lg:ml-8 order-1 md:order-2">
               <h4 className="mb-4 text-2xl leading-normal font-semibold">
-                Nhưng không, tôi đã hiểu nhầm <br />  người anh cả NetTruyen
+                Một phút tưởng niệm NetTruyen
               </h4>
               <p className="text-slate-400">
                 Cả cộng đồng ngã ngửa khi biết thực ra NetTruyen ăn cắp là để che mắt triều đình.

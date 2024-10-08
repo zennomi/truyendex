@@ -1,18 +1,20 @@
 "use client"
 
 import useSWR from 'swr'
-import { Manga as MangaApi } from '../api'
-import { GetSearchMangaRequestOptions } from '../api/manga'
-import { Includes } from '../api/static'
-import { MangaList } from '../api/schema'
-import { ExtendManga } from '../api/extend'
-import extendRelationship from '../utils/extendRelationship'
 import { useMemo } from 'react'
-import { useMangadex } from '../contexts/mangadex'
+import { Manga as MangaApi } from '@/api'
+import { GetSearchMangaRequestOptions } from '@/api/manga'
+import { Includes } from '@/api/static'
+import { MangaList } from '@/api/schema'
+import { ExtendManga } from '@/api/extend'
+import extendRelationship from '@/utils/extendRelationship'
 
 export default function useSearchManga(options: GetSearchMangaRequestOptions) {
     if (!options.includes) {
         options.includes = [Includes.COVER_ART]
+    }
+    if (options.offset && options.offset > 10000) {
+        options.offset = 10000 - (options.limit || 10)
     }
     const { data, error, isLoading } = useSWR(['search-manga', options], () => MangaApi.getSearchManga(options))
     const successData = data && data.data.result === "ok" && (data.data as MangaList)
