@@ -1,11 +1,12 @@
 import Image from "next/image"
 import Link from "next/link"
-import NetTromLogo from "@/assets/nettrom-logo.png"
+import TruyenDexLogo from "@/assets/truyendex-logo.png"
 import { getSearchNetTromUrl } from "@/utils/url"
 import { MangaPublicationDemographic } from "@/api/manga"
 import { tags } from "@/constants"
 import transLocalizedStr from "@/utils/transLocalizedStr"
 import Iconify from "../iconify"
+import routes from "@/routes"
 
 export default function TopNav() {
     return (
@@ -17,9 +18,10 @@ export default function TopNav() {
                 {/* Logo container*/}
                 <Link className="logo pl-0" href={"/"}>
                     <Image
-                        src={NetTromLogo}
+                        src={TruyenDexLogo}
                         className="hidden dark:inline-block"
-                        alt=""
+                        alt="truyendex logo"
+                        height={24}
                     />
                 </Link>
                 {/* End Logo container*/}
@@ -64,6 +66,11 @@ export default function TopNav() {
                         <li>
                             <Link href="/" className="sub-menu-item">
                                 Trang chủ
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href={routes.nettrom.index} className="sub-menu-item">
+                                Bản thử nghiệm
                             </Link>
                         </li>
                         <li className="has-submenu parent-parent-menu-item">
