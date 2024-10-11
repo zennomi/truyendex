@@ -500,7 +500,7 @@ export default async function Home() {
               </p>
               <div className="mt-6">
                 <a
-                  href="https://www.messenger.com/t/443260942921638"
+                  href={routes.report}
                   target="_blank"
                   className="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md me-2 mt-2"
                 >

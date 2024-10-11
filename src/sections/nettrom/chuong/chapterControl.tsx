@@ -120,7 +120,7 @@ export default function ChapterControl() {
                 <div className="mrb10">
                     <a
                         rel="nofollow"
-                        href="https://www.facebook.com/Zennomi"
+                        href={routes.report}
                         target="_blank"
                         className="alertError btn btn-warning"
                     >
