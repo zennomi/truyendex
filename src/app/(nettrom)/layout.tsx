@@ -18,17 +18,11 @@ import routes from "@/routes";
 import { MangadexContextProvider } from "@/contexts/mangadex";
 import Gtag from '@/components/gtag';
 import config from '@/config';
+import { metadata } from '@/app/(main)/layout';
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-    title: `Đọc Truyện Tranh Online - Website chính thức - ${config.appName}`,
-    description: `Web đọc truyện tranh online lớn nhất được cập nhật liên tục mỗi ngày - Cùng tham gia đọc truyện và thảo luận với hơn 💚10 triệu thành viên tại ${config.appName}`,
-    other: {
-        referrer: "same-origin"
-    },
-    metadataBase: new URL(config.appUrl),
-}
+export { metadata }
 
 export default function NettromLayout({
     children,

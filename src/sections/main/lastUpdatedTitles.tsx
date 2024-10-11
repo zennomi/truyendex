@@ -40,7 +40,7 @@ export default function LastUpdatedTitles({ mangas }: { mangas: ExtendManga[] })
                                         {
                                             extended.attributes.publicationDemographic &&
                                             <ul className="list-none absolute top-[10px] start-4">
-                                                <li><a href="javascript:void(0)" className="bg-orange-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded h-5">{extended.attributes.publicationDemographic.toUpperCase()}</a></li>
+                                                <li><span className="bg-orange-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded h-5">{extended.attributes.publicationDemographic.toUpperCase()}</span></li>
                                             </ul>
                                         }
                                     </div>

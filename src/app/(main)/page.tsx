@@ -1,31 +1,17 @@
-import TopNav from "../../components/home/topNav";
 import Image from "next/image";
 import Link from "next/link";
-import routes from "../../routes";
-import Iconify from "../../components/iconify";
+import TopNav from "@/components/home/topNav";
+import routes from "@/routes";
+import Iconify from "@/components/iconify";
 
-import LaptopIllustration from "../../assets/images/laptop.png"
-import MangaDexHomepage from "../../assets/images/mangadex-homepage.png"
-import ContextImage from "../../assets/images/context.png"
-import EatShit from "../../assets/images/nettrom-an-cut.jpg"
-import Collapse from "../../components/collapse";
+import LaptopIllustration from "@/assets/images/laptop.png"
+import MangaDexHomepage from "@/assets/images/mangadex-homepage.png"
+import BannerImage from "@/app/opengraph-image.jpg"
+import EatShit from "@/assets/images/nettrom-an-cut.jpg"
+import Collapse from "@/components/collapse";
 import config from "@/config";
-import LastUpdatedTitles from "@/sections/main/lastUpdatedTitles";
-import { Manga } from "@/api";
-import { Includes, Order } from "@/api/static";
-import { MangaContentRating } from "@/api/manga";
 
 export default async function Home() {
-  const { data: { data: mangas } } = await Manga.getSearchManga({
-    includes: [Includes.COVER_ART, Includes.ARTIST, Includes.AUTHOR],
-    order: {
-      latestUploadedChapter: Order.DESC,
-    },
-    contentRating: [MangaContentRating.SAFE, MangaContentRating.SUGGESTIVE],
-    hasAvailableChapters: "true",
-    availableTranslatedLanguage: ['vi'],
-    limit: 12,
-  })
 
   return (
     <div className=" text-base text-black dark:text-white dark:bg-slate-900">
@@ -50,7 +36,7 @@ export default async function Home() {
                     href={routes.nettrom.index}
                     className="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md mr-2"
                   >
-                    Truy Cập Ngay
+                    Trải nghiệm Demo
                   </Link>
                   <a
                     href="https://github.com/zennomi/truyendex"
@@ -83,7 +69,6 @@ export default async function Home() {
         </div>
         {/*end container*/}
       </section>
-      <LastUpdatedTitles mangas={mangas} />
       <section
         className="relative md:py-24 py-16 bg-gray-50 dark:bg-slate-800"
         id="features"
@@ -91,15 +76,13 @@ export default async function Home() {
         <div className="container lg mx-auto">
           <div className="grid grid-cols-1 pb-8 text-center">
             <h3 className="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal font-semibold">
-              Ước mơ
+              Tại sao lại là TruyenDex
             </h3>
             <p className="text-slate-400 max-w-xl mx-auto">
-              Tôi đã mơ. Một giấc chiêm bao về Website {config.appName}. Đó là nơi...
+              Để có thể sử dụng API của <a href="https://mangadex.org/" target="_blank">MangaDex</a> và trở thành mái nhà bền vững của cộng đồng nhóm dịch/độc giả Việt, {config.appName} đã đặt ra các tiêu chí sau:
             </p>
           </div>
-          {/*end grid*/}
           <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-4 gap-[30px]">
-            {/* Content */}
             <div className="group relative lg:px-6 mt-4 transition duration-500 ease-in-out rounded-xl overflow-hidden text-center">
               <div className="relative overflow-hidden text-transparent -m-3">
                 <Iconify icon="tabler:hexagon-filled" className="h-28 w-28 text-indigo-600/5 mx-auto rotate-[30deg]" />
@@ -108,43 +91,17 @@ export default async function Home() {
                 </div>
               </div>
               <div className="mt-6">
-                <a
-                  href="#"
+                <span
                   className="text-xl font-medium hover:text-indigo-600 duration-500 ease-in-out"
                 >
                   Tôn trọng nhóm dịch
-                </a>
+                </span>
                 <p className="text-slate-400 transition duration-500 ease-in-out mt-3">
-                  Ở đây, các nhóm dịch được đăng truyện và ghi nguồn đầy đủ.
-                  Họ toàn quyền kiểm soát công sức mà họ tạo ra.
-                  Họ nên được tôn trọng từ những quyền cơ bản nhất.
+                  Các nhóm dịch được ghi nguồn đầy đủ và khuyến khích người đọc biết tới nhóm dịch.
+                  Họ toàn quyền quyết định đối với công sức mà họ tạo ra.
                 </p>
               </div>
             </div>
-            {/* Content */}
-            {/* Content */}
-            <div className="group relative lg:px-6 mt-4 transition duration-500 ease-in-out rounded-xl overflow-hidden text-center">
-              <div className="relative overflow-hidden text-transparent -m-3">
-                <Iconify icon="tabler:hexagon-filled" className="h-28 w-28 text-indigo-600/5 mx-auto rotate-[30deg]" />
-                <div className="absolute top-2/4 -translate-y-2/4 left-0 right-0 mx-auto text-indigo-600 rounded-xl transition duration-500 ease-in-out text-3xl flex align-middle justify-center items-center">
-                  <Iconify icon="fluent-mdl2:add-group" />
-                </div>
-              </div>
-              <div className="mt-6">
-                <a
-                  href="#"
-                  className="text-xl font-medium hover:text-indigo-600 duration-500 ease-in-out"
-                >
-                  Sức mạnh cộng đồng
-                </a>
-                <p className="text-slate-400 transition duration-500 ease-in-out mt-3">
-                  Ngoài nhóm dịch, mọi người có thể đóng góp xây dựng mọi thông tin xoay quanh một bộ truyện.
-                  Tác giả, hình thức, thể loại... Giả sử tôi muốn đọc RomCom, sao lại lẫn cả NTR vào đây 😭
-                </p>
-              </div>
-            </div>
-            {/* Content */}
-            {/* Content */}
             <div className="group relative lg:px-6 mt-4 transition duration-500 ease-in-out rounded-xl overflow-hidden text-center">
               <div className="relative overflow-hidden text-transparent -m-3">
                 <Iconify icon="tabler:hexagon-filled" className="h-28 w-28 text-indigo-600/5 mx-auto rotate-[30deg]" />
@@ -153,50 +110,78 @@ export default async function Home() {
                 </div>
               </div>
               <div className="mt-6">
-                <a
-                  href="#"
+                <span
                   className="text-xl font-medium hover:text-indigo-600 duration-500 ease-in-out"
                 >
-                  Phi lợi nhuận
-                </a>
+                  Không gắn quảng cáo
+                </span>
                 <p className="text-slate-400 transition duration-500 ease-in-out mt-3">
-                  Nguồn tiền vừa đủ duy trì cộng đồng. Không có của cải dư thừa, không xuất hiện chế độ tư hữu.
-                  Không có "trâu ăn" để "trâu buộc" ghét. Việc ai người đấy làm vì đam mê.
+                  Thứ nhất là vì yêu cầu của MangaDex, thứ hai là để không bị nhà mạng chặn.
+                  Bởi vì phí duy trì TruyenDex rất thấp nên không cần kiếm lợi nhuận.
                 </p>
               </div>
             </div>
-            {/* Content */}
+            <div className="group relative lg:px-6 mt-4 transition duration-500 ease-in-out rounded-xl overflow-hidden text-center">
+              <div className="relative overflow-hidden text-transparent -m-3">
+                <Iconify icon="tabler:hexagon-filled" className="h-28 w-28 text-indigo-600/5 mx-auto rotate-[30deg]" />
+                <div className="absolute top-2/4 -translate-y-2/4 left-0 right-0 mx-auto text-indigo-600 rounded-xl transition duration-500 ease-in-out text-3xl flex align-middle justify-center items-center">
+                  <Iconify icon="fluent-mdl2:add-group" />
+                </div>
+              </div>
+              <div className="mt-6">
+                <span
+                  className="text-xl font-medium hover:text-indigo-600 duration-500 ease-in-out"
+                >
+                  Sống dai nhất có thể
+                </span>
+                <p className="text-slate-400 transition duration-500 ease-in-out mt-3">
+                  TruyenDex sẽ hạn chế xuất hiện công khai trên kết quả tìm kiếm, không gắn quảng cáo, không kiếm lợi nhuận, không tàng trữ dữ liệu phạm pháp,...
+                </p>
+              </div>
+            </div>
           </div>
           {/*end grid*/}
         </div>
         {/*end container*/}
         <div className="container md:mt-24 mt-16">
-          <div className="grid md:grid-cols-2 grid-cols-1 items-center mt-16 gap-[30px]">
+          <div className="grid grid-cols-1 pb-8 text-center">
+            <h3 className="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal font-semibold">
+              Hoàn cảnh lịch sử
+            </h3>
+            <p className="text-slate-400 max-w-xl mx-auto">
+              TruyenDex - Từ một dự án troll NetTruyen đến trở thành một dự án nghiêm túc, TruyenDex sẽ trở thành website đọc truyện đầy đủ chức năng phù hợp với độc giả Việt Nam...
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 grid-cols-1 items-center gap-[30px]">
             <div className="relative order-2 md:order-1">
               <Image
-                src={ContextImage}
+                src={EatShit}
                 className="rounded-lg shadow-md dark:shadow-gray-800"
                 alt=""
               />
             </div>
             <div className="lg:ml-8 mt-8 md:mt-0 order-1 md:order-2">
               <h4 className="mb-4 text-2xl md:leading-normal leading-normal font-semibold">
-                Hoàn cảnh lịch sử
+                Khủng hoảng truyện l*u
               </h4>
               <p className="text-slate-400">
-                Đau xót trước cảnh BlogTruyen mất, cộng đồng tan rã, đồng thời nhìn thấy những mặt hạn chế của
-                các phong trào chống NetTruyen đầu thế kỉ XXI, đã thôi thúc tôi ra đi tìm
-                con đường cứu truyện mới cho cộng đồng.
+                NetTruyen bốc hơi trước. Các website đọc manga lớn khác như BlogTruyen, TruyenQQ, OtakuSan,... cũng lần lượt bị sập hoặc đổi chủ.
+                Cộng đồng náo loạn di tản sang MangaDex, CuuTruyen,... Nhưng...
               </p>
-              <div className="mt-4">
-                <a
-                  href="https://www.facebook.com/100063838084923/videos/550876680578076"
-                  target="_blank"
-                  className="btn btn-link text-indigo-600 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out"
-                >
-                  Buồn của NetTruyen <Iconify icon="uil:angle-right-b" className="inline" />
-                </a>
-              </div>
+              <ul className="list-none text-slate-400 mt-4">
+                <li className="mb-1 flex  gap-x-1 items-start">
+                  <div><Iconify icon="heroicons-outline:x-circle" className="text-indigo-600 text-xl w-[24px]" />{" "}</div>
+                  MangaDex giao diện chưa thân thiện với người dùng Việt Nam
+                </li>
+                <li className="mb-1 flex  gap-x-1 items-start">
+                  <div><Iconify icon="heroicons-outline:x-circle" className="text-indigo-600 text-xl w-[24px]" />{" "}</div>
+                  CuuTruyen chưa backup kịp hàng nghìn đầu truyện của BlogTruyen
+                </li>
+                <li className="mb-1 flex  gap-x-1 items-start">
+                  <div><Iconify icon="heroicons-outline:x-circle" className="text-indigo-600 text-xl w-[24px]" />{" "}</div>
+                  Cộng đồng không có một nơi sinh hoạt cố định
+                </li>
+              </ul>
             </div>
           </div>
           {/*end grid*/}
@@ -206,41 +191,33 @@ export default async function Home() {
           <div className="grid md:grid-cols-2 grid-cols-1 items-center gap-[30px]">
             <div className="lg:mr-8 mt-10 md:mt-0">
               <h4 className="mb-4 text-2xl leading-normal font-semibold">
-                À đấy là 1 năm trước rồi...
+                NetTrom
               </h4>
               <p className="text-slate-400">
-                NetTruyen bốc hơi không dấu vết.
-                BlogTruyen trở lại nhưng cũng thọ thêm 1 năm và cho nhóm dịch/độc giả 3 ngày để backup truyện.
-                Cộng đồng náo loạn di tản sang MangaDex, CuuTruyen,... Nhưng còn nhiều bất cập:
+                TruyenDex (trước đó là NetTrom) vốn là một dự án sinh ra để troll NetTruyen,
+                nhưng không ngờ lại được nhiều người kỳ vọng vào một website mới
+                sẽ thay thế cho người anh BlogTruyen. Tuy nhiên TruyenDex lúc này còn nhiều hạn chế:
               </p>
               <ul className="list-none text-slate-400 mt-4">
                 <li className="mb-1 flex  gap-x-1 items-start">
-                  <div><Iconify icon="uil:check-circle" className="text-indigo-600 text-xl w-[24px]" />{" "}</div>
-                  MangaDex giao diện chưa thân thiện với người dùng Việt Nam
+                  <div><Iconify icon="heroicons-outline:x-circle" className="text-indigo-600 text-xl w-[24px]" />{" "}</div>
+                  Chưa có chức năng đăng nhập, theo dõi, bình luận
                 </li>
                 <li className="mb-1 flex  gap-x-1 items-start">
-                  <div><Iconify icon="uil:check-circle" className="text-indigo-600 text-xl w-[24px]" />{" "}</div>
-                  CuuTruyen chưa backup kịp hàng nghìn đầu truyện của BlogTruyen
+                  <div><Iconify icon="heroicons-outline:x-circle" className="text-indigo-600 text-xl w-[24px]" />{" "}</div>
+                  Giao diện trộm giật từ NetTruyen chưa thực sự tối ưu
                 </li>
                 <li className="mb-1 flex  gap-x-1 items-start">
-                  <div><Iconify icon="uil:check-circle" className="text-indigo-600 text-xl w-[24px]" />{" "}</div>
-                  Các website khác cũng đang rén
+                  <div><Iconify icon="heroicons-outline:x-circle" className="text-indigo-600 text-xl w-[24px]" />{" "}</div>
+                  Phụ thuộc quá nhiều vào MangaDex API
                 </li>
               </ul>
-              <div className="mt-4">
-                <Link
-                  href={routes.nettrom.index}
-                  className="btn btn-link text-indigo-600 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out"
-                >
-                  Trải nghiệm NetTrom <Iconify icon="uil:angle-right-b" className="inline" />
-                </Link>
-              </div>
             </div>
             <div className="relative">
               <div className="absolute -bottom-10 right-0 p-6 rounded-lg shadow-md dark:shadow-gray-800 bg-white dark:bg-slate-900 md:w-80 w-60">
-                <h5 className="text-lg font-semibold mb-3">MangaDex + NetTruyen</h5>
+                <h5 className="text-lg font-semibold mb-3">MangaDex API</h5>
                 <p className="text-slate-400">
-                  Toàn bộ data manga là của MangaDex.
+                  TruyenDex không hề sở hữu bất cứ dữ liệu manga nào
                 </p>
                 <div className="flex justify-between mt-3 mb-2">
                   <span className="text-slate-400">Hoàn thiện</span>
@@ -268,7 +245,7 @@ export default async function Home() {
           <div className="grid md:grid-cols-2 grid-cols-1 items-center gap-[30px]">
             <div className="relative order-2 md:order-1">
               <Image
-                src={EatShit}
+                src={BannerImage}
                 className="rounded-lg shadow-md dark:shadow-gray-800"
                 alt=""
               />
@@ -276,41 +253,22 @@ export default async function Home() {
             </div>
             <div className="lg:ml-8 order-1 md:order-2">
               <h4 className="mb-4 text-2xl leading-normal font-semibold">
-                Một phút tưởng niệm NetTruyen
+                Chính thức khởi động
               </h4>
               <p className="text-slate-400">
-                Cả cộng đồng ngã ngửa khi biết thực ra NetTruyen ăn cắp là để che mắt triều đình.
-                Cú plot twist vẹo gãy xương bọn anti-nettruyen.
+                Sau khi khởi động lại dự án NetTrom bản demo khá mượt dù đỉnh điểm lên tới 2000 người dùng trong 1 phút,
+                bàn bạc với với anh Gián admin Hako và tham khảo ý kiến nhiều bên như anh Afang cựu mod Blogtruyen,
+                anh em hay hoạt động bên MangaDex, đánh tiếng với CuuTruyen-senpai,
+                và không thể thiếu sự ủng hộ của nhiều bạn độc giả ở phần bình luận,
+                mình quyết định sẽ đưa TruyenDex thành dự án nghiêm túc.
               </p>
-              <ul className="list-none text-slate-400 mt-4">
-                <li className="mb-1 flex gap-x-1">
-                  <div>
-                    <Iconify icon="uil:check-circle" className="text-indigo-600 text-xl" />
-                  </div>
-                  <div>
-                    Không ghi credit để triều đình không mò được tới nhóm dịch gốc
-                  </div>
-                </li>
-                <li className="mb-1 flex gap-x-1 items-start">
-                  <div><Iconify icon="uil:check-circle" className="text-indigo-600 text-xl" /></div>
-                  <div>
-                    Chạy SEO Google lấn át blogtruyen, cuutruyen,... hi sinh thân mình lấp kết quả tìm kiếm
-                  </div>
-                </li>
-                <li className="mb-1 flex  gap-x-1 items-start">
-                  <div><Iconify icon="uil:check-circle" className="text-indigo-600 text-xl" /></div>
-                  <div>
-                    Cắm quảng cáo thu lợi nhuận đánh lạc hướng NXB & Đơn Vị Bản Quyền
-                  </div>
-                </li>
-              </ul>
               <div className="mt-4">
                 <a
-                  href="https://youtu.be/sACeJD8WnJ4?t=24"
+                  href="https://www.facebook.com/Zennomi/posts/pfbid0rFPrK9ey3KS54Yb6oQeQjcQawZrrsjiC8153ZwvAMcESyknrTASyZA5peey6T6oRl"
                   target="_blank"
                   className="btn btn-link text-indigo-600 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out"
                 >
-                  NetTruyen lên VTV <Iconify icon="uil:angle-right-b" className="inline" />
+                  Bài viết công bố dự án <Iconify icon="uil:angle-right-b" className="inline" />
                 </a>
               </div>
             </div>
@@ -319,26 +277,261 @@ export default async function Home() {
       </section>
 
       <section className="relative md:py-24 py-16">
-        <div className="container md:mt-24 mt-16">
+        <div className="container relative">
           <div className="grid grid-cols-1 pb-8 text-center">
             <h3 className="mb-4 md:text-3xl md:leading-normal text-2xl leading-normal font-semibold">
-              Joke thôi, nói thật này
+              Chức năng trong tương lai
             </h3>
             <p className="text-slate-400 max-w-xl mx-auto">
-              Thật ra NetTruyen không chỉ là NetTruyen.com, NetTruyenTo, NetTruyenZ, NetTruyenPlus, NetTruyenMax,...
-              Nó ám chỉ cả một hệ tư tưởng ăn cắp truyện gắn quảng cáo.
+              TruyenDex sẽ bổ sung thêm các chức năng gì?
+            </p>
+          </div>
+          {/*end grid*/}
+          <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 mt-8 gap-[30px]">
+            <div className="group relative p-6 shadow dark:shadow-gray-800 hover:shadow-md dark:hover:shadow-gray-700 hover:bg-indigo-600 dark:hover:bg-indigo-600 duration-500 rounded-xl bg-white dark:bg-slate-900 overflow-hidden text-center">
+              <div className="relative overflow-hidden text-transparent -m-3">
+                <i
+                  data-feather="hexagon"
+                  className="size-24 fill-indigo-600/5 group-hover:fill-white/10 mx-auto"
+                />
+                <div className="absolute top-2/4 -translate-y-2/4 start-0 end-0 mx-auto text-indigo-600 rounded-xl group-hover:text-white duration-500 text-3xl flex align-middle justify-center items-center">
+                  <i className="uil uil-chart-line" />
+                </div>
+              </div>
+              <div className="mt-6">
+                <a
+                  href=""
+                  className="text-lg font-medium group-hover:text-white duration-500"
+                >
+                  Đăng nhập
+                </a>
+                <p className="text-slate-400 group-hover:text-white/50 duration-500 mt-3">
+                  Cá nhân hóa trải nghiệm sử dụng TruyenDex
+                </p>
+              </div>
+            </div>
+            {/*end feature*/}
+            <div className="group relative p-6 shadow dark:shadow-gray-800 hover:shadow-md dark:hover:shadow-gray-700 hover:bg-indigo-600 dark:hover:bg-indigo-600 duration-500 rounded-xl bg-white dark:bg-slate-900 overflow-hidden text-center">
+              <div className="relative overflow-hidden text-transparent -m-3">
+                <i
+                  data-feather="hexagon"
+                  className="size-24 fill-indigo-600/5 group-hover:fill-white/10 mx-auto"
+                />
+                <div className="absolute top-2/4 -translate-y-2/4 start-0 end-0 mx-auto text-indigo-600 rounded-xl group-hover:text-white duration-500 text-3xl flex align-middle justify-center items-center">
+                  <i className="uil uil-crosshairs" />
+                </div>
+              </div>
+              <div className="mt-6">
+                <a
+                  href=""
+                  className="text-lg font-medium group-hover:text-white duration-500"
+                >
+                  Theo dõi truyện
+                </a>
+                <p className="text-slate-400 group-hover:text-white/50 duration-500 mt-3">
+                  Cập nhật chương mới nhất của các bộ truyện bạn theo dõi!
+                </p>
+              </div>
+            </div>
+            {/*end feature*/}
+            <div className="group relative p-6 shadow dark:shadow-gray-800 hover:shadow-md dark:hover:shadow-gray-700 hover:bg-indigo-600 dark:hover:bg-indigo-600 duration-500 rounded-xl bg-white dark:bg-slate-900 overflow-hidden text-center">
+              <div className="relative overflow-hidden text-transparent -m-3">
+                <i
+                  data-feather="hexagon"
+                  className="size-24 fill-indigo-600/5 group-hover:fill-white/10 mx-auto"
+                />
+                <div className="absolute top-2/4 -translate-y-2/4 start-0 end-0 mx-auto text-indigo-600 rounded-xl group-hover:text-white duration-500 text-3xl flex align-middle justify-center items-center">
+                  <i className="uil uil-airplay" />
+                </div>
+              </div>
+              <div className="mt-6">
+                <a
+                  href=""
+                  className="text-lg font-medium group-hover:text-white duration-500"
+                >
+                  Bình luận
+                </a>
+                <p className="text-slate-400 group-hover:text-white/50 duration-500 mt-3">
+                  Bình luận tại một đầu truyện, tại một chương, thậm chí là tại một trang truyện!
+                </p>
+              </div>
+            </div>
+            {/*end feature*/}
+            <div className="group relative p-6 shadow dark:shadow-gray-800 hover:shadow-md dark:hover:shadow-gray-700 hover:bg-indigo-600 dark:hover:bg-indigo-600 duration-500 rounded-xl bg-white dark:bg-slate-900 overflow-hidden text-center">
+              <div className="relative overflow-hidden text-transparent -m-3">
+                <i
+                  data-feather="hexagon"
+                  className="size-24 fill-indigo-600/5 group-hover:fill-white/10 mx-auto"
+                />
+                <div className="absolute top-2/4 -translate-y-2/4 start-0 end-0 mx-auto text-indigo-600 rounded-xl group-hover:text-white duration-500 text-3xl flex align-middle justify-center items-center">
+                  <i className="uil uil-rocket" />
+                </div>
+              </div>
+              <div className="mt-6">
+                <a
+                  href=""
+                  className="text-lg font-medium group-hover:text-white duration-500"
+                >
+                  Diễn đàn thảo luận
+                </a>
+                <p className="text-slate-400 group-hover:text-white/50 duration-500 mt-3">
+                  Nơi cộng đồng sinh hoạt, mọi người tương tác với nhau
+                </p>
+              </div>
+            </div>
+            {/*end feature*/}
+            <div className="group relative p-6 shadow dark:shadow-gray-800 hover:shadow-md dark:hover:shadow-gray-700 hover:bg-indigo-600 dark:hover:bg-indigo-600 duration-500 rounded-xl bg-white dark:bg-slate-900 overflow-hidden text-center">
+              <div className="relative overflow-hidden text-transparent -m-3">
+                <i
+                  data-feather="hexagon"
+                  className="size-24 fill-indigo-600/5 group-hover:fill-white/10 mx-auto"
+                />
+                <div className="absolute top-2/4 -translate-y-2/4 start-0 end-0 mx-auto text-indigo-600 rounded-xl group-hover:text-white duration-500 text-3xl flex align-middle justify-center items-center">
+                  <i className="uil uil-clock" />
+                </div>
+              </div>
+              <div className="mt-6">
+                <a
+                  href=""
+                  className="text-lg font-medium group-hover:text-white duration-500"
+                >
+                  BXH Truyện
+                </a>
+                <p className="text-slate-400 group-hover:text-white/50 duration-500 mt-3">
+                  Top truyện hot toàn thời gian, toàn tháng, toàn tuần,...
+                </p>
+              </div>
+            </div>
+            {/*end feature*/}
+            <div className="group relative p-6 shadow dark:shadow-gray-800 hover:shadow-md dark:hover:shadow-gray-700 hover:bg-indigo-600 dark:hover:bg-indigo-600 duration-500 rounded-xl bg-white dark:bg-slate-900 overflow-hidden text-center">
+              <div className="relative overflow-hidden text-transparent -m-3">
+                <i
+                  data-feather="hexagon"
+                  className="size-24 fill-indigo-600/5 group-hover:fill-white/10 mx-auto"
+                />
+                <div className="absolute top-2/4 -translate-y-2/4 start-0 end-0 mx-auto text-indigo-600 rounded-xl group-hover:text-white duration-500 text-3xl flex align-middle justify-center items-center">
+                  <i className="uil uil-users-alt" />
+                </div>
+              </div>
+              <div className="mt-6">
+                <a
+                  href=""
+                  className="text-lg font-medium group-hover:text-white duration-500"
+                >
+                  Xếp hạng người dùng
+                </a>
+                <p className="text-slate-400 group-hover:text-white/50 duration-500 mt-3">
+                  Người dùng thi đua tương tác để leo hạng...
+                </p>
+              </div>
+            </div>
+            {/*end feature*/}
+            <div className="group relative p-6 shadow dark:shadow-gray-800 hover:shadow-md dark:hover:shadow-gray-700 hover:bg-indigo-600 dark:hover:bg-indigo-600 duration-500 rounded-xl bg-white dark:bg-slate-900 overflow-hidden text-center">
+              <div className="relative overflow-hidden text-transparent -m-3">
+                <i
+                  data-feather="hexagon"
+                  className="size-24 fill-indigo-600/5 group-hover:fill-white/10 mx-auto"
+                />
+                <div className="absolute top-2/4 -translate-y-2/4 start-0 end-0 mx-auto text-indigo-600 rounded-xl group-hover:text-white duration-500 text-3xl flex align-middle justify-center items-center">
+                  <i className="uil uil-file-alt" />
+                </div>
+              </div>
+              <div className="mt-6">
+                <a
+                  href=""
+                  className="text-lg font-medium group-hover:text-white duration-500"
+                >
+                  Liên kết MangaDex
+                </a>
+                <p className="text-slate-400 group-hover:text-white/50 duration-500 mt-3">
+                  Liên kết với tài khoản MangaDex để nhận role nhóm trưởng, dịch giả,...
+                </p>
+              </div>
+            </div>
+            {/*end feature*/}
+            <div className="group relative p-6 shadow dark:shadow-gray-800 hover:shadow-md dark:hover:shadow-gray-700 hover:bg-indigo-600 dark:hover:bg-indigo-600 duration-500 rounded-xl bg-white dark:bg-slate-900 overflow-hidden text-center">
+              <div className="relative overflow-hidden text-transparent -m-3">
+                <i
+                  data-feather="hexagon"
+                  className="size-24 fill-indigo-600/5 group-hover:fill-white/10 mx-auto"
+                />
+                <div className="absolute top-2/4 -translate-y-2/4 start-0 end-0 mx-auto text-indigo-600 rounded-xl group-hover:text-white duration-500 text-3xl flex align-middle justify-center items-center">
+                  <i className="uil uil-search" />
+                </div>
+              </div>
+              <div className="mt-6">
+                <a
+                  href=""
+                  className="text-lg font-medium group-hover:text-white duration-500"
+                >
+                  Ủng hộ bản quyền
+                </a>
+                <p className="text-slate-400 group-hover:text-white/50 duration-500 mt-3">
+                  Ủng hộ truyện bản quyền với tất cả thiện chí
+                </p>
+              </div>
+            </div>
+            {/*end feature*/}
+          </div>
+        </div>
+        {/*end container*/}
+        <div className="container relative md:mt-24 mt-16">
+          <div className="grid grid-cols-1 items-center gap-[30px]">
+            <div className="">
+              <div className="flex mb-4">
+                <span className="text-indigo-600 text-2xl font-bold mb-0">
+                  <span
+                    className="counter-value text-6xl font-bold"
+                    data-target={15}
+                  >
+                    0
+                  </span>
+                  ₫
+                </span>
+                <span className="self-end font-medium ms-2">
+                  vốn <br /> phát triển
+                </span>
+              </div>
+              <h3 className="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal font-semibold">
+                Ủng hộ dự án?
+              </h3>
+              <p className="text-slate-400 max-w-xl">
+                Dự án không nhận tiền, chỉ nhận hiện vật (Proxy, Server, VPS, hỗ trợ xây cộng đồng,...). Nếu bạn thực sự muốn ủng hộ dự án, hay chia sẻ dự án tới nhiều người hơn.
+              </p>
+              <div className="mt-6">
+                <a
+                  href="https://www.messenger.com/t/443260942921638"
+                  target="_blank"
+                  className="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md me-2 mt-2"
+                >
+                  <i className="uil uil-envelope" /> Liên hệ
+                </a>
+              </div>
+            </div>
+          </div>
+          {/*end grid*/}
+        </div>
+        {/*end container*/}
+      </section>
+
+      <section className="relative md:py-24 py-16">
+        <div className="container">
+          <div className="grid grid-cols-1 pb-8 text-center">
+            <h3 className="mb-4 md:text-3xl md:leading-normal text-2xl leading-normal font-semibold">
+              FAQs
+            </h3>
+            <p className="text-slate-400 max-w-xl mx-auto">
+              Chắc chắn sẽ có nhiều thắc mắc...
             </p>
           </div>
           {/*end grid*/}
           <div className="relative grid md:grid-cols-12 grid-cols-1 items-center mt-8 gap-[30px]">
             <div className="md:col-span-6">
               <Collapse
-                title="NetTrom liệu có thể thay thế NetTruyen?"
+                title="Tại sao lại không có quảng cáo? Tiền duy trì ở đâu ra?"
                 content={
                   <>
-                    NetTrom là một phiên bản demo cho thấy NetTruyen cần cải thiện điều gì.<br />
-                    Tất nhiên NetTrom vẫn đầy đủ các tính năng để trải nghiệm đọc manga không quảng cáo,
-                    tải chương với chất lượng ảnh gốc do nhóm dịch đăng tải, tìm truyện với đúng thể loại mong muốn,...
+                    Tất cả các dữ liệu liên quan đến manga sẽ được lấy từ MangaDex, các nhóm dịch sẽ đăng chương mới tại MangaDex. Thế nên chi phí vận hành website là rất ít. <b>TruyenDex không lưu trữ bất cứ dữ liệu truyện tranh nào.</b>
                   </>
                 }
               />
@@ -346,15 +539,10 @@ export default async function Home() {
             {/*end col*/}
             <div className="md:col-span-6">
               <Collapse
-                title="Nhóm dịch cũng dịch lậu mà, có gì hay ho mà chửi NetTruyen"
+                title="Ăn trộm data của MangaDex à?"
                 content={
                   <>
-                    Trước hết, bạn vào đây tức là đã và đang đọc truyện lậu nên chúng ta không bàn tới việc bản quyền.<br />
-                    99% các nhóm dịch (fan-trans) đều bỏ công sức ra vì sở thích, vì đam mê, vì fame...
-                    Vì lý do gì thì cũng chủ yếu là mục đích phi lợi nhuận, nhưng nhờ NetTruyen bê về site
-                    họ (có chứa quảng cáo) nên mục đích ấy đã tiếp tay cho NetTruyen tạo lợi nhuận.
-                    Mà đã tạo lợi nhuận thì sẽ thành cái gai trong mắt NXB và Đơn Vị Bản Quyền,
-                    nên thành ra nhóm dịch vừa bị ăn cắp vừa bị đổ oan.
+                    TruyenDex sẽ tuân thủ yêu cầu của MangaDex để được sử dụng API của họ, bao gồm: Không gắn quảng cáo, kiếm lợi nhuận, ghi nguồn nhóm dịch, cho họ quyền được tự quyết công sức của họ,...
                   </>
                 }
               />
@@ -362,54 +550,33 @@ export default async function Home() {
             {/*end col*/}
             <div className="md:col-span-6">
               <Collapse
-                title="Kệ thôi, tao đọc đâu là việc của tao"
+                title="Liệu TruyenDex có nối gót những người đi trước..."
                 content={
                   <>
-                    Đúng rồi, việc của bạn mà. Mình chỉ muốn nhắc rằng
-                    “Không có bữa ăn nào là miễn phí”, những trang truyện
-                    mà bạn đã và đang đọc lậu đều là công sức của người dịch, người biên tập,...
-                    đóng góp chứ không phải tự dưng nó xuất hiện trên NetTruyen.
-                    Có biết ơn thì nên chọn đúng người.
+                    TruyenDex chỉ lưu trữ dữ liệu người dùng, bình luận,... và cung cấp giao diện đọc truyện từ API của MangaDex, không hề lưu trữ bất cứ trang truyện nào. Đồng thời không có quảng cáo phạm pháp, và TruyenDex sẽ hạn chế xuất hiện trên kết quả tìm kiếm Google.
                   </>
                 }
               />
             </div>
             <div className="md:col-span-6">
               <Collapse
-                title="Đăng nhập trên NetTrom?"
+                title="Sao không dùng thẳng MangaDex?"
                 content={
                   <>
-                    Vì hạn chế của API MangaDex hiện tại và
-                    mình lười nên chưa có chức năng đăng nhập và theo dõi hehe.
-                    À chắc rảnh thì thêm chức năng lưu truyện trên thiết bị,
-                    theo dõi theo nhóm dịch… Tương lai xa hơn nữa thì mong
-                    API MangaDex có lẽ sẽ hỗ trợ đăng nhập.
-                    Hiện tại mình đã tìm hiểu xong kha khá về NextJS 13 và chưa có gì muốn tìm hiểu thêm.
+                    MangaDex rất tuyệt vời, nguồn lực rất mạnh, được phát triển bởi đội ngũ bài bản và chuyên nghiệp. Tuy nhiên giao diện và trải nghiệm người dùng của MangaDex không phù hợp với thị hiếu người VN, như lúc đọc truyện, bình luận, chương mới,... TruyenDex sẽ tạo ra giao diện thân thiện với độc giả VN, và là sân chơi dành riêng cho độc giả VN.
                   </>
                 }
               />
             </div>
             <div className="md:col-span-6">
               <Collapse
-                title="Bạn rảnh vkl thế"
+                title="Chi phí duy trì TruyenDex"
                 content={
                   <>
-                    Tính ra mình code cái web này có 1 tuần,
-                    chính xác theo tiếng thì chắc khoảng 50 tiếng thôi nên cũng khá rảnh.
-                    Nhân dịp mình tìm hiểu về tech ấy mà (NextJS v13, Google Analytics, TailwindCSS,...)
-                  </>
-                }
-              />
-            </div>
-            <div className="md:col-span-6">
-              <Collapse
-                title="Chi phí duy trì cái web này"
-                content={
-                  <>
-                    Tên miền: $10.95/month<br />
-                    Server: $7/month<br />
-                    Khoảng 200k/tháng 🥺<br />
-
+                    Tên miền<br />
+                    Proxy Server<br />
+                    Proxy Pool<br />
+                    Data Server<br />
                   </>
                 }
               />

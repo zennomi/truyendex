@@ -1,11 +1,11 @@
 import Image from "next/image"
-import NetTromLogo from "../../assets/nettrom-logo.png"
 import Link from "next/link"
+import NetTromLogo from "@/assets/nettrom-logo.png"
+import { getSearchNetTromUrl } from "@/utils/url"
+import { MangaPublicationDemographic } from "@/api/manga"
+import { tags } from "@/constants"
+import transLocalizedStr from "@/utils/transLocalizedStr"
 import Iconify from "../iconify"
-import { getSearchNetTromUrl } from "../../utils/url"
-import { MangaPublicationDemographic } from "../../api/manga"
-import { tags } from "../../constants"
-import transLocalizedStr from "../../utils/transLocalizedStr"
 
 export default function TopNav() {
     return (
