@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { Inter } from 'next/font/google'
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from 'react';
 
 import "@fortawesome/fontawesome-free/css/all.css";
 import '@/assets/scss/tailwind.scss'
@@ -10,25 +11,19 @@ import "./style.css"
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import MainNav from "@/components/nettrom/mainNav";
+import MainNav from "@/sections/nettrom/layout/main-nav";
 
 import NettromLogo from "@/assets/nettrom-logo.png"
-import Header from "@/components/nettrom/header";
+import Header from "@/sections/nettrom/layout/header";
 import routes from "@/routes";
 import { MangadexContextProvider } from "@/contexts/mangadex";
 import Gtag from '@/components/gtag';
 import config from '@/config';
+import { metadata } from '@/app/(main)/layout';
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-    title: `Đọc Truyện Tranh Online - Website chính thức - ${config.appName}`,
-    description: `Web đọc truyện tranh online lớn nhất được cập nhật liên tục mỗi ngày - Cùng tham gia đọc truyện và thảo luận với hơn 💚10 triệu thành viên tại ${config.appName}`,
-    other: {
-        referrer: "same-origin"
-    },
-    metadataBase: new URL(config.appUrl),
-}
+export { metadata }
 
 export default function NettromLayout({
     children,
@@ -39,7 +34,9 @@ export default function NettromLayout({
         <html lang="vi" className='dark'>
             <body className={`homepage vi-vn site1 dark ${inter.className}`}>
                 <MangadexContextProvider>
-                    <Header />
+                    <Suspense>
+                        <Header />
+                    </Suspense>
                     <nav className="main-nav hidden-xs" id="mainNav" style={{ "zIndex": 1000, "position": "relative", "top": "0px" }}>
                         <div className="inner">
                             <div className="container">

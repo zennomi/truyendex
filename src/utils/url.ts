@@ -1,11 +1,10 @@
-import { GetSearchMangaRequestOptions } from "@/api/manga";
-import { buildQueryStringFromOptions } from "@/api/util";
+import { MangadexApi } from "@/api";
 import routes from "@/routes";
 
 const IMAGE_RESIZE_URL = "https://resizer.f-ck.me";
 
-export function getSearchNetTromUrl(options: GetSearchMangaRequestOptions) {
-    const queryString = buildQueryStringFromOptions(options)
+export function getSearchNetTromUrl(options: MangadexApi.Manga.GetSearchMangaRequestOptions) {
+    const queryString = MangadexApi.Utils.buildQueryStringFromOptions(options)
     return `${routes.nettrom.search}${queryString.replaceAll("[]", "")}#results`
 }
 

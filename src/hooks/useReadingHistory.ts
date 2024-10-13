@@ -1,4 +1,4 @@
-import { ReadingHistory } from "@/types/readingHistory";
+import { ReadingHistory } from "@/types";
 import useLocalStorage from "./useLocalStorage";
 
 

@@ -7,7 +7,8 @@ const routes = {
         history: "/nettrom/lich-su",
         scanlationGroup: (id: string) => `/nettrom/nhom-dich/${id}`
     },
-    scanlationGroup: (id: string) => `/nhom-dich/${id}`
+    scanlationGroup: (id: string) => `/nhom-dich/${id}`,
+    report: `https://www.messenger.com/t/443260942921638`
 }
 
 export default routes

@@ -1,7 +1,7 @@
-import FeaturedTitles from "@/sections/nettrom/trang-chu/featuredTitles";
-import NewUpdates from "@/sections/nettrom/common/newUpdates";
-import ReadingHistory from "@/sections/nettrom/trang-chu/readingHistory";
-import TopTitles from "@/sections/nettrom/common/topTitles";
+import FeaturedTitles from "@/sections/nettrom/trang-chu/featured-titles";
+import NewUpdates from "@/sections/nettrom/common/new-updates";
+import ReadingHistory from "@/sections/nettrom/trang-chu/reading-history-table";
+import TopTitles from "@/sections/nettrom/common/top-titles-table";
 
 export const metadata = {
     title: 'Đọc Truyện Tranh Online - Website chính thức - NetTrom',
