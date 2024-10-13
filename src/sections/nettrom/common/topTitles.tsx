@@ -4,7 +4,7 @@ import Link from "next/link"
 import { useEffect } from "react"
 import { MangadexApi } from "@/api"
 import { useMangadex } from "@/contexts/mangadex"
-import useSearchManga from "@/hooks/useSearchManga"
+import { useSearchManga } from "@/hooks/mangadex"
 import routes from "@/routes"
 import { getMangaTitle, getCoverArt, getOriginalMangaTitle } from "@/utils/mangadex"
 

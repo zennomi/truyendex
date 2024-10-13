@@ -2,17 +2,18 @@ import { useState } from "react"
 import ReactPaginate from 'react-paginate';
 import Link from "next/link";
 
-import useChapterList, { chaptersPerPage } from "@/hooks/useChapterList"
+import { useChapterList } from "@/hooks/mangadex"
 import { ChapterList } from "@/types/mangadex"
 import routes from "@/routes";
 import { formatDateTime } from "@/utils/date-fns";
 import Loading from "@/components/nettrom/loading";
 import { getChapterTitle } from "@/utils/mangadex";
+import { CHAPTER_LIST_LIMIT } from "@/constants";
 
 export default function ListChapter({ mangaId }: { mangaId: string }) {
     const [page, setPage] = useState(0)
     const { data, chapters } = useChapterList(mangaId, {
-        offset: page * chaptersPerPage
+        offset: page * CHAPTER_LIST_LIMIT
     })
     if (!data?.data || !(data.data as ChapterList).data) return (<Loading title="Đang tải danh sách chương..." />)
     const chapterListData = (data.data as ChapterList)
@@ -56,7 +57,7 @@ export default function ListChapter({ mangaId }: { mangaId: string }) {
                 nextLabel=">"
                 onPageChange={(event) => { setPage(event.selected) }}
                 pageRangeDisplayed={5}
-                pageCount={Math.floor(chapterListData.total / chaptersPerPage) + 1}
+                pageCount={Math.floor(chapterListData.total / CHAPTER_LIST_LIMIT) + 1}
                 previousLabel="<"
                 renderOnZeroPageCount={null}
                 marginPagesDisplayed={2}

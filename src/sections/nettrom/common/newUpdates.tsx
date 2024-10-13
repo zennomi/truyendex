@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import ReactPaginate from "react-paginate";
-import useLastUpdates, { chaptersPerPage } from "@/hooks/useLastUpdates"
+import { useLastUpdates } from "@/hooks/mangadex"
 import { useMangadex } from "@/contexts/mangadex";
 
 import { formatNowDistance } from "@/utils/date-fns";
@@ -12,6 +12,7 @@ import routes from "@/routes";
 import Loading from "@/components/nettrom/loading";
 import { ExtendChapter } from "@/types/mangadex";
 import { getCoverArt, getMangaTitle, getChapterTitle } from "@/utils/mangadex";
+import { LAST_UPDATES_LIMIT } from "@/constants";
 
 export default function NewUpdates({ title, groupId }: { title?: string, groupId?: string }) {
     const [page, setPage] = useState(0)
@@ -172,7 +173,7 @@ export default function NewUpdates({ title, groupId }: { title?: string, groupId
                         nextLabel=">"
                         onPageChange={(event) => { setPage(event.selected) }}
                         pageRangeDisplayed={5}
-                        pageCount={Math.floor(total / chaptersPerPage)}
+                        pageCount={Math.floor(total / LAST_UPDATES_LIMIT)}
                         previousLabel="<"
                         renderOnZeroPageCount={null}
                         marginPagesDisplayed={2}

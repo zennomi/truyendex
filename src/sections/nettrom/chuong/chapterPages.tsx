@@ -1,4 +1,4 @@
-import useChapterPages from "@/hooks/useChapterPages"
+import { useChapterPages } from "@/hooks/mangadex"
 import LazyImages from "./lazyImages"
 import useWindowSize from "@/hooks/useWindowSize"
 import Loading from "@/components/nettrom/loading"

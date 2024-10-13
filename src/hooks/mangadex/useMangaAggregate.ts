@@ -1,12 +1,6 @@
 import useSWR from "swr/immutable"
 import { MangadexApi } from "@/api";
-
-export type ChapterItem = {
-    volume: string
-    chapter: string
-    id: string
-    others?: string[]
-}
+import { ChapterItem } from "@/types/mangadex";
 
 export default function useAggregate(id: string | null, options: MangadexApi.Manga.GetMangaIdAggregateRequestOptions) {
     const { data, isLoading, error } = useSWR(id ? [id, options] : null, () => MangadexApi.Manga.getMangaIdAggregate(id!, options))

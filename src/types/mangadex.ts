@@ -1029,3 +1029,10 @@ export type ExtendManga = Manga & {
     author?: Partial<Author> & Pick<Author, 'id' | 'type'>,
     artist?: Partial<Author> & Pick<Author, 'id' | 'type'>,
 }
+
+export type ChapterItem = {
+    volume: string
+    chapter: string
+    id: string
+    others?: string[]
+}

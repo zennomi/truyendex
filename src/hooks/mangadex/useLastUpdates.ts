@@ -4,8 +4,9 @@ import useSWR from 'swr'
 import { MangadexApi } from '@/api';
 import { ChapterList, ExtendChapter } from '@/types/mangadex';
 import { extendRelationship } from '@/utils/mangadex';
+import { LAST_UPDATES_LIMIT } from '@/constants';
 
-export const chaptersPerPage = 100
+export const chaptersPerPage = LAST_UPDATES_LIMIT
 
 export default function useLastUpdates(options: { page: number, groupId?: string }) {
     const { page, groupId } = options

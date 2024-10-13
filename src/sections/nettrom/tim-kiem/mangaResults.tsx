@@ -2,7 +2,7 @@
 
 import { useSearchParams, useRouter } from "next/navigation"
 import { useEffect } from "react"
-import useSearchManga from "@/hooks/useSearchManga"
+import { useSearchManga } from "@/hooks/mangadex"
 import routes from "@/routes"
 import { useMangadex } from "@/contexts/mangadex"
 import Link from "next/link"

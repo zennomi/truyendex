@@ -6,7 +6,7 @@ import Slider from "react-slick";
 
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
-import useFeaturedTitles from "@/hooks/useFeaturedTitles"
+import { useFeaturedTitles } from "@/hooks/mangadex"
 
 import routes from '@/routes';
 import { useMangadex } from '@/contexts/mangadex';

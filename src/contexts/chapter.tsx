@@ -3,10 +3,10 @@
 import React, { createContext, useState, useEffect, useContext, useMemo, useCallback } from "react";
 import { MangadexApi } from "@/api";
 import { useMangadex } from "./mangadex";
-import useAggregate, { ChapterItem } from "@/hooks/useAggregate";
+import { useMangaAggregate } from "@/hooks/mangadex";
 import { useParams, useRouter } from "next/navigation";
 import routes from "@/routes";
-import { ChapterResponse, ExtendChapter, ExtendManga } from "@/types/mangadex";
+import { ChapterItem, ChapterResponse, ExtendChapter, ExtendManga } from "@/types/mangadex";
 import useReadingHistory from "@/hooks/useReadingHistory";
 import { extendRelationship, getCoverArt, getMangaTitle, getChapterTitle } from "@/utils/mangadex";
 
@@ -52,7 +52,7 @@ export const ChapterContextProvider = ({
     const mangaId = chapter?.manga?.id ? chapter.manga.id : null
     const manga = mangaId ? mangas[mangaId] : null
     const groupId = chapter?.scanlation_group?.id ? chapter.scanlation_group.id : null
-    const { chapterList: chapters } = useAggregate(mangaId, { translatedLanguage: ["vi"], groups: groupId ? [groupId] : undefined })
+    const { chapterList: chapters } = useMangaAggregate(mangaId, { translatedLanguage: ["vi"], groups: groupId ? [groupId] : undefined })
 
     const currentChapterIndex = useMemo(() => chapters.findIndex(c => c.id === chapterId), [chapters, chapterId])
     const canPrev = currentChapterIndex > 0

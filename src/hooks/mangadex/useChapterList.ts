@@ -3,8 +3,9 @@ import { MangadexApi } from '@/api'
 
 import { ChapterList, ExtendChapter } from '@/types/mangadex';
 import { extendRelationship } from '@/utils/mangadex';
+import { CHAPTER_LIST_LIMIT } from '@/constants';
 
-export const chaptersPerPage = 10;
+export const chaptersPerPage = CHAPTER_LIST_LIMIT;
 
 export default function useChapterList(mangaId: string, options: MangadexApi.Manga.GetMangaIdFeedRequestOptions) {
     let chapters: ExtendChapter[] = []
