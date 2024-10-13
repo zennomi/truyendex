@@ -5,9 +5,9 @@ import Image from "next/image";
 
 import { useEffect, useState } from "react";
 import routes from "@/routes";
-import SearchInput from "@/sections/nettrom/common/searchInput";
+import SearchInput from "@/sections/nettrom/common/search-input";
 import NettromLogo from "@/assets/nettrom-logo.png"
-import MainNav from "./mainNav";
+import MainNav from "./main-nav";
 import { usePathname, useSearchParams } from "next/navigation";
 
 export default function Header() {

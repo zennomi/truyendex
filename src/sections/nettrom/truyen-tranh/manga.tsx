@@ -6,11 +6,11 @@ import ReactMarkdown from 'react-markdown'
 import { useMangadex } from "@/contexts/mangadex"
 import { getMangaTitle, getMangaAltTitles } from "@/utils/mangadex"
 import { formatNowDistance } from "@/utils/date-fns"
-import ChapterList from "./chapterList"
+import ChapterList from "./chapter-list"
 import Link from "next/link"
 import routes from "@/routes"
 import config from "@/config"
-import Loading from "@/components/nettrom/loading"
+import Loading from "@/sections/nettrom/layout/loading"
 import { MangadexApi } from "@/api"
 import { translateStatus, getCoverArt } from "@/utils/mangadex"
 

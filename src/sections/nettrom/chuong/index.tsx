@@ -1,10 +1,9 @@
 "use client"
 
-import ChapterPages from "./chapterPages"
-import ChapterControl from "./chapterControl"
+import ChapterPages from "./chapter-pages"
+import ChapterControl from "./chapter-control"
 
-export default function ChapterReading() {
-    console.log("ChapterReading reload")
+export default function ChapterView() {
     return (
         <>
             <div className="reading">

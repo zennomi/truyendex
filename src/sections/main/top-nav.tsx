@@ -4,7 +4,7 @@ import TruyenDexLogo from "@/assets/truyendex-logo.png"
 import { getSearchNetTromUrl } from "@/utils/url"
 import { MangadexApi } from "@/api"
 import { tags } from "@/constants"
-import Iconify from "../iconify"
+import Iconify from "../../components/iconify"
 import routes from "@/routes"
 import { transLocalizedStr } from "@/utils/mangadex"
 

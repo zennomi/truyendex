@@ -2,8 +2,8 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { Suspense } from "react";
 import routes from "@/routes";
-import SearchMangaForm from "@/sections/nettrom/tim-kiem/searchMangaForm";
-import MangaResults from "@/sections/nettrom/tim-kiem/mangaResults";
+import SearchMangaForm from "@/sections/nettrom/tim-kiem/search-manga-form";
+import MangaResults from "@/sections/nettrom/tim-kiem/manga-results";
 import config from "@/config";
 
 export const metadata: Metadata = {

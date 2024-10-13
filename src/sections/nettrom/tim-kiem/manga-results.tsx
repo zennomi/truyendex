@@ -8,7 +8,7 @@ import { useMangadex } from "@/contexts/mangadex"
 import Link from "next/link"
 import ReactPaginate from "react-paginate"
 import { getSearchNetTromUrl } from "@/utils/url"
-import Loading from "@/components/nettrom/loading"
+import Loading from "@/sections/nettrom/layout/loading"
 import { getCoverArt, getMangaTitle, normalizeParams } from "@/utils/mangadex"
 
 export default function MangaResults() {

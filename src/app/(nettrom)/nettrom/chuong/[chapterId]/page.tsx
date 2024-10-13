@@ -1,8 +1,8 @@
-import ChapterReading from "../../../../../sections/nettrom/chuong/chapterReading";
+import ChapterView from "@/sections/nettrom/chuong";
 
 
 export default function Chapter() {
     return (
-        <ChapterReading />
+        <ChapterView />
     )
 }

@@ -6,7 +6,7 @@ import { useChapterList } from "@/hooks/mangadex"
 import { ChapterList } from "@/types/mangadex"
 import routes from "@/routes";
 import { formatDateTime } from "@/utils/date-fns";
-import Loading from "@/components/nettrom/loading";
+import Loading from "@/sections/nettrom/layout/loading";
 import { getChapterTitle } from "@/utils/mangadex";
 import { CHAPTER_LIST_LIMIT } from "@/constants";
 

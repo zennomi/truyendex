@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import config from "@/config";
-import HistoryList from "@/sections/nettrom/lich-su/HistoryList";
-import TopTitles from "@/sections/nettrom/common/topTitles";
+import HistoryList from "@/sections/nettrom/lich-su/history-list";
+import TopTitles from "@/sections/nettrom/common/top-titles-table";
 
 export const metadata: Metadata = {
     title: `Lịch sử đọc truyện tại ${config.appName}`

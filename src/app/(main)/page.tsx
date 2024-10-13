@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import TopNav from "@/components/home/topNav";
+import TopNav from "@/sections/main/top-nav";
 import routes from "@/routes";
 import Iconify from "@/components/iconify";
 

@@ -9,7 +9,7 @@ import { useMangadex } from "@/contexts/mangadex";
 
 import { formatNowDistance } from "@/utils/date-fns";
 import routes from "@/routes";
-import Loading from "@/components/nettrom/loading";
+import Loading from "@/sections/nettrom/layout/loading";
 import { ExtendChapter } from "@/types/mangadex";
 import { getCoverArt, getMangaTitle, getChapterTitle } from "@/utils/mangadex";
 import { LAST_UPDATES_LIMIT } from "@/constants";

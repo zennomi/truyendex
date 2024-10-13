@@ -13,7 +13,6 @@ export default function ChapterControl() {
 
     const mangaTitle = getMangaTitle(manga)
     const chapterTitle = getChapterTitle(chapter)
-    console.log("ChapterControl reload")
     return (
         <>
             {

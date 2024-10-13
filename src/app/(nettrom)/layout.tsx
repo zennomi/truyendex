@@ -11,10 +11,10 @@ import "./style.css"
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import MainNav from "@/components/nettrom/mainNav";
+import MainNav from "@/sections/nettrom/layout/main-nav";
 
 import NettromLogo from "@/assets/nettrom-logo.png"
-import Header from "@/components/nettrom/header";
+import Header from "@/sections/nettrom/layout/header";
 import routes from "@/routes";
 import { MangadexContextProvider } from "@/contexts/mangadex";
 import Gtag from '@/components/gtag';
