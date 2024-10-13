@@ -164,7 +164,7 @@ export default function ChapterControl() {
                             name="ctl00$mainContent$ddlSelectChapter"
                             id="ctl00_mainContent_ddlSelectChapter"
                             className="select-chapter min-w-[100px] md:min-w-[200px]"
-                            value={chapterId || ""}
+                            value={chapterId || "Đang tải..."}
                             onChange={(event) => { goTo(event.target.value) }}
                         >
                             {
@@ -178,7 +178,7 @@ export default function ChapterControl() {
 
                                     </option>
                                 )) : (
-                                    <option selected>Đang tải...</option>
+                                    <option>Đang tải...</option>
                                 )
                             }
                         </select>

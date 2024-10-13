@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import { Suspense } from "react";
 import routes from "@/routes";
 import SearchMangaForm from "@/sections/nettrom/tim-kiem/searchMangaForm";
 import MangaResults from "@/sections/nettrom/tim-kiem/mangaResults";
@@ -74,10 +75,14 @@ export default function AdvancedSearch() {
                                     <i className="fa fa-angle-double-up" />
                                 </button>
                             </div> */}
-                            <SearchMangaForm />
+                            <Suspense>
+                                <SearchMangaForm />
+                            </Suspense>
                         </div>
                     </div>
-                    <MangaResults />
+                    <Suspense>
+                        <MangaResults />
+                    </Suspense>
                 </div>
             </div>
         </>

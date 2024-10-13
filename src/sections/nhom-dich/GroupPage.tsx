@@ -10,7 +10,7 @@ import useScanlationGroup from "../../hooks/useScanlationGroup";
 import Iconify from "../../components/iconify";
 
 export default function GroupPage() {
-    const params = useParams()
+    const params = useParams<{ groupId: string }>()
     const groupId = params.groupId
 
     const { addMangas } = useMangadex()

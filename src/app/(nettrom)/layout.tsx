@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { Inter } from 'next/font/google'
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from 'react';
 
 import "@fortawesome/fontawesome-free/css/all.css";
 import '@/assets/scss/tailwind.scss'
@@ -33,7 +34,9 @@ export default function NettromLayout({
         <html lang="vi" className='dark'>
             <body className={`homepage vi-vn site1 dark ${inter.className}`}>
                 <MangadexContextProvider>
-                    <Header />
+                    <Suspense>
+                        <Header />
+                    </Suspense>
                     <nav className="main-nav hidden-xs" id="mainNav" style={{ "zIndex": 1000, "position": "relative", "top": "0px" }}>
                         <div className="inner">
                             <div className="container">

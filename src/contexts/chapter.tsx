@@ -46,7 +46,7 @@ export const ChapterContextProvider = ({
 }) => {
 
     const router = useRouter()
-    const params = useParams()
+    const params = useParams<{ chapterId: string }>()
     const [chapterId, setChapterId] = useState(params.chapterId)
 
     const [chapter, setChapter] = useState<ExtendChapter | null>(null)
