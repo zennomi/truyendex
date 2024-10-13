@@ -6,14 +6,12 @@ import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import useLastUpdates, { chaptersPerPage } from "@/hooks/useLastUpdates"
 import { useMangadex } from "@/contexts/mangadex";
-import getCoverArt from "@/utils/getCoverArt";
-import { getMangaTitle } from "@/utils/getMangaTitle";
-import getTitleChapter from "@/utils/getTitleChapter";
-import { formatNowDistance } from "@/utils/dateFns";
+
+import { formatNowDistance } from "@/utils/date-fns";
 import routes from "@/routes";
 import Loading from "@/components/nettrom/loading";
 import { ExtendChapter } from "@/types/mangadex";
-
+import { getCoverArt, getMangaTitle, getChapterTitle } from "@/utils/mangadex";
 
 export default function NewUpdates({ title, groupId }: { title?: string, groupId?: string }) {
     const [page, setPage] = useState(0)
@@ -104,10 +102,10 @@ export default function NewUpdates({ title, groupId }: { title?: string, groupId
                                                         <li className="flex gap-x-1 items-center justify-between" key={chapter.id}>
                                                             <Link
                                                                 href={routes.nettrom.chapter(chapter.id)}
-                                                                title={getTitleChapter(chapter)}
+                                                                title={getChapterTitle(chapter)}
                                                                 className="flex-grow text-[13px] whitespace-nowrap overflow-hidden !text-white text-ellipsis"
                                                             >
-                                                                {getTitleChapter(chapter)}
+                                                                {getChapterTitle(chapter)}
                                                             </Link>
                                                             <i className="text-[11px] text-[#999] italic leading-[13px] whitespace-nowrap">{formatNowDistance(new Date(chapter.attributes.readableAt))}</i>
                                                         </li>

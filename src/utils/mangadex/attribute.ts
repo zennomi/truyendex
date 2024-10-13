@@ -1,4 +1,4 @@
-import { ExtendManga } from "@/types/mangadex";
+import { Chapter, ExtendManga } from "@/types/mangadex";
 
 export function getMangaTitle(manga: ExtendManga | null | undefined) {
     if (!manga) return ""
@@ -14,4 +14,14 @@ export function getOriginalMangaTitle(manga: ExtendManga | null | undefined) {
     if (!manga) return ""
     const originalLanguage = manga.attributes.originalLanguage || 'ja'
     return manga.attributes.altTitles.find(t => t[originalLanguage])?.[originalLanguage] || manga.attributes.title?.['ja-ro'] || "";
+}
+
+export function getChapterTitle(chapter: Chapter | null) {
+    if (!chapter) return ""
+    if (chapter.attributes.title) return (chapter.attributes.volume !== null ? `T${chapter.attributes.volume} ` : "")
+        + (chapter.attributes.chapter !== null ? `C${chapter.attributes.chapter} ` : "")
+        + chapter.attributes.title
+    if (chapter.attributes.volume) return `Chương ${chapter.attributes.chapter} Tập ${chapter.attributes.volume}`
+    if (chapter.attributes.chapter) return `Chương ${chapter.attributes.chapter}`
+    return "Oneshot"
 }

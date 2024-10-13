@@ -4,9 +4,9 @@ import TruyenDexLogo from "@/assets/truyendex-logo.png"
 import { getSearchNetTromUrl } from "@/utils/url"
 import { MangadexApi } from "@/api"
 import { tags } from "@/constants"
-import transLocalizedStr from "@/utils/transLocalizedStr"
 import Iconify from "../iconify"
 import routes from "@/routes"
+import { transLocalizedStr } from "@/utils/mangadex"
 
 export default function TopNav() {
     return (

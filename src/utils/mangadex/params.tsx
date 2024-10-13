@@ -1,7 +1,7 @@
 import { ReadonlyURLSearchParams } from "next/navigation";
 import { MangadexApi } from "@/api";
 
-export default function normalizeParams(params: ReadonlyURLSearchParams): MangadexApi.Manga.GetSearchMangaRequestOptions {
+export function normalizeParams(params: ReadonlyURLSearchParams): MangadexApi.Manga.GetSearchMangaRequestOptions {
     const result: MangadexApi.Manga.GetSearchMangaRequestOptions = {}
     const limit = params.get('limit')
     result.limit = limit ? parseInt(limit) : 24

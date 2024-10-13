@@ -2,16 +2,16 @@ import { useState } from "react"
 import ReactPaginate from 'react-paginate';
 import Link from "next/link";
 
-import useChapterList, { chaptersPerPage } from "../../../hooks/useChapterList"
-import { ChapterList } from "../../../types/mangadex"
-import getTitleChapter from "../../../utils/getTitleChapter"
-import routes from "../../../routes";
-import { formatDateTime } from "../../../utils/dateFns";
-import Loading from "../../../components/nettrom/loading";
+import useChapterList, { chaptersPerPage } from "@/hooks/useChapterList"
+import { ChapterList } from "@/types/mangadex"
+import routes from "@/routes";
+import { formatDateTime } from "@/utils/date-fns";
+import Loading from "@/components/nettrom/loading";
+import { getChapterTitle } from "@/utils/mangadex";
 
 export default function ListChapter({ mangaId }: { mangaId: string }) {
     const [page, setPage] = useState(0)
-    const { data, isLoading, error, chapters } = useChapterList(mangaId, {
+    const { data, chapters } = useChapterList(mangaId, {
         offset: page * chaptersPerPage
     })
     if (!data?.data || !(data.data as ChapterList).data) return (<Loading title="Đang tải danh sách chương..." />)
@@ -36,7 +36,7 @@ export default function ListChapter({ mangaId }: { mangaId: string }) {
                                     <Link
                                         href={routes.nettrom.chapter(chapter.id)}
                                     >
-                                        {getTitleChapter(chapter)}
+                                        {getChapterTitle(chapter)}
                                     </Link>
                                 </div>
                                 <div className="col-xs-4 text-center no-wrap small">

@@ -4,7 +4,8 @@ import useSWR from 'swr'
 import { useMemo } from 'react'
 import { MangadexApi } from '@/api'
 import { ExtendManga, MangaList } from '@/types/mangadex'
-import extendRelationship from '@/utils/extendRelationship'
+import { extendRelationship } from '@/utils/mangadex'
+
 
 export default function useSearchManga(options: MangadexApi.Manga.GetSearchMangaRequestOptions) {
     if (!options.includes) {

@@ -6,8 +6,7 @@ import { MangadexApi } from "@/api"
 import { useMangadex } from "@/contexts/mangadex"
 import useSearchManga from "@/hooks/useSearchManga"
 import routes from "@/routes"
-import { getMangaTitle, getOriginalMangaTitle } from "@/utils/getMangaTitle"
-import getCoverArt from "@/utils/getCoverArt"
+import { getMangaTitle, getCoverArt, getOriginalMangaTitle } from "@/utils/mangadex"
 
 export default function TopTitles({ groupId }: { groupId?: string }) {
     const { mangaList } = useSearchManga({

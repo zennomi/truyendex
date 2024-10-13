@@ -2,8 +2,8 @@
 
 import { useSearchParams, useRouter } from "next/navigation"
 import { useState } from "react"
-import normalizeParams from "../../../utils/normalizeParams"
-import { getSearchNetTromUrl } from "../../../utils/url"
+import { normalizeParams } from "@/utils/mangadex"
+import { getSearchNetTromUrl } from "@/utils/url"
 
 export default function SearchInput() {
     const params = useSearchParams()

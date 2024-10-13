@@ -1,4 +1,4 @@
-export const parseStatus = (status: string) => {
+export const translateStatus = (status: string) => {
     switch (status) {
         case 'cancelled':
             return "Bị huỷ"
@@ -11,7 +11,7 @@ export const parseStatus = (status: string) => {
     }
 }
 
-export const parseContentRating = (rating: string) => {
+export const translateContentRating = (rating: string) => {
     switch (rating) {
         case 'suggestive':
             return 'Hơi hơi'

@@ -7,11 +7,8 @@ import useAggregate, { ChapterItem } from "@/hooks/useAggregate";
 import { useParams, useRouter } from "next/navigation";
 import routes from "@/routes";
 import { ChapterResponse, ExtendChapter, ExtendManga } from "@/types/mangadex";
-import extendRelationship from "@/utils/extendRelationship";
 import useReadingHistory from "@/hooks/useReadingHistory";
-import { getMangaTitle } from "@/utils/getMangaTitle";
-import getCoverArt from "@/utils/getCoverArt";
-import getTitleChapter from "@/utils/getTitleChapter";
+import { extendRelationship, getCoverArt, getMangaTitle, getChapterTitle } from "@/utils/mangadex";
 
 export const ChapterContext = createContext<{
     chapterId: string | null,
@@ -112,7 +109,7 @@ export const ChapterContextProvider = ({
             addHistory(manga.id, {
                 mangaTitle: getMangaTitle(manga),
                 cover: getCoverArt(manga),
-                chapterTitle: getTitleChapter(chapter),
+                chapterTitle: getChapterTitle(chapter),
                 chapterId: chapter.id,
             })
         }

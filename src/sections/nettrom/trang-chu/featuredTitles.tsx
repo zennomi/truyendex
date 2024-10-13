@@ -7,12 +7,10 @@ import Slider from "react-slick";
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import useFeaturedTitles from "@/hooks/useFeaturedTitles"
-import getCoverArt from "@/utils/getCoverArt"
-import { getMangaTitle } from "@/utils/getMangaTitle"
+
 import routes from '@/routes';
 import { useMangadex } from '@/contexts/mangadex';
-import { getResizeImgUrl } from '@/utils/url';
-
+import { getMangaTitle, getCoverArt } from '@/utils/mangadex';
 
 export default function FeaturedTitles() {
     const { mangaList: featuredTitles, isLoading, error } = useFeaturedTitles()

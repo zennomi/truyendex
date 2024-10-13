@@ -3,7 +3,7 @@
  ********************/
 
 import { AuthenticationToken } from './authentication';
-import { MangaContentRating } from './manga';
+import { MangaContentRating } from './static';
 import { CustomListResponse, CustomListList, ChapterList, ErrorResponse } from '../../types/mangadex';
 import { Order, Includes } from './static';
 import * as util from './util';

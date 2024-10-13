@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { chunk } from "lodash";
 
-import routes from "../../routes";
-import tags from "../../constants/tags";
-import { ta } from "date-fns/locale";
-import transLocalizedStr from "../../utils/transLocalizedStr";
+import routes from "@/routes";
+import tags from "@/constants/tags";
+import { transLocalizedStr } from "@/utils/mangadex";
 
 export default function MainNav() {
     return (

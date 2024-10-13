@@ -1,11 +1,10 @@
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import routes from "@/routes";
-import { getMangaTitle } from "@/utils/getMangaTitle";
 import { useChapterContext } from "@/contexts/chapter";
-import getTitleChapter from "@/utils/getTitleChapter";
 import useOffSetTop from "@/hooks/useOffSetTop";
 import { format } from "date-fns";
+import { getMangaTitle, getChapterTitle } from "@/utils/mangadex";
 
 export default function ChapterControl() {
     const { manga, chapter, canNext, canPrev, next, prev, chapters, goTo, others, chapterId } = useChapterContext()
@@ -13,7 +12,7 @@ export default function ChapterControl() {
     const params = useParams()
 
     const mangaTitle = getMangaTitle(manga)
-    const chapterTitle = getTitleChapter(chapter)
+    const chapterTitle = getChapterTitle(chapter)
     console.log("ChapterControl reload")
     return (
         <>

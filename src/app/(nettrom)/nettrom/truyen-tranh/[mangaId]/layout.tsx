@@ -1,8 +1,7 @@
 import { Metadata, ResolvingMetadata } from 'next'
-import { getMangaTitle } from '@/utils/getMangaTitle'
-import transLocalizedStr from '@/utils/transLocalizedStr'
 import config from '@/config'
 import { MangadexApi } from '@/api'
+import { getMangaTitle, transLocalizedStr } from '@/utils/mangadex'
 
 export async function generateMetadata(
     { params }: { params: { mangaId: string } },

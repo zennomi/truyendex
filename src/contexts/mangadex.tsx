@@ -5,7 +5,7 @@ import { uniq } from "lodash"
 
 import { ExtendManga, GetMangasStatisticResponse, MangaList, MangaResponse, MangaStatistic } from "@/types/mangadex";
 import { MangadexApi } from "@/api";
-import extendRelationship from "@/utils/extendRelationship";
+import { extendRelationship } from "@/utils/mangadex";
 
 export type Mangas = { [k: string]: ExtendManga }
 export type MangaStatistics = Record<string, MangaStatistic>

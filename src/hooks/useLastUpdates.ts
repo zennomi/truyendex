@@ -3,7 +3,7 @@
 import useSWR from 'swr'
 import { MangadexApi } from '@/api';
 import { ChapterList, ExtendChapter } from '@/types/mangadex';
-import extendRelationship from '@/utils/extendRelationship';
+import { extendRelationship } from '@/utils/mangadex';
 
 export const chaptersPerPage = 100
 

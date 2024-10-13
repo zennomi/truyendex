@@ -1,17 +1,15 @@
 "use client"
 
 import { useSearchParams, useRouter } from "next/navigation"
-import normalizeParams from "../../../utils/normalizeParams"
 import { useEffect } from "react"
-import useSearchManga from "../../../hooks/useSearchManga"
-import { getMangaTitle } from "../../../utils/getMangaTitle"
-import routes from "../../../routes"
-import getCoverArt from "../../../utils/getCoverArt"
-import { useMangadex } from "../../../contexts/mangadex"
+import useSearchManga from "@/hooks/useSearchManga"
+import routes from "@/routes"
+import { useMangadex } from "@/contexts/mangadex"
 import Link from "next/link"
 import ReactPaginate from "react-paginate"
-import { getSearchNetTromUrl } from "../../../utils/url"
+import { getSearchNetTromUrl } from "@/utils/url"
 import Loading from "@/components/nettrom/loading"
+import { getCoverArt, getMangaTitle, normalizeParams } from "@/utils/mangadex"
 
 export default function MangaResults() {
     const router = useRouter()

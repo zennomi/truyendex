@@ -5,12 +5,11 @@ import Select, { StylesConfig } from 'react-select';
 
 import { MangadexApi } from "@/api";
 import { Tag } from "@/types/mangadex";
-import { parseContentRating, parseStatus } from "@/utils/parseMangadex";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import normalizeParams from "@/utils/normalizeParams";
 import { tags } from "@/constants"
 import { getSearchNetTromUrl } from "@/utils/url";
+import { normalizeParams, translateContentRating, translateStatus } from "@/utils/mangadex";
 
 type Inputs = MangadexApi.Manga.GetSearchMangaRequestOptions & {
     orderType?: string,
@@ -49,7 +48,7 @@ export default function SearchMangaForm() {
     const router = useRouter()
     const params = useSearchParams()
 
-    const { register, handleSubmit, watch, formState: { errors }, reset, setValue, control } = useForm<Inputs>({});
+    const { register, handleSubmit, watch, reset, setValue, control } = useForm<Inputs>({});
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         router.push(getSearchNetTromUrl(data))
     }
@@ -178,13 +177,13 @@ export default function SearchMangaForm() {
                                     field: { onChange, onBlur, value, name, ref },
                                 }) => (
                                     <Select
-                                        options={Object.values(MangadexApi.Static.MangaContentRating).map(v => optionlize(v, parseContentRating))}
+                                        options={Object.values(MangadexApi.Static.MangaContentRating).map(v => optionlize(v, translateContentRating))}
                                         onChange={(newValue) => {
                                             onChange(newValue.map(item => item.value))
                                         }}
                                         isMulti={true}
                                         onBlur={onBlur}
-                                        value={value?.map(v => optionlize(v, parseContentRating))}
+                                        value={value?.map(v => optionlize(v, translateContentRating))}
                                         name={name}
                                         ref={ref}
                                         placeholder="Tất cả"
@@ -204,13 +203,13 @@ export default function SearchMangaForm() {
                                     field: { onChange, onBlur, value, name, ref },
                                 }) => (
                                     <Select
-                                        options={Object.values(MangadexApi.Static.MangaPublicationStatus).map(v => optionlize(v, parseStatus))}
+                                        options={Object.values(MangadexApi.Static.MangaPublicationStatus).map(v => optionlize(v, translateStatus))}
                                         onChange={(newValue) => {
                                             onChange(newValue.map(item => item.value))
                                         }}
                                         isMulti={true}
                                         onBlur={onBlur}
-                                        value={value?.map(v => optionlize(v, parseStatus))}
+                                        value={value?.map(v => optionlize(v, translateStatus))}
                                         name={name}
                                         ref={ref}
                                         placeholder="Tất cả"
