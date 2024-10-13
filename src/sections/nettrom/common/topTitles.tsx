@@ -2,8 +2,7 @@
 
 import Link from "next/link"
 import { useEffect } from "react"
-import { MangaContentRating } from "@/api/manga"
-import { Includes, Order } from "@/api/static"
+import { MangadexApi } from "@/api"
 import { useMangadex } from "@/contexts/mangadex"
 import useSearchManga from "@/hooks/useSearchManga"
 import routes from "@/routes"
@@ -13,11 +12,11 @@ import getCoverArt from "@/utils/getCoverArt"
 export default function TopTitles({ groupId }: { groupId?: string }) {
     const { mangaList } = useSearchManga({
         limit: 7,
-        includes: [Includes.COVER_ART,],
+        includes: [MangadexApi.Static.Includes.COVER_ART,],
         order: {
-            followedCount: Order.DESC,
+            followedCount: MangadexApi.Static.Order.DESC,
         },
-        contentRating: [MangaContentRating.SAFE, MangaContentRating.SUGGESTIVE],
+        contentRating: [MangadexApi.Static.MangaContentRating.SAFE, MangadexApi.Static.MangaContentRating.SUGGESTIVE],
         hasAvailableChapters: "true",
         availableTranslatedLanguage: ['vi'],
         group: groupId ? groupId : undefined

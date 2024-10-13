@@ -1,4 +1,4 @@
-import { GetMangasStatisticResponse } from './schema';
+import { GetMangasStatisticResponse } from '../../types/mangadex';
 import * as util from './util';
 
 export type GetMangasStatisticRequestOptions = {

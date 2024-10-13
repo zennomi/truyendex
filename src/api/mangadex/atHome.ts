@@ -2,7 +2,7 @@
  * IMPORT STATEMENTS
  ********************/
 
-import type { ErrorResponse } from './schema';
+import type { ErrorResponse } from '../../types/mangadex';
 import * as util from './util';
 
 /***********************

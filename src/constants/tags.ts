@@ -1,4 +1,4 @@
-import { Tag } from "../api/schema";
+import { Tag } from "../types/mangadex";
 
 const tags: Tag[] = [
     {

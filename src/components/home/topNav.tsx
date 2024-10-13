@@ -2,7 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import TruyenDexLogo from "@/assets/truyendex-logo.png"
 import { getSearchNetTromUrl } from "@/utils/url"
-import { MangaPublicationDemographic } from "@/api/manga"
+import { MangadexApi } from "@/api"
 import { tags } from "@/constants"
 import transLocalizedStr from "@/utils/transLocalizedStr"
 import Iconify from "../iconify"
@@ -112,7 +112,7 @@ export default function TopNav() {
                                     <span className="submenu-arrow" />
                                     <ul className="submenu">
                                         {
-                                            Object.values(MangaPublicationDemographic).map((demographic) => (
+                                            Object.values(MangadexApi.Static.MangaPublicationDemographic).map((demographic) => (
                                                 <li key={demographic}>
                                                     <Link href={getSearchNetTromUrl({ publicationDemographic: [demographic] })} className="sub-menu-item">
                                                         {" "}

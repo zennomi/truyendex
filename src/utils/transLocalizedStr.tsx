@@ -1,4 +1,4 @@
-import { LocalizedString } from "../api/schema";
+import { LocalizedString } from "../types/mangadex";
 
 export default function transLocalizedStr(localizedString: LocalizedString) {
     if (!localizedString) return ""

@@ -2,6 +2,49 @@
  * ENUM DEFINITIONS
  *******************/
 
+/** Enum for manga reading status */
+export enum MangaReadingStatus {
+    READING = 'reading',
+    ON_HOLD = 'on_hold',
+    PLAN_TO_READ = 'plan_to_read',
+    DROPPED = 'dropped',
+    RE_READING = 're_reading',
+    COMPLETED = 'completed',
+}
+
+/** Enum for manga content rating */
+export enum MangaContentRating {
+    SAFE = 'safe',
+    SUGGESTIVE = 'suggestive',
+    EROTICA = 'erotica',
+    PORNOGRAPHIC = 'pornographic',
+}
+
+/** Enum for manga publication demographic */
+export enum MangaPublicationDemographic {
+    NONE = 'none',
+    SHOUNEN = 'shounen',
+    SHOUJO = 'shoujo',
+    JOSEI = 'josei',
+    SEINEN = 'seinen',
+}
+
+/** Enum for manga publication status */
+export enum MangaPublicationStatus {
+    COMPLETED = 'completed',
+    ONGOING = 'ongoing',
+    CANCELLED = 'cancelled',
+    HIATUS = 'hiatus',
+}
+
+/** Enum for Mangadex manga state */
+export enum MangadexMangaState {
+    DRAFT = 'draft',
+    SUBMITTED = 'submitted',
+    PUBLISHED = 'published',
+    REJECTED = 'rejected',
+}
+
 /** Enum for related manga type */
 export enum RelatedMangaType {
     MONOCHROME = 'monochrome',

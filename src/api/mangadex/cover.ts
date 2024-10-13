@@ -3,7 +3,7 @@
  ********************/
 
 import { AuthenticationToken } from './authentication';
-import { CoverEdit, CoverList, CoverResponse, ErrorResponse, ReferenceExpansionCoverArt, Response } from './schema';
+import { CoverEdit, CoverList, CoverResponse, ErrorResponse, ReferenceExpansionCoverArt, Response } from '../../types/mangadex';
 import { Order } from './static';
 import * as util from './util';
 

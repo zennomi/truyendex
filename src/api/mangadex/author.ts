@@ -3,7 +3,7 @@
  ********************/
 
 import type { AuthenticationToken } from './authentication';
-import type { AuthorList, AuthorResponse, AuthorCreate, AuthorEdit, Response, ErrorResponse, ReferenceExpansionAuthor } from './schema';
+import type { AuthorList, AuthorResponse, AuthorCreate, AuthorEdit, Response, ErrorResponse, ReferenceExpansionAuthor } from '../../types/mangadex';
 import type { Order } from './static';
 import * as util from './util';
 

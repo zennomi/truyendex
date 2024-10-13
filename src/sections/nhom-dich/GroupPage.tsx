@@ -1,13 +1,13 @@
 "use client"
 
 import { useParams } from "next/navigation"
-import useSearchManga from "../../hooks/useSearchManga"
-import { Includes } from "../../api/static"
+import useSearchManga from "@/hooks/useSearchManga"
 import { useEffect } from "react"
-import { useMangadex } from "../../contexts/mangadex"
-import getCoverArt from "../../utils/getCoverArt";
-import useScanlationGroup from "../../hooks/useScanlationGroup";
-import Iconify from "../../components/iconify";
+import { useMangadex } from "@/contexts/mangadex"
+import getCoverArt from "@/utils/getCoverArt";
+import useScanlationGroup from "@/hooks/useScanlationGroup";
+import Iconify from "@/components/iconify";
+import { MangadexApi } from "@/api"
 
 export default function GroupPage() {
     const params = useParams<{ groupId: string }>()
@@ -15,10 +15,10 @@ export default function GroupPage() {
 
     const { addMangas } = useMangadex()
 
-    const { data: group, isLoading, error } = useScanlationGroup(groupId)
+    const { data: group, } = useScanlationGroup(groupId)
     const { mangaList } = useSearchManga({
         group: groupId,
-        includes: [Includes.COVER_ART]
+        includes: [MangadexApi.Static.Includes.COVER_ART]
     })
 
     useEffect(() => {

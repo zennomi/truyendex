@@ -3,7 +3,7 @@ import ReactPaginate from 'react-paginate';
 import Link from "next/link";
 
 import useChapterList, { chaptersPerPage } from "../../../hooks/useChapterList"
-import { ChapterList } from "../../../api/schema"
+import { ChapterList } from "../../../types/mangadex"
 import getTitleChapter from "../../../utils/getTitleChapter"
 import routes from "../../../routes";
 import { formatDateTime } from "../../../utils/dateFns";

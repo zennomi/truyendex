@@ -7,19 +7,19 @@ import { useMangadex } from "@/contexts/mangadex"
 import { getMangaTitle, getMangaAltTitles } from "@/utils/getMangaTitle"
 import { formatNowDistance } from "@/utils/dateFns"
 import getCoverArt from "@/utils/getCoverArt"
-import { Includes } from "@/api/static"
 import ChapterList from "./chapterList"
 import Link from "next/link"
 import routes from "@/routes"
 import { parseStatus } from "@/utils/parseMangadex"
 import config from "@/config"
 import Loading from "@/components/nettrom/loading"
+import { MangadexApi } from "@/api"
 
 export default function Manga({ mangaId }: { mangaId: string }) {
     const { mangas, updateMangas, updateMangaStatistics, mangaStatistics } = useMangadex()
     const manga = mangas[mangaId]
     useEffect(() => {
-        updateMangas({ ids: [mangaId], includes: [Includes.ARTIST, Includes.AUTHOR] })
+        updateMangas({ ids: [mangaId], includes: [MangadexApi.Static.Includes.ARTIST, MangadexApi.Static.Includes.AUTHOR] })
         updateMangaStatistics({ manga: [mangaId] })
     }, [])
 

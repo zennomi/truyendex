@@ -1,5 +1,5 @@
-import { AuthenticationToken } from './authentication';
-import { Links } from './static';
+import { AuthenticationToken } from '@/api/mangadex/authentication';
+import { Links } from '@/api/mangadex/static';
 
 /**
  * Makes named properties required in pre-existing type. All other properties are made optional.
@@ -1017,4 +1017,15 @@ export type MangaStatistic = {
 export type GetMangasStatisticResponse = {
     result: string
     statistics: Record<string, MangaStatistic>
+}
+
+export type ExtendChapter = Chapter & {
+    manga?: Partial<Manga> & Pick<Manga, 'id' | 'type'>,
+    scanlation_group?: Partial<ScanlationGroup> & Pick<ScanlationGroup, 'id' | 'type'>
+}
+
+export type ExtendManga = Manga & {
+    cover_art?: Partial<Cover> & Pick<Cover, 'id' | 'type'>,
+    author?: Partial<Author> & Pick<Author, 'id' | 'type'>,
+    artist?: Partial<Author> & Pick<Author, 'id' | 'type'>,
 }

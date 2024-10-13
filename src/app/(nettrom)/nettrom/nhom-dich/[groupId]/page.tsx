@@ -1,6 +1,5 @@
-import { Group } from "@/api"
-import { User } from "@/api/schema"
-import { Includes } from "@/api/static"
+import { MangadexApi } from "@/api"
+import { User } from "@/types/mangadex"
 import config from "@/config"
 import NewUpdates from "@/sections/nettrom/common/newUpdates"
 import TopTitles from "@/sections/nettrom/common/topTitles"
@@ -19,7 +18,7 @@ export async function generateMetadata(
     const mdImage = { url: `https://og.mangadex.org/og-image/group/${id}`, width: 1200, height: 630 }
     try {
         // fetch data
-        const { data: { data: group } } = await Group.getGroupId(id, { includes: [Includes.LEADER, Includes.MEMBER] })
+        const { data: { data: group } } = await MangadexApi.Group.getGroupId(id, { includes: [MangadexApi.Static.Includes.LEADER, MangadexApi.Static.Includes.MEMBER] })
 
         return {
             title: `Nhóm dịch ${group.attributes.name} - Đọc ngay tại ${config.appName}`,
@@ -47,7 +46,7 @@ export async function generateMetadata(
 
 export default async function NhomDich({ params }: { params: { groupId: string } }) {
     const id = params.groupId
-    const { data: { data: group } } = await Group.getGroupId(id, { includes: [Includes.LEADER, Includes.MEMBER] })
+    const { data: { data: group } } = await MangadexApi.Group.getGroupId(id, { includes: [MangadexApi.Static.Includes.LEADER, MangadexApi.Static.Includes.MEMBER] })
     if (!group) return notFound();
 
     const leaders = group.relationships.filter(r => r.type === "leader") as unknown as User[]

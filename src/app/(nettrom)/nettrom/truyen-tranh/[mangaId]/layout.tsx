@@ -1,8 +1,8 @@
 import { Metadata, ResolvingMetadata } from 'next'
-import { ExtendManga } from '@/api/extend'
 import { getMangaTitle } from '@/utils/getMangaTitle'
 import transLocalizedStr from '@/utils/transLocalizedStr'
 import config from '@/config'
+import { MangadexApi } from '@/api'
 
 export async function generateMetadata(
     { params }: { params: { mangaId: string } },
@@ -15,7 +15,7 @@ export async function generateMetadata(
     const mdImage = { url: `https://og.mangadex.org/og-image/manga/${id}`, width: 1200, height: 630 }
     try {
         // fetch data
-        const { data: manga }: { data: ExtendManga } = await fetch(`https://api.mangadex.org/manga/${id}`).then((res) => res.json())
+        const { data: { data: manga } } = await MangadexApi.Manga.getMangaId(id)
         return {
             title: `${getMangaTitle(manga)} - Đọc ngay tại ${config.appName}`,
             description: transLocalizedStr(manga.attributes.description),

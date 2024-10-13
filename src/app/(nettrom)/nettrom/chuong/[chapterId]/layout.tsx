@@ -1,7 +1,7 @@
 import config from "@/config"
 import { ChapterContextProvider } from "@/contexts/chapter"
 import { Metadata, ResolvingMetadata } from "next"
-import { Chapter } from "@/api"
+import { MangadexApi } from "@/api"
 import getTitleChapter from "@/utils/getTitleChapter"
 
 export async function generateMetadata(
@@ -14,7 +14,7 @@ export async function generateMetadata(
     const previousImages = (await parent).openGraph?.images || []
     const mdImage = { url: `https://og.mangadex.org/og-image/chapter/${id}`, width: 1200, height: 630 }
     try {
-        const { data: { data: chapter } } = await Chapter.getChapterId(id)
+        const { data: { data: chapter } } = await MangadexApi.Chapter.getChapterId(id)
         return {
             title: `Đọc chương ${getTitleChapter(chapter)} tại ${config.appName}`,
             openGraph: {

@@ -1,4 +1,4 @@
-import { ExtendManga } from "../api/extend";
+import { ExtendManga } from "@/types/mangadex"
 
 const defaultImage = '/images/placeholder.jpg'
 

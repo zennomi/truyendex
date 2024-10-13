@@ -1,14 +1,12 @@
 "use client";
 
 import React, { createContext, useState, useEffect, useContext, useMemo, useCallback } from "react";
-import { ExtendChapter, ExtendManga } from "@/api/extend";
+import { MangadexApi } from "@/api";
 import { useMangadex } from "./mangadex";
 import useAggregate, { ChapterItem } from "@/hooks/useAggregate";
 import { useParams, useRouter } from "next/navigation";
 import routes from "@/routes";
-import { Chapter } from "@/api";
-import { Includes } from "@/api/static";
-import { ChapterResponse } from "@/api/schema";
+import { ChapterResponse, ExtendChapter, ExtendManga } from "@/types/mangadex";
 import extendRelationship from "@/utils/extendRelationship";
 import useReadingHistory from "@/hooks/useReadingHistory";
 import { getMangaTitle } from "@/utils/getMangaTitle";
@@ -92,8 +90,8 @@ export const ChapterContextProvider = ({
 
     useEffect(() => {
         const updateChapter = async () => {
-            const { data } = await Chapter.getChapterId(chapterId!, {
-                includes: [Includes.SCANLATION_GROUP,]
+            const { data } = await MangadexApi.Chapter.getChapterId(chapterId!, {
+                includes: [MangadexApi.Static.Includes.SCANLATION_GROUP,]
             })
             const result = (data && (data as ChapterResponse)?.data) ? extendRelationship((data as ChapterResponse)?.data) as ExtendChapter : null
             if (result) {

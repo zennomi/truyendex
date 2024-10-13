@@ -1,4 +1,4 @@
-import { ExtendManga } from "../api/extend";
+import { ExtendManga } from "@/types/mangadex";
 
 export function getMangaTitle(manga: ExtendManga | null | undefined) {
     if (!manga) return ""

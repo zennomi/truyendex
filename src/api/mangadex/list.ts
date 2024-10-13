@@ -4,7 +4,7 @@
 
 import { AuthenticationToken } from './authentication';
 import { MangaContentRating } from './manga';
-import { CustomListResponse, CustomListList, ChapterList, ErrorResponse } from './schema';
+import { CustomListResponse, CustomListList, ChapterList, ErrorResponse } from '../../types/mangadex';
 import { Order, Includes } from './static';
 import * as util from './util';
 

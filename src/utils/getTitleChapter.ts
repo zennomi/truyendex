@@ -1,4 +1,4 @@
-import { Chapter } from "../api/schema";
+import { Chapter } from "../types/mangadex";
 
 export default function getTitleChapter(chapter: Chapter | null) {
     if (!chapter) return ""

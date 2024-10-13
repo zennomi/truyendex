@@ -1,22 +1,15 @@
-import useSWR from "swr/immutable"
-import { useMemo } from "react"
-import { ExtendManga } from "../api/extend"
-import { MangaContentRating } from "../api/manga"
-import { MangaList } from "../api/schema"
-import { Includes, Order } from "../api/static"
-import extendRelationship from "../utils/extendRelationship"
-import { Manga as MangaApi } from "../api"
+import { MangadexApi } from "@/api"
 import useSearchManga from "./useSearchManga"
 
 export default function useFeaturedTitles() {
     const createdAtSince = new Date(Date.now() - 30 * 24 * 3600 * 1000)
 
     return useSearchManga({
-        includes: [Includes.COVER_ART, Includes.ARTIST, Includes.AUTHOR],
+        includes: [MangadexApi.Static.Includes.COVER_ART, MangadexApi.Static.Includes.ARTIST, MangadexApi.Static.Includes.AUTHOR],
         order: {
-            followedCount: Order.DESC,
+            followedCount: MangadexApi.Static.Order.DESC,
         },
-        contentRating: [MangaContentRating.SAFE, MangaContentRating.SUGGESTIVE],
+        contentRating: [MangadexApi.Static.MangaContentRating.SAFE, MangadexApi.Static.MangaContentRating.SUGGESTIVE],
         hasAvailableChapters: "true",
         availableTranslatedLanguage: ['vi'],
         createdAtSince: createdAtSince.toISOString().slice(0, -13) + "00:00:00",

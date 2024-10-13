@@ -3,7 +3,7 @@
  ********************/
 
 import { AuthenticationToken } from './authentication';
-import { ScanlationGroupList, Response, UserList } from './schema';
+import { ScanlationGroupList, Response, UserList } from '../../types/mangadex';
 import { Includes } from './static';
 import * as util from './util';
 

@@ -1,6 +1,5 @@
 import useSWR from "swr/immutable"
-import { GetMangaIdAggregateRequestOptions, GetMangaIdAggregateResponse } from "../api/manga";
-import { Manga } from "../api";
+import { MangadexApi } from "@/api";
 
 export type ChapterItem = {
     volume: string
@@ -9,9 +8,9 @@ export type ChapterItem = {
     others?: string[]
 }
 
-export default function useAggregate(id: string | null, options: GetMangaIdAggregateRequestOptions) {
-    const { data, isLoading, error } = useSWR(id ? [id, options] : null, () => Manga.getMangaIdAggregate(id!, options))
-    const aggregate = data && (data.data as GetMangaIdAggregateResponse).volumes ? (data.data as GetMangaIdAggregateResponse).volumes : null
+export default function useAggregate(id: string | null, options: MangadexApi.Manga.GetMangaIdAggregateRequestOptions) {
+    const { data, isLoading, error } = useSWR(id ? [id, options] : null, () => MangadexApi.Manga.getMangaIdAggregate(id!, options))
+    const aggregate = data && (data.data as MangadexApi.Manga.GetMangaIdAggregateResponse).volumes ? (data.data as MangadexApi.Manga.GetMangaIdAggregateResponse).volumes : null
     let chapterList: ChapterItem[] = []
     if (aggregate) {
         for (const volume of Object.values(aggregate)) {

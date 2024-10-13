@@ -2,7 +2,7 @@
  * IMPORT STATEMENTS
  ********************/
 
-import type { CreateAccount, UserResponse, AccountActivateResponse, SendAccountActivationCode, RecoverCompleteBody, ErrorResponse } from './schema';
+import type { CreateAccount, UserResponse, AccountActivateResponse, SendAccountActivationCode, RecoverCompleteBody, ErrorResponse } from '../../types/mangadex';
 import * as util from './util';
 
 /***********************

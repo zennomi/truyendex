@@ -4,8 +4,8 @@
 
 import { AuthenticationToken } from './authentication';
 import axios, { AxiosRequestConfig } from 'axios';
-import { ErrorResponse } from './schema';
-import config from '../config';
+import { ErrorResponse } from '../../types/mangadex';
+import config from '../../config';
 
 /*******************
  * TYPE DEFINITIONS

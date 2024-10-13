@@ -1,11 +1,10 @@
-import { Manga } from "@/api"
-import { ExtendManga } from "@/api/extend"
+import Link from "next/link"
 import Iconify from "@/components/iconify"
 import routes from "@/routes"
+import { ExtendManga } from "@/types/mangadex"
 import extendRelationship from "@/utils/extendRelationship"
 import getCoverArt from "@/utils/getCoverArt"
 import { getMangaTitle } from "@/utils/getMangaTitle"
-import Link from "next/link"
 
 export default function LastUpdatedTitles({ mangas }: { mangas: ExtendManga[] }) {
 

@@ -7,12 +7,12 @@ import ReactPaginate from "react-paginate";
 import useLastUpdates, { chaptersPerPage } from "@/hooks/useLastUpdates"
 import { useMangadex } from "@/contexts/mangadex";
 import getCoverArt from "@/utils/getCoverArt";
-import { ExtendChapter } from "@/api/extend";
 import { getMangaTitle } from "@/utils/getMangaTitle";
 import getTitleChapter from "@/utils/getTitleChapter";
 import { formatNowDistance } from "@/utils/dateFns";
 import routes from "@/routes";
 import Loading from "@/components/nettrom/loading";
+import { ExtendChapter } from "@/types/mangadex";
 
 
 export default function NewUpdates({ title, groupId }: { title?: string, groupId?: string }) {

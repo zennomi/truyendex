@@ -1,29 +1,27 @@
 import useSWR from 'swr'
-import { Manga as MangaApi } from '../api'
-import { GetMangaIdFeedRequestOptions } from '../api/manga'
-import { Includes, Order } from '../api/static';
-import { MangaContentRating } from '../api/manga';
-import { ChapterList } from '../api/schema';
-import { ExtendChapter } from '../api/extend';
-import extendRelationship from '../utils/extendRelationship';
+import { MangadexApi } from '@/api'
+
+import { ChapterList, ExtendChapter } from '@/types/mangadex';
+
+import extendRelationship from '@/utils/extendRelationship';
 
 export const chaptersPerPage = 10;
 
-export default function useChapterList(mangaId: string, options: GetMangaIdFeedRequestOptions) {
+export default function useChapterList(mangaId: string, options: MangadexApi.Manga.GetMangaIdFeedRequestOptions) {
     let chapters: ExtendChapter[] = []
     // rewrite
     options.translatedLanguage = ['vi'];
-    options.includes = [Includes.SCANLATION_GROUP, Includes.USER,];
+    options.includes = [MangadexApi.Static.Includes.SCANLATION_GROUP, MangadexApi.Static.Includes.USER,];
     options.order = {
-        volume: Order.DESC,
-        chapter: Order.DESC,
+        volume: MangadexApi.Static.Order.DESC,
+        chapter: MangadexApi.Static.Order.DESC,
     }
-    options.contentRating = [MangaContentRating.EROTICA, MangaContentRating.PORNOGRAPHIC, MangaContentRating.SAFE, MangaContentRating.SUGGESTIVE]
+    options.contentRating = [MangadexApi.Static.MangaContentRating.EROTICA, MangadexApi.Static.MangaContentRating.PORNOGRAPHIC, MangadexApi.Static.MangaContentRating.SAFE, MangadexApi.Static.MangaContentRating.SUGGESTIVE]
     options.limit = chaptersPerPage;
     if (options.offset && options.offset > 10000) {
         options.offset = 10000 - options.limit
     }
-    const { data, isLoading, error } = useSWR([mangaId, options], () => MangaApi.getMangaIdFeed(mangaId, options))
+    const { data, isLoading, error } = useSWR([mangaId, options], () => MangadexApi.Manga.getMangaIdFeed(mangaId, options))
     const successData = data && (data.data as ChapterList).data
     if (successData) {
         chapters = successData.map(d => extendRelationship(d) as ExtendChapter)

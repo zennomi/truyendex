@@ -1,13 +1,9 @@
 "use client"
 
 import useSWR from 'swr'
-import { useEffect, useState } from 'react';
-import { Chapter as ChapterApi, Manga as MangaApi } from '../api';
-import { ChapterList, Chapter } from '../api/schema';
-import { MangaContentRating } from '../api/manga';
-import { Order } from '../api/static';
-import { ExtendChapter } from '../api/extend';
-import extendRelationship from '../utils/extendRelationship';
+import { MangadexApi } from '@/api';
+import { ChapterList, ExtendChapter } from '@/types/mangadex';
+import extendRelationship from '@/utils/extendRelationship';
 
 export const chaptersPerPage = 100
 
@@ -19,12 +15,12 @@ export default function useLastUpdates(options: { page: number, groupId?: string
     if (offset > 10000) {
         offset = 10000 - chaptersPerPage
     }
-    const { data, isLoading, error } = useSWR(['last-updates', options], () => ChapterApi.getChapter({
+    const { data, isLoading, error } = useSWR(['last-updates', options], () => MangadexApi.Chapter.getChapter({
         includes: ['scanlation_group'],
         translatedLanguage: ['vi'],
-        contentRating: [MangaContentRating.SAFE, MangaContentRating.SUGGESTIVE],
+        contentRating: [MangadexApi.Static.MangaContentRating.SAFE, MangadexApi.Static.MangaContentRating.SUGGESTIVE],
         order: {
-            readableAt: Order.DESC
+            readableAt: MangadexApi.Static.Order.DESC
         },
         limit: chaptersPerPage,
         offset,

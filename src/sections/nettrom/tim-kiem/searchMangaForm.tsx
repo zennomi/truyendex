@@ -3,17 +3,16 @@
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Select, { StylesConfig } from 'react-select';
 
-import { GetSearchMangaRequestOptions, MangaContentRating, MangaPublicationDemographic, MangaPublicationStatus } from "../../../api/manga";
-import { Tag } from "@/api/schema";
+import { MangadexApi } from "@/api";
+import { Tag } from "@/types/mangadex";
 import { parseContentRating, parseStatus } from "@/utils/parseMangadex";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import normalizeParams from "@/utils/normalizeParams";
-import { Order } from "@/api/static";
 import { tags } from "@/constants"
 import { getSearchNetTromUrl } from "@/utils/url";
 
-type Inputs = GetSearchMangaRequestOptions & {
+type Inputs = MangadexApi.Manga.GetSearchMangaRequestOptions & {
     orderType?: string,
 };
 
@@ -81,12 +80,12 @@ export default function SearchMangaForm() {
     useEffect(() => {
         const normalizedParams: Inputs = normalizeParams(params)
         if (!params.get("orderType") && normalizedParams.order) {
-            if (normalizedParams.order.latestUploadedChapter === Order.DESC) normalizedParams.orderType = "0";
-            else if (normalizedParams.order.createdAt === Order.DESC) normalizedParams.orderType = "1";
-            else if (normalizedParams.order.followedCount === Order.DESC) normalizedParams.orderType = "2";
-            else if (normalizedParams.order.title === Order.ASC) normalizedParams.orderType = "3";
-            else if (normalizedParams.order.relevance === Order.DESC) normalizedParams.orderType = "4";
-            else if (normalizedParams.order.rating === Order.DESC) normalizedParams.orderType = "5";
+            if (normalizedParams.order.latestUploadedChapter === MangadexApi.Static.Order.DESC) normalizedParams.orderType = "0";
+            else if (normalizedParams.order.createdAt === MangadexApi.Static.Order.DESC) normalizedParams.orderType = "1";
+            else if (normalizedParams.order.followedCount === MangadexApi.Static.Order.DESC) normalizedParams.orderType = "2";
+            else if (normalizedParams.order.title === MangadexApi.Static.Order.ASC) normalizedParams.orderType = "3";
+            else if (normalizedParams.order.relevance === MangadexApi.Static.Order.DESC) normalizedParams.orderType = "4";
+            else if (normalizedParams.order.rating === MangadexApi.Static.Order.DESC) normalizedParams.orderType = "5";
         }
         reset({ ...normalizedParams })
     }, [params])
@@ -95,22 +94,22 @@ export default function SearchMangaForm() {
         const orderType = values.orderType
         switch (orderType) {
             case "0":
-                setValue('order', { latestUploadedChapter: Order.DESC })
+                setValue('order', { latestUploadedChapter: MangadexApi.Static.Order.DESC })
                 break;
             case "1":
-                setValue('order', { createdAt: Order.DESC })
+                setValue('order', { createdAt: MangadexApi.Static.Order.DESC })
                 break;
             case "2":
-                setValue('order', { followedCount: Order.DESC })
+                setValue('order', { followedCount: MangadexApi.Static.Order.DESC })
                 break;
             case "3":
-                setValue('order', { title: Order.ASC })
+                setValue('order', { title: MangadexApi.Static.Order.ASC })
                 break;
             case "4":
-                setValue('order', { relevance: Order.DESC })
+                setValue('order', { relevance: MangadexApi.Static.Order.DESC })
                 break;
             case "5":
-                setValue('order', { rating: Order.DESC })
+                setValue('order', { rating: MangadexApi.Static.Order.DESC })
                 break;
             default:
                 break;
@@ -179,7 +178,7 @@ export default function SearchMangaForm() {
                                     field: { onChange, onBlur, value, name, ref },
                                 }) => (
                                     <Select
-                                        options={Object.values(MangaContentRating).map(v => optionlize(v, parseContentRating))}
+                                        options={Object.values(MangadexApi.Static.MangaContentRating).map(v => optionlize(v, parseContentRating))}
                                         onChange={(newValue) => {
                                             onChange(newValue.map(item => item.value))
                                         }}
@@ -205,7 +204,7 @@ export default function SearchMangaForm() {
                                     field: { onChange, onBlur, value, name, ref },
                                 }) => (
                                     <Select
-                                        options={Object.values(MangaPublicationStatus).map(v => optionlize(v, parseStatus))}
+                                        options={Object.values(MangadexApi.Static.MangaPublicationStatus).map(v => optionlize(v, parseStatus))}
                                         onChange={(newValue) => {
                                             onChange(newValue.map(item => item.value))
                                         }}
@@ -233,7 +232,7 @@ export default function SearchMangaForm() {
                                     field: { onChange, onBlur, value, name, ref },
                                 }) => (
                                     <Select
-                                        options={Object.values(MangaPublicationDemographic).map(v => optionlize(v))}
+                                        options={Object.values(MangadexApi.Static.MangaPublicationDemographic).map(v => optionlize(v))}
                                         onChange={(newValue) => {
                                             onChange(newValue.map(item => item.value))
                                         }}
