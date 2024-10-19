@@ -10,6 +10,10 @@ import "./style.css"
 // slick-carousel
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+import '@/assets/scss/tailwind.scss'
 
 import MainNav from "@/sections/nettrom/layout/main-nav";
 
@@ -187,6 +191,7 @@ export default function NettromLayout({
                         </div>
                     </footer>
                 </MangadexContextProvider>
+                <ToastContainer />
                 <Gtag />
             </body>
         </html>

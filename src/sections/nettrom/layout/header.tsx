@@ -9,11 +9,13 @@ import SearchInput from "@/sections/nettrom/common/search-input";
 import NettromLogo from "@/assets/nettrom-logo.png"
 import MainNav from "./main-nav";
 import { usePathname, useSearchParams } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Header() {
     const [openMenu, setOpenMenu] = useState(false)
     const pathname = usePathname()
     const params = useSearchParams()
+    const { user, logout } = useAuth({})
 
     useEffect(() => {
         setOpenMenu(false)
@@ -36,7 +38,7 @@ export default function Header() {
                         <Link href={routes.nettrom.search} type="button" className="search-button-icon visible-xs" aria-label="Search">
                             <i className="fa fa-search"></i>
                         </Link>
-                        <button type="button" className="navbar-toggle" aria-label="Menu"
+                        <button type="button" className="navbar-toggle block md:hidden" aria-label="Menu"
                             onClick={() => setOpenMenu(prev => !prev)}
                         >
                             {
@@ -48,8 +50,15 @@ export default function Header() {
                         </button>
                     </div>
                     <ul className="nav-account list-inline hidden-xs pull-right mt-[13px]">
-                        <li className="login-link"><a rel="nofollow" href="https://github.com/zennomi/truyendex" target="_blank">Source code</a></li>
-                        <li className="register-link"><a rel="nofollow" href="https://mangadex.org/" target="_blank">MangaDex</a></li>
+                        <li className="login-link"><a rel="nofollow" href="https://mangadex.org/" target="_blank">MangaDex</a></li>
+                        {
+                            user ?
+                                <li className="register-link">
+                                    <a href="#" onClick={logout}>Đăng xuất</a>
+                                </li>
+                                :
+                                <li className="register-link"><Link rel="nofollow" href={routes.login} >Đăng nhập</Link></li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -59,8 +68,15 @@ export default function Header() {
                 </div>
                 <MainNav />
                 <ul className="nav-account list-inline">
-                    <li className="login-link"><a rel="nofollow" href="https://github.com/zennomi/truyendex" target="_blank">Source code</a></li>
-                    <li className="register-link"><a rel="nofollow" href="https://mangadex.org/" target="_blank">MangaDex</a></li>
+                    <li className="login-link"><a rel="nofollow" href="https://mangadex.org/" target="_blank">MangaDex</a></li>
+                    {
+                        user ?
+                            <li className="register-link">
+                                <button className="btn btn-danger">Đăng xuất</button>
+                            </li>
+                            :
+                            <li className="register-link"><Link rel="nofollow" href={routes.login} >Đăng nhập</Link></li>
+                    }
                 </ul>
             </div>
         </header>

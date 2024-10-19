@@ -2,7 +2,9 @@ import { Metadata } from 'next';
 import { Inter } from 'next/font/google'
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { ToastContainer } from 'react-toastify';
 
+import 'react-toastify/dist/ReactToastify.css';
 import '@/assets/scss/tailwind.scss'
 // slick-carousel
 import { MangadexContextProvider } from '@/contexts/mangadex'
@@ -34,6 +36,7 @@ export default function RootLayout({
         <MangadexContextProvider>
           {children}
         </MangadexContextProvider>
+        <ToastContainer />
         <Gtag />
       </body>
     </html>
