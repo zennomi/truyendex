@@ -41,7 +41,7 @@ export default function NettromLayout({
                     <Suspense>
                         <Header />
                     </Suspense>
-                    <nav className="main-nav hidden-xs" id="mainNav" style={{ "zIndex": 1000, "position": "relative", "top": "0px" }}>
+                    <nav className="main-nav hidden-xs" id="mainNav">
                         <div className="inner">
                             <div className="container">
                                 <div className="notify_block" style={{ margin: 0, borderRadius: 0 }}>

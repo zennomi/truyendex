@@ -7,7 +7,7 @@ import { isAxiosError } from 'axios'
 import { axios } from '@/api/app'
 import routes from '@/routes'
 
-export const useAuth = ({ middleware, redirectIfAuthenticated }: { middleware?: string, redirectIfAuthenticated?: string }) => {
+export const useAuth = ({ middleware, redirectIfAuthenticated }: { middleware?: string, redirectIfAuthenticated?: string } = {}) => {
     const router = useRouter()
     const params = useParams()
 

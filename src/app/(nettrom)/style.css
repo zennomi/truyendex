@@ -4735,15 +4735,15 @@ p {
   }
 }
 
-.nav-account > li > a {
+.nav-account > li a {
   color: #fff;
 }
 
-.nav-account > li > a:hover {
+.nav-account > li a:hover {
   text-decoration: underline;
 }
 
-.nav-account > li > a.user-menu:hover {
+.nav-account > li a.user-menu:hover {
   text-decoration: none;
 }
 
@@ -4825,7 +4825,7 @@ p {
   .menu-open .navbar-collapse {
     width: 100%;
     display: block;
-    z-index: 9999;
+    /* z-index: 2; */
     height: 100%;
   }
 }
@@ -4842,7 +4842,7 @@ p {
 
 .main-nav {
   position: relative;
-  z-index: 1000 !important;
+  /* z-index: 1000 !important; */
 }
 
 .main-nav .inner {
@@ -5217,12 +5217,12 @@ p {
     border-bottom: 1px solid #222;
   }
 
-  .nav-account > li > a {
+  .nav-account > li a {
     line-height: 35px;
     display: block;
   }
 
-  .nav-account > li > a:hover {
+  .nav-account > li a:hover {
     text-decoration: none;
     color: #d0b32e;
   }

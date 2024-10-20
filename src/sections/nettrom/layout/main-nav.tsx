@@ -28,7 +28,7 @@ export default function MainNav() {
                 <li>
                     <Link target="_self" href={routes.nettrom.history}>Lịch sử</Link>
                 </li>
-                <li className="dropdown">
+                <li className="dropdown md:block hidden">
                     <Link className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" target="_self" href={routes.nettrom.search}>Thể loại <i className="fa fa-caret-down"></i></Link>
                     <ul className="dropdown-menu megamenu">
                         <li>
