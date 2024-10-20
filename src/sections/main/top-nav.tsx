@@ -1,14 +1,20 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
+
 import TruyenDexLogo from "@/assets/truyendex-logo.png"
 import { getSearchNetTromUrl } from "@/utils/url"
 import { MangadexApi } from "@/api"
 import { tags } from "@/constants"
-import Iconify from "../../components/iconify"
+import Iconify from "@/components/iconify"
 import routes from "@/routes"
 import { transLocalizedStr } from "@/utils/mangadex"
+import { useToggle } from "@/hooks/useToggle"
 
 export default function TopNav() {
+    const [openMenu, toggleMenu] = useToggle(false)
+
     return (
         <nav
             id="topnav"
@@ -28,7 +34,7 @@ export default function TopNav() {
                 <div className="menu-extras">
                     <div className="menu-item">
                         {/* Mobile menu toggle*/}
-                        <a className="navbar-toggle" id="isToggle">
+                        <a className="navbar-toggle" id="isToggle" onClick={toggleMenu}>
                             <div className="lines">
                                 <span />
                                 <span />
@@ -60,20 +66,15 @@ export default function TopNav() {
                     </li>
                 </ul>
                 {/*Login button End*/}
-                <div id="navigation">
+                <div id="navigation" className={openMenu ? "open" : ""}>
                     {/* Navigation Menu*/}
-                    <ul className="navigation-menu">
-                        <li>
-                            <Link href="/" className="sub-menu-item">
-                                Trang chủ
-                            </Link>
-                        </li>
+                    <ul className={`navigation-menu md:flex ${openMenu ? "block" : "hidden"}`}>
                         <li>
                             <Link href={routes.nettrom.index} className="sub-menu-item">
                                 Bản thử nghiệm
                             </Link>
                         </li>
-                        <li className="has-submenu parent-parent-menu-item">
+                        <li className="has-submenu parent-parent-menu-item md:block hidden">
                             <a href="#">Tìm truyện</a>
                             <span className="menu-arrow" />
                             <ul className="submenu">
@@ -139,6 +140,16 @@ export default function TopNav() {
                                     </ul>
                                 </li>
                             </ul>
+                        </li>
+                        <li>
+                            <Link href={routes.login} className="sub-menu-item">
+                                Đăng nhập
+                            </Link>
+                        </li>
+                        <li>
+                            <a href="https://ln.hako.vn/" className="sub-menu-item" target="_blank">
+                                Light Novel
+                            </a>
                         </li>
                     </ul>
                     {/*end navigation menu*/}

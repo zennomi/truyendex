@@ -93,7 +93,6 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: { middleware?: 
     }
 
     useEffect(() => {
-        console.log(middleware, user, window.location.pathname)
         if (middleware === 'guest' && redirectIfAuthenticated && user) {
             toast("Đã đăng nhập, chuyển hướng...")
             if (user.email_verified_at)

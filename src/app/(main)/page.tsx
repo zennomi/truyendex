@@ -249,7 +249,7 @@ export default async function Home() {
                 className="rounded-lg shadow-md dark:shadow-gray-800"
                 alt=""
               />
-              <div className="overflow-hidden absolute lg:h-[400px] h-[320px] lg:w-[400px] w-[320px] bg-indigo-600/5 dark:bg-indigo-600/20 bottom-0 left-0 rotate-45 -z-1 rounded-3xl" />
+              {/* <div className="overflow-hidden absolute lg:h-[400px] h-[320px] lg:w-[400px] w-[320px] bg-indigo-600/5 dark:bg-indigo-600/20 bottom-0 left-0 rotate-45 -z-1 rounded-3xl" /> */}
             </div>
             <div className="lg:ml-8 order-1 md:order-2">
               <h4 className="mb-4 text-2xl leading-normal font-semibold">
