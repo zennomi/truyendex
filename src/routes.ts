@@ -11,6 +11,7 @@ const routes = {
     report: `https://www.messenger.com/t/443260942921638`,
     login: "/dang-nhap",
     signup: "/dang-ky",
+    verifyEmail: "/xac-thuc",
 }
 
 export default routes
