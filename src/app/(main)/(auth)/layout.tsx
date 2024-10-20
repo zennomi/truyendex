@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import Iconify from "@/components/iconify";
 import TruyenDexLogo from "@/assets/truyendex-logo.png"
@@ -17,13 +18,13 @@ export default function AuthLayout({
                         <div className="xl:w-[30%] lg:w-1/3 md:w-1/2">
                             <div className="relative md:flex flex-col md:min-h-screen justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 md:px-10 py-10 px-4 z-1">
                                 <div className="text-center">
-                                    <a href="index.html">
+                                    <Link href="/">
                                         <Image
                                             src={TruyenDexLogo}
                                             className="mx-auto"
                                             alt="truyendex logo"
                                         />
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="title-heading text-center md:my-auto my-20">
                                     {children}

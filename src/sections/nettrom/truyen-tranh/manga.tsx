@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import ReactMarkdown from 'react-markdown'
 
 import { useMangadex } from "@/contexts/mangadex"
@@ -11,12 +11,29 @@ import Link from "next/link"
 import routes from "@/routes"
 import config from "@/config"
 import Loading from "@/sections/nettrom/layout/loading"
-import { MangadexApi } from "@/api"
+import { AppApi, MangadexApi } from "@/api"
 import { translateStatus, getCoverArt } from "@/utils/mangadex"
+import { useAuth } from "@/hooks/useAuth"
+import Iconify from "@/components/iconify"
+import { toast } from "react-toastify"
+import { useCheckFollowed } from "@/hooks/app"
 
 export default function Manga({ mangaId }: { mangaId: string }) {
+    const { user } = useAuth()
     const { mangas, updateMangas, updateMangaStatistics, mangaStatistics } = useMangadex()
     const manga = mangas[mangaId]
+    const { data: followed, mutate } = useCheckFollowed(mangaId)
+
+    const followManga = useCallback(async () => {
+        try {
+            const { followed } = await AppApi.Series.followOrUnfollow(mangaId)
+            toast(followed ? "Theo dõi thành công" : "Bỏ theo dõi thành công")
+            await mutate()
+        } catch (error) {
+            toast("Đã có lỗi xảy ra")
+        }
+    }, [followed])
+
     useEffect(() => {
         updateMangas({ ids: [mangaId], includes: [MangadexApi.Static.Includes.ARTIST, MangadexApi.Static.Includes.AUTHOR] })
         updateMangaStatistics({ manga: [mangaId] })
@@ -27,6 +44,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
     const title = getMangaTitle(manga)
     const altTitles = getMangaAltTitles(manga)
     const url = routes.nettrom.manga(mangaId)
+
     return (
         <>
             <ul
@@ -157,11 +175,28 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                                 <a className="btn btn-danger mr-2" href="#nt_listchapter">
                                     <i className="fa fa-eye mr-2" /><span>Đọc ngay</span>
                                 </a>
-                                <a className="btn btn-danger" href={`https://mangadex.org/title/${manga.id}`} target="_blank">
-                                    <i className="fa fa-cat mr-2" /><span>Link Mangadex</span>
-                                </a>
+                                {
+                                    user ?
+                                        <a className="follow-url btn btn-danger" onClick={followManga}>
+                                            <Iconify icon={followed ? "fa:times-circle" : "fa:heart"} className="inline mr-2" /><span>{followed ? "Bỏ theo dõi" : "Theo dõi"}</span>
+                                        </a> :
+                                        <Link className="follow-url btn btn-danger" href={routes.loginWithRedirect(window.location.pathname)}>
+                                            <Iconify icon="fa:heart" className="inline mr-2" /><span>Đăng nhập để theo dõi</span>
+                                        </Link>
+                                }
                             </div>
                             <div className="read-action mrt10">
+                                {
+                                    manga.attributes.links.raw &&
+                                    <a
+                                        className="btn btn-warning mrb5 mr-2"
+                                        href={`https://mangadex.org/title/${manga.id}`}
+                                        target="_blank"
+                                    >
+                                        {" "}
+                                        Link Mangadex
+                                    </a>
+                                }
                                 {
                                     manga.attributes.links.raw &&
                                     <a

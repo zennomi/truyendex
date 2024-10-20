@@ -1,13 +1,14 @@
 "use client"
 
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
 
+import { yupResolver } from "@hookform/resolvers/yup";
 import routes from "@/routes";
 import { useAuth } from "@/hooks/useAuth";
-import { toast } from "react-toastify";
 
 // Define the form input types
 interface ILoginForm {
@@ -24,9 +25,10 @@ const loginSchema = yup.object().shape({
 });
 
 export default function LoginForm() {
+    const searchParams = useSearchParams()
     const { login } = useAuth({
         middleware: 'guest',
-        redirectIfAuthenticated: routes.nettrom.index,
+        redirectIfAuthenticated: searchParams.get("redirectUrl") || routes.nettrom.index,
     })
 
     const {

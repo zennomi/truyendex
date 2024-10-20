@@ -17,6 +17,9 @@ export default function MainNav() {
                     </Link>
                 </li>
                 <li>
+                    <Link target="_self" href={routes.nettrom.following}>Theo dõi</Link>
+                </li>
+                <li>
                     <Link target="_self" href={`${routes.nettrom.search}?order[followedCount]=desc#results`}>Hot</Link>
                 </li>
                 <li>

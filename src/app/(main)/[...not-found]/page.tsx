@@ -1,6 +1,7 @@
 import Link from 'next/link'
-import TruyenDexLogo from '@/assets/truyendex-logo.png'
 import Image from 'next/image'
+
+import TruyenDexLogo from '@/assets/truyendex-logo.png'
 import routes from '@/routes'
 import Iconify from '@/components/iconify'
 
@@ -12,14 +13,14 @@ export default function NotFound() {
                     <div className="grid grid-cols-1">
                         <div className="flex flex-col min-h-screen justify-center md:px-10 py-10 px-4">
                             <div className="text-center">
-                                <a href="index.html">
+                                <Link href="/">
                                     <Image
                                         src={TruyenDexLogo}
                                         className="mx-auto"
                                         alt="ruyendex logo"
                                         height={64}
                                     />
-                                </a>
+                                </Link>
                             </div>
                             <div className="title-heading text-center my-auto">
                                 <Iconify className='mx-auto' width={200} icon="hugeicons:file-not-found" />

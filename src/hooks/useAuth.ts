@@ -6,14 +6,15 @@ import { isAxiosError } from 'axios'
 
 import { axios } from '@/api/app'
 import routes from '@/routes'
+import { GetUserResponse } from '@/types'
 
-export const useAuth = ({ middleware, redirectIfAuthenticated }: { middleware?: string, redirectIfAuthenticated?: string } = {}) => {
+export const useAuth = ({ middleware, redirectIfAuthenticated, redirectIfNotAuthenticated }: { middleware?: string, redirectIfAuthenticated?: string, redirectIfNotAuthenticated?: string } = {}) => {
     const router = useRouter()
     const params = useParams()
 
     const { data: user, error, mutate } = useSWR('/api/user', async () => {
         try {
-            const { data } = await axios.get("/api/user")
+            const { data } = await axios.get<GetUserResponse>("/api/user")
             if (!data.email_verified_at) {
                 router.push(routes.verifyEmail)
             }
@@ -24,8 +25,8 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: { middleware?: 
                     router.push(routes.verifyEmail)
                 }
             }
-            return null
         }
+        return null
     }
 
     )
@@ -111,6 +112,10 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: { middleware?: 
 
         if (window.location.pathname === routes.verifyEmail && !user) {
             router.push("/")
+        }
+
+        if (middleware === 'auth' && redirectIfNotAuthenticated && user === null) {
+            router.push(redirectIfNotAuthenticated)
         }
         if (middleware === 'auth' && error) logout()
     }, [user, error, middleware])
