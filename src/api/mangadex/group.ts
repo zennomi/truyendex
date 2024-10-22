@@ -2,9 +2,13 @@
  * IMPORT STATEMENTS
  ********************/
 
-import { ScanlationGroupList, ScanlationGroupResponse, ErrorResponse } from '../../types/mangadex';
-import { Order, Includes } from './static';
-import * as util from './util';
+import {
+  ScanlationGroupList,
+  ScanlationGroupResponse,
+  ErrorResponse,
+} from "../../types/mangadex";
+import { Order, Includes } from "./static";
+import * as util from "./util";
 
 /*******************
  * TYPE DEFINITIONS
@@ -12,11 +16,11 @@ import * as util from './util';
 
 /** Order object for GetSearchGroupRequestOptions */
 export type GetSearchGroupOrder = {
-    name?: Order
-    createdAt?: Order
-    updatedAt?: Order
-    followedCount?: Order
-    relevance?: Order
+  name?: Order;
+  createdAt?: Order;
+  updatedAt?: Order;
+  followedCount?: Order;
+  relevance?: Order;
 };
 
 /***********************
@@ -25,27 +29,27 @@ export type GetSearchGroupOrder = {
 
 /** Request parameters for `GET /group` */
 export type GetSearchGroupRequestOptions = {
-    /**
-     * ```console
-     * Default: 10
-     * Minimum: 0
-     * Maximum: 100
-     */
-    limit?: number
-    offset?: number
-    /**
-     * UUID formatted strings for individual scanlation groups
-     */
-    ids?: string[]
-    name?: string
-    focusedLanguages?: string
-    includes?: Includes[]
-    /**
-     * Default: { latestUploadedChapter: 'desc' }
-     * 
-     * Seems to be a typo? Comes directly from their documentation.
-     */
-    order?: GetSearchGroupOrder
+  /**
+   * ```console
+   * Default: 10
+   * Minimum: 0
+   * Maximum: 100
+   */
+  limit?: number;
+  offset?: number;
+  /**
+   * UUID formatted strings for individual scanlation groups
+   */
+  ids?: string[];
+  name?: string;
+  focusedLanguages?: string;
+  includes?: Includes[];
+  /**
+   * Default: { latestUploadedChapter: 'desc' }
+   *
+   * Seems to be a typo? Comes directly from their documentation.
+   */
+  order?: GetSearchGroupOrder;
 };
 
 /** Response from `GET /group` */
@@ -53,7 +57,7 @@ export type GetSearchGroupResponse = ScanlationGroupList;
 
 /** Request parameters for `GET /group/{id}` */
 export type GetGroupIdRequestOptions = {
-    includes?: Includes[]
+  includes?: Includes[];
 };
 
 /** Response from `GET /group/{id}` */
@@ -65,16 +69,18 @@ export type GetGroupIdResponse = ScanlationGroupResponse;
 
 /**
  * Search for a scanlation group.
- * 
+ *
  * @param {GetSearchGroupRequestOptions} [options] See {@link GetSearchGroupRequestOptions}
  * @returns A promise that resolves to a {@link GetSearchGroupResponse} object.
  * Will resolve to a {@link ErrorResponse} object on error.
  */
-export const getSearchGroup = function (options?: GetSearchGroupRequestOptions) {
-    const qs = util.buildQueryStringFromOptions(options);
-    const path = `/group${qs}`;
+export const getSearchGroup = function (
+  options?: GetSearchGroupRequestOptions,
+) {
+  const qs = util.buildQueryStringFromOptions(options);
+  const path = `/group${qs}`;
 
-    return util.createHttpsRequestPromise<GetSearchGroupResponse>('GET', path);
+  return util.createHttpsRequestPromise<GetSearchGroupResponse>("GET", path);
 };
 
 // Kenjugs (06/06/2022) TODO: Implement functionality for `POST /group`
@@ -82,23 +88,30 @@ export const getSearchGroup = function (options?: GetSearchGroupRequestOptions) 
 
 /**
  * Get info about a specific scanlation group by their ID.
- * 
+ *
  * @param {string} groupId UUID formatted string.
  * @param {GetGroupIdRequestOptions} [options] See {@link GetGroupIdRequestOptions}
  * @returns A promise that resolves to a {@link GetGroupIdResponse} object.
  * Will resolve to a {@link ErrorResponse} object on error.
  */
-export const getGroupId = function (groupId: string, options?: GetGroupIdRequestOptions) {
-    if (groupId === undefined) {
-        return Promise.reject('ERROR - getGroupId: Parameter `groupId` cannot be undefined');
-    } else if (groupId === '') {
-        return Promise.reject('ERROR - getGroupId: Parameter `groupId` cannot be blank');
-    }
+export const getGroupId = function (
+  groupId: string,
+  options?: GetGroupIdRequestOptions,
+) {
+  if (groupId === undefined) {
+    return Promise.reject(
+      "ERROR - getGroupId: Parameter `groupId` cannot be undefined",
+    );
+  } else if (groupId === "") {
+    return Promise.reject(
+      "ERROR - getGroupId: Parameter `groupId` cannot be blank",
+    );
+  }
 
-    const qs = util.buildQueryStringFromOptions(options);
-    const path = `/group/${groupId}${qs}`;
+  const qs = util.buildQueryStringFromOptions(options);
+  const path = `/group/${groupId}${qs}`;
 
-    return util.createHttpsRequestPromise<GetGroupIdResponse>('GET', path);
+  return util.createHttpsRequestPromise<GetGroupIdResponse>("GET", path);
 };
 
 // Kenjugs (06/07/2022) TODO: Implement functionality for `PUT /group/{id}`

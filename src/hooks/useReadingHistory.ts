@@ -1,26 +1,28 @@
 import { ReadingHistory } from "@/types";
 import useLocalStorage from "./useLocalStorage";
 
-
 export default function useReadingHistory() {
-    const [history, setHistory] = useLocalStorage<Record<string, ReadingHistory>>("truyendex-history", {})
+  const [history, setHistory] = useLocalStorage<Record<string, ReadingHistory>>(
+    "truyendex-history",
+    {},
+  );
 
-    const addHistory = (mangaId: string, manga: ReadingHistory) => {
-        setHistory((value) => {
-            const mangaIds = Object.keys(value)
-            if (mangaIds.length > 20) {
-                delete value[mangaIds[0]]
-            }
-            return ({ [mangaId]: manga, ...value, })
-        })
-    }
+  const addHistory = (mangaId: string, manga: ReadingHistory) => {
+    setHistory((value) => {
+      const mangaIds = Object.keys(value);
+      if (mangaIds.length > 20) {
+        delete value[mangaIds[0]];
+      }
+      return { [mangaId]: manga, ...value };
+    });
+  };
 
-    const removeHistory = (mangaId: string) => {
-        setHistory((value) => {
-            delete value[mangaId]
-            return { ...value }
-        })
-    }
+  const removeHistory = (mangaId: string) => {
+    setHistory((value) => {
+      delete value[mangaId];
+      return { ...value };
+    });
+  };
 
-    return { history, setHistory, addHistory, removeHistory }
+  return { history, setHistory, addHistory, removeHistory };
 }

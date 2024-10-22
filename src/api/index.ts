@@ -1,2 +1,2 @@
-export * as MangadexApi from "./mangadex"
-export * as AppApi from "./app"
+export * as MangadexApi from "./mangadex";
+export * as AppApi from "./app";

@@ -2,274 +2,275 @@
 /*         Menu                  */
 /*===============================*/
 #topnav {
-    @apply fixed right-0 left-0 top-0 z-999 bg-transparent border-0 transition-all duration-500 ease-in-out;
-    .logo {
-        @apply float-left text-black dark:text-white #{!important};
-        .l-dark {
-            @apply hidden;
-        }
-        .l-light {
-            @apply inline-block;
-        }
-        &:focus {
-          @apply outline-none;
-        }
+  @apply fixed right-0 left-0 top-0 z-999 bg-transparent border-0 transition-all duration-500 ease-in-out;
+  .logo {
+    @apply float-left text-black dark:text-white #{!important};
+    .l-dark {
+      @apply hidden;
     }
-    .has-submenu{
-      @apply relative;
+    .l-light {
+      @apply inline-block;
+    }
+    &:focus {
+      @apply outline-none;
+    }
+  }
+  .has-submenu {
+    @apply relative;
+    &.active {
+      a {
+        @apply text-white dark:text-slate-900;
+      }
+      .submenu {
+        li {
+          &.active {
+            > a {
+              @apply text-indigo-600 dark:text-indigo-600 #{!important};
+            }
+          }
+        }
+      }
       &.active {
-        a {
-          @apply text-white dark:text-slate-900;
+        .menu-arrow {
+          @apply border-indigo-600 dark:border-indigo-600;
+        }
+      }
+    }
+    .submenu {
+      .submenu-arrow {
+        border-width: 0px 0.125rem 0.125rem 0px;
+        @apply absolute right-[1.25rem] top-[0.8125rem] border-black dark:border-white rounded-[0.5px] inline-block p-[0.1875rem] -rotate-[45deg];
+      }
+      .has-submenu {
+        &:hover {
+          /* .submenu-arrow {
+              @apply border-indigo-600 dark:border-indigo-600;
+            } */
+          > .submenu-arrow {
+            @apply border-indigo-600 dark:border-indigo-600;
+          }
         }
         .submenu {
-          li{
-            &.active {
-              > a {
-                @apply text-indigo-600 dark:text-indigo-600 #{!important};
+          .has-submenu {
+            &:hover {
+              .submenu-arrow {
+                @apply border-indigo-600 dark:border-indigo-600;
+              }
+              > .submenu-arrow {
+                @apply border-indigo-600 dark:border-indigo-600;
               }
             }
           }
         }
+      }
+    }
+  }
+  .navbar-toggle {
+    @apply border-0 relative p-0 m-0 cursor-pointer;
+    .lines {
+      @apply w-[25px] block relative h-[18px] mt-[30px] mr-0 mb-[26px] ml-[10px];
+    }
+    span {
+      transition: transform 0.5s ease;
+      @apply h-[2px] w-full bg-black dark:bg-white block mb-[5px];
+      &:last-child {
+        @apply mb-0;
+      }
+    }
+    &.open {
+      span {
+        @apply absolute;
+        &:first-child {
+          @apply top-[6px] rotate-[45deg];
+        }
+        &:nth-child(2) {
+          @apply invisible;
+        }
+        &:last-child {
+          @apply w-full top-[6px] -rotate-[45deg];
+        }
+        &:hover {
+          @apply bg-indigo-600;
+        }
+      }
+    }
+    &:hover,
+    &:focus,
+    .navigation-menu > li > a:hover {
+      @apply bg-transparent;
+    }
+  }
+  .buy-button {
+    @apply float-right leading-[74px];
+    > li {
+      @apply leading-[initial];
+    }
+    .login-btn-primary,
+    .btn-icon-dark {
+      @apply hidden;
+    }
+    .login-btn-light,
+    .btn-icon-light {
+      @apply inline-block;
+    }
+    .search-bar {
+      .menu-search {
+        form {
+          @apply relative;
+        }
+      }
+      .searchform {
+        @apply after:absolute after:right-[14px] after:top-[14px] after:text-xl after:leading-5 after:pointer-events-none;
+        input[type="text"] {
+          @apply shadow-none py-[10px] pr-[42px] pl-3 h-11 text-sm block outline-none  #{!important};
+        }
+        input[type="submit"] {
+          @apply hidden;
+        }
+        &:after {
+          content: "\f0349";
+          font-family: "Material Design Icons";
+        }
+      }
+    }
+  }
+  .buy-button,
+  .buy-menu-btn {
+    .dropdown {
+      .dropdown-toggle {
+        @apply after:hidden;
+      }
+    }
+  }
+  .navigation-menu {
+    @apply list-none m-0 p-0;
+    > li {
+      @apply float-left block relative my-0 mx-[10px];
+      > a {
+        @apply block text-black dark:text-white text-[13px] bg-transparent font-bold tracking-[1px] leading-6 uppercase px-[15px] #{!important};
+        &:hover,
+        &:active {
+          @apply text-indigo-600;
+        }
+      }
+      &:hover,
+      &.active {
+        > a {
+          @apply text-indigo-600 dark:text-indigo-600 #{!important};
+        }
+      }
+      .submenu.megamenu {
+        li {
+          .megamenu-head {
+            @apply py-[10px] px-5 whitespace-nowrap text-xs uppercase tracking-[0.04em] font-bold text-slate-400 #{!important};
+          }
+        }
+      }
+    }
+    .has-submenu {
+      .menu-arrow {
+        border-width: 0 2px 2px 0;
+        @apply border-black dark:border-white rounded-[0.5px] inline-block p-[3px] rotate-[45deg] absolute transition-all duration-500 -right-px top-[30px];
+      }
+      &:hover {
+        .menu-arrow {
+          @apply rotate-[225deg];
+        }
+      }
+    }
+  }
+  .menu-extras {
+    @apply float-right;
+  }
+  &.scroll {
+    @apply bg-white dark:bg-slate-900 border-none shadow;
+    .navigation-menu {
+      > li {
+        > a {
+          @apply text-black dark:text-white;
+        }
+        > .menu-arrow {
+          @apply border-black dark:border-white;
+        }
+        &:hover,
         &.active {
-          .menu-arrow {
+          > a {
+            @apply text-indigo-600;
+          }
+          > .menu-arrow {
             @apply border-indigo-600 dark:border-indigo-600;
           }
         }
       }
-      .submenu {
-        .submenu-arrow {
-          border-width: 0px 0.125rem 0.125rem 0px;
-          @apply absolute right-[1.25rem] top-[0.8125rem] border-black dark:border-white rounded-[0.5px] inline-block p-[0.1875rem] -rotate-[45deg];
+    }
+  }
+  &.defaultscroll {
+    &.dark-menubar {
+      .logo {
+        @apply leading-[70px];
+      }
+    }
+    &.scroll {
+      .logo {
+        @apply leading-[62px];
+      }
+    }
+  }
+  &.nav-sticky {
+    @apply bg-white dark:bg-slate-900 shadow dark:shadow-gray-800;
+    .navigation-menu {
+      &.nav-light {
+        > li {
+          > a {
+            @apply text-black dark:text-white #{!important};
+          }
+          &.active {
+            > a {
+              @apply text-indigo-600 dark:text-indigo-600 #{!important};
+            }
+          }
+          &:hover,
+          &.active {
+            > .menu-arrow {
+              @apply border-indigo-600 #{!important};
+            }
+          }
+
+          &:hover,
+          &.active {
+            > a {
+              @apply text-indigo-600 dark:text-indigo-600 #{!important};
+            }
+          }
         }
         .has-submenu {
-          &:hover {
-            /* .submenu-arrow {
-              @apply border-indigo-600 dark:border-indigo-600;
-            } */
-            > .submenu-arrow {
-              @apply border-indigo-600 dark:border-indigo-600;
-            }
-          }
-          .submenu {
-            .has-submenu{
-              &:hover {
-                .submenu-arrow {
-                  @apply border-indigo-600 dark:border-indigo-600;
-                }
-                > .submenu-arrow {
-                  @apply border-indigo-600 dark:border-indigo-600;
-                }
-              }
-            }
+          .menu-arrow {
+            @apply border-black dark:border-white;
           }
         }
       }
     }
-    .navbar-toggle {
-      @apply border-0 relative p-0 m-0 cursor-pointer;
-      .lines {
-        @apply w-[25px] block relative h-[18px] mt-[30px] mr-0 mb-[26px] ml-[10px];
-      }
-      span {
-        transition: transform 0.5s ease;
-        @apply h-[2px] w-full bg-black dark:bg-white block mb-[5px];
-        &:last-child {
-          @apply mb-0;
-        }
-      }
-      &.open {
-        span {
-          @apply absolute;
-          &:first-child {
-            @apply top-[6px] rotate-[45deg];
-          }
-          &:nth-child(2) {
-            @apply invisible;
-          }
-          &:last-child {
-            @apply w-full top-[6px] -rotate-[45deg];
-          }
-          &:hover {
-            @apply bg-indigo-600;
-          }
-        }
-      }
-      &:hover, &:focus,
-      .navigation-menu > li > a:hover {
-        @apply bg-transparent;
-      }
+    &.tagline-height {
+      @apply top-0 #{!important};
     }
     .buy-button {
-      @apply float-right leading-[74px];
-      > li {
-        @apply leading-[initial];
-      }
       .login-btn-primary,
       .btn-icon-dark {
-        @apply hidden;
+        @apply inline-block;
       }
       .login-btn-light,
       .btn-icon-light {
+        @apply hidden;
+      }
+    }
+
+    .logo {
+      .l-dark {
         @apply inline-block;
       }
-      .search-bar {
-        .menu-search {
-          form {
-            @apply relative;
-          }
-        }
-        .searchform {
-          @apply after:absolute after:right-[14px] after:top-[14px] after:text-xl after:leading-5 after:pointer-events-none;
-          input[type=text] {
-            @apply shadow-none py-[10px] pr-[42px] pl-3 h-11 text-sm block outline-none  #{!important};
-          }
-          input[type=submit] {
-            @apply hidden;
-          }
-          &:after {
-            content: "\f0349";
-            font-family: "Material Design Icons";
-          }
-        }
+      .l-light {
+        @apply hidden;
       }
-    }
-    .buy-button,
-    .buy-menu-btn {
-      .dropdown {
-        .dropdown-toggle {
-          @apply after:hidden;
-        }
-      }
-    }
-    .navigation-menu {
-      @apply list-none m-0 p-0;
-      > li {
-        @apply float-left block relative my-0 mx-[10px];
-        > a {
-          @apply block text-black dark:text-white text-[13px] bg-transparent font-bold tracking-[1px] leading-6 uppercase px-[15px] #{!important};
-          &:hover, 
-          &:active {
-            @apply text-indigo-600;
-          }
-        }
-        &:hover, 
-        &.active{
-          > a {
-            @apply text-indigo-600 dark:text-indigo-600 #{!important};
-          }
-        }
-        .submenu.megamenu {
-          li {
-            .megamenu-head {
-              @apply py-[10px] px-5 whitespace-nowrap text-xs uppercase tracking-[0.04em] font-bold text-slate-400 #{!important};
-            }
-          }
-        }
-      }
-      .has-submenu {
-        .menu-arrow {
-          border-width: 0 2px 2px 0;
-          @apply border-black dark:border-white rounded-[0.5px] inline-block p-[3px] rotate-[45deg] absolute transition-all duration-500 -right-px top-[30px];
-        }
-        &:hover {
-          .menu-arrow {
-            @apply rotate-[225deg];
-          }
-        }
-      }
-    }
-    .menu-extras {
-      @apply float-right;
-    }
-    &.scroll {
-      @apply bg-white dark:bg-slate-900 border-none shadow;
-      .navigation-menu {
-        > li {
-          > a {
-            @apply text-black dark:text-white;
-          }
-          > .menu-arrow {
-            @apply border-black dark:border-white;
-          }
-          &:hover, 
-          &.active{
-            > a {
-              @apply text-indigo-600;
-            }
-            > .menu-arrow {
-              @apply border-indigo-600 dark:border-indigo-600;
-            }
-          }
-        }
-      }
-    }
-    &.defaultscroll{
-      &.dark-menubar {
-        .logo {
-          @apply leading-[70px];
-        }
-      }
-      &.scroll {
-        .logo {
-          @apply leading-[62px];
-        }
-      }
-    }
-    &.nav-sticky {
-      @apply bg-white dark:bg-slate-900 shadow dark:shadow-gray-800;
-      .navigation-menu{
-        &.nav-light {
-          > li {
-            > a {
-              @apply text-black dark:text-white #{!important};
-            }
-            &.active {
-              > a {
-                @apply text-indigo-600 dark:text-indigo-600 #{!important};
-              }
-            }
-            &:hover, 
-            &.active{
-              > .menu-arrow {
-                @apply border-indigo-600 #{!important};
-              }
-            }
-            
-            &:hover, 
-            &.active {
-              > a {
-                @apply text-indigo-600 dark:text-indigo-600 #{!important};
-              }
-            }
-          }
-          .has-submenu {
-            .menu-arrow {
-              @apply border-black dark:border-white;
-            }
-          }
-        }
-      }
-      &.tagline-height {
-        @apply top-0 #{!important};
-      }
-      .buy-button {
-        .login-btn-primary,
-        .btn-icon-dark {
-          @apply inline-block;
-        }
-        .login-btn-light,
-        .btn-icon-light {
-          @apply hidden;
-        }
-      }
-      
-      .logo {
-        .l-dark {
-          @apply inline-block;
-        }
-        .l-light {
-          @apply hidden;
-        }
     }
   }
 }
@@ -282,7 +283,7 @@
   #topnav {
     .navigation-menu {
       > li {
-        .submenu{
+        .submenu {
           &.megamenu {
             @apply w-[1120px] #{!important};
           }
@@ -296,7 +297,7 @@
   #topnav {
     .navigation-menu {
       > li {
-        .submenu{
+        .submenu {
           &.megamenu {
             @apply w-[936px] #{!important};
           }
@@ -358,16 +359,16 @@
             @apply border-indigo-600 dark:border-indigo-600;
           }
         }
-        &:hover, 
-        &.active{
+        &:hover,
+        &.active {
           > a {
             @apply text-indigo-600 dark:text-indigo-600 #{!important};
           }
         }
-        &.last-elements{
+        &.last-elements {
           .submenu {
             @apply left-auto right-0 before:left-auto before:right-[10px];
-            > li{
+            > li {
               &.has-submenu {
                 .submenu {
                   @apply left-auto right-full ml-0 mr-[10px];
@@ -537,7 +538,7 @@
       }
     }
   }
-  
+
   #navigation {
     @apply absolute top-[74px] left-0 w-full hidden h-auto bg-white dark:bg-slate-900 overflow-auto;
     &.open {
@@ -561,17 +562,17 @@
 @media (min-width: 768px) {
   #topnav {
     .navigation-menu {
-      > li{
-        &.has-submenu{
+      > li {
+        &.has-submenu {
           &:hover {
             > .submenu {
               @apply visible opacity-100 mt-0;
-              > li{
-                &.has-submenu{
+              > li {
+                &.has-submenu {
                   &:hover {
                     > .submenu {
                       @apply visible opacity-100 ml-0 mr-0;
-                      > li{
+                      > li {
                         &:hover {
                           > .submenu {
                             @apply visible opacity-100 ml-0 mr-0;
@@ -598,7 +599,7 @@
     .buy-menu-btn {
       @apply block my-0 mx-[10px] py-[10px] px-5 #{!important};
       .dropdown {
-        .dropdown-menu{
+        .dropdown-menu {
           &.show {
             transform: translate3d(0px, -54px, 0px) !important;
           }
@@ -608,44 +609,44 @@
   }
 }
 .tagline {
-    @apply absolute w-full z-[99] text-sm py-[13px] px-0;
+  @apply absolute w-full z-[99] text-sm py-[13px] px-0;
 }
 @media screen and (max-width: 575px) {
-    .tagline {
-        @apply hidden;
-    }
-    .tagline-height {
-        @apply top-0 #{!important};
-    }
+  .tagline {
+    @apply hidden;
+  }
+  .tagline-height {
+    @apply top-0 #{!important};
+  }
 }
 @media (min-width: 576px) {
   .tagline-height {
     @apply top-[47px] #{!important};
   }
 }
-  
+
 .sidebar-nav {
-      > .navbar-item {
-        &:hover,
-        &.active {
-          .navbar-link {
-            @apply text-indigo-600;
-          }
-        }
-    }
-    li{
-      &.active {
-        a {
-          @apply text-indigo-600;
-        }
-      }
-      &.account-menu {
-        &.active,
-        &:hover{
-          .navbar-link {
-            @apply text-indigo-600 dark:text-white #{!important};
-          }
-        }
+  > .navbar-item {
+    &:hover,
+    &.active {
+      .navbar-link {
+        @apply text-indigo-600;
       }
     }
+  }
+  li {
+    &.active {
+      a {
+        @apply text-indigo-600;
+      }
+    }
+    &.account-menu {
+      &.active,
+      &:hover {
+        .navbar-link {
+          @apply text-indigo-600 dark:text-white #{!important};
+        }
+      }
+    }
+  }
 }

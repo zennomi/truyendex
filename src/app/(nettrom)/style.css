@@ -1421,18 +1421,25 @@ output {
   border-radius: 4px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out 0.15s,
+  -webkit-transition:
+    border-color ease-in-out 0.15s,
     -webkit-box-shadow ease-in-out 0.15s;
-  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  -o-transition:
+    border-color ease-in-out 0.15s,
+    box-shadow ease-in-out 0.15s;
+  transition:
+    border-color ease-in-out 0.15s,
+    box-shadow ease-in-out 0.15s;
 }
 
 .form-control:focus {
   border-color: #66afe9;
   outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+  -webkit-box-shadow:
+    inset 0 1px 1px rgba(0, 0, 0, 0.075),
     0 0 8px rgba(102, 175, 233, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+  box-shadow:
+    inset 0 1px 1px rgba(0, 0, 0, 0.075),
     0 0 8px rgba(102, 175, 233, 0.6);
 }
 
@@ -1737,8 +1744,12 @@ textarea.input-lg {
 
 .has-success .form-control:focus {
   border-color: #2b542c;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
+  -webkit-box-shadow:
+    inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 6px #67b168;
+  box-shadow:
+    inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 6px #67b168;
 }
 
 .has-success .input-group-addon {
@@ -1769,8 +1780,12 @@ textarea.input-lg {
 
 .has-warning .form-control:focus {
   border-color: #66512c;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
+  -webkit-box-shadow:
+    inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 6px #c0a16b;
+  box-shadow:
+    inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 6px #c0a16b;
 }
 
 .has-warning .input-group-addon {
@@ -1801,8 +1816,12 @@ textarea.input-lg {
 
 .has-error .form-control:focus {
   border-color: #843534;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
+  -webkit-box-shadow:
+    inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 6px #ce8483;
+  box-shadow:
+    inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 6px #ce8483;
 }
 
 .has-error .input-group-addon {
@@ -3209,9 +3228,11 @@ textarea.input-group-sm > .input-group-btn > .btn {
   padding: 10px 15px;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1),
+  -webkit-box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
     0 1px 0 rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1),
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
     0 1px 0 rgba(255, 255, 255, 0.1);
   margin: 8px -15px;
 }
@@ -4679,8 +4700,7 @@ p {
 }
 
 .header {
-  background: url(/nettruyen/images/bg_header_2017.jpg)
-    top center repeat-x;
+  background: url(/nettruyen/images/bg_header_2017.jpg) top center repeat-x;
   width: 100%;
   height: 50px;
   -moz-transition: top 0.3s ease-in-out;
@@ -4952,7 +4972,9 @@ p {
   background-color: #fff;
   margin: 0;
   padding: 0;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
+  box-shadow:
+    0 2px 4px 0 rgba(0, 0, 0, 0.16),
+    0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
 }
 
 .navbar-dropdown a {
@@ -4997,9 +5019,7 @@ p {
 }
 
 .searchbutton {
-  background: #fff
-    url(/nettruyen/images/btn_search.png)
-    no-repeat center center;
+  background: #fff url(/nettruyen/images/btn_search.png) no-repeat center center;
 }
 
 .suggestsearch {
@@ -5360,8 +5380,10 @@ p {
   background-color: #3b5998;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4) inset,
-    0 -3px 0 rgba(0, 0, 0, 0.3) inset, 0 0 10px rgba(255, 255, 255, 0.3) inset,
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.4) inset,
+    0 -3px 0 rgba(0, 0, 0, 0.3) inset,
+    0 0 10px rgba(255, 255, 255, 0.3) inset,
     0 2px 4px rgba(0, 0, 0, 0.2);
   color: #fff;
   display: block;
@@ -7470,7 +7492,8 @@ a.visited {
 }
 
 .grabbing {
-  cursor: url(https://st.nettruyento.com/Data/Sites/1/skins/comic/images/grabbing.png)
+  cursor:
+    url(https://st.nettruyento.com/Data/Sites/1/skins/comic/images/grabbing.png)
       8 8,
     move;
 }
@@ -7636,8 +7659,7 @@ a.visited {
   width: 55px;
   height: 55px;
   text-align: center;
-  background: url(/nettruyen/images/next_prev.png)
-    no-repeat -3px -33px;
+  background: url(/nettruyen/images/next_prev.png) no-repeat -3px -33px;
   color: #fff;
   text-decoration: none;
 }
@@ -8760,8 +8782,7 @@ button.close {
 .icon-cross,
 .icon-tick {
   display: inline-block;
-  background: url(/nettruyen/images/icon-checkbox.png)
-    no-repeat #fff;
+  background: url(/nettruyen/images/icon-checkbox.png) no-repeat #fff;
   cursor: pointer;
   width: 18px;
   height: 18px;

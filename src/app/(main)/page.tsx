@@ -4,15 +4,14 @@ import TopNav from "@/sections/main/top-nav";
 import routes from "@/routes";
 import Iconify from "@/components/iconify";
 
-import LaptopIllustration from "@/assets/images/laptop.png"
-import MangaDexHomepage from "@/assets/images/mangadex-homepage.png"
-import BannerImage from "@/app/opengraph-image.jpg"
-import EatShit from "@/assets/images/nettrom-an-cut.jpg"
+import LaptopIllustration from "@/assets/images/laptop.png";
+import MangaDexHomepage from "@/assets/images/mangadex-homepage.png";
+import BannerImage from "@/app/opengraph-image.jpg";
+import EatShit from "@/assets/images/nettrom-an-cut.jpg";
 import Collapse from "@/components/collapse";
 import config from "@/config";
 
 export default async function Home() {
-
   return (
     <div className=" text-base text-black dark:text-white dark:bg-slate-900">
       <TopNav />
@@ -22,14 +21,15 @@ export default async function Home() {
             <div className="md:col-span-7">
               <div className="md:mr-6">
                 <h4 className="font-bold lg:leading-normal leading-normal text-4xl lg:text-5xl mb-5 text-black dark:text-white relative">
-                  NetTruyen + MangaDex = {" "}
+                  NetTruyen + MangaDex ={" "}
                   <span className="after:absolute after:right-0 after:left-0 after:bottom-3 after:lg:h-3 after:h-2 after:w-auto after:rounded-md after:bg-indigo-600/30 relative text-indigo-600">
                     TruyenDex
                   </span>
                 </h4>
                 <p className="text-slate-400 text-lg max-w-xl">
-                  Rạng sáng ngày 08/10/2024, BlogTruyen chính thức ra đi và đề lại cộng đồng dịch manga bơ vơ chỉ còn nơi nương tựa duy nhất là MangaDex.
-                  Dự án Da NetTrom Hồn MangaDex được tái sinh.
+                  Rạng sáng ngày 08/10/2024, BlogTruyen chính thức ra đi và đề
+                  lại cộng đồng dịch manga bơ vơ chỉ còn nơi nương tựa duy nhất
+                  là MangaDex. Dự án Da NetTrom Hồn MangaDex được tái sinh.
                 </p>
                 <div className="relative mt-8">
                   <Link
@@ -79,63 +79,75 @@ export default async function Home() {
               Tại sao lại là TruyenDex
             </h3>
             <p className="text-slate-400 max-w-xl mx-auto">
-              Để có thể sử dụng API của <a href="https://mangadex.org/" target="_blank">MangaDex</a> và trở thành mái nhà bền vững của cộng đồng nhóm dịch/độc giả Việt, {config.appName} đã đặt ra các tiêu chí sau:
+              Để có thể sử dụng API của{" "}
+              <a href="https://mangadex.org/" target="_blank">
+                MangaDex
+              </a>{" "}
+              và trở thành mái nhà bền vững của cộng đồng nhóm dịch/độc giả
+              Việt, {config.appName} đã đặt ra các tiêu chí sau:
             </p>
           </div>
           <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-4 gap-[30px]">
             <div className="group relative lg:px-6 mt-4 transition duration-500 ease-in-out rounded-xl overflow-hidden text-center">
               <div className="relative overflow-hidden text-transparent -m-3">
-                <Iconify icon="tabler:hexagon-filled" className="h-28 w-28 text-indigo-600/5 mx-auto rotate-[30deg]" />
+                <Iconify
+                  icon="tabler:hexagon-filled"
+                  className="h-28 w-28 text-indigo-600/5 mx-auto rotate-[30deg]"
+                />
                 <div className="absolute top-2/4 -translate-y-2/4 left-0 right-0 mx-auto text-indigo-600 rounded-xl transition duration-500 ease-in-out text-3xl flex align-middle justify-center items-center">
                   <Iconify icon="icon-park-outline:respect" />
                 </div>
               </div>
               <div className="mt-6">
-                <span
-                  className="text-xl font-medium hover:text-indigo-600 duration-500 ease-in-out"
-                >
+                <span className="text-xl font-medium hover:text-indigo-600 duration-500 ease-in-out">
                   Tôn trọng nhóm dịch
                 </span>
                 <p className="text-slate-400 transition duration-500 ease-in-out mt-3">
-                  Các nhóm dịch được ghi nguồn đầy đủ và khuyến khích người đọc biết tới nhóm dịch.
-                  Họ toàn quyền quyết định đối với công sức mà họ tạo ra.
+                  Các nhóm dịch được ghi nguồn đầy đủ và khuyến khích người đọc
+                  biết tới nhóm dịch. Họ toàn quyền quyết định đối với công sức
+                  mà họ tạo ra.
                 </p>
               </div>
             </div>
             <div className="group relative lg:px-6 mt-4 transition duration-500 ease-in-out rounded-xl overflow-hidden text-center">
               <div className="relative overflow-hidden text-transparent -m-3">
-                <Iconify icon="tabler:hexagon-filled" className="h-28 w-28 text-indigo-600/5 mx-auto rotate-[30deg]" />
+                <Iconify
+                  icon="tabler:hexagon-filled"
+                  className="h-28 w-28 text-indigo-600/5 mx-auto rotate-[30deg]"
+                />
                 <div className="absolute top-2/4 -translate-y-2/4 left-0 right-0 mx-auto text-indigo-600 rounded-xl transition duration-500 ease-in-out text-3xl flex align-middle justify-center items-center">
                   <Iconify icon="uil:money-bill-slash" />
                 </div>
               </div>
               <div className="mt-6">
-                <span
-                  className="text-xl font-medium hover:text-indigo-600 duration-500 ease-in-out"
-                >
+                <span className="text-xl font-medium hover:text-indigo-600 duration-500 ease-in-out">
                   Không gắn quảng cáo
                 </span>
                 <p className="text-slate-400 transition duration-500 ease-in-out mt-3">
-                  Thứ nhất là vì yêu cầu của MangaDex, thứ hai là để không bị nhà mạng chặn.
-                  Bởi vì phí duy trì TruyenDex rất thấp nên không cần kiếm lợi nhuận.
+                  Thứ nhất là vì yêu cầu của MangaDex, thứ hai là để không bị
+                  nhà mạng chặn. Bởi vì phí duy trì TruyenDex rất thấp nên không
+                  cần kiếm lợi nhuận.
                 </p>
               </div>
             </div>
             <div className="group relative lg:px-6 mt-4 transition duration-500 ease-in-out rounded-xl overflow-hidden text-center">
               <div className="relative overflow-hidden text-transparent -m-3">
-                <Iconify icon="tabler:hexagon-filled" className="h-28 w-28 text-indigo-600/5 mx-auto rotate-[30deg]" />
+                <Iconify
+                  icon="tabler:hexagon-filled"
+                  className="h-28 w-28 text-indigo-600/5 mx-auto rotate-[30deg]"
+                />
                 <div className="absolute top-2/4 -translate-y-2/4 left-0 right-0 mx-auto text-indigo-600 rounded-xl transition duration-500 ease-in-out text-3xl flex align-middle justify-center items-center">
                   <Iconify icon="fluent-mdl2:add-group" />
                 </div>
               </div>
               <div className="mt-6">
-                <span
-                  className="text-xl font-medium hover:text-indigo-600 duration-500 ease-in-out"
-                >
+                <span className="text-xl font-medium hover:text-indigo-600 duration-500 ease-in-out">
                   Sống dai nhất có thể
                 </span>
                 <p className="text-slate-400 transition duration-500 ease-in-out mt-3">
-                  TruyenDex sẽ hạn chế xuất hiện công khai trên kết quả tìm kiếm, không gắn quảng cáo, không kiếm lợi nhuận, không tàng trữ dữ liệu phạm pháp,...
+                  TruyenDex sẽ hạn chế xuất hiện công khai trên kết quả tìm
+                  kiếm, không gắn quảng cáo, không kiếm lợi nhuận, không tàng
+                  trữ dữ liệu phạm pháp,...
                 </p>
               </div>
             </div>
@@ -149,7 +161,9 @@ export default async function Home() {
               Hoàn cảnh lịch sử
             </h3>
             <p className="text-slate-400 max-w-xl mx-auto">
-              TruyenDex - Từ một dự án troll NetTruyen đến trở thành một dự án nghiêm túc, TruyenDex sẽ trở thành website đọc truyện đầy đủ chức năng phù hợp với độc giả Việt Nam...
+              TruyenDex - Từ một dự án troll NetTruyen đến trở thành một dự án
+              nghiêm túc, TruyenDex sẽ trở thành website đọc truyện đầy đủ chức
+              năng phù hợp với độc giả Việt Nam...
             </p>
           </div>
           <div className="grid md:grid-cols-2 grid-cols-1 items-center gap-[30px]">
@@ -165,20 +179,37 @@ export default async function Home() {
                 Khủng hoảng truyện l*u
               </h4>
               <p className="text-slate-400">
-                NetTruyen bốc hơi trước. Các website đọc manga lớn khác như BlogTruyen, TruyenQQ, OtakuSan,... cũng lần lượt bị sập hoặc đổi chủ.
-                Cộng đồng náo loạn di tản sang MangaDex, CuuTruyen,... Nhưng...
+                NetTruyen bốc hơi trước. Các website đọc manga lớn khác như
+                BlogTruyen, TruyenQQ, OtakuSan,... cũng lần lượt bị sập hoặc đổi
+                chủ. Cộng đồng náo loạn di tản sang MangaDex, CuuTruyen,...
+                Nhưng...
               </p>
               <ul className="list-none text-slate-400 mt-4">
                 <li className="mb-1 flex  gap-x-1 items-start">
-                  <div><Iconify icon="heroicons-outline:x-circle" className="text-indigo-600 text-xl w-[24px]" />{" "}</div>
+                  <div>
+                    <Iconify
+                      icon="heroicons-outline:x-circle"
+                      className="text-indigo-600 text-xl w-[24px]"
+                    />{" "}
+                  </div>
                   MangaDex giao diện chưa thân thiện với người dùng Việt Nam
                 </li>
                 <li className="mb-1 flex  gap-x-1 items-start">
-                  <div><Iconify icon="heroicons-outline:x-circle" className="text-indigo-600 text-xl w-[24px]" />{" "}</div>
+                  <div>
+                    <Iconify
+                      icon="heroicons-outline:x-circle"
+                      className="text-indigo-600 text-xl w-[24px]"
+                    />{" "}
+                  </div>
                   CuuTruyen chưa backup kịp hàng nghìn đầu truyện của BlogTruyen
                 </li>
                 <li className="mb-1 flex  gap-x-1 items-start">
-                  <div><Iconify icon="heroicons-outline:x-circle" className="text-indigo-600 text-xl w-[24px]" />{" "}</div>
+                  <div>
+                    <Iconify
+                      icon="heroicons-outline:x-circle"
+                      className="text-indigo-600 text-xl w-[24px]"
+                    />{" "}
+                  </div>
                   Cộng đồng không có một nơi sinh hoạt cố định
                 </li>
               </ul>
@@ -194,21 +225,37 @@ export default async function Home() {
                 NetTrom
               </h4>
               <p className="text-slate-400">
-                TruyenDex (trước đó là NetTrom) vốn là một dự án sinh ra để troll NetTruyen,
-                nhưng không ngờ lại được nhiều người kỳ vọng vào một website mới
-                sẽ thay thế cho người anh BlogTruyen. Tuy nhiên TruyenDex lúc này còn nhiều hạn chế:
+                TruyenDex (trước đó là NetTrom) vốn là một dự án sinh ra để
+                troll NetTruyen, nhưng không ngờ lại được nhiều người kỳ vọng
+                vào một website mới sẽ thay thế cho người anh BlogTruyen. Tuy
+                nhiên TruyenDex lúc này còn nhiều hạn chế:
               </p>
               <ul className="list-none text-slate-400 mt-4">
                 <li className="mb-1 flex  gap-x-1 items-start">
-                  <div><Iconify icon="heroicons-outline:x-circle" className="text-indigo-600 text-xl w-[24px]" />{" "}</div>
+                  <div>
+                    <Iconify
+                      icon="heroicons-outline:x-circle"
+                      className="text-indigo-600 text-xl w-[24px]"
+                    />{" "}
+                  </div>
                   Chưa có chức năng đăng nhập, theo dõi, bình luận
                 </li>
                 <li className="mb-1 flex  gap-x-1 items-start">
-                  <div><Iconify icon="heroicons-outline:x-circle" className="text-indigo-600 text-xl w-[24px]" />{" "}</div>
+                  <div>
+                    <Iconify
+                      icon="heroicons-outline:x-circle"
+                      className="text-indigo-600 text-xl w-[24px]"
+                    />{" "}
+                  </div>
                   Giao diện trộm giật từ NetTruyen chưa thực sự tối ưu
                 </li>
                 <li className="mb-1 flex  gap-x-1 items-start">
-                  <div><Iconify icon="heroicons-outline:x-circle" className="text-indigo-600 text-xl w-[24px]" />{" "}</div>
+                  <div>
+                    <Iconify
+                      icon="heroicons-outline:x-circle"
+                      className="text-indigo-600 text-xl w-[24px]"
+                    />{" "}
+                  </div>
                   Phụ thuộc quá nhiều vào MangaDex API
                 </li>
               </ul>
@@ -256,11 +303,13 @@ export default async function Home() {
                 Chính thức khởi động
               </h4>
               <p className="text-slate-400">
-                Sau khi khởi động lại dự án NetTrom bản demo khá mượt dù đỉnh điểm lên tới 2000 người dùng trong 1 phút,
-                bàn bạc với với anh Gián admin Hako và tham khảo ý kiến nhiều bên như anh Afang cựu mod Blogtruyen,
-                anh em hay hoạt động bên MangaDex, đánh tiếng với CuuTruyen-senpai,
-                và không thể thiếu sự ủng hộ của nhiều bạn độc giả ở phần bình luận,
-                mình quyết định sẽ đưa TruyenDex thành dự án nghiêm túc.
+                Sau khi khởi động lại dự án NetTrom bản demo khá mượt dù đỉnh
+                điểm lên tới 2000 người dùng trong 1 phút, bàn bạc với với anh
+                Gián admin Hako và tham khảo ý kiến nhiều bên như anh Afang cựu
+                mod Blogtruyen, anh em hay hoạt động bên MangaDex, đánh tiếng
+                với CuuTruyen-senpai, và không thể thiếu sự ủng hộ của nhiều bạn
+                độc giả ở phần bình luận, mình quyết định sẽ đưa TruyenDex thành
+                dự án nghiêm túc.
               </p>
               <div className="mt-4">
                 <a
@@ -268,7 +317,8 @@ export default async function Home() {
                   target="_blank"
                   className="btn btn-link text-indigo-600 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out"
                 >
-                  Bài viết công bố dự án <Iconify icon="uil:angle-right-b" className="inline" />
+                  Bài viết công bố dự án{" "}
+                  <Iconify icon="uil:angle-right-b" className="inline" />
                 </a>
               </div>
             </div>
@@ -352,7 +402,8 @@ export default async function Home() {
                   Bình luận
                 </a>
                 <p className="text-slate-400 group-hover:text-white/50 duration-500 mt-3">
-                  Bình luận tại một đầu truyện, tại một chương, thậm chí là tại một trang truyện!
+                  Bình luận tại một đầu truyện, tại một chương, thậm chí là tại
+                  một trang truyện!
                 </p>
               </div>
             </div>
@@ -444,7 +495,8 @@ export default async function Home() {
                   Liên kết MangaDex
                 </a>
                 <p className="text-slate-400 group-hover:text-white/50 duration-500 mt-3">
-                  Liên kết với tài khoản MangaDex để nhận role nhóm trưởng, dịch giả,...
+                  Liên kết với tài khoản MangaDex để nhận role nhóm trưởng, dịch
+                  giả,...
                 </p>
               </div>
             </div>
@@ -496,7 +548,9 @@ export default async function Home() {
                 Ủng hộ dự án?
               </h3>
               <p className="text-slate-400 max-w-xl">
-                Dự án không nhận tiền, chỉ nhận hiện vật (Proxy, Server, VPS, hỗ trợ xây cộng đồng,...). Nếu bạn thực sự muốn ủng hộ dự án, hay chia sẻ dự án tới nhiều người hơn.
+                Dự án không nhận tiền, chỉ nhận hiện vật (Proxy, Server, VPS, hỗ
+                trợ xây cộng đồng,...). Nếu bạn thực sự muốn ủng hộ dự án, hay
+                chia sẻ dự án tới nhiều người hơn.
               </p>
               <div className="mt-6">
                 <a
@@ -531,7 +585,12 @@ export default async function Home() {
                 title="Tại sao lại không có quảng cáo? Tiền duy trì ở đâu ra?"
                 content={
                   <>
-                    Tất cả các dữ liệu liên quan đến manga sẽ được lấy từ MangaDex, các nhóm dịch sẽ đăng chương mới tại MangaDex. Thế nên chi phí vận hành website là rất ít. <b>TruyenDex không lưu trữ bất cứ dữ liệu truyện tranh nào.</b>
+                    Tất cả các dữ liệu liên quan đến manga sẽ được lấy từ
+                    MangaDex, các nhóm dịch sẽ đăng chương mới tại MangaDex. Thế
+                    nên chi phí vận hành website là rất ít.{" "}
+                    <b>
+                      TruyenDex không lưu trữ bất cứ dữ liệu truyện tranh nào.
+                    </b>
                   </>
                 }
               />
@@ -542,7 +601,10 @@ export default async function Home() {
                 title="Ăn trộm data của MangaDex à?"
                 content={
                   <>
-                    TruyenDex sẽ tuân thủ yêu cầu của MangaDex để được sử dụng API của họ, bao gồm: Không gắn quảng cáo, kiếm lợi nhuận, ghi nguồn nhóm dịch, cho họ quyền được tự quyết công sức của họ,...
+                    TruyenDex sẽ tuân thủ yêu cầu của MangaDex để được sử dụng
+                    API của họ, bao gồm: Không gắn quảng cáo, kiếm lợi nhuận,
+                    ghi nguồn nhóm dịch, cho họ quyền được tự quyết công sức của
+                    họ,...
                   </>
                 }
               />
@@ -553,7 +615,11 @@ export default async function Home() {
                 title="Liệu TruyenDex có nối gót những người đi trước..."
                 content={
                   <>
-                    TruyenDex chỉ lưu trữ dữ liệu người dùng, bình luận,... và cung cấp giao diện đọc truyện từ API của MangaDex, không hề lưu trữ bất cứ trang truyện nào. Đồng thời không có quảng cáo phạm pháp, và TruyenDex sẽ hạn chế xuất hiện trên kết quả tìm kiếm Google.
+                    TruyenDex chỉ lưu trữ dữ liệu người dùng, bình luận,... và
+                    cung cấp giao diện đọc truyện từ API của MangaDex, không hề
+                    lưu trữ bất cứ trang truyện nào. Đồng thời không có quảng
+                    cáo phạm pháp, và TruyenDex sẽ hạn chế xuất hiện trên kết
+                    quả tìm kiếm Google.
                   </>
                 }
               />
@@ -563,7 +629,12 @@ export default async function Home() {
                 title="Sao không dùng thẳng MangaDex?"
                 content={
                   <>
-                    MangaDex rất tuyệt vời, nguồn lực rất mạnh, được phát triển bởi đội ngũ bài bản và chuyên nghiệp. Tuy nhiên giao diện và trải nghiệm người dùng của MangaDex không phù hợp với thị hiếu người VN, như lúc đọc truyện, bình luận, chương mới,... TruyenDex sẽ tạo ra giao diện thân thiện với độc giả VN, và là sân chơi dành riêng cho độc giả VN.
+                    MangaDex rất tuyệt vời, nguồn lực rất mạnh, được phát triển
+                    bởi đội ngũ bài bản và chuyên nghiệp. Tuy nhiên giao diện và
+                    trải nghiệm người dùng của MangaDex không phù hợp với thị
+                    hiếu người VN, như lúc đọc truyện, bình luận, chương mới,...
+                    TruyenDex sẽ tạo ra giao diện thân thiện với độc giả VN, và
+                    là sân chơi dành riêng cho độc giả VN.
                   </>
                 }
               />
@@ -573,10 +644,14 @@ export default async function Home() {
                 title="Chi phí duy trì TruyenDex"
                 content={
                   <>
-                    Tên miền<br />
-                    Proxy Server<br />
-                    Proxy Pool<br />
-                    Data Server<br />
+                    Tên miền
+                    <br />
+                    Proxy Server
+                    <br />
+                    Proxy Pool
+                    <br />
+                    Data Server
+                    <br />
                   </>
                 }
               />
@@ -586,5 +661,5 @@ export default async function Home() {
         </div>
       </section>
     </div>
-  )
+  );
 }

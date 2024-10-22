@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
 // icons
-import { Icon, IconifyIcon, IconProps } from '@iconify/react';
+import { Icon, IconifyIcon, IconProps } from "@iconify/react";
 
 // ----------------------------------------------------------------------
 
@@ -10,5 +10,5 @@ interface Props extends IconProps {
 }
 
 export default function Iconify({ icon, ...other }: Props) {
-  return <Icon icon={icon} {...other} />
+  return <Icon icon={icon} {...other} />;
 }

@@ -4,11 +4,11 @@
 /*         Footer                */
 /*===============================*/
 .footer {
-    .foot-subscribe {
-        input{
-            &::placeholder{
-                @apply text-gray-200;
-            }
-        }
-    } 
+  .foot-subscribe {
+    input {
+      &::placeholder {
+        @apply text-gray-200;
+      }
+    }
+  }
 }

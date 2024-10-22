@@ -1,44 +1,51 @@
-import { Metadata } from 'next';
-import { Inter } from 'next/font/google'
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import { ToastContainer } from 'react-toastify';
+import { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { ToastContainer } from "react-toastify";
 
-import 'react-toastify/dist/ReactToastify.css';
-import '@/assets/scss/tailwind.scss'
+import "react-toastify/dist/ReactToastify.css";
+import "@/assets/scss/tailwind.scss";
 // slick-carousel
-import { MangadexContextProvider } from '@/contexts/mangadex'
-import Gtag from '@/components/gtag';
-import config from '@/config';
+import { MangadexContextProvider } from "@/contexts/mangadex";
+import Gtag from "@/components/gtag";
+import config from "@/config";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: `${config.appName} - Truyện tranh chất lượng cao không quảng cáo`,
   description: `Đọc truyện miễn phí, chất lượng cao và tham gia ủng hộ nhóm dịch trên ${config.appName}`,
   applicationName: config.appName,
-  authors: [{ name: 'TruyenDex', url: 'https://github.com/zennomi/truyendex' }],
-  keywords: ['truyện tranh', 'manga', 'manhwa', 'manhua', 'nettruyen', 'nettrom', 'blogtruyen', 'truyendex'],
+  authors: [{ name: "TruyenDex", url: "https://github.com/zennomi/truyendex" }],
+  keywords: [
+    "truyện tranh",
+    "manga",
+    "manhwa",
+    "manhua",
+    "nettruyen",
+    "nettrom",
+    "blogtruyen",
+    "truyendex",
+  ],
   metadataBase: new URL(config.appUrl),
   other: {
-    referrer: "same-origin"
-  }
-}
+    referrer: "same-origin",
+  },
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode,
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="vi" className='dark'>
+    <html lang="vi" className="dark">
       <body className={`${inter.className}`}>
-        <MangadexContextProvider>
-          {children}
-        </MangadexContextProvider>
+        <MangadexContextProvider>{children}</MangadexContextProvider>
         <ToastContainer />
         <Gtag />
       </body>
     </html>
-  )
+  );
 }
