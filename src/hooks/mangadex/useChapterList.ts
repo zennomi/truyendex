@@ -39,5 +39,13 @@ export default function useChapterList(
   if (successData) {
     chapters = successData.map((d) => extendRelationship(d) as ExtendChapter);
   }
-  return { chapters, data, isLoading, error };
+
+  data?.data.data.forEach(c => extendRelationship(c) as ExtendChapter)
+
+  return {
+    chapters: (data?.data.data || []) as ExtendChapter[],
+    data,
+    isLoading,
+    error
+  };
 }

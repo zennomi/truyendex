@@ -13,7 +13,7 @@ export default function useLastUpdates(options: {
   groupId?: string;
 }) {
   const { page, groupId } = options;
-  let chapters: ExtendChapter[] = [];
+
   let total = 0;
   let offset = chaptersPerPage * page;
   if (offset > 10000) {
@@ -35,16 +35,11 @@ export default function useLastUpdates(options: {
       groups: groupId ? [groupId] : undefined,
     }),
   );
-  const successData =
-    data && data.data?.result === "ok" ? (data.data as ChapterList) : null;
-  if (successData) {
-    chapters = successData.data.map(
-      (c) => extendRelationship(c) as ExtendChapter,
-    );
-    total = successData.total;
-  }
+
+  data?.data.data.forEach(c => extendRelationship(c) as ExtendChapter)
+
   return {
-    chapters,
+    chapters: (data?.data.data || []) as ExtendChapter[],
     isLoading,
     error,
     total,

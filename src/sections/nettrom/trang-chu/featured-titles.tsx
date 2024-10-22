@@ -4,8 +4,8 @@ import formatDistance from "date-fns/formatDistance";
 import vi from "date-fns/locale/vi";
 import Slider from "react-slick";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 
 import { useFeaturedTitles } from "@/hooks/mangadex";
 
@@ -70,9 +70,10 @@ export default function FeaturedTitles() {
                       <Link
                         href={routes.nettrom.manga(manga.id)}
                         title={title}
-                        className="block h-full w-full"
+                        className="block h-full w-full relative"
                       >
                         <Image
+                          fill={true}
                           src={getCoverArt(manga)}
                           className="lazy w-full h-full object-cover"
                           alt={title}

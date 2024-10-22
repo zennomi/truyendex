@@ -46,11 +46,18 @@ export default function NewUpdates({
       updateMangas({
         ids: chapters.filter((c) => !!c?.manga?.id).map((c) => c.manga?.id!),
       });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chapters]);
+
+  useEffect(() => {
+    if (chapters?.length > 0) {
       updateMangaStatistics({
         manga: chapters.filter((c) => !!c?.manga?.id).map((c) => c.manga?.id!),
       });
     }
-  }, [chapters, updateMangaStatistics, updateMangas]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chapters]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -89,6 +96,7 @@ export default function NewUpdates({
                         href={routes.nettrom.manga(mangaId)}
                       >
                         <Image
+                          fill={true}
                           src={coverArt}
                           className="lazy w-full h-full object-cover"
                           data-original={coverArt}

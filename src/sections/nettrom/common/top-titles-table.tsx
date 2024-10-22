@@ -37,7 +37,8 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
       addMangas(mangaList);
       updateMangaStatistics({ manga: mangaList.map((m) => m.id) });
     }
-  }, [mangaList, addMangas, updateMangaStatistics]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mangaList]);
 
   return (
     <div className="comic-wrap Module Module-168">
@@ -85,11 +86,12 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
                       </span>
                       <div className="t-item comic-item" data-id={17696}>
                         <Link
-                          className="thumb"
+                          className="thumb relative"
                           title={title}
                           href={routes.nettrom.manga(manga.id)}
                         >
                           <Image
+                            fill={true}
                             className="lazy w-full h-full object-cover"
                             src={getCoverArt(manga)}
                             alt={title}

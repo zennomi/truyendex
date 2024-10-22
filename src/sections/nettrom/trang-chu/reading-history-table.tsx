@@ -29,7 +29,8 @@ export default function ReadingHistory() {
                     href={routes.nettrom.manga(mangaId)}
                   >
                     <Image
-                      className="center"
+                      fill={true}
+                      className="w-full"
                       alt={manga.mangaTitle}
                       src={manga.cover}
                     />
