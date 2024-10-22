@@ -107,10 +107,12 @@ export default function Manga({ mangaId }: { mangaId: string }) {
             <div className="col-xs-4 col-image">
               <div className="relative w-full">
                 <Image
-                  fill
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  className="w-full h-auto"
                   src={getCoverArt(manga)}
                   alt={title}
-                  className="w-full h-auto"
                 />
               </div>
             </div>

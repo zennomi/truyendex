@@ -93,7 +93,7 @@ export default async function NhomDich({
             </time>
           )}
           <div className="detail-info md:ps-3">
-            <div className="row">
+            <div className="row mx-0">
               <ul className="list-info">
                 {leaders.length > 0 && (
                   <li className="author row">
@@ -172,11 +172,11 @@ export default async function NhomDich({
             <h3 className="list-title">
               <i className="fa fa-file-text-o"></i> Giới thiệu nhóm
             </h3>
-            <p className="">
+            <div className="">
               {group.attributes.description && (
                 <ReactMarkdown>{group.attributes.description}</ReactMarkdown>
               )}
-            </p>
+            </div>
           </div>
         </article>
         <NewUpdates title="Các chương mới đăng" groupId={group.id} />
