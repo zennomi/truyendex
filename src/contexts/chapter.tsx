@@ -8,24 +8,15 @@ import React, {
   useMemo,
   useCallback,
 } from "react";
-import { MangadexApi } from "@/api";
-import { useMangadex } from "./mangadex";
-import { useMangaAggregate } from "@/hooks/mangadex";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
+
+import { useChapter, useMangaAggregate } from "@/hooks/mangadex";
 import routes from "@/routes";
-import {
-  ChapterItem,
-  ChapterResponse,
-  ExtendChapter,
-  ExtendManga,
-} from "@/types/mangadex";
+import { ChapterItem, ExtendChapter, ExtendManga } from "@/types/mangadex";
 import useReadingHistory from "@/hooks/useReadingHistory";
-import {
-  extendRelationship,
-  getCoverArt,
-  getMangaTitle,
-  getChapterTitle,
-} from "@/utils/mangadex";
+import { getCoverArt, getMangaTitle, getChapterTitle } from "@/utils/mangadex";
+
+import { useMangadex } from "./mangadex";
 
 export const ChapterContext = createContext<{
   chapterId: string | null;
@@ -56,11 +47,10 @@ export const ChapterContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const router = useRouter();
   const params = useParams<{ chapterId: string }>();
   const [chapterId, setChapterId] = useState(params.chapterId);
 
-  const [chapter, setChapter] = useState<ExtendChapter | null>(null);
+  const { chapter } = useChapter(chapterId);
   const { updateMangas, mangas } = useMangadex();
 
   const { addHistory } = useReadingHistory();
@@ -89,21 +79,18 @@ export const ChapterContextProvider = ({
   const prev = useCallback(() => {
     if (canPrev) {
       setChapterId(chapters[currentChapterIndex - 1].id);
-      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [currentChapterIndex, chapters, setChapterId, canPrev]);
 
   const next = useCallback(() => {
     if (canNext) {
       setChapterId(chapters[currentChapterIndex + 1].id);
-      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [currentChapterIndex, chapters, setChapterId, canNext]);
 
   const goTo = useCallback(
     (desId: string) => {
       setChapterId(desId);
-      window.scrollTo({ top: 0, behavior: "smooth" });
     },
     [setChapterId],
   );
@@ -112,30 +99,22 @@ export const ChapterContextProvider = ({
     if (mangaId) {
       updateMangas({ ids: [mangaId] });
     }
-  }, [mangaId, groupId, updateMangas]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mangaId]);
 
   useEffect(() => {
-    const updateChapter = async () => {
-      const { data } = await MangadexApi.Chapter.getChapterId(chapterId!, {
-        includes: [MangadexApi.Static.Includes.SCANLATION_GROUP],
-      });
-      const result =
-        data && (data as ChapterResponse)?.data
-          ? (extendRelationship(
-              (data as ChapterResponse)?.data,
-            ) as ExtendChapter)
-          : null;
-      if (result) {
-        setChapter(result);
-      }
-    };
-    updateChapter();
+    if (!chapter) return;
     const newPath = routes.nettrom.chapter(chapterId);
+    document.title = `Đọc ${getChapterTitle(chapter)}`;
     window.history.pushState(
       { ...window.history.state, as: newPath, url: newPath },
       "",
       newPath,
     );
+  }, [chapter]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [chapterId]);
 
   useEffect(() => {

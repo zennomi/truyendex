@@ -1,7 +1,8 @@
 import useSWR from "swr/immutable";
-import { MangadexApi } from "@/api";
+import { useEffect, useState } from "react";
 
-import { ChapterResponse, ExtendChapter } from "@/types/mangadex";
+import { MangadexApi } from "@/api";
+import { ExtendChapter } from "@/types/mangadex";
 import { extendRelationship } from "@/utils/mangadex";
 
 export default function useChapter(chapterId: string | null) {
@@ -12,11 +13,15 @@ export default function useChapter(chapterId: string | null) {
         includes: [MangadexApi.Static.Includes.SCANLATION_GROUP],
       }),
   );
-  const chapter =
-    data && (data.data as ChapterResponse)?.data
-      ? (extendRelationship(
-          (data.data as ChapterResponse)?.data,
-        ) as ExtendChapter)
-      : null;
+
+  const [chapter, setChapter] = useState<ExtendChapter | null>(null)
+
+  useEffect(() => {
+    if (!data?.data) return;
+    setChapter(extendRelationship(
+      data.data?.data,
+    ) as ExtendChapter)
+  }, [data])
+
   return { chapter, data, isLoading, error };
 }

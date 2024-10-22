@@ -1,9 +1,9 @@
-import { useParams } from "next/navigation";
 import Link from "next/link";
+import { format } from "date-fns";
+
 import routes from "@/routes";
 import { useChapterContext } from "@/contexts/chapter";
 import useOffSetTop from "@/hooks/useOffSetTop";
-import { format } from "date-fns";
 import { getMangaTitle, getChapterTitle } from "@/utils/mangadex";
 
 export default function ChapterControl() {
@@ -20,7 +20,6 @@ export default function ChapterControl() {
     chapterId,
   } = useChapterContext();
   const offsetTop = useOffSetTop(100);
-  const params = useParams();
 
   const mangaTitle = getMangaTitle(manga);
   const chapterTitle = getChapterTitle(chapter);
