@@ -3,12 +3,12 @@
 import { useCallback, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import Image from "next/image";
+import { toast } from "react-toastify";
+import Link from "next/link";
 
 import { useMangadex } from "@/contexts/mangadex";
 import { getMangaTitle, getMangaAltTitles } from "@/utils/mangadex";
 import { formatNowDistance } from "@/utils/date-fns";
-import ChapterList from "./chapter-list";
-import Link from "next/link";
 import routes from "@/routes";
 import config from "@/config";
 import Loading from "@/sections/nettrom/layout/loading";
@@ -16,8 +16,9 @@ import { AppApi, MangadexApi } from "@/api";
 import { translateStatus, getCoverArt } from "@/utils/mangadex";
 import { useAuth } from "@/hooks/useAuth";
 import Iconify from "@/components/iconify";
-import { toast } from "react-toastify";
 import { useCheckFollowed } from "@/hooks/app";
+
+import ChapterList from "./chapter-list";
 
 export default function Manga({ mangaId }: { mangaId: string }) {
   const { user } = useAuth();
@@ -44,8 +45,13 @@ export default function Manga({ mangaId }: { mangaId: string }) {
         MangadexApi.Static.Includes.AUTHOR,
       ],
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mangaId]);
+
+  useEffect(() => {
     updateMangaStatistics({ manga: [mangaId] });
-  }, [mangaId, updateMangaStatistics, updateMangas]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mangaId]);
 
   if (!manga) return <Loading title="Đang tải thông tin manga" />;
 
@@ -99,7 +105,14 @@ export default function Manga({ mangaId }: { mangaId: string }) {
         <div className="detail-info">
           <div className="row">
             <div className="col-xs-4 col-image">
-              <Image src={getCoverArt(manga)} alt={title} />
+              <div className="relative w-full">
+                <Image
+                  fill
+                  src={getCoverArt(manga)}
+                  alt={title}
+                  className="w-full h-auto"
+                />
+              </div>
             </div>
             <div className="col-xs-8 col-info">
               <ul className="list-info">
@@ -254,7 +267,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
           <h3 className="list-title">
             <i className="fa fa-file-text-o"></i> Nội dung
           </h3>
-          <p className="">
+          <div className="">
             <ReactMarkdown>
               {manga.attributes.description.vi ||
                 manga.attributes.description.en ||
@@ -264,7 +277,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
             được cập nhật nhanh và đầy đủ nhất tại {config.appName}. Bạn đọc
             đừng quên để lại bình luận và chia sẻ, ủng hộ {config.appName} ra
             các chương mới nhất của truyện <a href={url}>{title}</a>.
-          </p>
+          </div>
           {/* <a href="#" className="morelink less">
                         <i className="fa fa-angle-left" /> Thu gọn
                     </a> */}
