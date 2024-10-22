@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import useReadingHistory from "../../../hooks/useReadingHistory";
-import routes from "../../../routes";
+
+import useReadingHistory from "@/hooks/useReadingHistory";
+import routes from "@/routes";
 
 export default function HistoryList() {
   const { history, removeHistory } = useReadingHistory();
@@ -18,7 +20,7 @@ export default function HistoryList() {
                   title={manga.mangaTitle}
                   href={routes.nettrom.manga(mangaId)}
                 >
-                  <img
+                  <Image
                     className="lazy center"
                     alt={manga.mangaTitle}
                     data-original={manga.cover}

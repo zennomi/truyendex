@@ -91,14 +91,14 @@ export const ChapterContextProvider = ({
       setChapterId(chapters[currentChapterIndex - 1].id);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  }, [currentChapterIndex, chapters, router, setChapterId]);
+  }, [currentChapterIndex, chapters, setChapterId, canPrev]);
 
   const next = useCallback(() => {
     if (canNext) {
       setChapterId(chapters[currentChapterIndex + 1].id);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  }, [currentChapterIndex, chapters, router, setChapterId]);
+  }, [currentChapterIndex, chapters, setChapterId, canNext]);
 
   const goTo = useCallback(
     (desId: string) => {
@@ -112,7 +112,7 @@ export const ChapterContextProvider = ({
     if (mangaId) {
       updateMangas({ ids: [mangaId] });
     }
-  }, [mangaId, groupId]);
+  }, [mangaId, groupId, updateMangas]);
 
   useEffect(() => {
     const updateChapter = async () => {
@@ -147,7 +147,7 @@ export const ChapterContextProvider = ({
         chapterId: chapter.id,
       });
     }
-  }, [manga, chapter]);
+  }, [manga, chapter, addHistory]);
 
   return (
     <ChapterContext.Provider

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
+import Image from "next/image";
 
 import { useMangadex } from "@/contexts/mangadex";
 import { getMangaTitle, getMangaAltTitles } from "@/utils/mangadex";
@@ -33,7 +34,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
     } catch (error) {
       toast("Đã có lỗi xảy ra");
     }
-  }, [followed]);
+  }, [mutate, mangaId]);
 
   useEffect(() => {
     updateMangas({
@@ -44,7 +45,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
       ],
     });
     updateMangaStatistics({ manga: [mangaId] });
-  }, []);
+  }, [mangaId, updateMangaStatistics, updateMangas]);
 
   if (!manga) return <Loading title="Đang tải thông tin manga" />;
 
@@ -98,7 +99,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
         <div className="detail-info">
           <div className="row">
             <div className="col-xs-4 col-image">
-              <img src={getCoverArt(manga)} alt={title} />
+              <Image src={getCoverArt(manga)} alt={title} />
             </div>
             <div className="col-xs-8 col-info">
               <ul className="list-info">

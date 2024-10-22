@@ -3,9 +3,10 @@
 import formatDistance from "date-fns/formatDistance";
 import vi from "date-fns/locale/vi";
 import Slider from "react-slick";
-
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+
 import { useFeaturedTitles } from "@/hooks/mangadex";
 
 import routes from "@/routes";
@@ -49,7 +50,7 @@ export default function FeaturedTitles() {
 
   useEffect(() => {
     if (featuredTitles.length > 0) addMangas(featuredTitles);
-  }, [featuredTitles]);
+  }, [featuredTitles, addMangas]);
 
   if (isLoading || error) return <></>;
   return (
@@ -71,7 +72,7 @@ export default function FeaturedTitles() {
                         title={title}
                         className="block h-full w-full"
                       >
-                        <img
+                        <Image
                           src={getCoverArt(manga)}
                           className="lazy w-full h-full object-cover"
                           alt={title}

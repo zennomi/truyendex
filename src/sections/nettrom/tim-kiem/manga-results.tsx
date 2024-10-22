@@ -1,11 +1,13 @@
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
+import Image from "next/image";
 import { useEffect } from "react";
+import Link from "next/link";
+
 import { useSearchManga } from "@/hooks/mangadex";
 import routes from "@/routes";
 import { useMangadex } from "@/contexts/mangadex";
-import Link from "next/link";
 import ReactPaginate from "react-paginate";
 import { getSearchNetTromUrl } from "@/utils/url";
 import Loading from "@/sections/nettrom/layout/loading";
@@ -31,7 +33,7 @@ export default function MangaResults() {
       addMangas(mangaList);
       updateMangaStatistics({ manga: mangaList.map((m) => m.id) });
     }
-  }, [mangaList]);
+  }, [mangaList, addMangas, updateMangaStatistics]);
 
   if (isLoading) return <Loading title="Đang tìm truyện..." />;
 
@@ -54,7 +56,7 @@ export default function MangaResults() {
                         title={mangaTitle}
                         href={routes.nettrom.manga(manga.id)}
                       >
-                        <img
+                        <Image
                           src={coverArt}
                           className="lazy center"
                           data-original={coverArt}
@@ -87,67 +89,6 @@ export default function MangaResults() {
                       </h3>
                     </figcaption>
                   </figure>
-                  <div
-                    className="box_tootip"
-                    style={{ display: "none" }}
-                    id="truyen-tranh-81754"
-                  >
-                    <div className="box_li">
-                      <div className="title">{mangaTitle}</div>
-                      <div className="clearfix">
-                        <div className="box_img">
-                          <a
-                            title={mangaTitle}
-                            href={routes.nettrom.manga(manga.id)}
-                          >
-                            <img
-                              className="img_a"
-                              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                              data-original={coverArt}
-                              alt={mangaTitle}
-                            />
-                          </a>
-                        </div>
-                        <div className="message_main">
-                          <p>
-                            <label>Thể loại:</label>Action, Comedy, Manga,
-                            School Life, Shounen
-                          </p>
-                          <p>
-                            <label>Tác giả:</label>Nii Satoru
-                          </p>
-                          <p>
-                            <label>Tình trạng:</label>Đang tiến hành
-                          </p>
-                          <p>
-                            <label>Lượt xem:</label>44K
-                          </p>
-                          <p>
-                            <label>Bình luận:</label>34
-                          </p>
-                          <p>
-                            <label>Theo dõi:</label>1.096
-                          </p>
-                          <p>
-                            <label>Ngày cập nhật:</label>12:58 28/04
-                          </p>
-                        </div>
-                      </div>
-                      <div className="box_text">
-                        Hãy bảo vệ khu phố bằng nắm đấm đó! Huyền thoại về vị
-                        anh hùng chiến đấu Sakura - học sinh cấp 3 giang hồ.
-                        Điểm chuẩn thì lẹt đẹt, nhưng đánh nhau thì luôn là mạnh
-                        nhất. Nơi nổi danh là ngôi trường của những tên giang hồ
-                        khủng khiếp nhất: THPT Fuurin. Với mục đích trở thành kẻ
-                        đứng đầu của một Fuurin như vậy, vào mùa xuân năm ấy,
-                        học sinh lớp 10 Sakura Haruka đến khu phố Tonpuu và biết
-                        được về băng nhóm bảo vệ khu phố với tên gọi "Boufuurin"
-                        của trường. Sakura quyết định sẽ bắt đầu chiến đấu để
-                        bảo vệ nơi ấy như một thành viên của Fuurin! (Đây là bộ
-                        truyện trùng tên nhưng khác tác giả)
-                      </div>
-                    </div>
-                  </div>
                 </div>
               );
             })}

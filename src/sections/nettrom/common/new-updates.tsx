@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import ReactPaginate from "react-paginate";
@@ -49,7 +50,7 @@ export default function NewUpdates({
         manga: chapters.filter((c) => !!c?.manga?.id).map((c) => c.manga?.id!),
       });
     }
-  }, [chapters]);
+  }, [chapters, updateMangaStatistics, updateMangas]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -87,7 +88,7 @@ export default function NewUpdates({
                         title={mangaTitle}
                         href={routes.nettrom.manga(mangaId)}
                       >
-                        <img
+                        <Image
                           src={coverArt}
                           className="lazy w-full h-full object-cover"
                           data-original={coverArt}
@@ -147,54 +148,6 @@ export default function NewUpdates({
                       </ul>
                     </figcaption>
                   </figure>
-                  <div
-                    className="box_tootip"
-                    style={{ display: "none" }}
-                    id="truyen-tranh-83823"
-                  >
-                    <div className="box_li">
-                      <div className="title">
-                        Anh Chồng Giàu Có Chiều Hư Tôi
-                      </div>
-                      <div className="clearfix">
-                        <div className="box_img">
-                          <a
-                            title="Anh Chồng Giàu Có Chiều Hư Tôi"
-                            href={routes.nettrom.manga(mangaId)}
-                          >
-                            <img
-                              className="img_a"
-                              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                              data-original={coverArt}
-                              alt="Anh Chồng Giàu Có Chiều Hư Tôi"
-                            />
-                          </a>
-                        </div>
-                        <div className="message_main">
-                          <p>
-                            <label>Thể loại:</label>Drama, Manhua, Ngôn Tình,
-                            Truyện Màu
-                          </p>
-                          <p>
-                            <label>Tình trạng:</label>Đang tiến hành
-                          </p>
-                          <p>
-                            <label>Lượt xem:</label>235K
-                          </p>
-                          <p>
-                            <label>Bình luận:</label>78
-                          </p>
-                          <p>
-                            <label>Theo dõi:</label>4.906
-                          </p>
-                          <p>
-                            <label>Ngày cập nhật:</label>29 phút trước
-                          </p>
-                        </div>
-                      </div>
-                      <div className="box_text" />
-                    </div>
-                  </div>
                 </div>
               );
             })}

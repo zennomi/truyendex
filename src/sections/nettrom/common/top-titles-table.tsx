@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useEffect } from "react";
+import Image from "next/image";
+
 import { MangadexApi } from "@/api";
 import { useMangadex } from "@/contexts/mangadex";
 import { useSearchManga } from "@/hooks/mangadex";
@@ -35,7 +37,7 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
       addMangas(mangaList);
       updateMangaStatistics({ manga: mangaList.map((m) => m.id) });
     }
-  }, [mangaList]);
+  }, [mangaList, addMangas, updateMangaStatistics]);
 
   return (
     <div className="comic-wrap Module Module-168">
@@ -87,7 +89,7 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
                           title={title}
                           href={routes.nettrom.manga(manga.id)}
                         >
-                          <img
+                          <Image
                             className="lazy w-full h-full object-cover"
                             src={getCoverArt(manga)}
                             alt={title}

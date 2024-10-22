@@ -42,7 +42,7 @@ export default function AuthLayout({
                 </div>
                 <div className="text-center">
                   <div>
-                    <img
+                    <Image
                       src="/images/illustrations/contact.svg"
                       className="max-w-xl mx-auto"
                       alt=""

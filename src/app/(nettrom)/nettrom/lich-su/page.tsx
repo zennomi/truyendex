@@ -49,7 +49,7 @@ export default function History() {
                   style={{ fontSize: 16, marginBottom: 15 }}
                 >
                   <li className="active">
-                    <a href="/lich-su">Từ thiết bị</a>
+                    <a>Từ thiết bị</a>
                   </li>
                 </ul>
               </div>

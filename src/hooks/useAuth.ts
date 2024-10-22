@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useParams, useRouter } from "next/navigation";
 import { isAxiosError } from "axios";
@@ -101,13 +101,13 @@ export const useAuth = ({
     axios.post("/email/verification-notification");
   };
 
-  const logout = async () => {
+  const logout = useCallback(async () => {
     await axios.post("/logout");
 
     toast("Đăng xuất thành công");
 
     await mutate();
-  };
+  }, [mutate]);
 
   useEffect(() => {
     if (middleware === "guest" && redirectIfAuthenticated && user) {
@@ -133,7 +133,7 @@ export const useAuth = ({
       router.push(redirectIfNotAuthenticated);
     }
     if (middleware === "auth" && error) logout();
-  }, [user, error, middleware]);
+  }, [user, error, middleware, logout, redirectIfAuthenticated, redirectIfNotAuthenticated, router]);
 
   return {
     user,

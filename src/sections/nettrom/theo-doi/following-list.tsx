@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { toast } from "react-toastify";
@@ -24,18 +25,21 @@ export default function FollowingList() {
   const [page, setPage] = useState(1);
   const { data, mutate } = useReadList(page);
 
-  const unfollow = useCallback(async (mangaId: string) => {
-    const { followed } = await AppApi.Series.followOrUnfollow(mangaId);
-    toast(followed ? "Theo dõi thành công" : "Bỏ theo dõi thành công");
-    await mutate();
-  }, []);
+  const unfollow = useCallback(
+    async (mangaId: string) => {
+      const { followed } = await AppApi.Series.followOrUnfollow(mangaId);
+      toast(followed ? "Theo dõi thành công" : "Bỏ theo dõi thành công");
+      await mutate();
+    },
+    [mutate],
+  );
 
   useEffect(() => {
     if (!data) return;
     const ids = data.data.map((d) => d.series_id);
     updateMangas({ ids, includes: [MangadexApi.Static.Includes.COVER_ART] });
     updateMangaStatistics({ manga: ids });
-  }, [data]);
+  }, [data, updateMangaStatistics, updateMangas]);
 
   return (
     <div>
@@ -66,7 +70,7 @@ export default function FollowingList() {
                         {" "}
                         <Link title={title} href={url}>
                           {" "}
-                          <img
+                          <Image
                             src={coverArt}
                             className="lazy center image-thumb"
                             data-original={coverArt}

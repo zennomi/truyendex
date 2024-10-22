@@ -70,7 +70,7 @@ export default function NettromLayout({
                   className="col-sm-4 copyright"
                   itemType="http://schema.org/Organization"
                 >
-                  <a itemProp="url" href="/">
+                  <Link itemProp="url" href="/">
                     <Image
                       itemProp="logo"
                       src={NettromLogo}
@@ -78,7 +78,7 @@ export default function NettromLayout({
                       style={{ aspectRatio: 5 }}
                       alt={`${config.appName} - Truyện tranh Online`}
                     />
-                  </a>
+                  </Link>
                   <div className="mrt10 row">
                     <div className="col-xs-6">
                       <a
@@ -89,9 +89,9 @@ export default function NettromLayout({
                         MangaDex
                       </a>
                     </div>
-                    <div className="col-xs-6">
+                    {/* <div className="col-xs-6">
                       <a href="/chinh-sach-bao-mat">Chính sách bảo mật</a>
-                    </div>
+                    </div> */}
                   </div>
                   <p></p>
                   <p>Copyright © 2023 {config.appName}</p>

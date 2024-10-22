@@ -115,7 +115,7 @@ export default function SearchMangaForm() {
         normalizedParams.orderType = "5";
     }
     reset({ ...normalizedParams });
-  }, [params]);
+  }, [params, reset]);
 
   useEffect(() => {
     const orderType = values.orderType;
@@ -143,7 +143,7 @@ export default function SearchMangaForm() {
       default:
         break;
     }
-  }, [values.orderType]);
+  }, [values.orderType, setValue]);
 
   return (
     <>
