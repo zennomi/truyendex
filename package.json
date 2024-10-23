@@ -1,9 +1,11 @@
 {
   "name": "truyendex",
+  "packageManager": "yarn@4.5.1",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "devfast": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
