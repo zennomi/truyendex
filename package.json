@@ -1,9 +1,11 @@
 {
   "name": "truyendex",
+  "packageManager": "yarn@4.5.1",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "devfast": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -12,11 +14,11 @@
     "@fortawesome/fontawesome-free": "^6.4.0",
     "@iconify/react": "^4.1.0",
     "autoprefixer": "^10.4.14",
-    "axios": "^1.4.0",
+    "axios": "^1.7.7",
     "date-fns": "^2.30.0",
     "lodash": "^4.17.21",
-    "next": "^14.2.4",
-    "postcss": "^8.4.23",
+    "next": "^14.2.16",
+    "postcss": "^8.4.47",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.42.1",
@@ -31,13 +33,16 @@
     "tailwindcss": "^3.3.2"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.195",
-    "@types/node": "^20.14.2",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
+    "@types/lodash": "^4.17.12",
+    "@types/node": "^20.17.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
     "@types/react-lazy-load-image-component": "^1.6.4",
     "@types/react-slick": "^0.23.10",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^15.0.1",
+    "prettier": "^3.3.3",
     "sass": "^1.63.4",
-    "typescript": "^5.4.5"
+    "typescript": "^5.6.3"
   }
 }
