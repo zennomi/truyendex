@@ -7539,7 +7539,6 @@ a.visited {
 .owl-theme .owl-controls .owl-page {
   display: inline-block;
   zoom: 1;
-  *display: inline;
 }
 
 .owl-theme .owl-controls .owl-page span {
