@@ -3,7 +3,7 @@
  ********************/
 
 import { AuthenticationToken } from "./authentication";
-import axios, { AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig } from "axios";
 import { ErrorResponse } from "../../types/mangadex";
 import config from "../../config";
 

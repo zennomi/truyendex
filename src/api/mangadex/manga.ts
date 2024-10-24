@@ -8,7 +8,6 @@ import {
   ChapterList,
   MangaResponse,
   TagResponse,
-  ErrorResponse,
 } from "../../types/mangadex";
 import {
   Order,

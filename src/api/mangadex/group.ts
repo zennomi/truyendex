@@ -5,7 +5,6 @@
 import {
   ScanlationGroupList,
   ScanlationGroupResponse,
-  ErrorResponse,
 } from "../../types/mangadex";
 import { Order, Includes } from "./static";
 import * as util from "./util";

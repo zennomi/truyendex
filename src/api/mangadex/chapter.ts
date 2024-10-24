@@ -8,7 +8,6 @@ import type {
   ChapterList,
   ChapterResponse,
   ReferenceExpansionChapter,
-  ErrorResponse,
   ChapterEdit,
   Response,
 } from "../../types/mangadex";

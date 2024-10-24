@@ -7,7 +7,6 @@ import {
   CoverEdit,
   CoverList,
   CoverResponse,
-  ErrorResponse,
   ReferenceExpansionCoverArt,
   Response,
 } from "../../types/mangadex";

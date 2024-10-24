@@ -8,7 +8,6 @@ import type {
   CheckResponse,
   LogoutResponse,
   RefreshResponse,
-  ErrorResponse,
 } from "../../types/mangadex";
 import * as util from "./util";
 

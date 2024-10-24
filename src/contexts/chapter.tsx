@@ -36,7 +36,7 @@ export const ChapterContext = createContext<{
   manga: null,
   next: () => null,
   prev: () => null,
-  goTo: (_: string) => null,
+  goTo: () => null,
   canNext: false,
   canPrev: false,
   others: [],
@@ -104,7 +104,7 @@ export const ChapterContextProvider = ({
 
   useEffect(() => {
     if (!chapter) return;
-    const newPath = routes.nettrom.chapter(chapterId);
+    const newPath = routes.nettrom.chapter(chapter.id);
     document.title = `Đọc ${getChapterTitle(chapter)}`;
     window.history.pushState(
       { ...window.history.state, as: newPath, url: newPath },

@@ -17,7 +17,6 @@ export default function MangaImage({
   className = "",
   disabledEffect = false,
   effect = "opacity",
-  index = 0,
   threshold = 0,
   ...other
 }: Props) {

@@ -9,7 +9,6 @@ import type {
   AuthorCreate,
   AuthorEdit,
   Response,
-  ErrorResponse,
   ReferenceExpansionAuthor,
 } from "../../types/mangadex";
 import type { Order } from "./static";

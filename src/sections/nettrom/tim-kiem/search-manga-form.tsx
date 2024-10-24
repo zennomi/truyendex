@@ -37,7 +37,7 @@ const optionlize = (
 
 const selectStyles: StylesConfig<{ value: string; label: string }, true> = {
   control: (styles) => ({ ...styles }),
-  option: (styles, { data, isDisabled, isFocused, isSelected }) => ({
+  option: (styles) => ({
     ...styles,
     color: "black",
     // backgroundColor: isDisabled

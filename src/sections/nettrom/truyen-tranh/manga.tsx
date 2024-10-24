@@ -32,7 +32,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
       const { followed } = await AppApi.Series.followOrUnfollow(mangaId);
       toast(followed ? "Theo dõi thành công" : "Bỏ theo dõi thành công");
       await mutate();
-    } catch (error) {
+    } catch {
       toast("Đã có lỗi xảy ra");
     }
   }, [mutate, mangaId]);

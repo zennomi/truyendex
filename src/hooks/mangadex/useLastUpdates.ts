@@ -2,7 +2,7 @@
 
 import useSWR from "swr";
 import { MangadexApi } from "@/api";
-import { ChapterList, ExtendChapter } from "@/types/mangadex";
+import { ExtendChapter } from "@/types/mangadex";
 import { extendRelationship } from "@/utils/mangadex";
 import { LAST_UPDATES_LIMIT } from "@/constants";
 
@@ -36,7 +36,10 @@ export default function useLastUpdates(options: {
     }),
   );
 
-  data?.data.data.forEach(c => extendRelationship(c) as ExtendChapter)
+  if (data) {
+    data.data.data.forEach((c) => extendRelationship(c) as ExtendChapter);
+    total = data.data.total;
+  }
 
   return {
     chapters: (data?.data.data || []) as ExtendChapter[],

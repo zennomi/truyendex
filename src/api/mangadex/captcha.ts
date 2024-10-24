@@ -3,7 +3,6 @@
  ********************/
 
 import type { AuthenticationToken } from "./authentication";
-import type { ErrorResponse } from "../../types/mangadex";
 import * as util from "./util";
 
 /***********************

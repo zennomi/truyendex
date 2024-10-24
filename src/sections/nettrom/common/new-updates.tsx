@@ -33,7 +33,8 @@ export default function NewUpdates({
 
   if (chapters) {
     for (const chapter of chapters) {
-      const mangaId = chapter.manga?.id!;
+      const mangaId = chapter.manga?.id;
+      if (!mangaId) continue;
       if (!updates[mangaId]) {
         updates[mangaId] = [];
       }
@@ -44,7 +45,7 @@ export default function NewUpdates({
   useEffect(() => {
     if (chapters?.length > 0) {
       updateMangas({
-        ids: chapters.filter((c) => !!c?.manga?.id).map((c) => c.manga?.id!),
+        ids: chapters.filter((c) => !!c?.manga?.id).map((c) => c.manga!.id),
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -53,7 +54,7 @@ export default function NewUpdates({
   useEffect(() => {
     if (chapters?.length > 0) {
       updateMangaStatistics({
-        manga: chapters.filter((c) => !!c?.manga?.id).map((c) => c.manga?.id!),
+        manga: chapters.filter((c) => !!c?.manga?.id).map((c) => c.manga!.id!),
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

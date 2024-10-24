@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import { MangadexApi } from "@/api";
 
-import { ChapterList, ExtendChapter } from "@/types/mangadex";
+import { ExtendChapter } from "@/types/mangadex";
 import { extendRelationship } from "@/utils/mangadex";
 import { CHAPTER_LIST_LIMIT } from "@/constants";
 
@@ -11,7 +11,6 @@ export default function useChapterList(
   mangaId: string,
   options: MangadexApi.Manga.GetMangaIdFeedRequestOptions,
 ) {
-  let chapters: ExtendChapter[] = [];
   // rewrite
   options.translatedLanguage = ["vi"];
   options.includes = [
@@ -35,17 +34,13 @@ export default function useChapterList(
   const { data, isLoading, error } = useSWR([mangaId, options], () =>
     MangadexApi.Manga.getMangaIdFeed(mangaId, options),
   );
-  const successData = data && (data.data as ChapterList).data;
-  if (successData) {
-    chapters = successData.map((d) => extendRelationship(d) as ExtendChapter);
-  }
 
-  data?.data.data.forEach(c => extendRelationship(c) as ExtendChapter)
+  data?.data.data.forEach((c) => extendRelationship(c) as ExtendChapter);
 
   return {
     chapters: (data?.data.data || []) as ExtendChapter[],
     data,
     isLoading,
-    error
+    error,
   };
 }

@@ -64,7 +64,7 @@ export default function MainNav() {
             <ul className="dropdown-menu megamenu">
               <li>
                 <div className="clearfix">
-                  {chunk(tags, 13).map((col, idx) => (
+                  {chunk(tags, 13).map((col) => (
                     <div className="col-sm-3" key={col[0].id}>
                       <ul className="nav">
                         {col.map((tag) => (

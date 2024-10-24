@@ -31,7 +31,7 @@ export async function generateMetadata(
         images: [mdImage],
       },
     };
-  } catch (error) {}
+  } catch {}
   // optionally access and extend (rather than replace) parent metadata
 
   return {
