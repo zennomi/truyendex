@@ -9,7 +9,6 @@ import { useMangadex } from "@/contexts/mangadex";
 
 import { formatNowDistance } from "@/utils/date-fns";
 import routes from "@/routes";
-import Loading from "@/sections/nettrom/layout/loading";
 import { ExtendChapter } from "@/types/mangadex";
 import {
   getCoverArt,
@@ -20,6 +19,7 @@ import {
 import { AppConstants, LAST_UPDATES_LIMIT } from "@/constants";
 import { FaClock } from "react-icons/fa";
 import { AspectRatio } from "@/components/shadcn/aspect-ratio";
+import { DataLoader } from "@/components/DataLoader";
 
 const MangaTile = (props: {
   id: string;
@@ -145,9 +145,6 @@ export default function NewUpdates({
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [page]);
 
-  if (isLoading) return <Loading title="Đang tải các chương mới" />;
-  if (error) return <div>error</div>;
-
   return (
     <div className="Module Module-163">
       <div className="ModuleContent">
@@ -165,21 +162,23 @@ export default function NewUpdates({
               <i className="fa fa-filter"></i>
             </Link> */}
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-[20px]">
-            {Object.entries(updates).map(([mangaId, chapterList]) => {
-              const coverArt = getCoverArt(mangas[mangaId]);
-              const mangaTitle = getMangaTitle(mangas[mangaId]);
-              return (
-                <MangaTile
-                  id={mangaId}
-                  key={mangaId}
-                  thumbnail={coverArt}
-                  title={mangaTitle}
-                  chapters={chapterList}
-                />
-              );
-            })}
-          </div>
+          <DataLoader isLoading={isLoading} error={error}>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-[20px]">
+              {Object.entries(updates).map(([mangaId, chapterList]) => {
+                const coverArt = getCoverArt(mangas[mangaId]);
+                const mangaTitle = getMangaTitle(mangas[mangaId]);
+                return (
+                  <MangaTile
+                    id={mangaId}
+                    key={mangaId}
+                    thumbnail={coverArt}
+                    title={mangaTitle}
+                    chapters={chapterList}
+                  />
+                );
+              })}
+            </div>
+          </DataLoader>
         </div>
         <div
           id="ctl00_mainContent_ctl00_divPager"
