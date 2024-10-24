@@ -1,15 +1,19 @@
-import { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { ToastContainer } from "react-toastify";
 
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 import "react-toastify/dist/ReactToastify.css";
+import "@fortawesome/fontawesome-free/css/all.css";
+import "@/assets/scss/style.css";
 import "@/assets/scss/tailwind.scss";
-// slick-carousel
+import "swiper/css";
+// Import Swiper styles
 import { MangadexContextProvider } from "@/contexts/mangadex";
 import Gtag from "@/components/gtag";
+import { Metadata } from "next";
 import config from "@/config";
+import NextTopLoader from "nextjs-toploader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -42,6 +46,7 @@ export default function RootLayout({
   return (
     <html lang="vi" className="dark">
       <body className={`${inter.className}`}>
+        <NextTopLoader color="#ff9601" />
         <MangadexContextProvider>{children}</MangadexContextProvider>
         <ToastContainer />
         <Gtag />
