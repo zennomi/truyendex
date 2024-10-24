@@ -8,15 +8,18 @@ export default function useReadingHistory() {
     {},
   );
 
-  const addHistory = useCallback((mangaId: string, manga: ReadingHistory) => {
-    setHistory((value) => {
-      const mangaIds = Object.keys(value);
-      if (mangaIds.length > 20) {
-        delete value[mangaIds[0]];
-      }
-      return { [mangaId]: manga, ...value };
-    });
-  }, [setHistory]);
+  const addHistory = useCallback(
+    (mangaId: string, manga: ReadingHistory) => {
+      setHistory((value) => {
+        const mangaIds = Object.keys(value);
+        if (mangaIds.length > 20) {
+          delete value[mangaIds[0]];
+        }
+        return { [mangaId]: manga, ...value };
+      });
+    },
+    [setHistory],
+  );
 
   const removeHistory = (mangaId: string) => {
     setHistory((value) => {

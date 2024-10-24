@@ -4,11 +4,7 @@
     // they could be relevant for polyfill, polyfill is actually most configured
     // by build tool, generally browserslist.
     "target": "ESNext",
-    "lib": [
-      "DOM.Iterable",
-      "DOM",
-      "ESNext"
-    ],
+    "lib": ["DOM.Iterable", "DOM", "ESNext"],
     // VSCode inspects these for type hints
     "allowJs": true,
     "skipLibCheck": true,
@@ -35,21 +31,10 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@app": [
-        "./src/app/*"
-      ]
+      "@/*": ["./src/*"],
+      "@app": ["./src/app/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

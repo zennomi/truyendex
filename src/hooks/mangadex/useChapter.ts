@@ -14,14 +14,12 @@ export default function useChapter(chapterId: string | null) {
       }),
   );
 
-  const [chapter, setChapter] = useState<ExtendChapter | null>(null)
+  const [chapter, setChapter] = useState<ExtendChapter | null>(null);
 
   useEffect(() => {
     if (!data?.data) return;
-    setChapter(extendRelationship(
-      data.data?.data,
-    ) as ExtendChapter)
-  }, [data])
+    setChapter(extendRelationship(data.data?.data) as ExtendChapter);
+  }, [data]);
 
   return { chapter, data, isLoading, error };
 }
