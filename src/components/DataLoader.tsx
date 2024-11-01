@@ -8,8 +8,8 @@ export const DataLoader = (props: {
 }) => {
   if (props.isLoading) {
     return (
-      <div className="min-h-[100px] flex items-center gap-2 flex-col justify-center text-center text-muted-foreground">
-        <Loader2 className="w-[40px] h-[40px] animate-spin" />
+      <div className="flex min-h-[100px] flex-col items-center justify-center gap-2 text-center text-muted-foreground">
+        <Loader2 className="h-[40px] w-[40px] animate-spin" />
         <span>{props.loadingText || "Đang tải..."}</span>
       </div>
     );
@@ -17,7 +17,7 @@ export const DataLoader = (props: {
 
   if (props.error) {
     return (
-      <div className="flex items-center gap-4 flex-col justify-center text-center text-muted-foreground">
+      <div className="flex flex-col items-center justify-center gap-4 text-center text-muted-foreground">
         <span>{props.error}</span>
       </div>
     );

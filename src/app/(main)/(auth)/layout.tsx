@@ -14,7 +14,7 @@ export default function AuthLayout({
         <div className="container-fluid relative">
           <div className="items-center md:flex">
             <div className="md:w-1/2 lg:w-1/3 xl:w-[30%]">
-              <div className="relative z-1 flex-col justify-center bg-white px-4 py-10 shadow dark:bg-slate-900 dark:shadow-gray-700 md:flex md:min-h-screen md:px-10">
+              <div className="relative z-1 flex-col justify-center bg-white px-4 py-10 shadow md:flex md:min-h-screen md:px-10 dark:bg-slate-900 dark:shadow-gray-700">
                 <div className="text-center">
                   <Link href="/">
                     <img

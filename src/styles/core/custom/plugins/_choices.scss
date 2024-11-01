@@ -3,7 +3,7 @@
 /*===============================*/
 .filter-search-form {
   .icons {
-    @apply absolute top-[48%] -translate-y-1/2 left-3 z-1 text-indigo-600 text-[20px];
+    @apply absolute left-3 top-[48%] z-1 -translate-y-1/2 text-[20px] text-indigo-600;
   }
 }
 .registration-form {
@@ -19,15 +19,15 @@
 
 @media (min-width: 992px) {
   .filter-border {
-    @apply before:content-[''] before:absolute before:top-[10px] before:right-0 before:h-10 before:z-1 before:border-r before:border-inherit before:rounded-md before:outline-0 dark:before:border-gray-700;
+    @apply before:absolute before:right-0 before:top-[10px] before:z-1 before:h-10 before:rounded-md before:border-r before:border-inherit before:outline-0 before:content-[''] dark:before:border-gray-700;
   }
   .registration-form {
     @apply relative;
     .submit-btn {
-      @apply rounded-t-none rounded-r-sm rounded-b-sm rounded-l-none;
+      @apply rounded-b-sm rounded-l-none rounded-r-sm rounded-t-none;
     }
     .form-input {
-      @apply rounded-t-sm rounded-r-none rounded-b-none rounded-l-sm outline-0;
+      @apply rounded-b-none rounded-l-sm rounded-r-none rounded-t-sm outline-0;
     }
     .choices[data-type*="select-one"] .choices__inner {
       @apply rounded-none;
@@ -38,7 +38,7 @@
 .filter-input-box,
 .filter-input-box.form-select,
 .filter-search-form .choices__inner {
-  @apply shadow-none border-0 rounded-none text-[15px] h-[60px] pt-[13px] pr-[6px] pb-[15px] pl-[45px];
+  @apply h-[60px] rounded-none border-0 pb-[15px] pl-[45px] pr-[6px] pt-[13px] text-[15px] shadow-none;
 }
 
 .choices__inner {
@@ -47,11 +47,11 @@
 
 .choices__list--dropdown,
 .choices[data-type*="select-one"] .choices__input {
-  @apply bg-white dark:bg-slate-900 border-0 rounded-[5px] shadow dark:shadow-gray-800 z-999;
+  @apply z-999 rounded-[5px] border-0 bg-white shadow dark:bg-slate-900 dark:shadow-gray-800;
 }
 
 .choices__list--dropdown .choices__item--selectable.is-highlighted {
-  @apply bg-gray-50 dark:bg-slate-800 text-black dark:text-white;
+  @apply bg-gray-50 text-black dark:bg-slate-800 dark:text-white;
 }
 
 .choices__list,
@@ -61,5 +61,5 @@
 
 .choices__list--dropdown,
 .choices__list[aria-expanded] {
-  @apply border-0 z-2;
+  @apply z-2 border-0;
 }

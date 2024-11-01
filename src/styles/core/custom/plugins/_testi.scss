@@ -4,7 +4,7 @@
 .client-testi {
   @apply cursor-e-resize;
   .content {
-    @apply before:content-[''] before:absolute before:top-8 before:left-0 before:ml-3 before:box-border before:border-8 before:border-solid before:origin-[0] before:rotate-[135deg] before:shadow before:border-t-transparent before:border-r-white dark:before:border-r-slate-900 before:border-b-white dark:before:border-b-slate-900 before:border-l-transparent;
+    @apply before:absolute before:left-0 before:top-8 before:ml-3 before:box-border before:origin-[0] before:rotate-[135deg] before:border-8 before:border-solid before:border-b-white before:border-l-transparent before:border-r-white before:border-t-transparent before:shadow before:content-[''] dark:before:border-b-slate-900 dark:before:border-r-slate-900;
     /* border-color: transparent theme('colors.white') theme('colors.white') transparent; */
   }
 }
@@ -16,16 +16,16 @@
       transform-origin: 0 0;
     }
 
-    @apply before:content-[''] before:absolute before:left-1/2 before:-bottom-[4px] before:box-border before:border-8 before:rotate-[45deg] before:border-t-transparent before:border-r-white dark:before:border-r-slate-900 before:border-b-white dark:before:border-b-slate-900 before:border-l-transparent before:shadow-testi dark:before:shadow-gray-700;
+    @apply before:absolute before:-bottom-[4px] before:left-1/2 before:box-border before:rotate-[45deg] before:border-8 before:border-b-white before:border-l-transparent before:border-r-white before:border-t-transparent before:shadow-testi before:content-[''] dark:before:border-b-slate-900 dark:before:border-r-slate-900 dark:before:shadow-gray-700;
   }
 }
 
 .tns-nav {
-  @apply text-center mt-3;
+  @apply mt-3 text-center;
   button {
-    @apply rounded-[3px] bg-indigo-600/30 transition-all duration-500 ease-in-out border-0 m-1 p-[5px];
+    @apply m-1 rounded-[3px] border-0 bg-indigo-600/30 p-[5px] transition-all duration-500 ease-in-out;
     &.tns-nav-active {
-      @apply bg-indigo-600 rotate-[45deg];
+      @apply rotate-[45deg] bg-indigo-600;
     }
   }
 }
@@ -34,7 +34,7 @@
 .tns-controls {
   button[data-controls="prev"],
   button[data-controls="next"] {
-    @apply absolute top-2/4 -translate-y-2/4 text-base w-8 h-8 rounded-full bg-white dark:bg-slate-900 text-dark dark:text-white border-0 transition-all duration-500 ease-in-out z-10 shadow-md dark:shadow-gray-800;
+    @apply absolute top-2/4 z-10 h-8 w-8 -translate-y-2/4 rounded-full border-0 bg-white text-base text-dark shadow-md transition-all duration-500 ease-in-out dark:bg-slate-900 dark:text-white dark:shadow-gray-800;
 
     &:hover {
       @apply bg-indigo-600 text-white;

@@ -6,7 +6,7 @@
   .circles {
     @apply absolute inset-0 h-full w-full overflow-hidden;
     li {
-      @apply absolute block -bottom-[150px] bg-indigo-600/30;
+      @apply absolute -bottom-[150px] block bg-indigo-600/30;
       animation: animate 25s linear infinite;
 
       &.brand-img {
@@ -33,7 +33,7 @@
       &:nth-child(8),
       &:nth-child(9),
       &:nth-child(10) {
-        @apply w-12 h-12;
+        @apply h-12 w-12;
       }
       &:nth-child(1) {
         @apply left-1/4;
@@ -108,11 +108,11 @@
 
 /* studio home */
 .studio-wrapper {
-  @apply before:content-[''] before:absolute before:bottom-[14rem] before:left-[50rem] before:w-[60rem] before:h-[30rem] before:rounded-[18rem] before:rotate-[135deg] before:bg-indigo-600/5 dark:before:bg-indigo-600/10;
+  @apply before:absolute before:bottom-[14rem] before:left-[50rem] before:h-[30rem] before:w-[60rem] before:rotate-[135deg] before:rounded-[18rem] before:bg-indigo-600/5 before:content-[''] dark:before:bg-indigo-600/10;
 }
 @media (min-width: 1024px) and (max-width: 1140px) {
   .studio-wrapper {
-    @apply before:bottom-[10rem] before:left-[30rem] before:w-[40rem] before:h-[20rem];
+    @apply before:bottom-[10rem] before:left-[30rem] before:h-[20rem] before:w-[40rem];
   }
 }
 
@@ -130,14 +130,14 @@
 
 /* Startup Hero */
 .startup-wrapper {
-  @apply before:content-[''] before:absolute before:bottom-40 before:left-[45rem] before:w-[90rem] before:h-[35rem] before:rotate-[115deg] before:bg-indigo-600;
+  @apply before:absolute before:bottom-40 before:left-[45rem] before:h-[35rem] before:w-[90rem] before:rotate-[115deg] before:bg-indigo-600 before:content-[''];
 
-  @apply after:content-[''] after:absolute after:bottom-96 after:left-[30rem] after:w-[75rem] after:h-40 after:rotate-[115deg] after:bg-indigo-600/10 after:-z-1;
+  @apply after:absolute after:bottom-96 after:left-[30rem] after:-z-1 after:h-40 after:w-[75rem] after:rotate-[115deg] after:bg-indigo-600/10 after:content-[''];
 }
 
 @media (min-width: 1024px) and (max-width: 1140px) {
   .startup-wrapper {
-    @apply before:left-40 before:w-[75rem] before:h-[30rem] after:left-0 after:bottom-80 after:w-[75rem] after:h-60;
+    @apply before:left-40 before:h-[30rem] before:w-[75rem] after:bottom-80 after:left-0 after:h-60 after:w-[75rem];
   }
 }
 
@@ -188,7 +188,7 @@
 
 /* Saas */
 .home-wrapper {
-  @apply before:content-[''] before:absolute before:-top-[30%] before:-left-80 before:right-0 before:w-[140rem] before:h-[65rem] before:-rotate-12 before:bg-indigo-600/5 dark:before:bg-indigo-600/10 before:z-1;
+  @apply before:absolute before:-left-80 before:-top-[30%] before:right-0 before:z-1 before:h-[65rem] before:w-[140rem] before:-rotate-12 before:bg-indigo-600/5 before:content-[''] dark:before:bg-indigo-600/10;
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {

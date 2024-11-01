@@ -4,7 +4,7 @@
 
 .breadcrumb {
   .breadcrumb-item {
-    @apply before:content-[''] after:text-sm after:text-black after:dark:text-white after:pl-[5px] last:after:hidden;
+    @apply before:content-[''] after:pl-[5px] after:text-sm after:text-black last:after:hidden after:dark:text-white;
     &:after {
       content: "\F0142" !important;
       font-family: "Material Design Icons";

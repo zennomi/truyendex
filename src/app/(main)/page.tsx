@@ -15,7 +15,7 @@ export default async function Home() {
           <div className="relative mt-10 grid grid-cols-1 items-center gap-[30px] md:grid-cols-12">
             <div className="md:col-span-7">
               <div className="md:mr-6">
-                <h4 className="relative mb-5 text-4xl font-bold leading-normal text-black dark:text-white lg:text-5xl lg:leading-normal">
+                <h4 className="relative mb-5 text-4xl font-bold leading-normal text-black lg:text-5xl lg:leading-normal dark:text-white">
                   NetTruyen + MangaDex ={" "}
                   <span className="relative text-indigo-600 after:absolute after:bottom-3 after:left-0 after:right-0 after:h-2 after:w-auto after:rounded-md after:bg-indigo-600/30 after:lg:h-3">
                     TruyenDex
@@ -65,7 +65,7 @@ export default async function Home() {
         {/*end container*/}
       </section>
       <section
-        className="relative bg-gray-50 py-16 dark:bg-slate-800 md:py-24"
+        className="relative bg-gray-50 py-16 md:py-24 dark:bg-slate-800"
         id="features"
       >
         <div className="lg container mx-auto">
@@ -256,7 +256,7 @@ export default async function Home() {
               </ul>
             </div>
             <div className="relative">
-              <div className="absolute -bottom-10 right-0 w-60 rounded-lg bg-white p-6 shadow-md dark:bg-slate-900 dark:shadow-gray-800 md:w-80">
+              <div className="absolute -bottom-10 right-0 w-60 rounded-lg bg-white p-6 shadow-md md:w-80 dark:bg-slate-900 dark:shadow-gray-800">
                 <h5 className="mb-3 text-lg font-semibold">MangaDex API</h5>
                 <p className="text-slate-400">
                   TruyenDex không hề sở hữu bất cứ dữ liệu manga nào

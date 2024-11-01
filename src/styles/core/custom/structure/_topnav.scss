@@ -2,7 +2,7 @@
 /*         Menu                  */
 /*===============================*/
 #topnav {
-  @apply fixed right-0 left-0 top-0 z-999 bg-transparent border-0 transition-all duration-500 ease-in-out;
+  @apply fixed left-0 right-0 top-0 z-999 border-0 bg-transparent transition-all duration-500 ease-in-out;
   .logo {
     @apply float-left text-black dark:text-white #{!important};
     .l-dark {
@@ -39,7 +39,7 @@
     .submenu {
       .submenu-arrow {
         border-width: 0px 0.125rem 0.125rem 0px;
-        @apply absolute right-[1.25rem] top-[0.8125rem] border-black dark:border-white rounded-[0.5px] inline-block p-[0.1875rem] -rotate-[45deg];
+        @apply absolute right-[1.25rem] top-[0.8125rem] inline-block -rotate-[45deg] rounded-[0.5px] border-black p-[0.1875rem] dark:border-white;
       }
       .has-submenu {
         &:hover {
@@ -66,13 +66,13 @@
     }
   }
   .navbar-toggle {
-    @apply border-0 relative p-0 m-0 cursor-pointer;
+    @apply relative m-0 cursor-pointer border-0 p-0;
     .lines {
-      @apply w-[25px] block relative h-[18px] mt-[30px] mr-0 mb-[26px] ml-[10px];
+      @apply relative mb-[26px] ml-[10px] mr-0 mt-[30px] block h-[18px] w-[25px];
     }
     span {
       transition: transform 0.5s ease;
-      @apply h-[2px] w-full bg-black dark:bg-white block mb-[5px];
+      @apply mb-[5px] block h-[2px] w-full bg-black dark:bg-white;
       &:last-child {
         @apply mb-0;
       }
@@ -87,7 +87,7 @@
           @apply invisible;
         }
         &:last-child {
-          @apply w-full top-[6px] -rotate-[45deg];
+          @apply top-[6px] w-full -rotate-[45deg];
         }
         &:hover {
           @apply bg-indigo-600;
@@ -120,9 +120,9 @@
         }
       }
       .searchform {
-        @apply after:absolute after:right-[14px] after:top-[14px] after:text-xl after:leading-5 after:pointer-events-none;
+        @apply after:pointer-events-none after:absolute after:right-[14px] after:top-[14px] after:text-xl after:leading-5;
         input[type="text"] {
-          @apply shadow-none py-[10px] pr-[42px] pl-3 h-11 text-sm block outline-none  #{!important};
+          @apply block h-11 py-[10px] pl-3 pr-[42px] text-sm shadow-none outline-none #{!important};
         }
         input[type="submit"] {
           @apply hidden;
@@ -143,11 +143,11 @@
     }
   }
   .navigation-menu {
-    @apply list-none m-0 p-0;
+    @apply m-0 list-none p-0;
     > li {
-      @apply float-left block relative my-0 mx-[10px];
+      @apply relative float-left mx-[10px] my-0 block;
       > a {
-        @apply block text-black dark:text-white text-[13px] bg-transparent font-bold tracking-[1px] leading-6 uppercase px-[15px] #{!important};
+        @apply block bg-transparent px-[15px] text-[13px] font-bold uppercase leading-6 tracking-[1px] text-black dark:text-white #{!important};
         &:hover,
         &:active {
           @apply text-indigo-600;
@@ -162,7 +162,7 @@
       .submenu.megamenu {
         li {
           .megamenu-head {
-            @apply py-[10px] px-5 whitespace-nowrap text-xs uppercase tracking-[0.04em] font-bold text-slate-400 #{!important};
+            @apply whitespace-nowrap px-5 py-[10px] text-xs font-bold uppercase tracking-[0.04em] text-slate-400 #{!important};
           }
         }
       }
@@ -170,7 +170,7 @@
     .has-submenu {
       .menu-arrow {
         border-width: 0 2px 2px 0;
-        @apply border-black dark:border-white rounded-[0.5px] inline-block p-[3px] rotate-[45deg] absolute transition-all duration-500 -right-px top-[30px];
+        @apply absolute -right-px top-[30px] inline-block rotate-[45deg] rounded-[0.5px] border-black p-[3px] transition-all duration-500 dark:border-white;
       }
       &:hover {
         .menu-arrow {
@@ -183,7 +183,7 @@
     @apply float-right;
   }
   &.scroll {
-    @apply bg-white dark:bg-slate-900 border-none shadow;
+    @apply border-none bg-white shadow dark:bg-slate-900;
     .navigation-menu {
       > li {
         > a {
@@ -217,7 +217,7 @@
     }
   }
   &.nav-sticky {
-    @apply bg-white dark:bg-slate-900 shadow dark:shadow-gray-800;
+    @apply bg-white shadow dark:bg-slate-900 dark:shadow-gray-800;
     .navigation-menu {
       &.nav-light {
         > li {
@@ -276,7 +276,7 @@
 }
 
 .logo {
-  @apply font-bold text-[24px] mr-[15px] pt-0 px-[6px] pb-0 tracking-[1px] leading-[68px];
+  @apply mr-[15px] px-[6px] pb-0 pt-0 text-[24px] font-bold leading-[68px] tracking-[1px];
 }
 
 @media (min-width: 1025px) {
@@ -322,37 +322,37 @@
       > li {
         .submenu {
           transition: all 0.2s ease;
-          @apply absolute top-full left-0 z-[1000] py-[15px] px-0 list-none min-w-[180px] invisible opacity-0 mt-[10px] rounded-md bg-white dark:bg-slate-900 shadow dark:shadow-gray-800;
+          @apply invisible absolute left-0 top-full z-[1000] mt-[10px] min-w-[180px] list-none rounded-md bg-white px-0 py-[15px] opacity-0 shadow dark:bg-slate-900 dark:shadow-gray-800;
           li {
             @apply relative;
             a {
               transition: all 0.3s;
-              @apply block py-[10px] px-5 clear-both whitespace-nowrap text-[11px] uppercase tracking-[0.04em] font-bold text-black dark:text-white leading-[17px];
+              @apply clear-both block whitespace-nowrap px-5 py-[10px] text-[11px] font-bold uppercase leading-[17px] tracking-[0.04em] text-black dark:text-white;
               &:hover {
                 @apply text-indigo-600 dark:text-indigo-600 #{!important};
               }
             }
             ul {
-              @apply list-none pl-0 m-0;
+              @apply m-0 list-none pl-0;
             }
           }
           &.megamenu {
-            @apply whitespace-nowrap left-1/2 -translate-x-1/2 fixed top-auto flex;
+            @apply fixed left-1/2 top-auto flex -translate-x-1/2 whitespace-nowrap;
             > li {
-              @apply overflow-hidden align-top w-1/5;
+              @apply w-1/5 overflow-hidden align-top;
               .submenu {
-                @apply left-full top-0 ml-[10px] -mt-px;
+                @apply left-full top-0 -mt-px ml-[10px];
               }
             }
           }
           > li {
             .submenu {
-              @apply left-[101%] top-0 ml-[10px] -mt-px;
+              @apply left-[101%] top-0 -mt-px ml-[10px];
             }
           }
         }
         > a {
-          @apply py-[25px] min-h-[62px];
+          @apply min-h-[62px] py-[25px];
         }
         &:hover {
           > .menu-arrow {
@@ -410,7 +410,7 @@
       }
     }
     .buy-button {
-      @apply pl-[15px] ml-[15px];
+      @apply ml-[15px] pl-[15px];
     }
     .navbar-toggle {
       @apply hidden;
@@ -442,7 +442,7 @@
 
 @media (max-width: 991px) {
   #topnav {
-    @apply bg-white dark:bg-slate-900 shadow dark:shadow-gray-800 min-h-[74px];
+    @apply min-h-[74px] bg-white shadow dark:bg-slate-900 dark:shadow-gray-800;
     .logo {
       .l-dark {
         @apply inline-block #{!important};
@@ -462,17 +462,17 @@
       > li {
         @apply float-none;
         .submenu {
-          @apply hidden list-none pl-5 m-0;
+          @apply m-0 hidden list-none pl-5;
           li {
             a {
               transition: all 0.3s;
-              @apply block relative py-[7px] px-[15px] uppercase text-[11px] tracking-[0.04em] font-bold text-black dark:text-white #{!important};
+              @apply relative block px-[15px] py-[7px] text-[11px] font-bold uppercase tracking-[0.04em] text-black dark:text-white #{!important};
             }
           }
           &.megamenu {
             li {
               .megamenu-head {
-                @apply py-[7px] px-[15px];
+                @apply px-[15px] py-[7px];
               }
             }
             > li {
@@ -480,7 +480,7 @@
                 @apply list-none pl-0;
                 > li {
                   > span {
-                    @apply block relative py-[10px] px-[15px] uppercase text-xs tracking-[2px] text-slate-200;
+                    @apply relative block px-[15px] py-[10px] text-xs uppercase tracking-[2px] text-slate-200;
                   }
                 }
               }
@@ -497,7 +497,7 @@
           }
         }
         > a {
-          @apply text-black dark:text-white py-[10px] px-[20px] after:absolute after:right-[15px];
+          @apply px-[20px] py-[10px] text-black after:absolute after:right-[15px] dark:text-white;
         }
         > a:hover,
         .submenu li a:hover,
@@ -528,7 +528,7 @@
     .has-submenu {
       .submenu {
         .submenu-arrow {
-          @apply rotate-[45deg] absolute right-5 top-3;
+          @apply absolute right-5 top-3 rotate-[45deg];
         }
       }
       &.active {
@@ -540,7 +540,7 @@
   }
 
   #navigation {
-    @apply absolute top-[74px] left-0 w-full hidden h-auto bg-white dark:bg-slate-900 overflow-auto;
+    @apply absolute left-0 top-[74px] hidden h-auto w-full overflow-auto bg-white dark:bg-slate-900;
     &.open {
       @apply block overflow-y-auto;
     }
@@ -566,16 +566,16 @@
         &.has-submenu {
           &:hover {
             > .submenu {
-              @apply visible opacity-100 mt-0;
+              @apply visible mt-0 opacity-100;
               > li {
                 &.has-submenu {
                   &:hover {
                     > .submenu {
-                      @apply visible opacity-100 ml-0 mr-0;
+                      @apply visible ml-0 mr-0 opacity-100;
                       > li {
                         &:hover {
                           > .submenu {
-                            @apply visible opacity-100 ml-0 mr-0;
+                            @apply visible ml-0 mr-0 opacity-100;
                           }
                         }
                       }
@@ -597,7 +597,7 @@
 @media (max-width: 425px) {
   #topnav {
     .buy-menu-btn {
-      @apply block my-0 mx-[10px] py-[10px] px-5 #{!important};
+      @apply mx-[10px] my-0 block px-5 py-[10px] #{!important};
       .dropdown {
         .dropdown-menu {
           &.show {
@@ -609,7 +609,7 @@
   }
 }
 .tagline {
-  @apply absolute w-full z-[99] text-sm py-[13px] px-0;
+  @apply absolute z-[99] w-full px-0 py-[13px] text-sm;
 }
 @media screen and (max-width: 575px) {
   .tagline {
