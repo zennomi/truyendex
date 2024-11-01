@@ -1,8 +1,8 @@
-import config from "@/config";
 import { Metadata, ResolvingMetadata } from "next";
 import { ChapterContextProvider } from "@/contexts/chapter";
 import { MangadexApi } from "@/api";
-import { getChapterTitle } from "@/utils/mangadex";
+import { Constants } from "@/constants";
+import { Utils } from "@/utils";
 
 export async function generateMetadata(
   { params }: { params: { chapterId: string } },
@@ -22,7 +22,7 @@ export async function generateMetadata(
       data: { data: chapter },
     } = await MangadexApi.Chapter.getChapterId(id);
     return {
-      title: `Đọc chương ${getChapterTitle(chapter)} tại ${config.appName}`,
+      title: `Đọc chương ${Utils.Mangadex.getChapterTitle(chapter)} tại ${Constants.APP_NAME}`,
       openGraph: {
         images: [mdImage, ...previousImages],
       },
@@ -35,7 +35,7 @@ export async function generateMetadata(
   }
 
   return {
-    title: `Đọc chương mới nhất tại ${config.appName}`,
+    title: `Đọc chương mới nhất tại ${Constants.APP_NAME}`,
     openGraph: {
       images: [mdImage, ...previousImages],
     },

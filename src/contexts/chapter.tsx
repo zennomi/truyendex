@@ -11,12 +11,12 @@ import React, {
 import { useParams } from "next/navigation";
 
 import { useChapter, useMangaAggregate } from "@/hooks/mangadex";
-import routes from "@/routes";
 import { ChapterItem, ExtendChapter, ExtendManga } from "@/types/mangadex";
 import useReadingHistory from "@/hooks/useReadingHistory";
-import { getCoverArt, getMangaTitle, getChapterTitle } from "@/utils/mangadex";
 
 import { useMangadex } from "./mangadex";
+import { Utils } from "@/utils";
+import { Constants } from "@/constants";
 
 export const ChapterContext = createContext<{
   chapterId: string | null;
@@ -99,13 +99,12 @@ export const ChapterContextProvider = ({
     if (mangaId) {
       updateMangas({ ids: [mangaId] });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mangaId]);
 
   useEffect(() => {
     if (!chapter) return;
-    const newPath = routes.nettrom.chapter(chapter.id);
-    document.title = `Đọc ${getChapterTitle(chapter)}`;
+    const newPath = Constants.Routes.nettrom.chapter(chapter.id);
+    document.title = `Đọc ${Utils.Mangadex.getChapterTitle(chapter)}`;
     window.history.pushState(
       { ...window.history.state, as: newPath, url: newPath },
       "",
@@ -120,9 +119,9 @@ export const ChapterContextProvider = ({
   useEffect(() => {
     if (manga && chapter) {
       addHistory(manga.id, {
-        mangaTitle: getMangaTitle(manga),
-        cover: getCoverArt(manga),
-        chapterTitle: getChapterTitle(chapter),
+        mangaTitle: Utils.Mangadex.getMangaTitle(manga),
+        cover: Utils.Mangadex.getCoverArt(manga),
+        chapterTitle: Utils.Mangadex.getChapterTitle(chapter),
         chapterId: chapter.id,
       });
     }

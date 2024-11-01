@@ -1,12 +1,12 @@
-import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
-import MainNav from "@/sections/nettrom/layout/main-nav";
-import NettromLogo from "@/assets/nettrom-logo.png";
-import Header from "@/sections/nettrom/layout/header";
-import routes from "@/routes";
-import config from "@/config";
+import { Inter } from "next/font/google";
+import MainNav from "@/components/sections/nettrom/layout/main-nav";
+import Header from "@/components/sections/nettrom/layout/header";
+import { Constants } from "@/constants";
+import "@/styles/nettrom/index.scss";
+import { twMerge } from "tailwind-merge";
 
+const inter = Inter({ subsets: ["latin"] });
 export default function NettromLayout({
   children,
 }: {
@@ -14,9 +14,7 @@ export default function NettromLayout({
 }) {
   return (
     <>
-      <Suspense>
-        <Header />
-      </Suspense>
+      <Header />
       <nav className="main-nav hidden-xs" id="mainNav">
         <div className="inner">
           <div className="container">
@@ -36,7 +34,7 @@ export default function NettromLayout({
           </div>
         </div>
       </nav>
-      <main className="main">
+      <main className={twMerge("main", inter.className)}>
         <div className="container">{children}</div>
       </main>
       <footer className="footer">
@@ -47,12 +45,11 @@ export default function NettromLayout({
               itemType="http://schema.org/Organization"
             >
               <Link itemProp="url" href="/">
-                <Image
+                <img
                   itemProp="logo"
-                  src={NettromLogo}
-                  width={150}
+                  src={"/nettruyen/images/logo.png"}
                   style={{ aspectRatio: 5 }}
-                  alt={`${config.appName} - Truyện tranh Online`}
+                  alt={`${Constants.APP_NAME} - Truyện tranh Online`}
                 />
               </Link>
               <div className="mrt10 row">
@@ -70,7 +67,7 @@ export default function NettromLayout({
                     </div> */}
               </div>
               <p></p>
-              <p>Copyright © 2023 {config.appName}</p>
+              <p>Copyright © 2023 {Constants.APP_NAME}</p>
             </div>
             <div className="col-sm-8">
               <div className="link-footer">
@@ -94,7 +91,7 @@ export default function NettromLayout({
                   <li>
                     <Link
                       target="_self"
-                      href={`${routes.nettrom.search}?order[followedCount]=desc#results`}
+                      href={`${Constants.Routes.nettrom.search}?order[followedCount]=desc#results`}
                     >
                       Truyện tranh hot
                     </Link>
@@ -107,7 +104,7 @@ export default function NettromLayout({
                   <li>
                     <Link
                       target="_self"
-                      href={`${routes.nettrom.search}?publicationDemographic=josei&publicationDemographic=shoujo#results`}
+                      href={`${Constants.Routes.nettrom.search}?publicationDemographic=josei&publicationDemographic=shoujo#results`}
                     >
                       Truyện ngôn tình
                     </Link>

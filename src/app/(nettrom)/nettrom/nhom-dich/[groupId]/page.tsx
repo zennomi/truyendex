@@ -1,11 +1,11 @@
 import { MangadexApi } from "@/api";
 import { User } from "@/types/mangadex";
-import config from "@/config";
-import NewUpdates from "@/sections/nettrom/common/new-updates";
-import TopTitles from "@/sections/nettrom/common/top-titles-table";
+import NewUpdates from "@/components/sections/nettrom/common/new-updates";
+import TopTitles from "@/components/sections/nettrom/common/top-titles-table";
 import { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
+import { Constants } from "@/constants";
 
 export async function generateMetadata(
   { params }: { params: { groupId: string } },
@@ -32,7 +32,7 @@ export async function generateMetadata(
     });
 
     return {
-      title: `Nhóm dịch ${group.attributes.name} - Đọc ngay tại ${config.appName}`,
+      title: `Nhóm dịch ${group.attributes.name} - Đọc ngay tại ${Constants.APP_NAME}`,
       description: `${group.attributes.description}`,
       openGraph: {
         images: [mdImage],

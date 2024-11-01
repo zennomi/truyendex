@@ -1,5 +1,5 @@
-import TopTitles from "@/sections/nettrom/common/top-titles-table";
-import Manga from "@/sections/nettrom/truyen-tranh/manga";
+import TopTitles from "@/components/sections/nettrom/common/top-titles-table";
+import Manga from "@/components/sections/nettrom/truyen-tranh/manga";
 
 export default function TruyenTranh({
   params,

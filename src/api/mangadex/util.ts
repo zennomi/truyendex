@@ -5,7 +5,7 @@
 import { AuthenticationToken } from "./authentication";
 import { AxiosRequestConfig } from "axios";
 import { ErrorResponse } from "../../types/mangadex";
-import config from "../../config";
+import { Constants } from "@/constants";
 
 /*******************
  * TYPE DEFINITIONS
@@ -21,7 +21,7 @@ import config from "../../config";
  ************************/
 
 const MANGADEX_API_URL = "https://api.mangadex.org";
-const CORS = config.corsUrl;
+const CORS = Constants.CORS_URL;
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] =
   process.env.NODE_ENV === "production" ? "1" : "0";

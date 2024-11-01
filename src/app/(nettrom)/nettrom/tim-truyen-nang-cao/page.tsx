@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { Metadata } from "next";
 import { Suspense } from "react";
-import routes from "@/routes";
-import SearchMangaForm from "@/sections/nettrom/tim-kiem/search-manga-form";
-import MangaResults from "@/sections/nettrom/tim-kiem/manga-results";
-import config from "@/config";
+import SearchMangaForm from "@/components/sections/nettrom/tim-kiem/search-manga-form";
+import MangaResults from "@/components/sections/nettrom/tim-kiem/manga-results";
+import { Constants } from "@/constants";
 
 export const metadata: Metadata = {
-  title: `Tìm truyện đọc tại ${config.appName}`,
+  title: `Tìm truyện đọc tại ${Constants.APP_NAME}`,
 };
 
 export default function AdvancedSearch() {
@@ -17,7 +16,7 @@ export default function AdvancedSearch() {
         <ul className="breadcrumb" itemType="http://schema.org/BreadcrumbList">
           <li itemProp="itemListElement" itemType="http://schema.org/ListItem">
             <Link
-              href={routes.nettrom.index}
+              href={Constants.Routes.nettrom.index}
               className="itemcrumb"
               itemProp="item"
               itemType="http://schema.org/Thing"
@@ -28,7 +27,7 @@ export default function AdvancedSearch() {
           </li>
           <li itemProp="itemListElement" itemType="http://schema.org/ListItem">
             <Link
-              href={routes.nettrom.search}
+              href={Constants.Routes.nettrom.search}
               className="itemcrumb active"
               itemProp="item"
               itemType="http://schema.org/Thing"

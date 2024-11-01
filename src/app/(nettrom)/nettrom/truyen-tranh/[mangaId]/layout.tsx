@@ -1,7 +1,7 @@
 import { Metadata, ResolvingMetadata } from "next";
-import config from "@/config";
 import { MangadexApi } from "@/api";
-import { getMangaTitle, transLocalizedStr } from "@/utils/mangadex";
+import { Utils } from "@/utils";
+import { Constants } from "@/constants";
 
 export async function generateMetadata(
   { params }: { params: { mangaId: string } },
@@ -22,8 +22,10 @@ export async function generateMetadata(
       data: { data: manga },
     } = await MangadexApi.Manga.getMangaId(id);
     return {
-      title: `${getMangaTitle(manga)} - Đọc ngay tại ${config.appName}`,
-      description: transLocalizedStr(manga.attributes.description),
+      title: `${Utils.Mangadex.getMangaTitle(manga)} - Đọc ngay tại ${Constants.APP_NAME}`,
+      description: Utils.Mangadex.transLocalizedStr(
+        manga.attributes.description,
+      ),
       openGraph: {
         images: [mdImage],
       },

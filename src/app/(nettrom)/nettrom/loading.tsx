@@ -1,4 +1,4 @@
-import Loading from "@/sections/nettrom/layout/loading";
+import Loading from "@/components/sections/nettrom/layout/loading";
 
 export default function LoadingUI() {
   // You can add any UI inside Loading, including a Skeleton.
