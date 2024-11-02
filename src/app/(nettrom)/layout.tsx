@@ -5,16 +5,43 @@ import Header from "@/components/sections/nettrom/layout/header";
 import { Constants } from "@/constants";
 import "@/styles/nettrom/index.scss";
 import { twMerge } from "tailwind-merge";
+import { LayoutWrapper } from "@/components/LayoutWrapper";
+import { Metadata } from "next";
+import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: `${Constants.APP_NAME} - Truyện tranh chất lượng cao không quảng cáo`,
+  description: `Đọc truyện miễn phí, chất lượng cao và tham gia ủng hộ nhóm dịch trên ${Constants.APP_NAME}`,
+  applicationName: Constants.APP_NAME,
+  authors: [{ name: "TruyenDex", url: "https://github.com/zennomi/truyendex" }],
+  keywords: [
+    "truyện tranh",
+    "manga",
+    "manhwa",
+    "manhua",
+    "nettruyen",
+    "nettrom",
+    "blogtruyen",
+    "truyendex",
+  ],
+  metadataBase: new URL(Constants.APP_URL),
+  other: {
+    referrer: "same-origin",
+  },
+};
 
 const inter = Inter({ subsets: ["latin"] });
+
 export default function NettromLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <Header />
+    <LayoutWrapper id="nettrom">
+      <Suspense>
+        <Header />
+      </Suspense>
       <nav className="main-nav hidden-xs" id="mainNav">
         <div className="inner">
           <div className="container">
@@ -175,6 +202,6 @@ export default function NettromLayout({
           </div>
         </div>
       </footer>
-    </>
+    </LayoutWrapper>
   );
 }
