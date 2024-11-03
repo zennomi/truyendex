@@ -45,10 +45,11 @@ export default function NettromLayout({
         zIndex={1000}
         easing="ease-in-out"
         speed={400}
+        height={4}
         showSpinner={false}
         template={`
-        <div class="bar bg-primary" role="bar"><div class="peg"></div></div> 
-  <div class="spinner text-primary" role="spinner"><div class="spinner-icon"></div></div>`}
+        <div class="bar bg-web-title" role="bar"><div class="peg"></div></div> 
+  <div class="spinner text-web-title" role="spinner"><div class="spinner-icon"></div></div>`}
       />
       <Suspense>
         <Header />

@@ -1,26 +1,31 @@
-import { useMemo, useState } from "react";
 import ReactPaginate from "react-paginate";
 import Link from "next/link";
 
-import { useChapterList } from "@/hooks/mangadex";
 import { Utils } from "@/utils";
 import { Constants } from "@/constants";
 import { DataLoader } from "@/components/DataLoader";
+import { ChapterList, ExtendChapter } from "@/types/mangadex";
 
-export default function ListChapter({ mangaId }: { mangaId: string }) {
-  const [page, setPage] = useState(0);
-  const { data, chapters } = useChapterList(mangaId, {
-    offset: page * Constants.Mangadex.CHAPTER_LIST_LIMIT,
-  });
-  const chapterListData = useMemo(() => data?.data, [data]);
-
+export default function ListChapter({
+  mangaId,
+  ...props
+}: {
+  mangaId: string;
+  onPageChange?: (page: number) => void;
+  page: number;
+  data?: ChapterList;
+  items: ExtendChapter[];
+}) {
   return (
     <div id="nt_listchapter">
       <h2 className="mb-4 flex items-center gap-4 text-[20px] font-medium text-web-title">
         <i className="fa fa-list"></i>
         <span>Danh sách chương</span>
       </h2>
-      <DataLoader isLoading={!data} loadingText="Đang tải danh sách chương">
+      <DataLoader
+        isLoading={!props.data}
+        loadingText="Đang tải danh sách chương"
+      >
         <div className="rounded-xl border border-muted-foreground p-4">
           <div className="heading grid grid-cols-[5fr_4fr_3fr] border-b border-muted-foreground pb-4 text-muted-foreground">
             <div className="no-wrap">Tên chương</div>
@@ -29,7 +34,7 @@ export default function ListChapter({ mangaId }: { mangaId: string }) {
           </div>
           <nav>
             <ul className="flex flex-col gap-2 py-2 text-[12px]">
-              {chapters.map((chapter) => (
+              {props.items.map((chapter) => (
                 <li
                   key={chapter.id}
                   className="grid grid-cols-[5fr_4fr_3fr] gap-2 py-2"
@@ -68,13 +73,12 @@ export default function ListChapter({ mangaId }: { mangaId: string }) {
           breakLabel="..."
           nextLabel=">"
           onPageChange={(event) => {
-            setPage(event.selected);
+            props.onPageChange?.(event.selected);
           }}
           pageRangeDisplayed={5}
           pageCount={
             Math.floor(
-              (chapterListData?.total || 0) /
-                Constants.Mangadex.CHAPTER_LIST_LIMIT,
+              (props.data?.total || 0) / Constants.Mangadex.CHAPTER_LIST_LIMIT,
             ) + 1
           }
           previousLabel="<"
@@ -86,14 +90,13 @@ export default function ListChapter({ mangaId }: { mangaId: string }) {
           previousClassName="text-center"
           nextClassName="text-center"
           breakClassName="text-center"
-          forcePage={page}
+          forcePage={props.page}
         />
         <p className="mb-0 text-muted-foreground">
           Đã hiển thị{" "}
           <span className="text-foreground">
-            {(chapterListData?.offset || 0) +
-              (chapterListData?.data.length || 0)}{" "}
-            / {chapterListData?.total}
+            {(props.data?.offset || 0) + (props.data?.data.length || 0)} /{" "}
+            {props.data?.total}
           </span>{" "}
           chương
         </p>

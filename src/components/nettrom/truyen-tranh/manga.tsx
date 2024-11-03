@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { toast } from "react-toastify";
 import Link from "next/link";
@@ -16,6 +16,8 @@ import { Constants } from "@/constants";
 import { AspectRatio } from "@/components/shadcn/aspect-ratio";
 import { Button } from "../Button";
 import { DataLoader } from "@/components/DataLoader";
+import { useChapterList } from "@/hooks/mangadex";
+import { useRouter } from "nextjs-toploader/app";
 
 export default function Manga({ mangaId }: { mangaId: string }) {
   const { user } = useAuth();
@@ -23,12 +25,25 @@ export default function Manga({ mangaId }: { mangaId: string }) {
     useMangadex();
   const manga = mangas[mangaId];
   const { data: followed, mutate } = useCheckFollowed(mangaId);
-  const firstChapter = useMemo(() => {
-    return manga?.relationships?.find((r) => r.type === "chapter");
-  }, [manga]);
   const title = Utils.Mangadex.getMangaTitle(manga);
   const altTitles = Utils.Mangadex.getMangaAltTitles(manga);
   const url = Constants.Routes.nettrom.manga(mangaId);
+  const [page, setPage] = useState(0);
+  const { data, chapters } = useChapterList(mangaId, {
+    offset: page * Constants.Mangadex.CHAPTER_LIST_LIMIT,
+  });
+  const chapterListData = useMemo(() => data?.data, [data]);
+  const router = useRouter();
+
+  const handleLogin = () => {
+    router.push(Constants.Routes.loginWithRedirect(window.location.pathname));
+  };
+
+  const readFirstChapter = () => {
+    if (chapters.length > 0) {
+      router.push(Constants.Routes.nettrom.chapter(chapters[0].id));
+    }
+  };
 
   const followManga = useCallback(async () => {
     try {
@@ -52,7 +67,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
   }, [mangaId]);
 
   return (
-    <DataLoader isLoading={!manga} loadingText="Đang tải thông tin manga">
+    <DataLoader isLoading={!manga} loadingText="Đang tải thông tin truyện...">
       <ul
         className="mb-2 inline-flex items-center gap-4"
         itemType="http://schema.org/BreadcrumbList"
@@ -275,41 +290,34 @@ export default function Manga({ mangaId }: { mangaId: string }) {
           <div className="mt-4 grid sm:grid-cols-[1fr_2fr] sm:gap-10">
             <div></div>
             <div className="grid flex-wrap gap-4 sm:flex sm:grid-cols-2">
-              <Link
-                href={
-                  firstChapter
-                    ? Constants.Routes.nettrom.chapter(firstChapter.id)
-                    : "#"
-                }
-                className="no-underline hover:no-underline"
+              <Button
+                disabled={!data}
+                onClick={readFirstChapter}
+                className="w-full sm:w-auto"
+                icon={<i className="fa fa-eye" />}
               >
-                <Button className="w-full" icon={<i className="fa fa-eye" />}>
-                  Đọc ngay
-                </Button>
-              </Link>
+                Đọc ngay
+              </Button>
               {user ? (
-                <a className="follow-url btn btn-danger" onClick={followManga}>
-                  <Iconify
-                    icon={followed ? "fa:times-circle" : "fa:heart"}
-                    className="mr-2 inline"
-                  />
-                  <span>{followed ? "Bỏ theo dõi" : "Theo dõi"}</span>
-                </a>
-              ) : (
-                <Link
-                  href={Constants.Routes.loginWithRedirect(
-                    window.location.pathname,
-                  )}
-                  className="no-underline hover:no-underline"
+                <Button
+                  className="w-full border-red-500 text-red-500 hover:bg-red-300/10 hover:text-red-500 sm:w-auto"
+                  icon={
+                    <Iconify icon={followed ? "fa:times-circle" : "fa:heart"} />
+                  }
+                  variant={"outline"}
+                  onClick={followManga}
                 >
-                  <Button
-                    className="w-full"
-                    icon={<Iconify icon="fa:heart" />}
-                    variant={"outline"}
-                  >
-                    Đăng nhập để theo dõi
-                  </Button>
-                </Link>
+                  <span>{followed ? "Bỏ theo dõi" : "Theo dõi"}</span>
+                </Button>
+              ) : (
+                <Button
+                  className="w-full sm:w-auto"
+                  icon={<Iconify icon="fa:heart" />}
+                  variant={"outline"}
+                  onClick={handleLogin}
+                >
+                  Đăng nhập để theo dõi
+                </Button>
               )}
             </div>
           </div>
@@ -320,7 +328,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
             <span>Nội dung</span>
           </h2>
           <div className="">
-            <ReactMarkdown>
+            <ReactMarkdown className="[&_a]:text-web-title [&_a]:hover:text-web-titleLighter">
               {manga?.attributes?.description.vi ||
                 manga?.attributes?.description.en ||
                 ""}
@@ -355,7 +363,13 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                         <i className="fa fa-angle-left" /> Thu gọn
                     </a> */}
         </div>
-        <ChapterList mangaId={mangaId} />
+        <ChapterList
+          mangaId={mangaId}
+          page={page}
+          onPageChange={setPage}
+          data={chapterListData}
+          items={chapters}
+        />
       </article>
     </DataLoader>
   );

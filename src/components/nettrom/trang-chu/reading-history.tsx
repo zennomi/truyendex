@@ -14,7 +14,7 @@ export default function ReadingHistory() {
     <div>
       <div>
         <div className="mb-4 flex items-center justify-between gap-3">
-          <h2 className="flex items-center gap-2 text-[20px] text-web-title">
+          <h2 className="flex items-center gap-4 text-[20px] font-medium text-web-title">
             <FaHistory />
             Lịch sử đọc truyện
           </h2>

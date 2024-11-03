@@ -1,4 +1,4 @@
-import TopTitles from "@/components/nettrom/trang-chu/TopTitles";
+import TopTitles from "@/components/nettrom/trang-chu/top-titles";
 import Manga from "@/components/nettrom/truyen-tranh/manga";
 
 export default function TruyenTranh({

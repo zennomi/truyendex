@@ -15,7 +15,7 @@ const Gallery = ({
 }) => (
   <div>
     {images.map((image, index) => (
-      <div className="page-chapter" key={image}>
+      <div className="-mx-6 sm:mx-auto" key={image}>
         <MangaImage
           key={image}
           // Make sure to pass down the scrollPosition,

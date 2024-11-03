@@ -1,7 +1,7 @@
-import FeaturedTitles from "@/components/nettrom/trang-chu/FeaturedTitles";
-import NewUpdates from "@/components/nettrom/trang-chu/NewUpdates";
-import ReadingHistory from "@/components/nettrom/trang-chu/ReadingHistory";
-import TopTitles from "@/components/nettrom/trang-chu/TopTitles";
+import FeaturedTitles from "@/components/nettrom/trang-chu/featured-titles";
+import NewUpdates from "@/components/nettrom/trang-chu/new-updated-titles";
+import ReadingHistory from "@/components/nettrom/trang-chu/reading-history";
+import TopTitles from "@/components/nettrom/trang-chu/top-titles";
 
 export default function HomePage() {
   return (

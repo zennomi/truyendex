@@ -1,9 +1,14 @@
 import Link from "next/link";
 import { format } from "date-fns";
 import { useChapterContext } from "@/contexts/chapter";
-import useOffSetTop from "@/hooks/useOffSetTop";
 import { Utils } from "@/utils";
 import { Constants } from "@/constants";
+import { DataLoader } from "@/components/DataLoader";
+import { Alert } from "../Alert";
+import { ChapterControlBar } from "./chapter-control-bar";
+import { useMemo } from "react";
+import { Button } from "../Button";
+import { FaClock } from "react-icons/fa";
 
 export default function ChapterControl() {
   const {
@@ -18,90 +23,90 @@ export default function ChapterControl() {
     others,
     chapterId,
   } = useChapterContext();
-  const offsetTop = useOffSetTop(100);
 
-  const mangaTitle = Utils.Mangadex.getMangaTitle(manga);
-  const chapterTitle = Utils.Mangadex.getChapterTitle(chapter);
+  const mangaTitle = useMemo(() => {
+    return Utils.Mangadex.getMangaTitle(manga);
+  }, [manga]);
+  const chapterTitle = useMemo(() => {
+    return Utils.Mangadex.getChapterTitle(chapter);
+  }, [chapter]);
+
   return (
-    <>
-      {chapter && (
-        <div className="top">
-          <ul
-            className="breadcrumb"
-            itemType="http://schema.org/BreadcrumbList"
+    <DataLoader isLoading={!chapter} loadingText="Đang tải thông tin chương...">
+      <div className="flex flex-col gap-0">
+        {/* <ul
+          className="mb-2 inline-flex items-center gap-4"
+          itemType="http://schema.org/BreadcrumbList"
+        >
+          {[
+            {
+              href: Constants.Routes.nettrom.index,
+              name: "Trang chủ",
+              position: 1,
+            },
+            {
+              href: Constants.Routes.nettrom.search,
+              name: "Truyện Tranh",
+              position: 2,
+            },
+          ].map((item, index, arr) => {
+            const isLast = index === arr.length - 1;
+            return (
+              <>
+                <li
+                  key={index}
+                  itemProp="itemListElement"
+                  itemType="http://schema.org/ListItem"
+                >
+                  <Link
+                    href={item.href}
+                    className="text-web-title transition hover:text-web-titleLighter"
+                  >
+                    <span itemProp="name">{item.name}</span>
+                  </Link>
+                  <meta
+                    itemProp="position"
+                    content={item.position.toString()}
+                  />
+                </li>
+                {!isLast && (
+                  <li
+                    className="text-muted-foreground"
+                    key={"divider_" + index}
+                  >
+                    /
+                  </li>
+                )}
+              </>
+            );
+          })}
+        </ul> */}
+        <h1 className="mb-4 mt-0">
+          <Link
+            className="text-[16px] text-web-title transition hover:text-web-titleLighter"
+            href={Constants.Routes.nettrom.manga(manga?.id || "")}
           >
-            <li
-              itemProp="itemListElement"
-              itemType="http://schema.org/ListItem"
-            >
-              <Link
-                href={Constants.Routes.nettrom.index}
-                className="itemcrumb"
-                itemProp="item"
-                itemType="http://schema.org/Thing"
-              >
-                <span itemProp="name">Trang chủ</span>
-              </Link>
-              <meta itemProp="position" content={"1"} />
-            </li>
-            <li
-              itemProp="itemListElement"
-              itemType="http://schema.org/ListItem"
-            >
-              <Link
-                href={Constants.Routes.nettrom.search}
-                className="itemcrumb"
-                itemProp="item"
-                itemType="http://schema.org/Thing"
-              >
-                <span itemProp="name">Truyện tranh</span>
-              </Link>
-              <meta itemProp="position" content={"2"} />
-            </li>
-            <li
-              itemProp="itemListElement"
-              itemType="http://schema.org/ListItem"
-            >
-              <Link
-                href={Constants.Routes.nettrom.manga(manga?.id || "")}
-                className="itemcrumb"
-                itemProp="item"
-                itemType="http://schema.org/Thing"
-              >
-                <span itemProp="name">
-                  {Utils.Mangadex.getMangaTitle(manga)}
-                </span>
-              </Link>
-              <meta itemProp="position" content={"3"} />
-            </li>
-            <li
-              itemProp="itemListElement"
-              itemType="http://schema.org/ListItem"
-            >
-              <Link
-                href={Constants.Routes.nettrom.chapter(chapter.id)}
-                className="itemcrumb active"
-                itemProp="item"
-                itemType="http://schema.org/Thing"
-              >
-                <span itemProp="name">{chapterTitle}</span>
-              </Link>
-              <meta itemProp="position" content={"4"} />
-            </li>
-          </ul>
-          <h1 className="txt-primary">
-            <Link href={Constants.Routes.nettrom.manga(manga?.id || "")}>
-              {mangaTitle}
-            </Link>{" "}
-            <span>- {chapterTitle}</span>
-          </h1>
-          <i>
-            [Cập nhật lúc:{" "}
-            {format(new Date(chapter.attributes.publishAt), "HH:mm dd/MM/yyyy")}
-            ]
-          </i>
-        </div>
-      )}
+            {mangaTitle}
+          </Link>{" "}
+          <p className="my-0 text-[24px] leading-none text-foreground">
+            {chapterTitle}{" "}
+          </p>
+        </h1>
+        <p className="mb-5">
+          <span className="text-[14px] text-muted-foreground">
+            <FaClock className="mr-2 inline" />
+            Cập nhật lúc:{" "}
+            <span className="">
+              {chapter &&
+                format(
+                  new Date(chapter.attributes.publishAt),
+                  "HH:mm dd/MM/yyyy",
+                )}
+            </span>
+          </span>
+        </p>
+        <i></i>
+      </div>
       <div className="reading-control">
         {others.length > 0 && (
           <div className="mrb5">
@@ -121,99 +126,28 @@ export default function ChapterControl() {
             </div>
           </div>
         )}
-        <div className="mrb10">
-          <a
-            rel="nofollow"
-            href={Constants.Routes.report}
-            target="_blank"
-            className="alertError btn btn-warning"
-          >
-            <i className="fa fa-exclamation-triangle" /> Báo lỗi
-          </a>
-        </div>
-        <div className="alert alert-info mrb10 hidden-xs hidden-sm">
-          <i className="fa fa-info-circle" />{" "}
-          <em>
-            TruyenDex là một website mã nguồn mở, trong quá trình trải nghiệm
-            rất mong nhận được phản hồi từ mọi người
-          </em>
-        </div>
-        <div
-          className={`chapter-nav z-10 mx-auto flex items-center justify-around gap-x-1 ${offsetTop ? "fixed bottom-0 right-0 w-full bg-black" : ""}`}
-          id="chapterNav"
-        >
-          <div className="flex items-center justify-center gap-x-1">
-            <Link className="home hidden md:block" href="/" title="Trang chủ">
-              <i className="fa fa-home" />
-            </Link>
+        <Alert
+          classNames={{
+            alert: "[&>svg]:text-blue-500 text-blue-500 bg-blue-100",
+          }}
+          title=" TruyenDex là một website mã nguồn mở, trong quá trình trải nghiệm
+            rất mong nhận được phản hồi từ mọi người!"
+          action={
             <Link
-              className="home backward hidden md:block"
-              href={`${Constants.Routes.nettrom.manga(manga?.id || "")}#nt_listchapter`}
-              title={mangaTitle}
+              className="no-underline hover:no-underline"
+              href={Constants.Routes.report}
+              target="_blank"
+              rel="nofollow"
             >
-              <i className="fa fa-list" />
+              <Button className="bg-blue-500 hover:bg-blue-600">
+                Góp ý/Phản hồi
+              </Button>
             </Link>
-            {offsetTop && (
-              <a
-                className="home changeserver"
-                href="#"
-                title="Lên trên cùng"
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              >
-                <i className="fa fa-arrow-circle-up" />
-              </a>
-            )}
-          </div>
-          <div className="flex items-center justify-center gap-x-1">
-            <a
-              className={`prev a_prev ${canPrev ? "" : "disabled"}`}
-              onClick={() => prev()}
-            >
-              <i className="fa fa-chevron-left" />
-            </a>
-            <select
-              name="ctl00$mainContent$ddlSelectChapter"
-              id="ctl00_mainContent_ddlSelectChapter"
-              className="select-chapter min-w-[100px] md:min-w-[200px]"
-              value={chapterId || "Đang tải..."}
-              onChange={(event) => {
-                goTo(event.target.value);
-              }}
-            >
-              {chapters.length > 0 ? (
-                chapters.map((item) => (
-                  <option value={item.id} key={item.id}>
-                    {item.volume !== "none"
-                      ? `Tập ${item.volume} Chương ${item.chapter}`
-                      : item.chapter !== "none"
-                        ? `Chương ${item.chapter}`
-                        : "Oneshot"}
-                  </option>
-                ))
-              ) : (
-                <option>Đang tải...</option>
-              )}
-            </select>
-            <a
-              className={`next a_next ${canNext ? "" : "disabled"}`}
-              onClick={() => next()}
-            >
-              <i className="fa fa-chevron-right" />
-            </a>
-          </div>
-          <a
-            className="follow-link btn btn-success"
-            href={Constants.Routes.nettrom.scanlationGroup(
-              chapter?.scanlation_group?.id || "",
-            )}
-          >
-            <i className="fa fa-heart" /> <span>Nhóm dịch</span>
-          </a>
-        </div>
-        <div
-          style={{ display: "none", width: 920, height: 42, float: "none" }}
-        />
+          }
+        ></Alert>
+        <ChapterControlBar></ChapterControlBar>
+        <div className="mb-4"></div>
       </div>
-    </>
+    </DataLoader>
   );
 }
