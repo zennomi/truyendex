@@ -29,7 +29,7 @@ export const Select: FC<{
     <ShadcnSelect value={props.value} onValueChange={props.onValueChange}>
       <SelectTrigger
         className={twMerge(
-          "w-[300px] bg-foreground text-[14px]",
+          "w-[300px] bg-foreground text-[14px] text-black",
           props.classNames?.trigger,
         )}
       >
