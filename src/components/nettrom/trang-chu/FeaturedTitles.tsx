@@ -68,7 +68,7 @@ export default function FeaturedTitles() {
                         className="w-full overflow-hidden rounded-lg transition group-hover:shadow-lg"
                       >
                         <div className="relative h-full w-full">
-                          <div className="absolute bottom-0 left-0 z-[1] h-2/5 w-full bg-gradient-to-t from-black from-[10%] to-transparent transition-all duration-500 group-hover:h-3/5"></div>
+                          <div className="absolute bottom-0 left-0 z-[1] h-2/5 w-full bg-gradient-to-t from-neutral-900 from-[10%] to-transparent transition-all duration-500 group-hover:h-3/5"></div>
                           <Image
                             fill={true}
                             src={Utils.Mangadex.getCoverArt(manga)}
@@ -77,8 +77,8 @@ export default function FeaturedTitles() {
                           />
                         </div>
                       </AspectRatio>
-                      <div className="absolute bottom-0 left-0 z-[2] min-h-[80px] w-full px-3 py-2 transition-all">
-                        <h3 className="mb-1 line-clamp-2 text-[16px] font-semibold leading-tight text-white">
+                      <div className="absolute bottom-0 left-0 z-[2] w-full px-3 py-2 transition-all">
+                        <h3 className="mb-1 line-clamp-2 text-[16px] font-semibold leading-tight text-white group-hover:line-clamp-4">
                           {title}
                         </h3>
                         <Link
@@ -87,7 +87,7 @@ export default function FeaturedTitles() {
                         >
                           {manga.author?.attributes?.name || ""}
                         </Link>
-                        <p className="time flex h-0 items-center gap-2 overflow-hidden text-muted-foreground group-hover:h-auto">
+                        <p className="time mb-0 mt-1 flex h-0 items-center gap-2 overflow-hidden text-[12px] text-muted-foreground group-hover:h-auto">
                           <FaClock />{" "}
                           <span>
                             {formatDistance(

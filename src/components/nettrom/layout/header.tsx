@@ -36,10 +36,8 @@ export default function Header() {
               >
                 <img
                   alt="Logo NetTrom"
-                  className="my-auto"
                   src={"/nettruyen/images/logo.png"}
-                  width="150"
-                  style={{ aspectRatio: 5 }}
+                  className="my-auto w-[150px]"
                 />
               </Link>
             </div>

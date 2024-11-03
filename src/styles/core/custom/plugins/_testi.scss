@@ -16,7 +16,7 @@
       transform-origin: 0 0;
     }
 
-    @apply before:absolute before:-bottom-[4px] before:left-1/2 before:box-border before:rotate-[45deg] before:border-8 before:border-b-white before:border-l-transparent before:border-r-white before:border-t-transparent before:shadow-testi before:content-[''] dark:before:border-b-slate-900 dark:before:border-r-slate-900 dark:before:shadow-gray-700;
+    @apply before:shadow-testi before:absolute before:-bottom-[4px] before:left-1/2 before:box-border before:rotate-[45deg] before:border-8 before:border-b-white before:border-l-transparent before:border-r-white before:border-t-transparent before:content-[''] dark:before:border-b-slate-900 dark:before:border-r-slate-900 dark:before:shadow-gray-700;
   }
 }
 

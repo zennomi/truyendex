@@ -20,6 +20,8 @@ import { Utils } from "@/utils";
 import { Constants } from "@/constants";
 import { twMerge } from "tailwind-merge";
 
+const loadingText = "Đang tải dữ liệu bảng xếp hạng...";
+
 const MangaTile = (props: {
   manga: ExtendManga;
   title: string;
@@ -45,7 +47,7 @@ const MangaTile = (props: {
       </div>
       <div className="flex grow items-start gap-4 pl-12">
         <Link
-          className="relative w-[64px] shrink-0 rounded shadow-lg"
+          className="relative w-[64px] shrink-0 rounded shadow-[-5px_0_20px_rgba(0,0,0,0.5)]"
           title={props.title}
           href={Constants.Routes.nettrom.manga(props.manga.id)}
         >
@@ -169,21 +171,21 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
             <TabsList className="mb-4 grid h-[48px] grid-cols-3 bg-white/10 p-2">
               <TabsTrigger
                 value="top"
-                className="flex h-full items-center gap-3 rounded text-[14px]"
+                className="flex h-full items-center gap-3 rounded text-[12px]"
               >
                 <FaStar />
                 Top
               </TabsTrigger>
               <TabsTrigger
                 value="favorite"
-                className="flex h-full items-center gap-3 rounded text-[14px]"
+                className="flex h-full items-center gap-3 rounded text-[12px]"
               >
                 <FaHeart />
                 Yêu thích
               </TabsTrigger>
               <TabsTrigger
                 value="new"
-                className="flex h-full items-center gap-3 rounded text-[14px]"
+                className="flex h-full items-center gap-3 rounded text-[12px]"
               >
                 <FaClock />
                 Mới
@@ -193,6 +195,7 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
               <DataLoader
                 isLoading={topMangaListLoading}
                 error={topMangaListError}
+                loadingText={loadingText}
               >
                 <ul className="flex flex-col gap-4">
                   {topMangaList.map((manga, index) => {
@@ -215,6 +218,7 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
               <DataLoader
                 isLoading={favoriteMangaListLoading}
                 error={favoriteMangaListError}
+                loadingText={loadingText}
               >
                 <ul className="flex flex-col gap-4">
                   {favoriteMangaList.map((manga, index) => {
@@ -242,6 +246,7 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
               <DataLoader
                 isLoading={newMangaListLoading}
                 error={newMangaListError}
+                loadingText={loadingText}
               >
                 <ul className="flex flex-col gap-4">
                   {newMangaList.map((manga, index) => {

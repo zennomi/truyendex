@@ -4,7 +4,7 @@ import Iconify from "@/components/iconify";
 import BannerImage from "@/app/opengraph-image.jpg";
 import Collapse from "@/components/collapse";
 import { Constants } from "@/constants";
-import TopNav from "@/components/sections/main/top-nav";
+import TopNav from "@/components/core/top-nav";
 
 export default async function Home() {
   return (

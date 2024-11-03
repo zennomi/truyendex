@@ -33,7 +33,7 @@ const MangaTile = (props: {
               ratio={Constants.Nettrom.MANGA_COVER_RATIO}
               className="overflow-hidden rounded-lg group-hover:shadow-lg"
             >
-              <div className="absolute bottom-0 left-0 z-[1] h-3/5 w-full bg-gradient-to-t from-black from-[15%] to-transparent transition-all duration-500"></div>
+              <div className="absolute bottom-0 left-0 z-[1] h-3/5 w-full bg-gradient-to-t from-neutral-900 from-[15%] to-transparent transition-all duration-500 group-hover:h-3/4"></div>
               <img
                 src={props.thumbnail}
                 className="lazy h-full w-full object-cover transition duration-500 group-hover:scale-[102%]"
@@ -43,10 +43,10 @@ const MangaTile = (props: {
             </AspectRatio>
           </Link>
           <div className="absolute bottom-0 left-0 z-[2] w-full px-2 py-1.5">
-            <h3 className="mb-2 line-clamp-2 text-[16px] font-semibold leading-tight text-white transition">
+            <h3 className="mb-2 line-clamp-2 text-[14px] font-semibold leading-tight text-white transition group-hover:line-clamp-4">
               {props.title}
             </h3>
-            <span className="flex items-center justify-between gap-[8px] text-[12px] text-muted-foreground">
+            <span className="flex items-center justify-between gap-[4px] text-[11px] text-muted-foreground">
               <span className="flex items-center gap-[4px]">
                 <i className="fa fa-star"></i>
                 {Utils.Number.formatViews(
@@ -150,7 +150,7 @@ export default function NewUpdates({
       <div className="ModuleContent">
         <div className="items">
           <div className="relative">
-            <h1 className="mb-5 flex items-center gap-3 text-[20px] text-web-title">
+            <h1 className="my-0 mb-5 flex items-center gap-3 text-[20px] text-web-title">
               <FaClock />
               <span>Truyện mới cập nhật</span>
             </h1>

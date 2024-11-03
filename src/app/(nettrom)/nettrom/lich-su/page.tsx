@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import HistoryList from "@/components/sections/nettrom/lich-su/history-list";
-import TopTitles from "@/components/sections/nettrom/common/top-titles-table";
+import HistoryList from "@/components/nettrom/lich-su/history-list";
+import TopTitles from "@/components/nettrom/common/top-titles-table";
 import { Constants } from "@/constants";
 
 export const metadata: Metadata = {

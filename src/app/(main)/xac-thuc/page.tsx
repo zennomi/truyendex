@@ -1,5 +1,5 @@
 import Iconify from "@/components/iconify";
-import LogoutButton from "@/components/sections/main/auth/logout-button";
+import LogoutButton from "@/components/core/auth/logout-button";
 
 export default function VerifyEmailPage() {
   return (

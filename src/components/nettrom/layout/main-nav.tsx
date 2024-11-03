@@ -8,7 +8,7 @@ export default function MainNav() {
     <div className="Module Module-144">
       <div className="ModuleContent">
         <ul className="nav navbar-nav main-menu">
-          <li className="active">
+          <li>
             <Link target="_self" href={Constants.Routes.nettrom.index}>
               <i className="fa fa-home hidden-xs"></i>
               <span className="visible-xs">Trang chủ</span>

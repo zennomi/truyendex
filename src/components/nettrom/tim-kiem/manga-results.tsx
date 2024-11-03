@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useSearchManga } from "@/hooks/mangadex";
 import { useMangadex } from "@/contexts/mangadex";
 import ReactPaginate from "react-paginate";
-import Loading from "@/components/sections/nettrom/layout/loading";
+import Loading from "@/components/nettrom/layout/loading";
 import { Utils } from "@/utils";
 import { Constants } from "@/constants";
 

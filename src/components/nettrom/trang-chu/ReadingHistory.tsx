@@ -27,7 +27,7 @@ export default function ReadingHistory() {
         </div>
         <ul className="grid grid-cols-4 gap-4">
           {Object.entries(history)
-            .slice(0, 5)
+            .slice(0, 4)
             .map(([mangaId, manga]) => (
               <li className="group" key={mangaId}>
                 <div className="flex gap-3">

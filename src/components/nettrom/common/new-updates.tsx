@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useLastUpdates } from "@/hooks/mangadex";
 import { useMangadex } from "@/contexts/mangadex";
-import Loading from "@/components/sections/nettrom/layout/loading";
+import Loading from "@/components/nettrom/layout/loading";
 import { ExtendChapter } from "@/types/mangadex";
 import { Utils } from "@/utils";
 import { Constants } from "@/constants";

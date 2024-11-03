@@ -1,13 +1,15 @@
 import Link from "next/link";
 import { Inter } from "next/font/google";
-import MainNav from "@/components/sections/nettrom/layout/main-nav";
-import Header from "@/components/sections/nettrom/layout/header";
+import MainNav from "@/components/nettrom/layout/main-nav";
+import Header from "@/components/nettrom/layout/header";
 import { Constants } from "@/constants";
 import "@/styles/nettrom/index.scss";
 import { twMerge } from "tailwind-merge";
 import { LayoutWrapper } from "@/components/LayoutWrapper";
 import { Metadata } from "next";
 import { Suspense } from "react";
+import { Alert } from "@/components/nettrom/Alert";
+import NextTopLoader from "nextjs-toploader";
 
 export const metadata: Metadata = {
   title: `${Constants.APP_NAME} - Truyện tranh chất lượng cao không quảng cáo`,
@@ -39,25 +41,28 @@ export default function NettromLayout({
 }) {
   return (
     <LayoutWrapper id="nettrom">
+      <NextTopLoader
+        zIndex={1000}
+        easing="ease-in-out"
+        speed={400}
+        showSpinner={false}
+        template={`
+        <div class="bar bg-primary" role="bar"><div class="peg"></div></div> 
+  <div class="spinner text-primary" role="spinner"><div class="spinner-icon"></div></div>`}
+      />
       <Suspense>
         <Header />
       </Suspense>
       <nav className="main-nav hidden-xs" id="mainNav">
         <div className="inner">
           <div className="container">
-            <div
-              className="notify_block"
-              style={{ margin: 0, borderRadius: 0 }}
-            >
-              <div className="info">
-                <em className="fa fa-info-circle" />
-              </div>
-              <span className="!block">
-                TruyenDex chỉ xây dựng giao diện tiếng Việt, toàn bộ dữ liệu
-                thuộc về MangaDex
-              </span>
+            <div className="py-4">
+              <Alert
+                title="TruyenDex chỉ xây dựng giao diện tiếng Việt, toàn bộ dữ liệu
+                thuộc về MangaDex."
+              />
+              <MainNav />
             </div>
-            <MainNav />
           </div>
         </div>
       </nav>
