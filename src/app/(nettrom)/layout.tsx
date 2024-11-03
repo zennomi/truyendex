@@ -39,6 +39,7 @@ export default function NettromLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const copyrightYear = new Date().getFullYear();
   return (
     <LayoutWrapper id="nettrom">
       <NextTopLoader
@@ -67,10 +68,10 @@ export default function NettromLayout({
           </div>
         </div>
       </nav>
-      <main className={twMerge("main", inter.className)}>
+      <main className={twMerge("main text-foreground", inter.className)}>
         <div className="container">{children}</div>
       </main>
-      <footer className="footer">
+      <footer className="footer border-t bg-[#000]">
         <div className="container">
           <div className="row">
             <div
@@ -87,20 +88,28 @@ export default function NettromLayout({
               </Link>
               <div className="mrt10 row">
                 <div className="col-xs-6">
-                  <a
+                  {/* <a
                     href="https://mangadex.org/about"
                     rel="nofollow noopener"
                     target="_blank"
                   >
                     MangaDex
-                  </a>
+                  </a> */}
                 </div>
                 {/* <div className="col-xs-6">
                       <a href="/chinh-sach-bao-mat">Chính sách bảo mật</a>
                     </div> */}
               </div>
               <p></p>
-              <p>Copyright © 2023 {Constants.APP_NAME}</p>
+              <p>
+                Copyright © {copyrightYear}{" "}
+                <Link
+                  href="/"
+                  className="text-web-title transition hover:!bg-transparent hover:bg-web-titleLighter hover:underline"
+                >
+                  {Constants.APP_NAME}
+                </Link>
+              </p>
             </div>
             <div className="col-sm-8">
               <div className="link-footer">

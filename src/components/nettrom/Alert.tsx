@@ -24,8 +24,8 @@ export const Alert: FC<{
         props.classNames?.alert,
       )}
     >
-      <div className="flex gap-3">
-        <span>
+      <div className="flex grow gap-3 sm:items-center">
+        <span className="shrink-0">
           <FaExclamationCircle className="inline text-[20px]" />
         </span>
         <div className="flex h-full grow flex-col justify-center">

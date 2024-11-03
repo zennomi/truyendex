@@ -26,7 +26,7 @@ export const Select: FC<{
   onValueChange?: (value: string) => void;
 }> = (props) => {
   return (
-    <ShadcnSelect value={props.value}>
+    <ShadcnSelect value={props.value} onValueChange={props.onValueChange}>
       <SelectTrigger
         className={twMerge(
           "w-[300px] bg-foreground text-[14px]",
@@ -46,9 +46,6 @@ export const Select: FC<{
                 className={twMerge("text-[14px]", props.classNames?.item)}
                 key={item.value}
                 value={item.value}
-                onSelect={() => {
-                  props.onValueChange?.(item.value);
-                }}
               >
                 {item.label}
               </SelectItem>
