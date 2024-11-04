@@ -18,19 +18,19 @@ export default function Collapse({
 
   return (
     <div
-      className={`transition-all relative shadow dark:shadow-gray-800 rounded-md overflow-hidden`}
+      className={`relative overflow-hidden rounded-md shadow transition-all dark:shadow-gray-800`}
     >
       <h2 className="text-base font-semibold" id="accordion-collapse-heading-1">
         <button
           type="button"
-          className={`flex justify-between items-center p-5 w-full font-medium text-left ${value ? "bg-gray-50 dark:bg-slate-800 text-indigo-600" : "text-dark dark:text-white"}`}
+          className={`flex w-full items-center justify-between p-5 text-left font-medium ${value ? "bg-gray-50 text-indigo-600 dark:bg-slate-800" : "text-dark dark:text-white"}`}
           aria-expanded="true"
           onClick={toggle}
         >
           <span>{title}</span>
           <svg
             data-accordion-icon=""
-            className={`w-4 h-4 shrink-0 ${value ? "" : "rotate-180"}`}
+            className={`h-4 w-4 shrink-0 ${value ? "" : "rotate-180"}`}
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"

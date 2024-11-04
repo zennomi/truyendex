@@ -1,22 +1,13 @@
+import { LayoutWrapper } from "@/components/LayoutWrapper";
+import "@/styles/core/index.scss";
+
 import { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { ToastContainer } from "react-toastify";
-
-import "react-toastify/dist/ReactToastify.css";
-import "@/assets/scss/tailwind.scss";
-// slick-carousel
-import { MangadexContextProvider } from "@/contexts/mangadex";
-import Gtag from "@/components/gtag";
-import config from "@/config";
-
-const inter = Inter({ subsets: ["latin"] });
+import { Constants } from "@/constants";
 
 export const metadata: Metadata = {
-  title: `${config.appName} - Truyện tranh chất lượng cao không quảng cáo`,
-  description: `Đọc truyện miễn phí, chất lượng cao và tham gia ủng hộ nhóm dịch trên ${config.appName}`,
-  applicationName: config.appName,
+  title: `${Constants.APP_NAME} - Truyện tranh chất lượng cao không quảng cáo`,
+  description: `Đọc truyện miễn phí, chất lượng cao và tham gia ủng hộ nhóm dịch trên ${Constants.APP_NAME}`,
+  applicationName: Constants.APP_NAME,
   authors: [{ name: "TruyenDex", url: "https://github.com/zennomi/truyendex" }],
   keywords: [
     "truyện tranh",
@@ -28,24 +19,20 @@ export const metadata: Metadata = {
     "blogtruyen",
     "truyendex",
   ],
-  metadataBase: new URL(config.appUrl),
+  metadataBase: new URL(Constants.APP_URL),
   other: {
     referrer: "same-origin",
   },
 };
 
-export default function RootLayout({
+export default function CoreLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="vi" className="dark">
-      <body className={`${inter.className}`}>
-        <MangadexContextProvider>{children}</MangadexContextProvider>
-        <ToastContainer />
-        <Gtag />
-      </body>
-    </html>
+    <LayoutWrapper id="core">
+      <main>{children}</main>;
+    </LayoutWrapper>
   );
 }

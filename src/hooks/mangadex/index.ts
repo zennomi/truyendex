@@ -6,3 +6,4 @@ export { default as useLastUpdates } from "./useLastUpdates";
 export { default as useMangaAggregate } from "./useMangaAggregate";
 export { default as useScanlationGroup } from "./useScanlationGroup";
 export { default as useSearchManga } from "./useSearchManga";
+export { default as useTags } from "./useTags";

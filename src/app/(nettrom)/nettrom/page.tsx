@@ -1,27 +1,21 @@
-import FeaturedTitles from "@/sections/nettrom/trang-chu/featured-titles";
-import NewUpdates from "@/sections/nettrom/common/new-updates";
-import ReadingHistory from "@/sections/nettrom/trang-chu/reading-history-table";
-import TopTitles from "@/sections/nettrom/common/top-titles-table";
+import FeaturedTitles from "@/components/nettrom/trang-chu/featured-titles";
+import NewUpdates from "@/components/nettrom/trang-chu/new-updated-titles";
+import ReadingHistory from "@/components/nettrom/trang-chu/reading-history";
+import TopTitles from "@/components/nettrom/trang-chu/top-titles";
 
-export const metadata = {
-  title: "Đọc Truyện Tranh Online - Website chính thức - NetTrom",
-  description:
-    "Web đọc truyện tranh online lớn nhất được cập nhật liên tục mỗi ngày - Cùng tham gia đọc truyện và thảo luận với hơn 💚10 triệu thành viên tại NetTrom",
-};
-
-export default function Nettrom() {
+export default function HomePage() {
   return (
-    <>
+    <div className="flex flex-col gap-[40px]">
       <FeaturedTitles />
-      <div className="row">
-        <div id="ctl00_divCenter" className="center-side col-md-8">
+      <div className="grid gap-[40px] lg:grid-cols-[2fr_1fr]">
+        <div>
           <NewUpdates />
         </div>
-        <div className="right-side col-md-4 cmszone" id="ctl00_divRight">
+        <div className="flex flex-col gap-[20px]">
           <ReadingHistory />
           <TopTitles />
         </div>
       </div>
-    </>
+    </div>
   );
 }

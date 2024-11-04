@@ -23,13 +23,13 @@ export default function MangaImage({
   const [loaded, setLoaded] = useState(false);
   return (
     <span
-      className={`leading-0 block overflow-hidden ${loaded ? "min-h-0" : "min-h-[100vh]"} [&_.wrapper]:w-full [&_.wrapper]:h-full [&_.wrapper]:!bg-cover ${className}`}
+      className={`leading-0 block overflow-hidden ${loaded ? "min-h-0" : "min-h-[100vh]"} [&_.wrapper]:h-full [&_.wrapper]:w-full [&_.wrapper]:!bg-cover ${className}`}
     >
       <LazyLoadImage
         wrapperClassName="wrapper"
         effect={disabledEffect ? undefined : effect}
         placeholderSrc={"/images/loading.jpg"}
-        className="w-full h-full object-cover"
+        className="h-full w-full object-cover"
         afterLoad={() => setLoaded(true)}
         threshold={threshold}
         {...other}

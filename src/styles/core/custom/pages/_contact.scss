@@ -1,0 +1,35 @@
+/*********************************/
+/*             Contact           */
+/*===============================*/
+.form-input {
+  @apply h-10 w-full rounded border border-inherit bg-transparent px-3 py-2 outline-none dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200;
+  &:focus {
+    @apply border-indigo-600 shadow-none;
+  }
+}
+
+/* Validation */
+.error {
+  @apply mx-0 my-2 hidden text-red-600;
+}
+
+#ajaxsuccess {
+  @apply clear-both mx-0 my-2 hidden w-full text-base;
+}
+
+.error_message,
+#success_page {
+  @apply mb-5 rounded-md p-2.5 text-center;
+}
+
+.error_message {
+  @apply bg-red-600/5 text-red-600;
+}
+
+.contact-loader {
+  @apply hidden;
+}
+
+#success_page {
+  @apply bg-emerald-600/5 text-emerald-600;
+}

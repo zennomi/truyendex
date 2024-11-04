@@ -11,7 +11,7 @@ import {
   MangaStatistic,
 } from "@/types/mangadex";
 import { MangadexApi } from "@/api";
-import { extendRelationship } from "@/utils/mangadex";
+import { Utils } from "@/utils";
 
 export type Mangas = { [k: string]: ExtendManga };
 export type MangaStatistics = Record<string, MangaStatistic>;
@@ -81,7 +81,7 @@ export const MangadexContextProvider = ({
         });
         if (data && (data as MangaResponse).data) {
           setMangas((prevMangas) => {
-            prevMangas[mangaId] = extendRelationship(
+            prevMangas[mangaId] = Utils.Mangadex.extendRelationship(
               (data as MangaResponse).data,
             ) as ExtendManga;
             return { ...prevMangas };
@@ -103,7 +103,9 @@ export const MangadexContextProvider = ({
         if (data && (data as MangaList).data) {
           setMangas((prevMangas) => {
             for (const manga of (data as MangaList).data) {
-              prevMangas[manga.id] = extendRelationship(manga) as ExtendManga;
+              prevMangas[manga.id] = Utils.Mangadex.extendRelationship(
+                manga,
+              ) as ExtendManga;
             }
             return { ...prevMangas };
           });
@@ -119,7 +121,9 @@ export const MangadexContextProvider = ({
     (mangaList: ExtendManga[]) => {
       setMangas((prevMangas) => {
         for (const manga of mangaList) {
-          prevMangas[manga.id] = extendRelationship(manga) as ExtendManga;
+          prevMangas[manga.id] = Utils.Mangadex.extendRelationship(
+            manga,
+          ) as ExtendManga;
         }
         return { ...prevMangas };
       });
