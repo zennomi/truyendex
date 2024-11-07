@@ -32,7 +32,7 @@ export default function CoreLayout({
 }) {
   return (
     <LayoutWrapper id="core">
-      <main>{children}</main>;
+      <main>{children}</main>
     </LayoutWrapper>
   );
 }
