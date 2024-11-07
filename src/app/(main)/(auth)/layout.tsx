@@ -24,6 +24,13 @@ export default function AuthLayout({
                     />
                   </Link>
                 </div>
+                <div className="relative mt-2 block rounded-md border border-indigo-600/10 bg-indigo-600/10 px-4 py-2 font-medium text-indigo-600">
+                  <Iconify
+                    icon="uil:exclamation-circle"
+                    className="me-1 inline"
+                  />{" "}
+                  Chức năng đăng nhập chưa được triển khai chính thức
+                </div>
                 <div className="title-heading my-20 text-center md:my-auto">
                   {children}
                 </div>
@@ -48,16 +55,16 @@ export default function AuthLayout({
                     <div className="relative mx-auto max-w-xl text-start">
                       <div className="relative rounded-[30px] border-2 border-indigo-600 p-8 before:absolute before:-bottom-1 before:start-16 before:z-2 before:w-28 before:border-[6px] before:border-white before:content-[''] after:absolute after:-bottom-[80px] after:start-[60px] after:z-3 after:h-20 after:w-20 after:rounded-none after:rounded-e-[50px] after:border-2 after:border-b-0 after:border-s-0 after:border-indigo-600 after:content-[''] dark:before:border-slate-900">
                         <span className="font-semibold leading-normal">
-                          Launch your campaign and benefit from our expertise on
-                          designing and managing conversion centered latest
-                          Tailwind CSS html page.
+                          Chức năng đăng nhập đang trong giai đoạn phát triển và
+                          thử nghiệm. Sẽ sớm ra mắt trong tháng này (hoặc tháng
+                          sau)...
                         </span>
                         <div className="absolute -top-0 start-4 -z-1 text-8xl text-indigo-600/10 dark:text-indigo-600/20">
                           <Iconify icon="mdi:format-quote-open" />
                         </div>
                       </div>
                       <div className="ms-44 mt-6 text-lg font-semibold">
-                        - Techwind
+                        - TruyenDex
                       </div>
                     </div>
                     {/* <p class="text-slate-400 max-w-xl mx-auto">Start working with Tailwind CSS that can provide everything you need to generate awareness, drive traffic, connect. Dummy text is text that is used in the publishing industry or by web designers to occupy the space which will later be filled with 'real' content.</p> */}

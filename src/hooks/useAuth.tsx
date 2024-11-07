@@ -25,6 +25,9 @@ export const useAuth = ({
     error,
     mutate,
   } = useSWR("/api/user", async () => {
+    if (!Constants.BACKEND_URL) {
+      return null;
+    }
     try {
       const { data } = await axios.get<GetUserResponse>("/api/user");
       if (!data.email_verified_at) {
