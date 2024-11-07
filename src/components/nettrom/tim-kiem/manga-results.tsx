@@ -1,7 +1,6 @@
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
-import Image from "next/image";
 import { useEffect } from "react";
 import Link from "next/link";
 
@@ -55,7 +54,7 @@ export default function MangaResults() {
                         title={mangaTitle}
                         href={Constants.Routes.nettrom.manga(manga.id)}
                       >
-                        <Image
+                        <img
                           src={coverArt}
                           className="lazy center"
                           data-original={coverArt}

@@ -3,7 +3,6 @@
 import formatDistance from "date-fns/formatDistance";
 import vi from "date-fns/locale/vi";
 import Slider from "react-slick";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { useFeaturedTitles } from "@/hooks/mangadex";
@@ -70,8 +69,7 @@ export default function FeaturedTitles() {
                         title={title}
                         className="relative block h-full w-full"
                       >
-                        <Image
-                          fill={true}
+                        <img
                           src={Utils.Mangadex.getCoverArt(manga)}
                           className="lazy h-full w-full object-cover"
                           alt={title}

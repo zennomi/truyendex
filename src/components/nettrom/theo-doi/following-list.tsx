@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { toast } from "react-toastify";
@@ -69,7 +68,7 @@ export default function FollowingList() {
                         {" "}
                         <Link title={title} href={url}>
                           {" "}
-                          <Image
+                          <img
                             src={coverArt}
                             className="lazy center image-thumb"
                             data-original={coverArt}

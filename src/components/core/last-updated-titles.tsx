@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 
 import Iconify from "@/components/iconify";
 import { ExtendManga } from "@/types/mangadex";
@@ -39,10 +38,7 @@ export default function LastUpdatedTitles({
             return (
               <div className="group" key={extended.id}>
                 <div className="relative overflow-hidden rounded-md shadow duration-500 group-hover:shadow-lg dark:shadow-gray-800 group-hover:dark:shadow-gray-800">
-                  <Image
-                    src={Utils.Mangadex.getCoverArt(extended)}
-                    alt={title}
-                  />
+                  <img src={Utils.Mangadex.getCoverArt(extended)} alt={title} />
 
                   <div className="absolute -bottom-20 end-3 start-3 duration-500 group-hover:bottom-3">
                     <Link

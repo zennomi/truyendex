@@ -5,7 +5,6 @@ import { useFeaturedTitles } from "@/hooks/mangadex";
 import { useMangadex } from "@/contexts/mangadex";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Link from "next/link";
-import Image from "next/image";
 import { formatDistance } from "date-fns";
 import { vi } from "date-fns/locale";
 import { AspectRatio } from "@/components/shadcn/aspect-ratio";
@@ -69,8 +68,7 @@ export default function FeaturedTitles() {
                       >
                         <div className="relative h-full w-full">
                           <div className="absolute bottom-0 left-0 z-[1] h-2/5 w-full bg-gradient-to-t from-neutral-900 from-[10%] to-transparent transition-all duration-500 group-hover:h-3/5"></div>
-                          <Image
-                            fill={true}
+                          <img
                             src={Utils.Mangadex.getCoverArt(manga)}
                             alt={title}
                             className="h-full w-full object-cover transition duration-500 group-hover:scale-[102%]"

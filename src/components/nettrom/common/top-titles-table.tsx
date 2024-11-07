@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect } from "react";
-import Image from "next/image";
 
 import { MangadexApi } from "@/api";
 import { useMangadex } from "@/contexts/mangadex";
@@ -85,8 +84,7 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
                           title={title}
                           href={Constants.Routes.nettrom.manga(manga.id)}
                         >
-                          <Image
-                            fill={true}
+                          <img
                             className="lazy h-full w-full object-cover"
                             src={Utils.Mangadex.getCoverArt(manga)}
                             alt={title}

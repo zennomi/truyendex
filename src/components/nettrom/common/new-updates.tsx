@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import ReactPaginate from "react-paginate";
@@ -91,8 +90,7 @@ export default function NewUpdates({
                         title={mangaTitle}
                         href={Constants.Routes.nettrom.manga(mangaId)}
                       >
-                        <Image
-                          fill={true}
+                        <img
                           src={coverArt}
                           className="lazy h-full w-full object-cover"
                           data-original={coverArt}
