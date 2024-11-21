@@ -29,6 +29,7 @@ module.exports = {
         web: {
           title: "#ff9601",
           titleLighter: "#ffab34",
+          titleDisabled: "#808080",
         },
         dark: "#3c4858",
         black: "#161c2d",

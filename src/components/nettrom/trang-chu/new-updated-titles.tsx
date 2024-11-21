@@ -13,14 +13,18 @@ import { FaClock } from "react-icons/fa";
 import { AspectRatio } from "@/components/shadcn/aspect-ratio";
 import { DataLoader } from "@/components/DataLoader";
 import { Utils } from "@/utils";
+import useReadingHistory from "@/hooks/useReadingHistory";
+import { ReadingHistory } from "@/types";
 
 const MangaTile = (props: {
   id: string;
   title: string;
   thumbnail: string;
   chapters: ExtendChapter[];
+  readedChapters: ReadingHistory;
 }) => {
   const { mangaStatistics } = useMangadex();
+  const readedChaptersId = props.readedChapters?.chapterId ?? null;
   return (
     <div className="group">
       <figure className="clearfix">
@@ -80,7 +84,11 @@ const MangaTile = (props: {
                 <Link
                   href={Constants.Routes.nettrom.chapter(chapter.id)}
                   title={Utils.Mangadex.getChapterTitle(chapter)}
-                  className="flex-grow overflow-hidden text-ellipsis whitespace-nowrap text-web-title transition hover:text-web-titleLighter"
+                  className={
+                    readedChaptersId === chapter.id
+                      ? "flex-grow overflow-hidden text-ellipsis whitespace-nowrap text-web-titleDisabled transition hover:text-web-titleLighter"
+                      : "flex-grow overflow-hidden text-ellipsis whitespace-nowrap text-web-title transition hover:text-web-titleLighter"
+                  }
                 >
                   {Utils.Mangadex.getChapterTitle(chapter)}
                 </Link>
@@ -106,6 +114,7 @@ export default function NewUpdates({
   groupId?: string;
 }) {
   const [page, setPage] = useState(0);
+  const { history } = useReadingHistory();
   const { chapters, isLoading, error, total } = useLastUpdates({
     page,
     groupId,
@@ -169,6 +178,7 @@ export default function NewUpdates({
                 const mangaTitle = Utils.Mangadex.getMangaTitle(
                   mangas[mangaId],
                 );
+                const readedChapters = history[mangaId];
                 return (
                   <MangaTile
                     id={mangaId}
@@ -176,6 +186,7 @@ export default function NewUpdates({
                     thumbnail={coverArt}
                     title={mangaTitle}
                     chapters={chapterList}
+                    readedChapters={readedChapters}
                   />
                 );
               })}
