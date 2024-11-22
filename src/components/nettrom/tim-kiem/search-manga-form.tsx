@@ -2,6 +2,7 @@
 
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Select, { StylesConfig } from "react-select";
+import React, { useState } from "react";
 
 import { MangadexApi } from "@/api";
 import { Tag } from "@/types/mangadex";
@@ -9,6 +10,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { Utils } from "@/utils";
 import { Constants } from "@/constants";
+import { describe } from "node:test";
+import { descriptionSearch } from "@/types/description-search"
 
 type Inputs = MangadexApi.Manga.GetSearchMangaRequestOptions & {
   orderType?: string;
@@ -49,9 +52,22 @@ export default function SearchMangaForm() {
   const router = useRouter();
   const params = useSearchParams();
 
+  const [descriptionText, setDescriptionText] = useState<string>("");
+
   const { register, handleSubmit, watch, reset, setValue, control } =
     useForm<Inputs>({});
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    
+    const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setDescriptionText(event.target.value);
+    };
+
+    const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    console.log("describe text " + descriptionText);
+    console.log("title " + data.title);
+    if (descriptionText != "" && data.title == ""){
+      data.title = await descriptionSearch(descriptionText);
+      console.log("title update " + data.title);
+    }
     router.push(Utils.Url.getSearchNetTromUrl(data));
   };
   const values = watch();
@@ -165,6 +181,12 @@ export default function SearchMangaForm() {
           <div className="form-group clearfix">
             <label className="col-sm-2 control-label mrt5 mrt5">Tựa đề</label>
             <input className="form-control" {...register("title")} />
+          </div>
+          <div className="form-group clearfix">
+            <label className="col-sm-2 control-label mrt5 mrt5">Mô tả</label>
+            <input className="form-control" value={descriptionText}
+            onChange={handleDescriptionChange}
+            />
           </div>
           <div className="form-group clearfix">
             <label className="col-sm-2 control-label mrt5 mrt5">Thể loại</label>
