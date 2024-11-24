@@ -9,6 +9,10 @@ import { Utils } from "@/utils";
 export default function useSearchManga(
   options: MangadexApi.Manga.GetSearchMangaRequestOptions,
 ) {
+  // avoid invalid vietnamese characters
+  if (options.title) {
+    options.title = encodeURIComponent(options.title);
+  }
   if (!options.includes) {
     options.includes = [MangadexApi.Static.Includes.COVER_ART];
   }
