@@ -22,7 +22,7 @@ export default function Header() {
 
   return (
     <header
-      className={`header ${openMenu ? "menu-open fixed right-0 top-0 z-2" : ""}`}
+      className={`header ${openMenu ? "menu-open fixed right-0 top-0 z-3" : ""}`}
       id="header"
     >
       <div className="navbar">

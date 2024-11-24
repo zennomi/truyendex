@@ -8,6 +8,7 @@ import { Utils } from "@/utils";
 
 export default function useSearchManga(
   options: MangadexApi.Manga.GetSearchMangaRequestOptions,
+  { enable }: { enable: boolean } = { enable: true },
 ) {
   // avoid invalid vietnamese characters
   if (options.title) {
@@ -19,8 +20,10 @@ export default function useSearchManga(
   if (options.offset && options.offset > 10000) {
     options.offset = 10000 - (options.limit || 10);
   }
-  const { data, error, isLoading } = useSWR(["search-manga", options], () =>
-    MangadexApi.Manga.getSearchManga(options),
+  const { data, error, isLoading } = useSWR(
+    enable ? ["search-manga", options] : null,
+    () => MangadexApi.Manga.getSearchManga(options),
+    {},
   );
   const successData =
     data && data.data.result === "ok" && (data.data as MangaList);
