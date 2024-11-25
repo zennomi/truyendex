@@ -1,5 +1,4 @@
-import * as fs from 'fs';
-import Papa from 'papaparse';
+import {Database} from 'sqlite3';
 
 interface RowData {
   manga_id: string;
@@ -16,24 +15,38 @@ interface RowData {
   title_synonyms: string;
 }
 
-interface TitleSimilarity {
-  title: string;
-  similarity: number;
-}
-
-// Hàm đọc file CSV và parse dữ liệu đọc được thành RowData objects
-function readCSV(filePath: string): Promise<RowData[]> {
+// Đọc dữ liệu từ database
+function fetchData(): Promise<RowData[]> {
+  // Open the SQLite database
+  const db = new Database('../src/data/manga.db');
   return new Promise((resolve, reject) => {
-    const fileStream = fs.createReadStream(filePath, 'utf8');
-    const results: RowData[] = [];
+    const query = `SELECT manga_id, title, sfw, genres, themes, demographics, authors, synopsis, background, title_english, title_japanese, title_synonyms FROM manga_table`; // replace manga_table with your table name
 
-    Papa.parse(fileStream, {
-      header: true,
-      complete: (result) => resolve(result.data as RowData[]),
-      error: (error) => reject(error),
+    db.all(query, (err, rows) => {
+      if (err) {
+        reject(err);
+      } else {
+        // Map rows to the RowData interface
+        const data: RowData[] = rows.map((row: any) => ({
+          manga_id: row.manga_id,
+          title: row.title,
+          sfw: row.sfw,
+          genres: row.genres,
+          themes: row.themes,
+          demographics: row.demographics,
+          authors: row.authors,
+          synopsis: row.synopsis,
+          background: row.background,
+          title_english: row.title_english,
+          title_japanese: row.title_japanese,
+          title_synonyms: row.title_synonyms,
+        }));
+        resolve(data);
+      }
     });
   });
 }
+
 
 // Hàm tính term frequency (TF)
 function computeTF(description: string[]): Map<string, number> {
@@ -100,10 +113,9 @@ function cosineSimilarity(tfidfA: Map<string, number>, tfidfB: Map<string, numbe
 }
 
 // Hàm đọc dữ liệu từ CSV, tính TF-IDF và tìm đầu truyện tương ứng mô tả
-async function descriptionSearch(filePath: string, description: string) {
+export async function descriptionSearch(description: string) {
   try {
-    // Load data from CSV
-    const data = await readCSV(filePath);
+    const data = await fetchData();
     const titles = data.map(row => row.title);
     const synopses = data.map(row => row.synopsis);
 
@@ -131,11 +143,13 @@ async function descriptionSearch(filePath: string, description: string) {
       current.similarity > best.similarity ? current : best
     );
 
+    return topResult.title;
     // Output the top result
     console.log("Most similar title:");
     console.log(`${topResult.title} (Similarity: ${topResult.similarity.toFixed(2)})`);
   } catch (error) {
     console.error("Error:", error);
+    return '';
   }
 }
 
@@ -143,4 +157,4 @@ async function descriptionSearch(filePath: string, description: string) {
 
 // test function
 // const description = "Naruto";
-// descriptionSearch(filePath, description);
+// descriptionSearch(description);
