@@ -1,6 +1,6 @@
 import { MangadexApi } from "@/api";
 import { User } from "@/types/mangadex";
-import NewUpdates from "@/components/nettrom/common/new-updates";
+import NewUpdates from "@/components/nettrom/trang-chu/new-updated-titles";
 import TopTitles from "@/components/nettrom/common/top-titles-table";
 import { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";

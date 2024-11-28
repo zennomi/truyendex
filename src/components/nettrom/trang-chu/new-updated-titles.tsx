@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import ReactPaginate from "react-paginate";
 import { useLastUpdates } from "@/hooks/mangadex";
@@ -113,7 +114,10 @@ export default function NewUpdates({
   title?: string;
   groupId?: string;
 }) {
-  const [page, setPage] = useState(0);
+  const router = useRouter();
+  const pathname = usePathname();
+  const params = useSearchParams();
+  const page = Number(params.get("page")) || 0;
   const { history } = useReadingHistory();
   const { chapters, isLoading, error, total } = useLastUpdates({
     page,
@@ -150,18 +154,14 @@ export default function NewUpdates({
     }
   }, [chapters]);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [page]);
-
   return (
-    <div className="Module Module-163">
+    <div className="Module Module-163" id="new-updates">
       <div className="ModuleContent">
         <div className="items">
           <div className="relative">
             <h1 className="my-0 mb-5 flex items-center gap-3 text-[20px] text-web-title">
               <FaClock />
-              <span>Truyện mới cập nhật</span>
+              <span>{title ?? "Truyện mới cập nhật"}</span>
             </h1>
             {/* <Link
               className="filter-icon"
@@ -172,7 +172,7 @@ export default function NewUpdates({
             </Link> */}
           </div>
           <DataLoader isLoading={isLoading} error={error}>
-            <div className="grid grid-cols-2 gap-[20px] lg:grid-cols-4">
+            <div className="grid min-h-screen grid-cols-2 gap-[20px] lg:grid-cols-4">
               {Object.entries(updates).map(([mangaId, chapterList]) => {
                 const coverArt = Utils.Mangadex.getCoverArt(mangas[mangaId]);
                 const mangaTitle = Utils.Mangadex.getMangaTitle(
@@ -201,7 +201,7 @@ export default function NewUpdates({
             breakLabel="..."
             nextLabel=">"
             onPageChange={(event) => {
-              setPage(event.selected);
+              router.push(`${pathname}?page=${event.selected}#new-updates`);
             }}
             pageRangeDisplayed={5}
             pageCount={Math.floor(
