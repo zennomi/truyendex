@@ -1,5 +1,5 @@
 import Iconify from "@/components/iconify";
-import LogoutButton from "@/components/core/auth/logout-button";
+import Buttons from "@/components/core/auth/verify-email-buttons";
 
 export default function VerifyEmailPage() {
   return (
@@ -27,7 +27,7 @@ export default function VerifyEmailPage() {
                     kiểm tra email (cả mục spam) để xác thực email và tiếp tục
                     sử dụng TruyenDex!
                   </p>
-                  <LogoutButton />
+                  <Buttons />
                 </div>
                 <div className="border-t border-gray-100 p-6 text-center dark:border-gray-700">
                   <p className="mb-0 text-slate-400">© TruyenDex</p>

@@ -100,8 +100,8 @@ export const useAuth = ({
       });
   };
 
-  const resendEmailVerification = () => {
-    axios.post("/email/verification-notification");
+  const resendEmailVerification = async () => {
+    await axios.post("/email/verification-notification");
   };
 
   const logout = useCallback(async () => {
