@@ -124,7 +124,7 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
                 <MenuItem>
                   <Link
                     className={menuItemClassName}
-                    href={Constants.Routes.login}
+                    href={Constants.Routes.nettrom.following}
                   >
                     <Iconify icon="fa:book" /> Truyện theo dõi
                   </Link>

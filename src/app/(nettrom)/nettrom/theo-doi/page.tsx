@@ -1,9 +1,9 @@
-import FollowingList from "@/components/nettrom/theo-doi/following-list";
+import FollowingView from "@/components/nettrom/theo-doi/following-view";
 
 export default function FollowingPage() {
   return (
     <div>
-      <FollowingList />
+      <FollowingView />
     </div>
   );
 }

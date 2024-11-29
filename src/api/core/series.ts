@@ -5,7 +5,7 @@ export const followOrUnfollow = async (seriesId: string) => {
     method: "POST",
     url: "/api/series/follow",
     data: {
-      series_id: seriesId,
+      series_uuid: seriesId,
     },
   });
   return data;
@@ -16,7 +16,7 @@ export const checkFollow = async (seriesId: string) => {
     method: "POST",
     url: "/api/series/check-follow",
     data: {
-      series_id: seriesId,
+      series_uuid: seriesId,
     },
   });
   return data.followed;
