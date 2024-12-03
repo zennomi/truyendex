@@ -1,0 +1,82 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install Yarn
+        run: corepack enable
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Create .env File from Secrets
+        run: |
+          echo "NEXT_PUBLIC_CORS_URL=${{ secrets.NEXT_PUBLIC_CORS_URL }}" >> .env.local
+          echo "NEXT_PUBLIC_GA_MEASUREMENT_ID=${{ secrets.NEXT_PUBLIC_GA_MEASUREMENT_ID }}" >> .env.local
+          echo "NEXT_PUBLIC_APP_URL=${{ secrets.NEXT_PUBLIC_APP_URL }}" >> .env.local
+          echo "NEXT_PUBLIC_BACKEND_URL=${{ secrets.NEXT_PUBLIC_BACKEND_URL }}" >> .env.local
+
+      - name: Build Project
+        run: yarn build
+
+      - name: Archive Build Files
+        run: |
+          mkdir -p build && mv .next build/ && mv public build/ && mv package.json build/ && mv yarn.lock build/
+          tar -czf build.tar.gz -C build .
+
+      - name: Deploy to VPS
+        run: |
+          SSH_USERNAME="${{ secrets.VPS_USERNAME }}"
+          SSH_PASSWORD="${{ secrets.VPS_PASSWORD }}"
+          VPS_HOST="${{ secrets.VPS_HOST }}"
+          APP_DIR="${{ secrets.APP_DIR }}"
+
+          # Install sshpass for password-based authentication
+          sudo apt-get update && sudo apt-get install -y sshpass
+
+          # Create target directory on VPS
+          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$SSH_USERNAME@$VPS_HOST" "mkdir -p $APP_DIR"
+
+          # Copy build files to VPS
+          sshpass -p "$SSH_PASSWORD" scp -o StrictHostKeyChecking=no build.tar.gz "$SSH_USERNAME@$VPS_HOST:$APP_DIR/"
+
+          # SSH into VPS and deploy
+          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$SSH_USERNAME@$VPS_HOST" << EOF
+            source ~/.nvm/nvm.sh
+
+            nvm use --lts
+
+            # Navigate to app directory
+            cd $APP_DIR
+
+            # Extract build files
+            tar -xzf build.tar.gz
+            rm -rf build.tar.gz
+
+            # Install dependencies
+            yarn install
+
+            # Restart app (use pm2 or a similar process manager)
+            pm2 delete truyendex || true
+            pm2 start "yarn start -p ${{ secrets.PORT }}" --name truyendex
+            pm2 save
+          EOF
