@@ -4,8 +4,6 @@ import { PropsWithChildren } from "react";
 import { ToastContainer } from "react-toastify";
 import { MangadexContextProvider } from "@/contexts/mangadex";
 import Gtag from "@/components/gtag";
-import "slick-carousel/slick/slick-theme.css";
-import "slick-carousel/slick/slick.css";
 import "react-toastify/dist/ReactToastify.css";
 import "swiper/css";
 import "@fortawesome/fontawesome-free/css/all.css";
