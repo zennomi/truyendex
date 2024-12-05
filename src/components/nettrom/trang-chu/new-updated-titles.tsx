@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import ReactPaginate from "react-paginate";
@@ -118,13 +118,13 @@ export default function NewUpdates({
   const pathname = usePathname();
   const params = useSearchParams();
   const page = Number(params.get("page")) || 0;
+  const [totalPage, setTotalPage] = useState(0);
   const { history } = useReadingHistory();
   const { chapters, isLoading, error, total } = useLastUpdates({
     page,
     groupId,
   });
-  const { mangas, updateMangas, updateMangaStatistics, mangaStatistics } =
-    useMangadex();
+  const { mangas, updateMangas, updateMangaStatistics } = useMangadex();
   const updates: Record<string, ExtendChapter[]> = {};
 
   if (chapters) {
@@ -154,6 +154,11 @@ export default function NewUpdates({
     }
   }, [chapters]);
 
+  useEffect(() => {
+    if (!total) return;
+    setTotalPage(Math.floor(total / Constants.Mangadex.LAST_UPDATES_LIMIT));
+  }, [total]);
+
   return (
     <div className="Module Module-163" id="new-updates">
       <div className="ModuleContent">
@@ -172,7 +177,7 @@ export default function NewUpdates({
             </Link> */}
           </div>
           <DataLoader isLoading={isLoading} error={error}>
-            <div className="grid min-h-screen grid-cols-2 gap-[20px] lg:grid-cols-4">
+            <div className={`grid grid-cols-2 gap-[20px] lg:grid-cols-4`}>
               {Object.entries(updates).map(([mangaId, chapterList]) => {
                 const coverArt = Utils.Mangadex.getCoverArt(mangas[mangaId]);
                 const mangaTitle = Utils.Mangadex.getMangaTitle(
@@ -204,9 +209,7 @@ export default function NewUpdates({
               router.push(`${pathname}?page=${event.selected}#new-updates`);
             }}
             pageRangeDisplayed={5}
-            pageCount={Math.floor(
-              total / Constants.Mangadex.LAST_UPDATES_LIMIT,
-            )}
+            pageCount={totalPage}
             previousLabel="<"
             renderOnZeroPageCount={null}
             marginPagesDisplayed={2}
