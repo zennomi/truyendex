@@ -1,5 +1,4 @@
 "use client";
-
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Select, { StylesConfig } from "react-select";
 import React, { useState } from "react";
@@ -11,7 +10,7 @@ import { useEffect } from "react";
 import { Utils } from "@/utils";
 import { Constants } from "@/constants";
 import { describe } from "node:test";
-import { descriptionSearch } from "@/types/description-search"
+import axios from "axios";
 
 type Inputs = MangadexApi.Manga.GetSearchMangaRequestOptions & {
   orderType?: string;
@@ -62,12 +61,20 @@ export default function SearchMangaForm() {
     };
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log("describe text " + descriptionText);
-    console.log("title " + data.title);
-    if (descriptionText != "" && data.title == ""){
-      data.title = await descriptionSearch(descriptionText);
-      console.log("title update " + data.title);
+    const apiUrl = `http://127.0.0.1:8000/api/search/?describe=${encodeURIComponent(descriptionText)}`;
+    
+    try {
+      const response = await axios.get(apiUrl);
+      console.log("API Response:", response.data);
+
+      if (response != null){
+        data.title = response.data[0].title;
+        console.log("API Response title:", response.data[0].title);
+      }
+    } catch (error) {
+        console.error("Error calling Django API:", error);
     }
+
     router.push(Utils.Url.getSearchNetTromUrl(data));
   };
   const values = watch();
@@ -184,9 +191,7 @@ export default function SearchMangaForm() {
           </div>
           <div className="form-group clearfix">
             <label className="col-sm-2 control-label mrt5 mrt5">Mô tả</label>
-            <input className="form-control" value={descriptionText}
-            onChange={handleDescriptionChange}
-            />
+            <input className="form-control" value={descriptionText} onChange={handleDescriptionChange}/>
           </div>
           <div className="form-group clearfix">
             <label className="col-sm-2 control-label mrt5 mrt5">Thể loại</label>

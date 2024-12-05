@@ -10,8 +10,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 class MangaSearchView(APIView):
     def get(self, request):
         # Get the 'desribe' parameter from the request query
-        title = request.GET.get('title', None)
-        print('input title ' + title)
+        describe = request.GET.get('describe', None)
 
         # Serialize the records
         mangas = Manga.objects.all()
@@ -24,19 +23,19 @@ class MangaSearchView(APIView):
         
         tfidf = TfidfVectorizer(max_features=5000, stop_words='english')
         synopses_tfidf = tfidf.fit_transform(synopses)
-        title_tfidf = tfidf.transform([title])
+        describe_tfidf = tfidf.transform([describe])
 
-        cosine_similarities = cosine_similarity(title_tfidf, synopses_tfidf).flatten()
+        cosine_similarities = cosine_similarity(describe_tfidf, synopses_tfidf).flatten()
         top_n_indices = cosine_similarities.argsort()[-5:][::-1]
-        top_titles = top_n_indices[0].item()
+        top_describes = top_n_indices[0].item()
         
-        result_manga = mangas.filter(title=mangas[top_titles])
+        title = mangas.filter(title=mangas[top_describes])
                 
-        if not title:
-            return Response({"error": "title parameter is required."}, status=status.HTTP_400_BAD_REQUEST)
+        if not describe:
+            return Response({"error": "describe parameter is required."}, status=status.HTTP_400_BAD_REQUEST)
         
         # Serialize the results
-        serializer = MangaSerializer(result_manga, many=True)
+        serializer = MangaSerializer(title, many=True)
     
         print(type(serializer))
         return Response(serializer.data, status=status.HTTP_200_OK)
