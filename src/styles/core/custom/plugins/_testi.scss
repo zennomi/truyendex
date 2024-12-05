@@ -1,0 +1,69 @@
+/*********************************/
+/*         Testimonial           */
+/*===============================*/
+.client-testi {
+  @apply cursor-e-resize;
+  .content {
+    @apply before:absolute before:left-0 before:top-8 before:ml-3 before:box-border before:origin-[0] before:rotate-[135deg] before:border-8 before:border-solid before:border-b-white before:border-l-transparent before:border-r-white before:border-t-transparent before:shadow before:content-[''] dark:before:border-b-slate-900 dark:before:border-r-slate-900;
+    /* border-color: transparent theme('colors.white') theme('colors.white') transparent; */
+  }
+}
+
+.customer-testi {
+  @apply cursor-e-resize;
+  .content {
+    &:before {
+      transform-origin: 0 0;
+    }
+
+    @apply before:shadow-testi before:absolute before:-bottom-[4px] before:left-1/2 before:box-border before:rotate-[45deg] before:border-8 before:border-b-white before:border-l-transparent before:border-r-white before:border-t-transparent before:content-[''] dark:before:border-b-slate-900 dark:before:border-r-slate-900 dark:before:shadow-gray-700;
+  }
+}
+
+.tns-nav {
+  @apply mt-3 text-center;
+  button {
+    @apply m-1 rounded-[3px] border-0 bg-indigo-600/30 p-[5px] transition-all duration-500 ease-in-out;
+    &.tns-nav-active {
+      @apply rotate-[45deg] bg-indigo-600;
+    }
+  }
+}
+
+/* Tns control */
+.tns-controls {
+  button[data-controls="prev"],
+  button[data-controls="next"] {
+    @apply absolute top-2/4 z-10 h-8 w-8 -translate-y-2/4 rounded-full border-0 bg-white text-base text-dark shadow-md transition-all duration-500 ease-in-out dark:bg-slate-900 dark:text-white dark:shadow-gray-800;
+
+    &:hover {
+      @apply bg-indigo-600 text-white;
+    }
+  }
+  button[data-controls="prev"] {
+    @apply left-0;
+  }
+  button[data-controls="next"] {
+    @apply right-0;
+  }
+}
+
+//Smoth Slider
+$animationSpeed: 120s;
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-360px * 6));
+  }
+}
+.slider {
+  &:after {
+    transform: rotateZ(360deg);
+  }
+  .slide-track {
+    animation: scroll $animationSpeed linear infinite;
+    width: calc(360px * 20);
+  }
+}

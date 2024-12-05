@@ -1,0 +1,74 @@
+/*********************************/
+/*           Portfolio           */
+/*===============================*/
+.container-filter {
+  li {
+    &.active,
+    &:hover {
+      @apply text-slate-900 dark:text-white #{!important};
+    }
+  }
+}
+
+.container-filter-box {
+  li {
+    &.active,
+    &:hover {
+      @apply border-indigo-600 text-indigo-600 #{!important};
+    }
+  }
+}
+
+.container-filter-border-bottom {
+  li {
+    &.active,
+    &:hover {
+      @apply border-b-slate-900 text-slate-900 dark:border-b-white dark:text-white #{!important};
+    }
+  }
+}
+
+.container-filter-white {
+  li {
+    &.active,
+    &:hover {
+      @apply border-b-white text-white #{!important};
+    }
+  }
+}
+
+.container-creative {
+  li {
+    @apply after:absolute after:bottom-[5px] after:left-0 after:right-0 after:h-0 after:w-0 after:rounded-md after:bg-indigo-600/40 after:transition-all after:duration-500 after:ease-in-out after:content-[''];
+    &:hover,
+    &.active {
+      @apply text-black after:left-0 after:right-auto after:top-[60%] after:h-[5px] after:w-full dark:text-white #{!important};
+    }
+  }
+}
+
+/*********************************/
+/*         Tobii Lightbox        */
+/*===============================*/
+/* Tobii Lighbox */
+.tobii > button.tobii__close svg,
+.tobii > button.tobii__prev svg,
+.tobii > button.tobii__next svg {
+  @apply h-9 w-auto;
+}
+
+.tobii__counter {
+  @apply text-base;
+}
+
+.tobii-zoom {
+  @apply block;
+}
+
+.tobii-zoom__icon {
+  @apply hidden;
+}
+
+#grid {
+  @apply p-0;
+}

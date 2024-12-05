@@ -1,19 +1,27 @@
-import { GetMangasStatisticResponse } from '../../types/mangadex';
-import * as util from './util';
+import { GetMangasStatisticResponse } from "../../types/mangadex";
+import * as util from "./util";
 
 export type GetMangasStatisticRequestOptions = {
-    manga: string[]
-}
+  manga: string[];
+};
 
-export const getMangasStatistic = function (options?: GetMangasStatisticRequestOptions) {
-    const qs = util.buildQueryStringFromOptions(options);
-    const path = `/statistics/manga${qs}`;
+export const getMangasStatistic = function (
+  options?: GetMangasStatisticRequestOptions,
+) {
+  const qs = util.buildQueryStringFromOptions(options);
+  const path = `/statistics/manga${qs}`;
 
-    return util.createHttpsRequestPromise<GetMangasStatisticResponse>('GET', path);
+  return util.createHttpsRequestPromise<GetMangasStatisticResponse>(
+    "GET",
+    path,
+  );
 };
 
 export const getGroupStatistic = function (groupId: string) {
-    const path = `/statistics/group/${groupId}`;
+  const path = `/statistics/group/${groupId}`;
 
-    return util.createHttpsRequestPromise<GetMangasStatisticResponse>('GET', path);
+  return util.createHttpsRequestPromise<GetMangasStatisticResponse>(
+    "GET",
+    path,
+  );
 };

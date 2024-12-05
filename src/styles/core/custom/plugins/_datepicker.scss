@@ -1,0 +1,30 @@
+/*********************************/
+/*         Datepicker           */
+/*===============================*/
+.qs-datepicker-container {
+  @apply border-inherit bg-white dark:border-gray-800 dark:bg-slate-900;
+}
+.qs-datepicker-container .qs-controls {
+  @apply bg-gray-50 dark:bg-slate-800;
+}
+.qs-datepicker-container .qs-controls .qs-month-year {
+  @apply text-[15px] font-semibold dark:text-white;
+}
+.qs-datepicker-container .qs-controls .qs-month-year:hover {
+  @apply rounded-md border-b border-inherit outline-inherit;
+}
+
+.qs-squares .qs-square {
+  @apply h-[34px] w-[34px] text-[15px] text-slate-400;
+}
+.qs-squares
+  .qs-square:not(.qs-empty):not(.qs-disabled):not(.qs-day):not(
+    .qs-active
+  ):hover,
+.qs-squares .qs-square.qs-current {
+  text-decoration: none;
+  @apply rounded-[30px] bg-indigo-600 font-semibold text-white;
+}
+.qs-squares .qs-day {
+  @apply font-normal text-slate-900 dark:text-white;
+}

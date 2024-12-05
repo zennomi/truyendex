@@ -1,8 +1,5 @@
-import ChapterView from "@/sections/nettrom/chuong";
-
+import ChapterView from "@/components/nettrom/chuong";
 
 export default function Chapter() {
-    return (
-        <ChapterView />
-    )
+  return <ChapterView />;
 }

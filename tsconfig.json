@@ -1,26 +1,38 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    // Mostly more IDE hints, bundlers pretty much ignore these ones. Although
+    // they could be relevant for polyfill, polyfill is actually most configured
+    // by build tool, generally browserslist.
+    "target": "ESNext",
+    "lib": ["DOM.Iterable", "DOM", "ESNext"],
+    // VSCode inspects these for type hints
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
+    // Windows FS case sensitivity is opt-in
+    "forceConsistentCasingInFileNames": false,
+    // No Bundlers use tsc for file transpilation anyway
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    // Should always be enabled when using a Bundler
     "isolatedModules": true,
+    // This one should be almost always off, Bundler will inline it. Consider
+    // using the -data attribute if it is used cross files
+    "resolveJsonModule": true,
+    // bundler DOES inspect this
     "jsx": "preserve",
-    "incremental": true,
+    // irrelevant, tsc specific
+    "incremental": false,
     "plugins": [
       {
         "name": "next"
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@app": ["./src/app/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
