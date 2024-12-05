@@ -65,11 +65,10 @@ export default function SearchMangaForm() {
     
     try {
       const response = await axios.get(apiUrl);
-      console.log("API Response:", response.data);
-
+      
       if (response != null){
         data.title = response.data[0].title;
-        console.log("API Response title:", response.data[0].title);
+        
       }
     } catch (error) {
         console.error("Error calling Django API:", error);
