@@ -3,18 +3,32 @@ import LazyImages from "./lazy-images";
 import useWindowSize from "@/hooks/useWindowSize";
 import { useChapterContext } from "@/contexts/chapter";
 import { DataLoader } from "@/components/DataLoader";
+import { Button } from "../Button";
 
 export default function ChapterPages() {
   const { height } = useWindowSize();
 
-  const { chapterId } = useChapterContext();
+  const { chapterId, canNext, canPrev, next, prev } = useChapterContext();
 
   const { pages, isLoading } = useChapterPages(chapterId);
   return (
-    <DataLoader isLoading={isLoading} loadingText="Đang tải nội dung chương...">
-      <div className="reading-detail box_doc">
-        <LazyImages images={pages} threshold={(height || 1000) * 3} />
+    <div>
+      <DataLoader
+        isLoading={isLoading}
+        loadingText="Đang tải nội dung chương..."
+      >
+        <div className="reading-detail box_doc">
+          <LazyImages images={pages} threshold={(height || 1000) * 3} />
+        </div>
+      </DataLoader>
+      <div className="mb-2 mt-4 flex flex-col gap-2">
+        <Button disabled={!canNext} onClick={next}>
+          Chương tiếp theo
+        </Button>
+        <Button disabled={!canPrev} onClick={prev}>
+          Chương trước
+        </Button>
       </div>
-    </DataLoader>
+    </div>
   );
 }
