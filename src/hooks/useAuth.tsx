@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import { useCallback, useEffect } from "react";
 import { toast } from "react-toastify";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { isAxiosError } from "axios";
 
 import { axios } from "@/api/core";
@@ -18,7 +18,6 @@ export const useAuth = ({
   redirectIfNotAuthenticated?: string;
 } = {}) => {
   const router = useRouter();
-  const params = useParams();
 
   const {
     data: user,
@@ -82,22 +81,26 @@ export const useAuth = ({
   const forgotPassword = async ({ email }: { email: string }) => {
     await csrf();
 
-    axios.post("/forgot-password", { email }).catch((error) => {
-      if (error.response.status !== 422) throw error;
-    });
+    try {
+      await axios.post("/forgot-password", { email });
+    } catch (error) {
+      throw error;
+    }
   };
 
-  const resetPassword = async ({ ...props }) => {
+  const resetPassword = async ({
+    ...props
+  }: {
+    email: string;
+    password: string;
+    password_confirmation: string;
+    token: string;
+  }) => {
     await csrf();
 
-    axios
-      .post("/reset-password", { token: params.token, ...props })
-      .then((response) =>
-        router.push("/login?reset=" + btoa(response.data.status)),
-      )
-      .catch((error) => {
-        if (error.response.status !== 422) throw error;
-      });
+    await axios.post("/reset-password", { ...props });
+
+    router.push(Constants.Routes.login);
   };
 
   const resendEmailVerification = async () => {
