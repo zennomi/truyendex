@@ -11,7 +11,7 @@ export default function TruyenTranh({
     <div className="grid gap-[40px] lg:grid-cols-[2fr_1fr]">
       <div>
         <Manga mangaId={params.mangaId} />
-        <CommentSection />
+        <CommentSection typeId={params.mangaId} type="series" />
       </div>
       <div>
         <TopTitles />
