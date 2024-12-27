@@ -4,6 +4,7 @@ import useWindowSize from "@/hooks/useWindowSize";
 import { useChapterContext } from "@/contexts/chapter";
 import { DataLoader } from "@/components/DataLoader";
 import { Button } from "../Button";
+import CommentSection from "../binh-luan/comment-section";
 
 export default function ChapterPages() {
   const { height } = useWindowSize();
@@ -29,6 +30,9 @@ export default function ChapterPages() {
           Chương trước
         </Button>
       </div>
+      <DataLoader isLoading={!chapterId}>
+        {chapterId && <CommentSection type="chapter" typeId={chapterId} />}
+      </DataLoader>
     </div>
   );
 }

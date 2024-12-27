@@ -21,3 +21,5 @@ export type GetUserResponse = {
   id: number;
   name: string;
 };
+
+export type CommentListResponse = {};

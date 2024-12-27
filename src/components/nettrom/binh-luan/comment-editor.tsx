@@ -256,7 +256,13 @@ const extensions = [
   Dropcursor,
 ];
 
-const CommentEditor = () => {
+const CommentEditor = ({
+  typeId,
+  type,
+}: {
+  typeId: string;
+  type: "series" | "chapter";
+}) => {
   const editor = useEditor({
     extensions,
     content: "",
@@ -277,15 +283,15 @@ const CommentEditor = () => {
     try {
       await AppApi.Comment.storeComment({
         content: editor.getHTML(),
-        type: "series",
-        typeId: "string",
-        parentId: 1,
+        type,
+        typeId,
+        parentId: 0,
       });
       toast("Bình luận thành công!");
     } catch (error) {
       console.error(error);
     }
-  }, [editor]);
+  }, [editor, typeId]);
 
   return (
     <div className="comment_form">
