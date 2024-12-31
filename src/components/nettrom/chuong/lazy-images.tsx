@@ -26,6 +26,7 @@ const Gallery = ({
           scrollPosition={scrollPosition}
           src={image}
           threshold={threshold}
+          index={index}
         />
       </div>
     ))}
