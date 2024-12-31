@@ -2,10 +2,11 @@
  * IMPORT STATEMENTS
  ********************/
 
-import { AuthenticationToken } from "./authentication";
 import { AxiosRequestConfig } from "axios";
-import { ErrorResponse } from "../../types/mangadex";
 import { Constants } from "@/constants";
+
+import { AuthenticationToken } from "./authentication";
+import { ErrorResponse } from "../../types/mangadex";
 
 /*******************
  * TYPE DEFINITIONS
@@ -25,6 +26,25 @@ const CORS = Constants.CORS_URL;
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] =
   process.env.NODE_ENV === "production" ? "1" : "0";
+
+export class MangaDexError extends Error {
+  status?: number;
+  response?: { data: ErrorResponse | any };
+  constructor({
+    message,
+    status,
+    response,
+  }: {
+    message: string;
+    status?: number;
+    response?: { data: ErrorResponse | any };
+  }) {
+    super(message);
+    this.status = status;
+    this.name = "FetchError";
+    this.response = response;
+  }
+}
 
 /************************
  * FUNCTION DECLARATIONS
@@ -144,10 +164,10 @@ export const createHttpsRequestPromise = async function <T>(
     Object.assign(httpsRequestOptions, options);
   }
 
-  const data = await fetch(
+  const data = await customFetch(
     `${CORS}/v1/cors/${encodedUrl}`,
     httpsRequestOptions,
-  ).then((res) => res.json());
+  );
 
   return { data };
 };
@@ -198,3 +218,26 @@ export const isErrorResponse = function (
   if (!res) return false;
   return (res as ErrorResponse).errors !== undefined;
 };
+
+async function customFetch<T = any>(
+  url: string,
+  options: RequestInit = {},
+): Promise<T> {
+  const response = await fetch(url, options);
+
+  if (!response.ok) {
+    let errorData;
+    try {
+      errorData = await response.json();
+    } catch {
+      errorData = await response.text();
+    }
+    throw new MangaDexError({
+      message: `Yêu cầu thất bại - Lỗi ${response.status}: ${response.statusText}`,
+      status: response.status,
+      response: { data: errorData },
+    });
+  }
+  // Return the parsed response as the generic type T
+  return (await response.json()) as T;
+}
