@@ -1,7 +1,10 @@
 "use client";
 
+import { AxiosError } from "axios";
 import { Loader2 } from "lucide-react";
 import { useCallback } from "react";
+
+import { MangadexApi } from "@/api";
 
 export const DataLoader = (props: {
   isLoading: boolean;
@@ -23,11 +26,17 @@ export const DataLoader = (props: {
   }
 
   if (props.error) {
+    console.error(props.error);
+    let errorMessage;
+    const error = props.error;
+    if (error instanceof AxiosError) {
+      errorMessage = error.response?.data?.message || error.message;
+    } else if (error instanceof MangadexApi.Utils.MangaDexError) {
+      errorMessage = error.response?.data?.message || error.message;
+    } else errorMessage = "Đã có lỗi xảy ra khi tải dữ liệu này";
     return (
       <div className="flex flex-col items-center justify-center gap-4 text-center text-muted-foreground">
-        <span>
-          {props.error.message || "Đã có lỗi xảy ra khi tải dữ liệu này"}
-        </span>
+        <span>{errorMessage}</span>
         <button
           className="btn btn-danger"
           onClick={
