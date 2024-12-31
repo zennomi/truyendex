@@ -29,7 +29,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
   const altTitles = Utils.Mangadex.getMangaAltTitles(manga);
   const url = Constants.Routes.nettrom.manga(mangaId);
   const [page, setPage] = useState(0);
-  const { data, chapters } = useChapterList(mangaId, {
+  const { data, chapters, error } = useChapterList(mangaId, {
     offset: page * Constants.Mangadex.CHAPTER_LIST_LIMIT,
   });
   const chapterListData = useMemo(() => data?.data, [data]);
@@ -67,7 +67,11 @@ export default function Manga({ mangaId }: { mangaId: string }) {
   }, [mangaId]);
 
   return (
-    <DataLoader isLoading={!manga} loadingText="Đang tải thông tin truyện...">
+    <DataLoader
+      isLoading={!manga}
+      loadingText="Đang tải thông tin truyện..."
+      error={error}
+    >
       <ul
         className="mb-2 inline-flex items-center gap-4"
         itemType="http://schema.org/BreadcrumbList"

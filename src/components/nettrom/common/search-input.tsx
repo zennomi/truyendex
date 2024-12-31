@@ -16,7 +16,7 @@ export default function SearchInput() {
   const router = useRouter();
   const [title, setTitle] = useState(params.get("title") || "");
   const deboucedTitle = useDebounce(title, 500);
-  const { mangaList, isLoading } = useSearchManga(
+  const { mangaList, isLoading, error } = useSearchManga(
     {
       title: deboucedTitle,
       includes: [
@@ -54,7 +54,7 @@ export default function SearchInput() {
       </div>
       <div className="suggestsearch">
         {
-          <DataLoader isLoading={isLoading}>
+          <DataLoader isLoading={isLoading} error={error}>
             <></>
           </DataLoader>
         }
