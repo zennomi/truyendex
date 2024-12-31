@@ -15,7 +15,7 @@ export default function FollowingList() {
   const { updateMangas, updateMangaStatistics, mangaStatistics, mangas } =
     useMangadex();
   const [page, setPage] = useState(1);
-  const { data, mutate, isLoading } = useReadList(page);
+  const { data, mutate, isLoading, error } = useReadList(page);
 
   const unfollow = useCallback(
     async (mangaId: string) => {
@@ -40,6 +40,7 @@ export default function FollowingList() {
           <DataLoader
             loadingText="Đang tải danh sách truyện bạn theo dõi..."
             isLoading={isLoading}
+            error={error}
           >
             {data?.data.map(
               ({

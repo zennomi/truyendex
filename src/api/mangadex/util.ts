@@ -126,11 +126,12 @@ export const createHttpsRequestPromise = async function <T>(
     );
   }
 
-  console.info("Request to API Mangadex: ", path);
-
   const encodedUrl = btoa(`${MANGADEX_API_URL}${path}`)
     .replace(/\+/g, "-")
     .replace(/\//g, "_");
+
+  console.info("Request to API Mangadex: ", path, " -> ", encodedUrl);
+
   const headers = new Headers();
   headers.set("x-requested-with", "cubari");
   const httpsRequestOptions: RequestInit = {

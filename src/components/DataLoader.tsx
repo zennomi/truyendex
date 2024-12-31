@@ -1,13 +1,18 @@
 "use client";
 
 import { Loader2 } from "lucide-react";
+import { useCallback } from "react";
 
 export const DataLoader = (props: {
   isLoading: boolean;
   loadingText?: string;
   children: React.ReactNode;
-  error?: string;
+  error?: any;
 }) => {
+  const refresh = useCallback(() => {
+    if (window) window.location.reload();
+  }, [window]);
+
   if (props.isLoading) {
     return (
       <div className="flex min-h-[100px] flex-col items-center justify-center gap-2 text-center text-muted-foreground">
@@ -20,7 +25,18 @@ export const DataLoader = (props: {
   if (props.error) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 text-center text-muted-foreground">
-        <span>{props.error}</span>
+        <span>
+          {props.error.message || "Đã có lỗi xảy ra khi tải dữ liệu này"}
+        </span>
+        <button
+          className="btn btn-danger"
+          onClick={
+            // Attempt to recover by trying to re-render the segment
+            () => refresh()
+          }
+        >
+          Tải lại toàn bộ trang
+        </button>
       </div>
     );
   }

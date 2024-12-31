@@ -28,5 +28,7 @@ export class Constants {
       `/dang-nhap?redirectUrl=${encodeURIComponent(redirectUrl)}`,
     signup: "/dang-ky",
     verifyEmail: "/xac-thuc",
+    forgotPassword: "/quen-mat-khau",
+    resetPassword: "/doi-mat-khau",
   };
 }
