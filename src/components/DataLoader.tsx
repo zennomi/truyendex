@@ -10,8 +10,8 @@ export const DataLoader = (props: {
   error?: any;
 }) => {
   const refresh = useCallback(() => {
-    if (window) window.location.reload();
-  }, [window]);
+    if (typeof window !== "undefined") window.location.reload();
+  }, []);
 
   if (props.isLoading) {
     return (
