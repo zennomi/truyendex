@@ -18,6 +18,7 @@ import { Button } from "../Button";
 import { DataLoader } from "@/components/DataLoader";
 import { useChapterList } from "@/hooks/mangadex";
 import { useRouter } from "nextjs-toploader/app";
+import FirstChapterButton from "./first-chapter-button";
 
 export default function Manga({ mangaId }: { mangaId: string }) {
   const { user } = useAuth();
@@ -37,12 +38,6 @@ export default function Manga({ mangaId }: { mangaId: string }) {
 
   const handleLogin = () => {
     router.push(Constants.Routes.loginWithRedirect(window.location.pathname));
-  };
-
-  const readFirstChapter = () => {
-    if (chapters.length > 0) {
-      router.push(Constants.Routes.nettrom.chapter(chapters[0].id));
-    }
   };
 
   const followManga = useCallback(async () => {
@@ -294,14 +289,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
           <div className="mt-4 grid sm:grid-cols-[1fr_2fr] sm:gap-10">
             <div></div>
             <div className="grid flex-wrap gap-4 sm:flex sm:grid-cols-2">
-              <Button
-                disabled={!data}
-                onClick={readFirstChapter}
-                className="w-full sm:w-auto"
-                icon={<i className="fa fa-eye" />}
-              >
-                Đọc ngay
-              </Button>
+              <FirstChapterButton mangaId={mangaId} />
               {user ? (
                 <Button
                   className="w-full border-red-500 text-red-500 hover:bg-red-300/10 hover:text-red-500 sm:w-auto"
@@ -331,8 +319,8 @@ export default function Manga({ mangaId }: { mangaId: string }) {
             <i className="fa fa-pen"></i>
             <span>Nội dung</span>
           </h2>
-          <div className="">
-            <ReactMarkdown className="[&_a]:text-web-title [&_a]:hover:text-web-titleLighter">
+          <div className="w-full">
+            <ReactMarkdown className="w-full [&_a]:text-web-title [&_a]:hover:text-web-titleLighter [&_pre]:whitespace-pre-wrap [&_pre]:break-words">
               {manga?.attributes?.description.vi ||
                 manga?.attributes?.description.en ||
                 ""}
