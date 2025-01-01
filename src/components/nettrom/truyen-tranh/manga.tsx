@@ -19,6 +19,7 @@ import { DataLoader } from "@/components/DataLoader";
 import { useChapterList } from "@/hooks/mangadex";
 import { useRouter } from "nextjs-toploader/app";
 import FirstChapterButton from "./first-chapter-button";
+import ExternalLinks from "./external-links";
 
 export default function Manga({ mangaId }: { mangaId: string }) {
   const { user } = useAuth();
@@ -248,40 +249,12 @@ export default function Manga({ mangaId }: { mangaId: string }) {
                   <p className="name mb-2 text-muted-foreground lg:mb-0">
                     <i className="fa fa-chain mr-2"></i> Nguồn
                   </p>
-                  <p className="flex flex-col pl-10 lg:pl-0">
-                    {[
-                      {
-                        url:
-                          manga?.attributes.links.mal &&
-                          `https://myanimelist.net/manga/${manga?.attributes.links.mal}`,
-                        name: "MyAnimeList",
-                      },
-                      { url: manga?.attributes.links.raw, name: "Raw" },
-                      {
-                        url: `https://mangadex.org/title/${manga?.id}`,
-                        name: "MangaDex",
-                      },
-                      { url: manga?.attributes.links.amz, name: "Amazon" },
-                      {
-                        url:
-                          manga?.attributes.links.mu &&
-                          `https://www.mangaupdates.com/series.html?id=${manga?.attributes.links.mu}`,
-                        name: "MangaUpdates",
-                      },
-                    ].map((i, idx) => {
-                      if (!i.url) return null;
-                      return (
-                        <a
-                          key={idx}
-                          href={i.url}
-                          target="_blank"
-                          className="text-web-title transition hover:text-web-titleLighter"
-                        >
-                          {i.name}
-                        </a>
-                      );
-                    })}
-                  </p>
+                  {manga && (
+                    <ExternalLinks
+                      links={manga.attributes.links}
+                      mangaId={manga.id}
+                    />
+                  )}
                 </li>
               </ul>
             </div>
