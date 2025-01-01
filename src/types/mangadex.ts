@@ -193,7 +193,7 @@ export type MangaAttributes = {
   altTitles: LocalizedString[];
   description: LocalizedString;
   isLocked: boolean;
-  links: Links;
+  links: Links | null;
   originalLanguage: string;
   lastVolume: string | null;
   lastChapter: string | null;
