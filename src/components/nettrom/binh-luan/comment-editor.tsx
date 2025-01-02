@@ -259,9 +259,13 @@ const extensions = [
 const CommentEditor = ({
   typeId,
   type,
+  afterComment,
+  parentId,
 }: {
   typeId: string;
   type: "series" | "chapter";
+  afterComment?: () => void;
+  parentId?: number;
 }) => {
   const editor = useEditor({
     extensions,
@@ -285,9 +289,13 @@ const CommentEditor = ({
         content: editor.getHTML(),
         type,
         typeId,
-        parentId: 0,
+        parentId: parentId || 0,
       });
+      editor.commands.clearContent();
       toast("Bình luận thành công!");
+      if (afterComment) {
+        afterComment();
+      }
     } catch (error) {
       console.error(error);
     }

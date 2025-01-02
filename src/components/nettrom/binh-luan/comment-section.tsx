@@ -4,6 +4,11 @@ import { useAuth } from "@/hooks/useAuth";
 import CommentEditor from "./comment-editor";
 import Iconify from "@/components/iconify";
 import { useCommentList } from "@/hooks/core";
+import { useEffect, useState } from "react";
+import Pagination from "../Pagination";
+import { Utils } from "@/utils";
+import Markdown from "../Markdown";
+import { CommentResponse } from "@/types";
 
 export default function CommentSection({
   typeId,
@@ -13,71 +18,97 @@ export default function CommentSection({
   type: "series" | "chapter";
 }) {
   const { user } = useAuth();
-  const { data } = useCommentList({ type, typeId });
+  const [page, setPage] = useState(0);
+  const [pageTotal, setPageTotal] = useState(1);
+  const { data, mutate } = useCommentList({ type, typeId, page: page + 1 });
+
+  useEffect(() => {
+    if (data)
+      setPageTotal(
+        Math.floor(data.comments.total / data.comments.per_page) + 1,
+      );
+  }, [data, setPageTotal]);
+
   return (
     <div>
       <ul className="nav nav-tabs main-tab lazy-module">
         <li className="active">
           <a data-toggle="tab" href="#nt_comments">
             <Iconify className="mr-2 inline" icon="fa:comments" />
-            NetTruyen
+            Bình luận
           </a>
         </li>
       </ul>
       <div className="comment-wrapper">
-        {user ? <CommentEditor typeId={typeId} type={type} /> : <></>}
+        {user ? (
+          <CommentEditor
+            typeId={typeId}
+            type={type}
+            afterComment={() => mutate()}
+          />
+        ) : (
+          <></>
+        )}
         <div className="comment-list comment-default">
-          <div className="item clearfix" id="comment_3259">
-            <figure className="avatar avatar-wrap">
-              <img
-                src="https://nettruyenrr.com/public/assets/images/avatar-comment-default.jpg"
-                alt="Culi Nettruyen"
-                className="lazy"
-                data-original="https://nettruyenrr.com/public/assets/images/avatar-comment-default.jpg"
-              />
-            </figure>
-            <div className="summary">
-              <div className="info">
-                <div className="comment-header">
-                  <span className="authorname name-1">CuLi Nettruyen</span>
-                  <span className="cmchapter" />
-                </div>
-                <div className="comment-content">
-                  Bình luận ở bên dưới, click vào Xem thêm bình luận để xem!
-                </div>
-              </div>
-              <ul className="comment-footer">
-                <li>
-                  <span>
-                    <i className="fa fa-comment"> </i> Trả lời
-                  </span>
-                </li>
-                <li>
-                  <span className="vote-up">
-                    <i className="fa fa-thumbs-up"> </i>
-                    <span className="vote-up-count">0</span>
-                  </span>
-                </li>
-                <li className="comment-more-wrap">
-                  <span className="more-action">
-                    <i className="fa fa-ellipsis-h"> </i>
-                  </span>
-                  <ul className="comment-more hidden">
-                    <li>
-                      <span>Xóa</span>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <abbr title="2024-07-16 11:08:18">
-                    <i className="fa fa-clock-o"> </i> 0 phút trước
-                  </abbr>
-                </li>
-              </ul>
-              <div id="comment_form_3259" />
-            </div>
+          {data?.comments.data.map((comment) => (
+            <CommentItem comment={comment} typeId={typeId} type={type} />
+          ))}
+        </div>
+        <Pagination
+          forcePage={page}
+          pageCount={pageTotal}
+          onPageChange={(event) => setPage(event.selected)}
+        />
+      </div>
+    </div>
+  );
+}
+
+export function CommentItem({
+  comment,
+  type,
+  typeId,
+}: {
+  comment: CommentResponse;
+  typeId: string;
+  type: "series" | "chapter";
+}) {
+  const [openReply, setOpenReply] = useState(false);
+  return (
+    <div className="item clearfix pb-0" key={comment.id}>
+      <figure className="avatar avatar-wrap">
+        <img
+          src={"/nettruyen/images/default-avatar.jpg"}
+          alt={comment.user.name}
+          className="lazy"
+        />
+      </figure>
+      <div className="summary">
+        <div className="info">
+          <div className="comment-header">
+            <span className="authorname name-1">{comment.user.name}</span>
+            <span className="cmchapter" />
+          </div>
+          <div className="comment-content">
+            <Markdown content={comment.content} />
           </div>
         </div>
+        <ul className="comment-footer">
+          <li>
+            <span onClick={() => setOpenReply(!openReply)}>
+              <i className="fa fa-comment"> </i> Trả lời
+            </span>
+          </li>
+          <li>
+            <abbr>
+              <i className="fa fa-clock-o"> </i>{" "}
+              {Utils.Date.formatNowDistance(new Date(comment.created_at))}
+            </abbr>
+          </li>
+        </ul>
+        {openReply && (
+          <CommentEditor type={type} typeId={typeId} parentId={comment.id} />
+        )}
       </div>
     </div>
   );

@@ -22,4 +22,25 @@ export type GetUserResponse = {
   name: string;
 };
 
-export type CommentListResponse = {};
+export type CommentListResponse = {
+  comments: {
+    current_page: number;
+    data: CommentResponse[];
+    from: number;
+    to: number;
+    last_page: number;
+    total: number;
+    per_page: number;
+  };
+};
+
+export type CommentResponse = {
+  content: string;
+  created_at: string;
+  id: number;
+  user: {
+    name: string;
+    display_roles: string[];
+  };
+  parent_id: number;
+};

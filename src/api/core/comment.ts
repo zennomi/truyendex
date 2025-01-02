@@ -23,12 +23,15 @@ export const storeComment = async (body: {
 export const getCommentList = async (params: {
   type: "chapter" | "series" | "page";
   typeId: string;
+  page?: number;
+  limit?: number;
 }) => {
   const { data } = await axios<CommentListResponse>({
     url: "/api/comment/list",
     params: {
       type: params.type,
       type_id: params.typeId,
+      page: params.page || 1,
     },
   });
   return data;
