@@ -47,8 +47,8 @@ export default function FollowingList() {
                 series_uuid,
                 latest_chapter_uuid,
                 title,
-                updated_at,
-                latest_chapter_title,
+                chapter_updated_at,
+                chapter_title,
               }) => {
                 const manga = mangas[series_uuid];
                 if (!title) title = Utils.Mangadex.getMangaTitle(manga);
@@ -112,11 +112,11 @@ export default function FollowingList() {
                                 latest_chapter_uuid,
                               )}
                             >
-                              {latest_chapter_title || "Không tên"}
+                              {chapter_title || "Không tên"}
                             </Link>
                             <i className="time">
                               {Utils.Date.formatNowDistance(
-                                new Date(updated_at),
+                                new Date(chapter_updated_at),
                               )}
                             </i>
                           </li>
