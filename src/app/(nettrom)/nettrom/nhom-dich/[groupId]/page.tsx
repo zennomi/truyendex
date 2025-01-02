@@ -4,8 +4,8 @@ import NewUpdates from "@/components/nettrom/trang-chu/new-updated-titles";
 import TopTitles from "@/components/nettrom/common/top-titles-table";
 import { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
-import ReactMarkdown from "react-markdown";
 import { Constants } from "@/constants";
+import Markdown from "@/components/nettrom/Markdown";
 
 export async function generateMetadata(
   { params }: { params: { groupId: string } },
@@ -174,7 +174,7 @@ export default async function NhomDich({
             </h3>
             <div className="">
               {group.attributes.description && (
-                <ReactMarkdown>{group.attributes.description}</ReactMarkdown>
+                <Markdown content={group.attributes.description} />
               )}
             </div>
           </div>

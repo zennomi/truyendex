@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import ReactPaginate from "react-paginate";
 import { toast } from "react-toastify";
 import { useReadList } from "@/hooks/core";
 import { AppApi, MangadexApi } from "@/api";
@@ -10,6 +9,7 @@ import { useMangadex } from "@/contexts/mangadex";
 import { Utils } from "@/utils";
 import { Constants } from "@/constants";
 import { DataLoader } from "@/components/DataLoader";
+import Pagination from "../Pagination";
 
 export default function FollowingList() {
   const { updateMangas, updateMangaStatistics, mangaStatistics, mangas } =
@@ -132,23 +132,11 @@ export default function FollowingList() {
       </div>
       {data && (
         <div className="pagination-container pagination-outter">
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel=">"
+          <Pagination
             onPageChange={(event) => {
               setPage(event.selected + 1);
             }}
-            pageRangeDisplayed={5}
             pageCount={data.last_page}
-            previousLabel="<"
-            renderOnZeroPageCount={null}
-            marginPagesDisplayed={2}
-            pageClassName="text-center"
-            containerClassName="pagination"
-            activeClassName="active"
-            previousClassName="text-center"
-            nextClassName="text-center"
-            breakClassName="text-center"
             forcePage={page - 1}
           />
         </div>

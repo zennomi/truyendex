@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import ReactPaginate from "react-paginate";
 import { useLastUpdates } from "@/hooks/mangadex";
 import { useMangadex } from "@/contexts/mangadex";
 import Loading from "@/components/nettrom/layout/loading";
 import { ExtendChapter } from "@/types/mangadex";
 import { Utils } from "@/utils";
 import { Constants } from "@/constants";
+import Pagination from "../Pagination";
 
 export default function NewUpdates({
   title,
@@ -157,32 +157,13 @@ export default function NewUpdates({
             })}
           </div>
         </div>
-        <div
-          id="ctl00_mainContent_ctl00_divPager"
-          className="pagination-outter"
-        >
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel=">"
-            onPageChange={(event) => {
-              setPage(event.selected);
-            }}
-            pageRangeDisplayed={5}
-            pageCount={Math.floor(
-              total / Constants.Mangadex.LAST_UPDATES_LIMIT,
-            )}
-            previousLabel="<"
-            renderOnZeroPageCount={null}
-            marginPagesDisplayed={2}
-            pageClassName="text-center"
-            containerClassName="pagination"
-            activeClassName="active"
-            previousClassName="text-center"
-            nextClassName="text-center"
-            breakClassName="text-center"
-            forcePage={page}
-          />
-        </div>
+        <Pagination
+          onPageChange={(event) => {
+            setPage(event.selected);
+          }}
+          pageCount={Math.floor(total / Constants.Mangadex.LAST_UPDATES_LIMIT)}
+          forcePage={page}
+        />
       </div>
     </div>
   );

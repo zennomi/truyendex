@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import ReactMarkdown from "react-markdown";
 import { toast } from "react-toastify";
 import Link from "next/link";
 
@@ -20,6 +19,7 @@ import { useChapterList } from "@/hooks/mangadex";
 import { useRouter } from "nextjs-toploader/app";
 import FirstChapterButton from "./first-chapter-button";
 import ExternalLinks from "./external-links";
+import Markdown from "../Markdown";
 
 export default function Manga({ mangaId }: { mangaId: string }) {
   const { user } = useAuth();
@@ -293,11 +293,15 @@ export default function Manga({ mangaId }: { mangaId: string }) {
             <span>Nội dung</span>
           </h2>
           <div className="w-full">
-            <ReactMarkdown className="w-full [&_a]:text-web-title [&_a]:hover:text-web-titleLighter [&_pre]:whitespace-pre-wrap [&_pre]:break-words">
-              {manga?.attributes?.description.vi ||
-                manga?.attributes?.description.en ||
-                ""}
-            </ReactMarkdown>
+            {
+              <Markdown
+                content={
+                  manga?.attributes?.description.vi ||
+                  manga?.attributes?.description.en ||
+                  ""
+                }
+              />
+            }
             <p className="text-muted-foreground">
               Truyện tranh{" "}
               <Link
