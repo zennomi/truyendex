@@ -7,10 +7,10 @@ export type ReadListResponse = {
   to: number;
   data: {
     series_uuid: string;
+    chapter_updated_at: string;
     latest_chapter_uuid: string;
     title: string;
-    updated_at: string;
-    latest_chapter_title: string;
+    chapter_title: string;
   }[];
 };
 
