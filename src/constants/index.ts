@@ -3,8 +3,6 @@ import { NettromConstants } from "./nettrom";
 
 export class Constants {
   static readonly CORS_URL = process.env.NEXT_PUBLIC_CORS_URL!;
-  static readonly GA_MEASUREMENT_ID =
-    process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID!;
   static readonly APP_URL = process.env.NEXT_PUBLIC_APP_URL!;
   static readonly BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL!;
   static readonly APP_NAME = "Truyendex";
@@ -30,5 +28,11 @@ export class Constants {
     verifyEmail: "/xac-thuc",
     forgotPassword: "/quen-mat-khau",
     resetPassword: "/doi-mat-khau",
+  };
+  static readonly GTAG_IDS = {
+    "truyendex.xyz": "G-9WVQKTM96Q",
+    "truyendex.org": "G-E76BLGDX4L",
+    "truyendex.com": "G-QGP66EN1XL",
+    localhost: "G-HIHIHIHIHI",
   };
 }
