@@ -32,7 +32,7 @@ export class Constants {
   static readonly GTAG_IDS = {
     "truyendex.xyz": "G-9WVQKTM96Q",
     "truyendex.org": "G-E76BLGDX4L",
-    "truyendex.com": "G-QGP66EN1XL",
+    "truyendex.com": "G-KMDRL3VL78",
     localhost: "G-HIHIHIHIHI",
   };
 }
