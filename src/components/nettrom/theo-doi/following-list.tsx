@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import ReactPaginate from "react-paginate";
 import { toast } from "react-toastify";
 import { useReadList } from "@/hooks/core";
 import { AppApi, MangadexApi } from "@/api";
@@ -10,6 +9,7 @@ import { useMangadex } from "@/contexts/mangadex";
 import { Utils } from "@/utils";
 import { Constants } from "@/constants";
 import { DataLoader } from "@/components/DataLoader";
+import Pagination from "../Pagination";
 
 export default function FollowingList() {
   const { updateMangas, updateMangaStatistics, mangaStatistics, mangas } =
@@ -47,8 +47,8 @@ export default function FollowingList() {
                 series_uuid,
                 latest_chapter_uuid,
                 title,
-                updated_at,
-                latest_chapter_title,
+                chapter_updated_at,
+                chapter_title,
               }) => {
                 const manga = mangas[series_uuid];
                 if (!title) title = Utils.Mangadex.getMangaTitle(manga);
@@ -112,11 +112,11 @@ export default function FollowingList() {
                                 latest_chapter_uuid,
                               )}
                             >
-                              {latest_chapter_title || "Không tên"}
+                              {chapter_title || "Không tên"}
                             </Link>
                             <i className="time">
                               {Utils.Date.formatNowDistance(
-                                new Date(updated_at),
+                                new Date(chapter_updated_at),
                               )}
                             </i>
                           </li>
@@ -132,23 +132,11 @@ export default function FollowingList() {
       </div>
       {data && (
         <div className="pagination-container pagination-outter">
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel=">"
+          <Pagination
             onPageChange={(event) => {
               setPage(event.selected + 1);
             }}
-            pageRangeDisplayed={5}
             pageCount={data.last_page}
-            previousLabel="<"
-            renderOnZeroPageCount={null}
-            marginPagesDisplayed={2}
-            pageClassName="text-center"
-            containerClassName="pagination"
-            activeClassName="active"
-            previousClassName="text-center"
-            nextClassName="text-center"
-            breakClassName="text-center"
             forcePage={page - 1}
           />
         </div>

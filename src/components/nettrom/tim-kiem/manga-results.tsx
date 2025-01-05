@@ -6,10 +6,10 @@ import Link from "next/link";
 
 import { useSearchManga } from "@/hooks/mangadex";
 import { useMangadex } from "@/contexts/mangadex";
-import ReactPaginate from "react-paginate";
 import Loading from "@/components/nettrom/layout/loading";
 import { Utils } from "@/utils";
 import { Constants } from "@/constants";
+import Pagination from "../Pagination";
 
 export default function MangaResults() {
   const router = useRouter();
@@ -92,30 +92,13 @@ export default function MangaResults() {
             })}
           </div>
         </div>
-        <div
-          id="ctl00_mainContent_ctl02_divPager"
-          className="pagination-outter"
-        >
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel=">"
-            onPageChange={(event) => {
-              goToPage(event.selected);
-            }}
-            pageRangeDisplayed={5}
-            pageCount={Math.floor(total / limit)}
-            previousLabel="<"
-            renderOnZeroPageCount={null}
-            marginPagesDisplayed={2}
-            pageClassName="text-center"
-            containerClassName="pagination"
-            activeClassName="active"
-            previousClassName="text-center"
-            nextClassName="text-center"
-            breakClassName="text-center"
-            forcePage={page}
-          />
-        </div>
+        <Pagination
+          onPageChange={(event) => {
+            goToPage(event.selected);
+          }}
+          pageCount={Math.floor(total / limit)}
+          forcePage={page}
+        />
       </div>
     </div>
   );

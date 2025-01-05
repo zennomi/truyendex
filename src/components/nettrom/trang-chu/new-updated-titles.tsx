@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import ReactPaginate from "react-paginate";
 import { useLastUpdates } from "@/hooks/mangadex";
 import { useMangadex } from "@/contexts/mangadex";
 
@@ -16,6 +15,7 @@ import { DataLoader } from "@/components/DataLoader";
 import { Utils } from "@/utils";
 import useReadingHistory from "@/hooks/useReadingHistory";
 import { ReadingHistory } from "@/types";
+import Pagination from "../Pagination";
 
 const MangaTile = (props: {
   id: string;
@@ -198,30 +198,15 @@ export default function NewUpdates({
             </div>
           </DataLoader>
         </div>
-        <div
-          id="ctl00_mainContent_ctl00_divPager"
-          className="pagination-outter"
-        >
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel=">"
-            onPageChange={(event) => {
-              router.push(`${pathname}?page=${event.selected}#new-updates`);
-            }}
-            pageRangeDisplayed={5}
-            pageCount={totalPage}
-            previousLabel="<"
-            renderOnZeroPageCount={null}
-            marginPagesDisplayed={2}
-            pageClassName="text-center"
-            containerClassName="pagination"
-            activeClassName="active"
-            previousClassName="text-center"
-            nextClassName="text-center"
-            breakClassName="text-center"
-            forcePage={page}
-          />
-        </div>
+        <Pagination
+          onPageChange={(event) => {
+            router.push(`${pathname}?page=${event.selected}#new-updates`);
+          }}
+          pageCount={totalPage}
+          forcePage={page}
+          marginPagesDisplayed={1}
+          pageRangeDisplayed={2}
+        />
       </div>
     </div>
   );

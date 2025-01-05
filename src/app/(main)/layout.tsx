@@ -23,6 +23,15 @@ export const metadata: Metadata = {
   other: {
     referrer: "same-origin",
   },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: `${Constants.APP_NAME} - Truyện tranh chất lượng cao không quảng cáo`,
+    // startUpImage: [],
+  },
+  formatDetection: {
+    telephone: false,
+  },
 };
 
 export default function CoreLayout({

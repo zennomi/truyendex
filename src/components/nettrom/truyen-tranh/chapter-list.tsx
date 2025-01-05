@@ -1,10 +1,10 @@
-import ReactPaginate from "react-paginate";
 import Link from "next/link";
 
 import { Utils } from "@/utils";
 import { Constants } from "@/constants";
 import { DataLoader } from "@/components/DataLoader";
 import { ChapterList, ExtendChapter } from "@/types/mangadex";
+import Pagination from "../Pagination";
 
 export default function ListChapter({
   mangaId,
@@ -69,30 +69,18 @@ export default function ListChapter({
         </div>
       </DataLoader>
       <div className="flex items-center justify-between gap-4">
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel=">"
+        <Pagination
           onPageChange={(event) => {
             props.onPageChange?.(event.selected);
           }}
-          pageRangeDisplayed={5}
           pageCount={
             Math.floor(
               (props.data?.total || 0) / Constants.Mangadex.CHAPTER_LIST_LIMIT,
             ) + 1
           }
-          previousLabel="<"
-          renderOnZeroPageCount={null}
-          marginPagesDisplayed={2}
-          pageClassName="text-center"
-          containerClassName="pagination my-4"
-          activeClassName="active"
-          previousClassName="text-center"
-          nextClassName="text-center"
-          breakClassName="text-center"
           forcePage={props.page}
         />
-        <p className="mb-0 text-muted-foreground">
+        <p className="mb-0 ml-auto py-4 text-muted-foreground">
           Đã hiển thị{" "}
           <span className="text-foreground">
             {(props.data?.offset || 0) + (props.data?.data.length || 0)} /{" "}
