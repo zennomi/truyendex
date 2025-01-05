@@ -1,12 +1,5 @@
-import Link from "next/link";
+import OfflineView from "@/components/core/offline";
 
 export default function Page() {
-  return (
-    <>
-      <h1>You are offline!</h1>
-      <Link href="/" prefetch={false}>
-        back home
-      </Link>
-    </>
-  );
+  return <OfflineView />;
 }

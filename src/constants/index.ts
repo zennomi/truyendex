@@ -35,4 +35,6 @@ export class Constants {
     "truyendex.com": "G-KMDRL3VL78",
     localhost: "G-HIHIHIHIHI",
   };
+  static readonly AVALABLE_DOMAINS =
+    process.env.NEXT_PUBLIC_AVALABLE_DOMAINS!.split(",");
 }

@@ -41,6 +41,7 @@ module.exports = async (phase) => {
       swSrc: "src/app/sw.ts",
       swDest: "public/sw.js",
       additionalPrecacheEntries: [{ url: "/ngoai-tuyen", revision }],
+      exclude: [/^\/api\//],
     });
     return withSerwist(nextConfig);
   }
