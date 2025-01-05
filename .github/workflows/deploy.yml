@@ -30,6 +30,7 @@ jobs:
           echo "NEXT_PUBLIC_CORS_URL=${{ secrets.NEXT_PUBLIC_CORS_URL }}" >> .env.local
           echo "NEXT_PUBLIC_APP_URL=${{ secrets.NEXT_PUBLIC_APP_URL }}" >> .env.local
           echo "NEXT_PUBLIC_BACKEND_URL=${{ secrets.NEXT_PUBLIC_BACKEND_URL }}" >> .env.local
+          echo "NEXT_PUBLIC_BACKEND_URL=${{ secrets.NEXT_PUBLIC_AVALABLE_DOMAINS }}" >> .env.local
 
       - name: Build Project
         run: yarn build

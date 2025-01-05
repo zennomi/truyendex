@@ -4,7 +4,7 @@
     // they could be relevant for polyfill, polyfill is actually most configured
     // by build tool, generally browserslist.
     "target": "ESNext",
-    "lib": ["DOM.Iterable", "DOM", "ESNext"],
+    "lib": ["DOM.Iterable", "DOM", "ESNext", "webworker"],
     // VSCode inspects these for type hints
     "allowJs": true,
     "skipLibCheck": true,
@@ -35,6 +35,11 @@
       "@app": ["./src/app/*"]
     }
   },
+  "types": [
+    // Other types...
+    // This allows Serwist to type `window.serwist`.
+    "@serwist/next/typings"
+  ],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

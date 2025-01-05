@@ -42,3 +42,7 @@ next-env.d.ts
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Serwist
+public/sw*
+public/swe-worker*
