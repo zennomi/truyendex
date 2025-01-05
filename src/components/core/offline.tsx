@@ -18,6 +18,7 @@ export default function OfflineView() {
   useEffect(() => {
     if (!isOnline || !hostname || !pathname) return;
     (async () => {
+      let available = false;
       for (const domain of Constants.AVALABLE_DOMAINS) {
         if (domain === hostname) continue;
         try {
@@ -28,16 +29,17 @@ export default function OfflineView() {
           await new Promise((resolve) => setTimeout(resolve, 5000));
 
           router.push(`https://${domain}${pathname}`);
-
+          available = true;
           break;
         } catch (error) {
-          console.error(error);
           continue;
         }
       }
-      toast(
-        "Không domain nào khả dụng. Vui lòng nhấn vào nút bên dưới để được hỗ trợ.",
-      );
+      if (!available) {
+        toast(
+          "Không domain nào khả dụng. Vui lòng nhấn vào nút bên dưới để được hỗ trợ.",
+        );
+      }
     })();
   }, [isOnline, hostname, pathname, router]);
 
