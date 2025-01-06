@@ -1,47 +1,39 @@
 "use client";
 
-import { Constants } from "@/constants";
-import useHostname from "@/hooks/useHostname";
-import useOnlineStatus from "@/hooks/useOnlineStatus";
-import axios from "axios";
+import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+
+import { Constants } from "@/constants";
+import useAvailableDomain from "@/hooks/useAvailableDomain";
+import useHostname from "@/hooks/useHostname";
+import useOnlineStatus from "@/hooks/useOnlineStatus";
 
 export default function OfflineView() {
   const isOnline = useOnlineStatus();
   const hostname = useHostname();
   const pathname = usePathname();
   const router = useRouter();
+  const { data: availableDomain, isLoading } = useAvailableDomain(
+    !!isOnline && !!hostname,
+  );
 
   useEffect(() => {
-    if (!isOnline || !hostname || !pathname) return;
     (async () => {
-      let available = false;
-      for (const domain of Constants.AVALABLE_DOMAINS) {
-        if (domain === hostname) continue;
-        try {
-          await axios(`https://${domain}/api/health`);
-
-          toast(`${domain} khả dụng, chuyển hướng...`);
-          // delay 5s to show toast
-          await new Promise((resolve) => setTimeout(resolve, 5000));
-
-          router.push(`https://${domain}${pathname}`);
-          available = true;
-          break;
-        } catch (error) {
-          continue;
-        }
-      }
-      if (!available) {
+      if (availableDomain === undefined || isLoading) return;
+      if (availableDomain === null) {
         toast(
           "Không domain nào khả dụng. Vui lòng nhấn vào nút bên dưới để được hỗ trợ.",
         );
+      } else {
+        toast(`${availableDomain} khả dụng, chuyển hướng...`);
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+        router.push(`https://${availableDomain}${pathname}`);
       }
     })();
-  }, [isOnline, hostname, pathname, router]);
+  }, [availableDomain, isLoading]);
 
   if (!isOnline)
     return (
@@ -69,13 +61,19 @@ export default function OfflineView() {
         <div className="grid grid-cols-1">
           <div className="flex min-h-screen flex-col justify-center px-4 py-10 md:px-10">
             <div className="title-heading my-auto text-center">
-              <img src="assets/images/error.png" className="mx-auto" alt="" />
               <h1 className="mb-6 mt-3 text-3xl font-bold md:text-5xl">
                 Tên miền {hostname} đã bị chặn
               </h1>
               <p className="text-slate-400">
-                Nhưng chill đi, để tôi tìm tên miền khả dụng khác
+                {isLoading
+                  ? "Nhưng chill đi, để tôi tìm tên miền khả dụng khác"
+                  : !!availableDomain
+                    ? "Đang chuyển hướng..."
+                    : "Vui lòng bấm nút dưới để được hỗ trợ"}
               </p>
+              {isLoading && (
+                <Loader2 className="mx-auto my-3 h-[40px] w-[40px] animate-spin" />
+              )}
               <div className="mt-4">
                 <Link
                   href={Constants.Routes.report}
