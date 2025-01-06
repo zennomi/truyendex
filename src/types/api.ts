@@ -43,4 +43,5 @@ export type CommentResponse = {
     display_roles: string[];
   };
   parent_id: number;
+  replies?: CommentResponse[];
 };

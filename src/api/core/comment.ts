@@ -20,6 +20,18 @@ export const storeComment = async (body: {
   return data;
 };
 
+export const updateComment = async (body: { content: string; id: number }) => {
+  const { data } = await axios({
+    url: "/api/comment/update",
+    method: "POST",
+    data: {
+      content: body.content,
+      id: body.id,
+    },
+  });
+  return data;
+};
+
 export const getCommentList = async (params: {
   type: "chapter" | "series" | "page";
   typeId: string;
