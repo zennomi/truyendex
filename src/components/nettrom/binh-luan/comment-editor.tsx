@@ -2,6 +2,7 @@
 import "./styles.scss";
 
 import React, { useCallback } from "react";
+import { toast } from "react-toastify";
 import StarterKit from "@tiptap/starter-kit";
 import { Color } from "@tiptap/extension-color";
 import ListItem from "@tiptap/extension-list-item";
@@ -11,8 +12,6 @@ import Image from "@tiptap/extension-image";
 import { Editor, EditorContent, useEditor } from "@tiptap/react";
 
 import Iconify from "@/components/iconify";
-import { AppApi } from "@/api";
-import { toast } from "react-toastify";
 
 const buttonClassName =
   "cursor-pointer rounded p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white";
@@ -257,19 +256,15 @@ const extensions = [
 ];
 
 const CommentEditor = ({
-  typeId,
-  type,
-  afterComment,
-  parentId,
+  content,
+  onSumbit,
 }: {
-  typeId: string;
-  type: "series" | "chapter";
-  afterComment?: () => void;
-  parentId?: number;
+  onSumbit: (content: string) => Promise<void>;
+  content?: string;
 }) => {
   const editor = useEditor({
     extensions,
-    content: "",
+    content: content ?? "",
     editorProps: {
       attributes: {
         class:
@@ -277,7 +272,7 @@ const CommentEditor = ({
       },
     },
   });
-  const storeCommentClick = useCallback(async () => {
+  const submitCommentClick = useCallback(async () => {
     if (!editor) return;
     const content = editor.getHTML();
     if (content.length <= 10) {
@@ -285,21 +280,12 @@ const CommentEditor = ({
       return;
     }
     try {
-      await AppApi.Comment.storeComment({
-        content: editor.getHTML(),
-        type,
-        typeId,
-        parentId: parentId || 0,
-      });
+      await onSumbit(content);
       editor.commands.clearContent();
-      toast("Bình luận thành công!");
-      if (afterComment) {
-        afterComment();
-      }
     } catch (error) {
       console.error(error);
     }
-  }, [editor, typeId]);
+  }, [editor]);
 
   return (
     <div className="comment_form">
@@ -312,7 +298,7 @@ const CommentEditor = ({
           <button
             type="submit"
             className="btn btn-primary rounded-lg"
-            onClick={storeCommentClick}
+            onClick={submitCommentClick}
           >
             Gửi
           </button>

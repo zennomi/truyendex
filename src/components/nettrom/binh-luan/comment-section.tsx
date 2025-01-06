@@ -1,14 +1,19 @@
 "use client";
 
+import { useCallback, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+
 import { useAuth } from "@/hooks/useAuth";
-import CommentEditor from "./comment-editor";
 import Iconify from "@/components/iconify";
 import { useCommentList } from "@/hooks/core";
-import { useEffect, useState } from "react";
-import Pagination from "../Pagination";
+import { CommentResponse, GetUserResponse } from "@/types";
 import { Utils } from "@/utils";
+import { AppApi } from "@/api";
+
+import Pagination from "../Pagination";
 import Markdown from "../Markdown";
-import { CommentResponse } from "@/types";
+import CommentEditor from "./comment-editor";
 
 export default function CommentSection({
   typeId,
@@ -21,6 +26,24 @@ export default function CommentSection({
   const [page, setPage] = useState(0);
   const [pageTotal, setPageTotal] = useState(1);
   const { data, mutate } = useCommentList({ type, typeId, page: page + 1 });
+
+  const onSubmitComment = useCallback(
+    async (content: string) => {
+      try {
+        await AppApi.Comment.storeComment({
+          content,
+          type,
+          typeId,
+          parentId: 0,
+        });
+        toast("Bình luận thành công!");
+        mutate();
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [mutate],
+  );
 
   useEffect(() => {
     if (data)
@@ -40,18 +63,16 @@ export default function CommentSection({
         </li>
       </ul>
       <div className="comment-wrapper">
-        {user ? (
-          <CommentEditor
-            typeId={typeId}
-            type={type}
-            afterComment={() => mutate()}
-          />
-        ) : (
-          <></>
-        )}
+        {user ? <CommentEditor onSumbit={onSubmitComment} /> : <></>}
         <div className="comment-list comment-default">
           {data?.comments.data.map((comment) => (
-            <CommentItem comment={comment} typeId={typeId} type={type} />
+            <CommentItem
+              comment={comment}
+              typeId={typeId}
+              type={type}
+              user={user}
+              refresh={() => mutate()}
+            />
           ))}
         </div>
         <Pagination
@@ -68,12 +89,46 @@ export function CommentItem({
   comment,
   type,
   typeId,
+  user,
+  refresh,
 }: {
   comment: CommentResponse;
   typeId: string;
   type: "series" | "chapter";
+  user?: GetUserResponse | null;
+  refresh: () => void;
 }) {
   const [openReply, setOpenReply] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const onSubmitComment = useCallback(async (content: string) => {
+    try {
+      await AppApi.Comment.storeComment({
+        content,
+        type,
+        typeId,
+        parentId: comment.id,
+      });
+      toast("Trả lời bình luận thành công!");
+      refresh();
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
+  const onSubmitEditedComment = useCallback(async (content: string) => {
+    try {
+      await AppApi.Comment.updateComment({
+        content,
+        id: comment.id,
+      });
+      toast("Sửa lời bình luận thành công!");
+      refresh();
+      setEditMode(false);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
   return (
     <div className="item clearfix pb-0" key={comment.id}>
       <figure className="avatar avatar-wrap">
@@ -84,31 +139,74 @@ export function CommentItem({
         />
       </figure>
       <div className="summary">
-        <div className="info">
-          <div className="comment-header">
-            <span className="authorname name-1">{comment.user.name}</span>
-            <span className="cmchapter" />
+        {editMode ? (
+          <CommentEditor
+            content={comment.content}
+            onSumbit={onSubmitEditedComment}
+          />
+        ) : (
+          <div className="info">
+            <div className="comment-header">
+              <span className="authorname name-1">{comment.user.name}</span>
+              <span className="cmchapter" />
+            </div>
+            <div className="comment-content">
+              <Markdown content={comment.content} />
+            </div>
           </div>
-          <div className="comment-content">
-            <Markdown content={comment.content} />
-          </div>
-        </div>
+        )}
         <ul className="comment-footer">
-          <li>
-            <span onClick={() => setOpenReply(!openReply)}>
-              <i className="fa fa-comment"> </i> Trả lời
-            </span>
-          </li>
+          {user && (
+            <li>
+              <span onClick={() => setOpenReply(!openReply)}>
+                <i className="fa fa-comment"> </i> Trả lời
+              </span>
+            </li>
+          )}
+          {user && (
+            <li className="comment-more-wrap">
+              <Menu>
+                <MenuButton>
+                  <span className="more-action">
+                    <i className="fa fa-ellipsis-h"> </i>
+                  </span>
+                </MenuButton>
+                <MenuItems anchor="bottom">
+                  <MenuItem>
+                    <div
+                      onClick={() => setEditMode(!editMode)}
+                      className="cursor-pointer bg-white px-4 py-2 hover:bg-slate-100"
+                    >
+                      {editMode ? "Thoát sửa" : "Sửa"}
+                    </div>
+                  </MenuItem>
+                  <MenuItem>
+                    <div className="cursor-pointer bg-white px-4 py-2 hover:bg-slate-100">
+                      Xoá
+                    </div>
+                  </MenuItem>
+                </MenuItems>
+              </Menu>
+            </li>
+          )}
           <li>
             <abbr>
-              <i className="fa fa-clock-o"> </i>{" "}
+              <i className="fa fa-clock-o"> </i>
               {Utils.Date.formatNowDistance(new Date(comment.created_at))}
             </abbr>
           </li>
         </ul>
-        {openReply && (
-          <CommentEditor type={type} typeId={typeId} parentId={comment.id} />
-        )}
+        {openReply && <CommentEditor onSumbit={onSubmitComment} />}
+        {comment.replies &&
+          comment.replies.map((replyComment) => (
+            <CommentItem
+              comment={replyComment}
+              refresh={refresh}
+              type={type}
+              typeId={typeId}
+              user={user}
+            />
+          ))}
       </div>
     </div>
   );
