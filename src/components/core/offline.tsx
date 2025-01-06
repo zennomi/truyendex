@@ -67,7 +67,9 @@ export default function OfflineView() {
               <p className="text-slate-400">
                 {isLoading
                   ? "Nhưng chill đi, để tôi tìm tên miền khả dụng khác"
-                  : "Vui lòng bấm nút dưới để được hỗ trợ"}
+                  : !!availableDomain
+                    ? "Đang chuyển hướng..."
+                    : "Vui lòng bấm nút dưới để được hỗ trợ"}
               </p>
               {isLoading && (
                 <Loader2 className="mx-auto my-3 h-[40px] w-[40px] animate-spin" />

@@ -1,4 +1,3 @@
-import { union } from "lodash";
 import { MangaDexConstants } from "./mangadex";
 import { NettromConstants } from "./nettrom";
 import DOMAINS from "./DOMAINS.json";
@@ -37,8 +36,7 @@ export class Constants {
     "truyendex.com": "G-KMDRL3VL78",
     localhost: "G-HIHIHIHIHI",
   };
-  static readonly AVALABLE_DOMAINS = union(
-    DOMAINS,
-    process.env.NEXT_PUBLIC_AVALABLE_DOMAINS!.split(","),
-  );
+  static readonly AVALABLE_DOMAINS = DOMAINS;
+  static readonly DOMAIN_LIST_URL =
+    "https://raw.githubusercontent.com/zennomi/truyendex/refs/heads/develop/src/constants/DOMAINS.json";
 }
