@@ -110,6 +110,7 @@ export function CommentItem({
       });
       toast("Trả lời bình luận thành công!");
       refresh();
+      setOpenReply(false);
     } catch (error) {
       console.error(error);
     }
@@ -156,7 +157,7 @@ export function CommentItem({
           </div>
         )}
         <ul className="comment-footer">
-          {user && (
+          {user && comment.parent_id === 0 && (
             <li>
               <span onClick={() => setOpenReply(!openReply)}>
                 <i className="fa fa-comment"> </i> Trả lời
