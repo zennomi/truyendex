@@ -18,17 +18,24 @@ import { DataLoader } from "@/components/DataLoader";
 import { useChapterList } from "@/hooks/mangadex";
 import { useRouter } from "nextjs-toploader/app";
 import { useSettingsContext } from "@/contexts/settings";
+import { ExtendManga } from "@/types/mangadex";
 
 import FirstChapterButton from "./first-chapter-button";
 import ExternalLinks from "./external-links";
 import Markdown from "../Markdown";
 
-export default function Manga({ mangaId }: { mangaId: string }) {
+export default function Manga({
+  mangaId,
+  prefetchedManga,
+}: {
+  mangaId: string;
+  prefetchedManga: ExtendManga;
+}) {
   const { user } = useAuth();
   const { mangas, updateMangas, updateMangaStatistics, mangaStatistics } =
     useMangadex();
   const { filteredLanguages } = useSettingsContext();
-  const manga = mangas[mangaId];
+  const manga = mangas[mangaId] || prefetchedManga;
   const { data: followed, mutate } = useCheckFollowed(mangaId);
   const title = Utils.Mangadex.getMangaTitle(manga);
   const altTitles = Utils.Mangadex.getMangaAltTitles(manga);
