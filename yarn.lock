@@ -536,6 +536,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@next/third-parties@npm:^15.1.4":
+  version: 15.1.4
+  resolution: "@next/third-parties@npm:15.1.4"
+  dependencies:
+    third-party-capital: "npm:1.0.20"
+  peerDependencies:
+    next: ^13.0.0 || ^14.0.0 || ^15.0.0
+    react: ^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0
+  checksum: 10c0/c79094831ee50eab12ef1715d7fa160247eff1c0f001e5fbd8dd5204c2b4131c7fe41fa3391bf976c36ac68861ffd8ce2f82efd6bc5adf217bb351ec0163ae86
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -7595,6 +7607,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"third-party-capital@npm:1.0.20":
+  version: 1.0.20
+  resolution: "third-party-capital@npm:1.0.20"
+  checksum: 10c0/7f45ff156ec9d7e2957a5b39061be22b780ffbd2d93c127252d908e2bff6cdd09f827a95909d457c8096e036f155006a38e355a06ee11cb6d63c7f4b150bbfb0
+  languageName: node
+  linkType: hard
+
 "tiny-case@npm:^1.0.3":
   version: 1.0.3
   resolution: "tiny-case@npm:1.0.3"
@@ -7658,6 +7677,7 @@ __metadata:
     "@headlessui/react": "npm:^2.1.10"
     "@hookform/resolvers": "npm:^3.9.0"
     "@iconify/react": "npm:^4.1.0"
+    "@next/third-parties": "npm:^15.1.4"
     "@radix-ui/react-aspect-ratio": "npm:^1.1.0"
     "@radix-ui/react-dropdown-menu": "npm:^2.1.2"
     "@radix-ui/react-select": "npm:^2.1.2"

@@ -1,4 +1,6 @@
 import { cookies } from "next/headers";
+import { GoogleTagManager } from "@next/third-parties/google";
+
 import { PropsWithChildren } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,7 +9,6 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import "@/styles/base/index.scss";
 
 import { MangadexContextProvider } from "@/contexts/mangadex";
-import Gtag from "@/components/gtag";
 import { Constants } from "@/constants";
 import { SettingsProvider } from "@/contexts/settings";
 
@@ -16,9 +17,7 @@ async function detectSettings() {
 
   const settingsStore = cookieStore.get(Constants.Settings.COOKIE_KEY);
 
-  return settingsStore
-    ? JSON.parse(settingsStore?.value)
-    : Constants.Settings.DEFAULT_SETTINGS;
+  return settingsStore ? JSON.parse(settingsStore.value) : null;
 }
 
 export const LayoutWrapper = async ({
@@ -30,12 +29,12 @@ export const LayoutWrapper = async ({
   const settings = await detectSettings();
   return (
     <html lang="vi" className="dark" suppressHydrationWarning>
+      <GoogleTagManager gtmId={Constants.GTM_ID} />
       <body data-layout-id={props.id}>
         <SettingsProvider settings={settings}>
           <MangadexContextProvider>{children}</MangadexContextProvider>
         </SettingsProvider>
         <ToastContainer />
-        <Gtag />
       </body>
     </html>
   );
