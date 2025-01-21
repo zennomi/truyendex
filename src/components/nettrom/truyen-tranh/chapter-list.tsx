@@ -64,6 +64,12 @@ export default function ListChapter({
                   )}
                 </li>
               ))}
+              {props.items.length === 0 && (
+                <li className="py-3 text-center text-muted-foreground">
+                  Không có chương nào. Bạn hãy thử đổi ngôn ngữ trong phần cài
+                  đặt.
+                </li>
+              )}
             </ul>
           </nav>
         </div>

@@ -15,10 +15,7 @@ import type {
   SettingsContextValue,
   SettingsProviderProps,
 } from "@/types";
-
-const STORAGE_KEY = "truyendex-settings";
-
-export const defaultSettings: SettingsState = {} as const;
+import { Constants } from "@/constants";
 
 // ----------------------------------------------------------------------
 
@@ -35,12 +32,12 @@ export function SettingsProvider({
   settings,
 }: SettingsProviderProps) {
   const values = useCookies<SettingsState>(
-    STORAGE_KEY,
-    settings,
-    defaultSettings,
+    Constants.Settings.COOKIE_KEY,
+    settings || Constants.Settings.DEFAULT_SETTINGS,
+    Constants.Settings.DEFAULT_SETTINGS,
   );
 
-  const [openDrawer, setOpenDrawer] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(!settings);
 
   const onToggleDrawer = useCallback(() => {
     setOpenDrawer((prev) => !prev);

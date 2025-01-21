@@ -10,6 +10,7 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import { Alert } from "@/components/nettrom/Alert";
 import NextTopLoader from "nextjs-toploader";
+import SettingsDialog from "@/components/nettrom/settings-dialog";
 
 export const metadata: Metadata = {
   title: `${Constants.APP_NAME} - Truyện tranh chất lượng cao không quảng cáo`,
@@ -217,6 +218,7 @@ export default function NettromLayout({
           </div>
         </div>
       </footer>
+      <SettingsDialog />
     </LayoutWrapper>
   );
 }

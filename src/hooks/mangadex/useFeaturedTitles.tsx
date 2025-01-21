@@ -1,9 +1,11 @@
 import { MangadexApi } from "@/api";
 import useSearchManga from "./useSearchManga";
+import { useSettingsContext } from "@/contexts/settings";
 
 export default function useFeaturedTitles() {
   const createdAtSince = new Date(Date.now() - 30 * 24 * 3600 * 1000);
-
+  const { filteredLanguages, filteredContent, originLanguages } =
+    useSettingsContext();
   return useSearchManga({
     includes: [
       MangadexApi.Static.Includes.COVER_ART,
@@ -13,12 +15,10 @@ export default function useFeaturedTitles() {
     order: {
       followedCount: MangadexApi.Static.Order.DESC,
     },
-    contentRating: [
-      MangadexApi.Static.MangaContentRating.SAFE,
-      MangadexApi.Static.MangaContentRating.SUGGESTIVE,
-    ],
+    contentRating: filteredContent as MangadexApi.Static.MangaContentRating[],
     hasAvailableChapters: "true",
-    availableTranslatedLanguage: ["vi"],
+    availableTranslatedLanguage: filteredLanguages,
+    originalLanguage: originLanguages,
     createdAtSince: createdAtSince.toISOString().slice(0, -13) + "00:00:00",
     limit: 12,
   });

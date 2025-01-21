@@ -17,6 +17,8 @@ import { Button } from "../Button";
 import { DataLoader } from "@/components/DataLoader";
 import { useChapterList } from "@/hooks/mangadex";
 import { useRouter } from "nextjs-toploader/app";
+import { useSettingsContext } from "@/contexts/settings";
+
 import FirstChapterButton from "./first-chapter-button";
 import ExternalLinks from "./external-links";
 import Markdown from "../Markdown";
@@ -25,6 +27,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
   const { user } = useAuth();
   const { mangas, updateMangas, updateMangaStatistics, mangaStatistics } =
     useMangadex();
+  const { filteredLanguages } = useSettingsContext();
   const manga = mangas[mangaId];
   const { data: followed, mutate } = useCheckFollowed(mangaId);
   const title = Utils.Mangadex.getMangaTitle(manga);
@@ -33,6 +36,7 @@ export default function Manga({ mangaId }: { mangaId: string }) {
   const [page, setPage] = useState(0);
   const { data, chapters, error } = useChapterList(mangaId, {
     offset: page * Constants.Mangadex.CHAPTER_LIST_LIMIT,
+    translatedLanguage: filteredLanguages,
   });
   const chapterListData = useMemo(() => data?.data, [data]);
   const router = useRouter();

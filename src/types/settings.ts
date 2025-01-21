@@ -1,4 +1,9 @@
-export type SettingsState = {};
+export type SettingsState = {
+  filteredLanguages: string[];
+  originLanguages: string[];
+  filteredContent: string[];
+  dataSaver: boolean;
+};
 
 export type SettingsContextValue = SettingsState & {
   canReset: boolean;
@@ -15,6 +20,6 @@ export type SettingsContextValue = SettingsState & {
 };
 
 export type SettingsProviderProps = {
-  settings: SettingsState;
+  settings: SettingsState | null;
   children: React.ReactNode;
 };
