@@ -24,6 +24,7 @@ export default function SettingsDialog() {
     dataSaver,
     onUpdateField,
     onReset,
+    onUpdate,
   } = useSettingsContext();
 
   return (
@@ -31,7 +32,7 @@ export default function SettingsDialog() {
       <Dialog
         open={openDrawer}
         onClose={onCloseDrawer}
-        className="relative z-50"
+        className="relative z-50 dark:text-white"
       >
         <DialogBackdrop className="fixed inset-0 bg-black/50" />
         <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
@@ -95,7 +96,19 @@ export default function SettingsDialog() {
               onChange={(value) => onUpdateField("filteredContent", value)}
             />
             <div className="flex justify-end gap-4">
-              <Button onClick={onCloseDrawer}>Ok</Button>
+              <Button
+                onClick={() => {
+                  onCloseDrawer();
+                  onUpdate({
+                    filteredContent,
+                    filteredLanguages,
+                    dataSaver,
+                    originLanguages,
+                  });
+                }}
+              >
+                Lưu
+              </Button>
               <Button icon={<Iconify icon="fa:refresh" />} onClick={onReset}>
                 Reset
               </Button>
