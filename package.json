@@ -17,6 +17,7 @@
     "@headlessui/react": "^2.1.10",
     "@hookform/resolvers": "^3.9.0",
     "@iconify/react": "^4.1.0",
+    "@next/third-parties": "^15.1.4",
     "@radix-ui/react-aspect-ratio": "^1.1.0",
     "@radix-ui/react-dropdown-menu": "^2.1.2",
     "@radix-ui/react-select": "^2.1.2",

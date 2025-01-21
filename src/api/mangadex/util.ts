@@ -24,8 +24,8 @@ import { ErrorResponse } from "../../types/mangadex";
 const MANGADEX_API_URL = "https://api.mangadex.org";
 const CORS = Constants.CORS_URL;
 
-process.env["NODE_TLS_REJECT_UNAUTHORIZED"] =
-  process.env.NODE_ENV === "production" ? "1" : "0";
+// process.env["NODE_TLS_REJECT_UNAUTHORIZED"] =
+//   process.env.NODE_ENV === "production" ? "1" : "0";
 
 export class MangaDexError extends Error {
   status?: number;

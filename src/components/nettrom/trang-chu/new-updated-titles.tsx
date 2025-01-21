@@ -15,6 +15,8 @@ import { DataLoader } from "@/components/DataLoader";
 import { Utils } from "@/utils";
 import useReadingHistory from "@/hooks/useReadingHistory";
 import { ReadingHistory } from "@/types";
+import { useSettingsContext } from "@/contexts/settings";
+
 import Pagination from "../Pagination";
 
 const MangaTile = (props: {
@@ -120,9 +122,14 @@ export default function NewUpdates({
   const page = Number(params.get("page")) || 0;
   const [totalPage, setTotalPage] = useState(0);
   const { history } = useReadingHistory();
+  const { filteredLanguages, filteredContent, originLanguages } =
+    useSettingsContext();
   const { chapters, isLoading, error, total } = useLastUpdates({
     page,
     groupId,
+    filteredLanguages,
+    filteredContentRating: filteredContent,
+    originLanguages,
   });
   const { mangas, updateMangas, updateMangaStatistics } = useMangadex();
   const updates: Record<string, ExtendChapter[]> = {};

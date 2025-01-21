@@ -11,7 +11,7 @@ export default function useChapterList(
   options: MangadexApi.Manga.GetMangaIdFeedRequestOptions,
 ) {
   // rewrite
-  options.translatedLanguage = ["vi"];
+  if (!options.translatedLanguage) options.translatedLanguage = ["vi"];
   options.includes = [
     MangadexApi.Static.Includes.SCANLATION_GROUP,
     MangadexApi.Static.Includes.USER,
@@ -20,12 +20,13 @@ export default function useChapterList(
     volume: MangadexApi.Static.Order.DESC,
     chapter: MangadexApi.Static.Order.DESC,
   };
-  options.contentRating = [
-    MangadexApi.Static.MangaContentRating.EROTICA,
-    MangadexApi.Static.MangaContentRating.PORNOGRAPHIC,
-    MangadexApi.Static.MangaContentRating.SAFE,
-    MangadexApi.Static.MangaContentRating.SUGGESTIVE,
-  ];
+  if (!options.contentRating)
+    options.contentRating = [
+      MangadexApi.Static.MangaContentRating.EROTICA,
+      MangadexApi.Static.MangaContentRating.PORNOGRAPHIC,
+      MangadexApi.Static.MangaContentRating.SAFE,
+      MangadexApi.Static.MangaContentRating.SUGGESTIVE,
+    ];
   options.limit = chaptersPerPage;
   if (options.offset && options.offset > 10000) {
     options.offset = 10000 - options.limit;

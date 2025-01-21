@@ -10,6 +10,7 @@ import { useAuth } from "@/hooks/useAuth";
 import MainNav from "./main-nav";
 import { Constants } from "@/constants";
 import SearchInput from "../common/search-input";
+import { useSettingsContext } from "@/contexts/settings";
 
 export default function Header() {
   const [openMenu, setOpenMenu] = useState(false);
@@ -92,6 +93,7 @@ export default function Header() {
 
 function AuthDropdown({ desktop }: { desktop?: boolean }) {
   const { user, logout } = useAuth();
+  const { onToggleDrawer } = useSettingsContext();
   const menuItemClassName =
     "flex gap-2 items-center w-full text-[#333] py-1 px-5 text-nowrap hover:text-[#ae4ad9] hover:bg-[#f5f5f5]";
   return (
@@ -105,8 +107,8 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
               data-toggle="dropdown"
               className="user-menu fn-userbox dropdown-toggle flex items-center gap-2"
             >
-              <Iconify className="inline" icon="fa:user" />{" "}
-              <span>{user?.name || "Tài khoản"}</span>{" "}
+              <Iconify className="inline" icon="fa:list" />{" "}
+              <span>{user?.name || "Menu"}</span>{" "}
               <Iconify className="inline" icon="fa:caret-down" />
             </a>
           </MenuButton>
@@ -155,6 +157,11 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
                 </MenuItem>
               </>
             )}
+            <MenuItem>
+              <button className={menuItemClassName} onClick={onToggleDrawer}>
+                <Iconify icon="fa:cog" /> Cài đặt
+              </button>
+            </MenuItem>
           </MenuItems>
         </li>
       </ul>

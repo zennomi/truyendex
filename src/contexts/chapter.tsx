@@ -17,6 +17,7 @@ import useReadingHistory from "@/hooks/useReadingHistory";
 import { useMangadex } from "./mangadex";
 import { Utils } from "@/utils";
 import { Constants } from "@/constants";
+import { useSettingsContext } from "./settings";
 
 export const ChapterContext = createContext<{
   chapterId: string | null;
@@ -55,13 +56,17 @@ export const ChapterContextProvider = ({
 
   const { addHistory } = useReadingHistory();
 
+  const { filteredLanguages } = useSettingsContext();
+
   const mangaId = chapter?.manga?.id ? chapter.manga.id : null;
   const manga = mangaId ? mangas[mangaId] : null;
   const groupId = chapter?.scanlation_group?.id
     ? chapter.scanlation_group.id
     : null;
   const { chapterList: chapters } = useMangaAggregate(mangaId, {
-    translatedLanguage: ["vi"],
+    translatedLanguage: chapter
+      ? [chapter.attributes.translatedLanguage]
+      : filteredLanguages,
     groups: groupId ? [groupId] : undefined,
   });
 

@@ -84,7 +84,6 @@ export default function ExternalLinks({
     { name: "MangaDex", url: `https://mangadex.org/title/${mangaId}` },
     ...parsedLinks.filter((l) => !!l),
   ];
-  console.log(parsedLinks);
   return (
     <p className="pl-10 lg:pl-0">
       {parsedLinks.map((i, idx) => {

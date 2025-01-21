@@ -1,6 +1,7 @@
 import { MangaDexConstants } from "./mangadex";
 import { NettromConstants } from "./nettrom";
 import DOMAINS from "./DOMAINS.json";
+import { SettingsConstants } from "./settings";
 
 export class Constants {
   static readonly CORS_URL = process.env.NEXT_PUBLIC_CORS_URL!;
@@ -8,6 +9,7 @@ export class Constants {
   static readonly BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL!;
   static readonly APP_NAME = "Truyendex";
   static readonly APP_VERSION = "1.0.0";
+  static readonly GTM_ID = process.env.NEXT_PUBLIC_GTM_ID!;
   static readonly Mangadex = new MangaDexConstants();
   static readonly Nettrom = new NettromConstants();
   static readonly Routes = {
@@ -30,13 +32,8 @@ export class Constants {
     forgotPassword: "/quen-mat-khau",
     resetPassword: "/doi-mat-khau",
   };
-  static readonly GTAG_IDS = {
-    "truyendex.xyz": "G-9WVQKTM96Q",
-    "truyendex.org": "G-E76BLGDX4L",
-    "truyendex.com": "G-KMDRL3VL78",
-    localhost: "G-HIHIHIHIHI",
-  };
   static readonly AVALABLE_DOMAINS = DOMAINS;
   static readonly DOMAIN_LIST_URL =
     "https://raw.githubusercontent.com/zennomi/truyendex/refs/heads/develop/src/constants/DOMAINS.json";
+  static readonly Settings = new SettingsConstants();
 }

@@ -1,7 +1,9 @@
 import useSWR from "swr/immutable";
 import { MangadexApi } from "@/api";
+import { useSettingsContext } from "@/contexts/settings";
 
 export default function useChapterPages(chapterId: string | null) {
+  const { dataSaver } = useSettingsContext();
   const { data, isLoading, error } = useSWR(
     chapterId ? ["chapter-pages", chapterId] : null,
     () =>
@@ -13,10 +15,15 @@ export default function useChapterPages(chapterId: string | null) {
     data &&
     (data.data as MangadexApi.AtHome.GetAtHomeServerChapterIdResponse)?.chapter;
   const pages = successData
-    ? successData.data.map(
-        (originalData) =>
-          `${(data.data as MangadexApi.AtHome.GetAtHomeServerChapterIdResponse).baseUrl}/data/${successData.hash}/${originalData}`,
-      )
+    ? dataSaver
+      ? successData.dataSaver.map(
+          (originalData) =>
+            `${(data.data as MangadexApi.AtHome.GetAtHomeServerChapterIdResponse).baseUrl}/data-saver/${successData.hash}/${originalData}`,
+        )
+      : successData.data.map(
+          (originalData) =>
+            `${(data.data as MangadexApi.AtHome.GetAtHomeServerChapterIdResponse).baseUrl}/data/${successData.hash}/${originalData}`,
+        )
     : [];
 
   return { pages, isLoading, error };
