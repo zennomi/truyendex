@@ -32,6 +32,17 @@ export const updateComment = async (body: { content: string; id: number }) => {
   return data;
 };
 
+export const deleteComment = async (body: { id: number }) => {
+  const { data } = await axios({
+    url: "/api/comment/delete",
+    method: "POST",
+    data: {
+      id: body.id,
+    },
+  });
+  return data;
+};
+
 export const getCommentList = async (params: {
   type: "chapter" | "series" | "page";
   typeId: string;
