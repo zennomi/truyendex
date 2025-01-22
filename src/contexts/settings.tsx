@@ -35,6 +35,9 @@ export function SettingsProvider({
     Constants.Settings.COOKIE_KEY,
     settings || Constants.Settings.DEFAULT_SETTINGS,
     Constants.Settings.DEFAULT_SETTINGS,
+    {
+      daysUntilExpiration: 9999,
+    },
   );
 
   const [openDrawer, setOpenDrawer] = useState(!settings);
