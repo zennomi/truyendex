@@ -3,6 +3,7 @@ import { ChapterContextProvider } from "@/contexts/chapter";
 import { MangadexApi } from "@/api";
 import { Constants } from "@/constants";
 import { Utils } from "@/utils";
+import { ExtendChapter, ExtendManga } from "@/types/mangadex";
 
 export async function generateMetadata(
   { params }: { params: { chapterId: string } },
@@ -20,9 +21,15 @@ export async function generateMetadata(
   try {
     const {
       data: { data: chapter },
-    } = await MangadexApi.Chapter.getChapterId(id);
+    } = await MangadexApi.Chapter.getChapterId(id, { includes: ["manga"] });
+    const mangaTitle = Utils.Mangadex.getMangaTitle(
+      Utils.Mangadex.extractRelationship(
+        chapter.relationships,
+        "manga",
+      ) as unknown as ExtendManga,
+    );
     return {
-      title: `Đọc chương ${Utils.Mangadex.getChapterTitle(chapter)} tại ${Constants.APP_NAME}`,
+      title: `Đọc chương ${Utils.Mangadex.getChapterTitle(chapter)} - ${mangaTitle} tại ${Constants.APP_NAME}`,
       openGraph: {
         images: [mdImage, ...previousImages],
       },
@@ -45,9 +52,23 @@ export async function generateMetadata(
   };
 }
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: { chapterId: string };
+}) {
+  const {
+    data: { data: chapter },
+  } = await MangadexApi.Chapter.getChapterId(params.chapterId, {
+    includes: ["manga"],
+  });
+  const extenedChapter = Utils.Mangadex.extendRelationship(
+    chapter,
+  ) as ExtendChapter;
   return (
-    <ChapterContextProvider>
+    <ChapterContextProvider prefectchedChapter={extenedChapter}>
       <div className="row">
         <div className="full-width col-sm-12">{children}</div>
       </div>

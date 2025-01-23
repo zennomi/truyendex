@@ -1108,7 +1108,7 @@ export type GetMangasStatisticResponse = {
 };
 
 export type ExtendChapter = Chapter & {
-  manga?: Partial<Manga> & Pick<Manga, "id" | "type">;
+  manga?: Manga;
   scanlation_group?: Partial<ScanlationGroup> &
     Pick<ScanlationGroup, "id" | "type">;
 };

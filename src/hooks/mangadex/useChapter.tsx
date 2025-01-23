@@ -2,10 +2,13 @@ import useSWR from "swr/immutable";
 import { useEffect, useState } from "react";
 
 import { MangadexApi } from "@/api";
-import { ExtendChapter } from "@/types/mangadex";
+import { Chapter, ExtendChapter } from "@/types/mangadex";
 import { Utils } from "@/utils";
 
-export default function useChapter(chapterId: string | null) {
+export default function useChapter(
+  chapterId: string | null,
+  prefectchedChapter: Chapter,
+) {
   const { data, isLoading, error } = useSWR(
     chapterId ? ["chapter", chapterId] : null,
     () =>
@@ -14,7 +17,9 @@ export default function useChapter(chapterId: string | null) {
       }),
   );
 
-  const [chapter, setChapter] = useState<ExtendChapter | null>(null);
+  const [chapter, setChapter] = useState<ExtendChapter | null>(
+    prefectchedChapter,
+  );
 
   useEffect(() => {
     if (!data?.data) return;

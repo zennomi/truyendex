@@ -45,21 +45,25 @@ export const ChapterContext = createContext<{
 
 export const ChapterContextProvider = ({
   children,
+  prefectchedChapter,
 }: {
   children: React.ReactNode;
+  prefectchedChapter: ExtendChapter;
 }) => {
   const params = useParams<{ chapterId: string }>();
   const [chapterId, setChapterId] = useState(params.chapterId);
 
-  const { chapter } = useChapter(chapterId);
+  const { chapter } = useChapter(chapterId, prefectchedChapter);
   const { updateMangas, mangas } = useMangadex();
 
   const { addHistory } = useReadingHistory();
 
   const { filteredLanguages } = useSettingsContext();
 
-  const mangaId = chapter?.manga?.id ? chapter.manga.id : null;
-  const manga = mangaId ? mangas[mangaId] : null;
+  const mangaId = chapter?.manga?.id
+    ? chapter.manga.id
+    : prefectchedChapter.manga?.id || null;
+  const manga = mangaId ? mangas[mangaId] || prefectchedChapter.manga : null;
   const groupId = chapter?.scanlation_group?.id
     ? chapter.scanlation_group.id
     : null;
@@ -109,7 +113,7 @@ export const ChapterContextProvider = ({
   useEffect(() => {
     if (!chapter) return;
     const newPath = Constants.Routes.nettrom.chapter(chapter.id);
-    document.title = `Đọc ${Utils.Mangadex.getChapterTitle(chapter)}`;
+    document.title = `Đọc ${Utils.Mangadex.getChapterTitle(chapter)} - ${Utils.Mangadex.getMangaTitle(manga)}`;
     window.history.pushState(
       { ...window.history.state, as: newPath, url: newPath },
       "",
