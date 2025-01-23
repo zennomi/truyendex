@@ -40,6 +40,7 @@ export default function CommentSection({
         mutate();
       } catch (error) {
         console.error(error);
+        toast("Có lỗi xảy ra khi bình luận!", { type: "error" });
       }
     },
     [mutate],
@@ -113,6 +114,20 @@ export function CommentItem({
       setOpenReply(false);
     } catch (error) {
       console.error(error);
+      toast("Có lỗi xảy ra khi trả lời bình luận!", { type: "error" });
+    }
+  }, []);
+
+  const onDeleteComment = useCallback(async () => {
+    try {
+      await AppApi.Comment.deleteComment({
+        id: comment.id,
+      });
+      toast("Xoá lời bình luận thành công!");
+      refresh();
+    } catch (error) {
+      console.error(error);
+      toast("Có lỗi xảy ra khi xoá bình luận!", { type: "error" });
     }
   }, []);
 
@@ -182,7 +197,10 @@ export function CommentItem({
                     </div>
                   </MenuItem>
                   <MenuItem>
-                    <div className="cursor-pointer bg-white px-4 py-2 hover:bg-slate-100">
+                    <div
+                      onClick={() => onDeleteComment()}
+                      className="cursor-pointer bg-white px-4 py-2 hover:bg-slate-100"
+                    >
                       Xoá
                     </div>
                   </MenuItem>

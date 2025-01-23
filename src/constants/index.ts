@@ -24,6 +24,8 @@ export class Constants {
     },
     scanlationGroup: (id: string) => `/nhom-dich/${id}`,
     report: `https://www.messenger.com/t/443260942921638`,
+    github: "https://github.com/zennomi/truyendex",
+    hako: "https://ln.hako.vn",
     login: "/dang-nhap",
     loginWithRedirect: (redirectUrl: string) =>
       `/dang-nhap?redirectUrl=${encodeURIComponent(redirectUrl)}`,

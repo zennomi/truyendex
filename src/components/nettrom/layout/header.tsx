@@ -37,7 +37,7 @@ export default function Header() {
               >
                 <img
                   alt="Logo NetTrom"
-                  src={"/nettruyen/images/logo.png"}
+                  src={"/images/logo.png"}
                   className="my-auto w-[150px]"
                 />
               </Link>
@@ -133,7 +133,7 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
                 </MenuItem>
                 <MenuItem>
                   <a className={menuItemClassName} onClick={logout}>
-                    <Iconify icon="fa:sign-out" /> Thoát
+                    <Iconify icon="fa:sign-out" /> Đăng xuất
                   </a>
                 </MenuItem>
               </>
@@ -157,6 +157,32 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
                 </MenuItem>
               </>
             )}
+            <MenuItem>
+              <Link
+                className={menuItemClassName}
+                href={Constants.Routes.nettrom.history}
+              >
+                <Iconify icon="fa:history" /> Lịch sử
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <Link
+                className={menuItemClassName}
+                href={Constants.Routes.report}
+                target="_blank"
+              >
+                <Iconify icon="fa:mail-reply" /> Báo lỗi
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <Link
+                className={menuItemClassName}
+                href={Constants.Routes.github}
+                target="_blank"
+              >
+                <Iconify icon="fa:github" /> GitHub
+              </Link>
+            </MenuItem>
             <MenuItem>
               <button className={menuItemClassName} onClick={onToggleDrawer}>
                 <Iconify icon="fa:cog" /> Cài đặt

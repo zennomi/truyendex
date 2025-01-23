@@ -34,7 +34,7 @@ export const LayoutWrapper = async ({
         <SettingsProvider settings={settings}>
           <MangadexContextProvider>{children}</MangadexContextProvider>
         </SettingsProvider>
-        <ToastContainer />
+        <ToastContainer theme="dark" />
       </body>
     </html>
   );

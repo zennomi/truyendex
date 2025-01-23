@@ -50,7 +50,7 @@ export default function TopNav() {
           </li>
           <li className="mb-0 inline pl-1">
             <a
-              href="https://github.com/zennomi/truyendex"
+              href={Constants.Routes.github}
               target="_blank"
               className="btn btn-icon rounded-full border-indigo-600 bg-indigo-600 text-white hover:border-indigo-700 hover:bg-indigo-700"
             >
@@ -172,7 +172,7 @@ export default function TopNav() {
             </li>
             <li>
               <a
-                href="https://ln.hako.vn/"
+                href={Constants.Routes.hako}
                 className="sub-menu-item"
                 target="_blank"
               >

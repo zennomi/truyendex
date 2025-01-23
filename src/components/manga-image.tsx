@@ -4,6 +4,7 @@ import {
   LazyLoadImageProps,
 } from "react-lazy-load-image-component";
 import { Button } from "./nettrom/Button";
+import Iconify from "./iconify";
 
 type IProps = LazyLoadImageProps;
 
@@ -12,6 +13,8 @@ interface Props extends IProps {
   disabledEffect?: boolean;
   threshold?: number;
   fullWidth?: boolean;
+  dataSaver: boolean;
+  onDataSaverChange: () => void;
 }
 
 export default function MangaImage({
@@ -19,6 +22,8 @@ export default function MangaImage({
   disabledEffect = false,
   effect = "opacity",
   threshold = 0,
+  dataSaver,
+  onDataSaverChange,
   ...other
 }: Props) {
   const [loaded, setLoaded] = useState(false);
@@ -29,9 +34,24 @@ export default function MangaImage({
         <div className="text-center">
           Đã có lỗi khi tải ảnh thứ {(other.index || 0) + 1}
         </div>
-        <Button className="min-w-0" onClick={() => setError(false)}>
-          Tải lại ảnh
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            icon={<Iconify icon="fa:refresh" />}
+            className="w-full min-w-0"
+            onClick={() => setError(false)}
+          >
+            Tải lại ảnh
+          </Button>
+          <Button
+            icon={
+              <Iconify icon={dataSaver ? "fa:caret-down" : "fa:caret-up"} />
+            }
+            className="w-full min-w-0"
+            onClick={() => onDataSaverChange()}
+          >
+            {dataSaver ? "Tắt chế độ tiết kiệm" : "Bật chế độ tiết kiệm"}
+          </Button>
+        </div>
       </div>
     );
   return (
@@ -41,7 +61,7 @@ export default function MangaImage({
       <LazyLoadImage
         wrapperClassName="block"
         effect={disabledEffect ? undefined : effect}
-        placeholderSrc={"/images/loading.jpg"}
+        placeholderSrc={"/images/truyendex-loading.jpg"}
         className="h-full w-full object-cover"
         onLoad={() => setLoaded(true)}
         onError={() => setError(true)}
