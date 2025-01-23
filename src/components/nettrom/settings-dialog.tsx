@@ -24,7 +24,7 @@ export default function SettingsDialog() {
 
   const handleBackdropClick = useCallback(
     (e: MouseEvent) => {
-      if ((e.target as HTMLElement)?.id === "backdrop") {
+      if ((e.target as HTMLElement)?.id === "settings-backdrop") {
         onCloseDrawer();
       }
     },
@@ -35,8 +35,8 @@ export default function SettingsDialog() {
 
   return (
     <div
-      id="backdrop"
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+      id="settings-backdrop"
+      className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50"
       onClick={handleBackdropClick}
     >
       <div className="max-w-lg space-y-4 rounded border bg-black p-12 shadow">

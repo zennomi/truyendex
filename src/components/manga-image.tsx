@@ -61,7 +61,7 @@ export default function MangaImage({
       <LazyLoadImage
         wrapperClassName="block"
         effect={disabledEffect ? undefined : effect}
-        placeholderSrc={"/images/loading.jpg"}
+        placeholderSrc={"/images/truyendex-loading.jpg"}
         className="h-full w-full object-cover"
         onLoad={() => setLoaded(true)}
         onError={() => setError(true)}
