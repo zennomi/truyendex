@@ -36,7 +36,7 @@ export default function SettingsDialog() {
   return (
     <div
       id="settings-backdrop"
-      className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50"
+      className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50 text-white"
       onClick={handleBackdropClick}
     >
       <div className="max-w-lg space-y-4 rounded border bg-black p-12 shadow">
