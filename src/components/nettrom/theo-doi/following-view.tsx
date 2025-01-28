@@ -4,6 +4,7 @@ import { Constants } from "@/constants";
 import { useAuth } from "@/hooks/useAuth";
 import FollowingList from "./following-list";
 import { useState } from "react";
+import FollowingSync from "./following-sync";
 
 export default function FollowingView() {
   useAuth({
@@ -38,9 +39,7 @@ export default function FollowingView() {
             </ul>
           </div>
           {tab === "following" && <FollowingList />}
-          {tab === "sync" && (
-            <div>Sẽ sớm có chức năng đồng bộ MangaDex, NetTruyen,...</div>
-          )}
+          {tab === "sync" && <FollowingSync />}
         </div>
       </div>
     </div>

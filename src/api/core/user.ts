@@ -8,3 +8,13 @@ export const getReadList = async (query: { page?: number } = {}) => {
   });
   return data;
 };
+
+export const syncReadList = async (body: { source: string; ids: string[] }) => {
+  const { data } = await axios({
+    url: "/api/user/read-list/sync",
+    method: "POST",
+    data: body,
+  });
+
+  return data;
+};

@@ -24,7 +24,7 @@ function process(source, ids) {
       );
       if (!newWindow) {
         alert(
-          "Không thể mở cửa sổ mới. Bạn hãy bật chế độ cho phép mở cửa sổ mới.",
+          "Không thể mở cửa sổ mới. Bạn hãy bật chế độ cho phép mở cửa sổ mới và thử lại.",
         );
         break;
       }
