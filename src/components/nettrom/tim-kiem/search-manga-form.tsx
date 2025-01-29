@@ -60,15 +60,14 @@ export default function SearchMangaForm() {
       setDescriptionText(event.target.value);
     };
 
+    const baseUrl = process.env.PUBLIC_API_DESCRIBE_SEARCH;
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const apiUrl = `http://127.0.0.1:8000/api/search/?describe=${encodeURIComponent(descriptionText)}`;
+    const apiUrl = `${baseUrl}/?describe="${encodeURIComponent(descriptionText)}"`;
     
     try {
       const response = await axios.get(apiUrl);
-      
       if (response != null){
-        data.title = response.data[0].title;
-        
+        data.title = response.data[0];
       }
     } catch (error) {
         console.error("Error calling Django API:", error);
