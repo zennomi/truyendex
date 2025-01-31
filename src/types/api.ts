@@ -46,3 +46,7 @@ export type CommentResponse = {
   replies?: CommentResponse[];
   reply_count: number;
 };
+
+export type CommentRepliesResponse = {
+  replies: CommentResponse[];
+};

@@ -6,7 +6,7 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 
 import { useAuth } from "@/hooks/useAuth";
 import Iconify from "@/components/iconify";
-import { useCommentList } from "@/hooks/core";
+import { useCommentList, useCommentReplyList } from "@/hooks/core";
 import { CommentResponse, GetUserResponse } from "@/types";
 import { Utils } from "@/utils";
 import { AppApi } from "@/api";
@@ -14,6 +14,7 @@ import { AppApi } from "@/api";
 import Pagination from "../Pagination";
 import Markdown from "../Markdown";
 import CommentEditor from "./comment-editor";
+import { last } from "lodash";
 
 export default function CommentSection({
   typeId,
@@ -101,6 +102,17 @@ export function CommentItem({
 }) {
   const [openReply, setOpenReply] = useState(false);
   const [editMode, setEditMode] = useState(false);
+  const [viewMore, setViewMore] = useState(false);
+
+  const { data, size, setSize, isLoading } = useCommentReplyList(
+    viewMore && comment.reply_count > 2 && comment.replies
+      ? last(comment.replies)!.id
+      : null,
+  );
+
+  const replies = data ? data.flatMap((page) => page.replies) : [];
+  const isReachingEnd = comment.reply_count <= replies.length + 2;
+
   const onSubmitComment = useCallback(async (content: string) => {
     try {
       await AppApi.Comment.storeComment({
@@ -161,8 +173,8 @@ export function CommentItem({
             onSumbit={onSubmitEditedComment}
           />
         ) : (
-          <div className="info">
-            <div className="comment-header">
+          <div className="info border-gray-600">
+            <div className="comment-header border-gray-600">
               <span className="authorname name-1">{comment.user.name}</span>
               <span className="cmchapter" />
             </div>
@@ -211,7 +223,7 @@ export function CommentItem({
           <li>
             <abbr>
               <i className="fa fa-clock-o"> </i>
-              {Utils.Date.formatNowDistance(new Date(comment.created_at))}
+              {Utils.Date.formatDateTime(new Date(comment.created_at))}
             </abbr>
           </li>
         </ul>
@@ -226,12 +238,30 @@ export function CommentItem({
               user={user}
             />
           ))}
-        {comment.parent_id === 0 && comment.reply_count > 0 && (
-          <div className="flex cursor-pointer justify-center gap-2">
-            <Iconify className="text-orange-500" icon="fa:angle-down" />
-            <div className="text-base font-bold text-orange-500">Xem thêm</div>
-          </div>
-        )}
+        {replies.map((replyComment) => (
+          <CommentItem
+            comment={replyComment}
+            refresh={refresh}
+            type={type}
+            typeId={typeId}
+            user={user}
+          />
+        ))}
+        {!isReachingEnd &&
+          comment.parent_id === 0 &&
+          comment.reply_count > 2 && (
+            <div className="flex cursor-pointer justify-center gap-2">
+              <Iconify className="text-orange-500" icon="fa:angle-down" />
+              <div
+                onClick={() =>
+                  !viewMore ? setViewMore(true) : setSize(size + 1)
+                }
+                className="text-base font-bold text-orange-500"
+              >
+                {isLoading ? "Đang tải..." : "Xem thêm"}
+              </div>
+            </div>
+          )}
       </div>
     </div>
   );

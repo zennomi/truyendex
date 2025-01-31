@@ -1746,6 +1746,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tiptap/extension-link@npm:^2.11.5":
+  version: 2.11.5
+  resolution: "@tiptap/extension-link@npm:2.11.5"
+  dependencies:
+    linkifyjs: "npm:^4.2.0"
+  peerDependencies:
+    "@tiptap/core": ^2.7.0
+    "@tiptap/pm": ^2.7.0
+  checksum: 10c0/32282034c4c8698da31dba19e55ac1be0fe8e6ea487d213de23a06311ab808cecdd997963d4c7d71b6b9b5b856e99cdf6a41e0e59df9e6bcce03d8a6952cdfaa
+  languageName: node
+  linkType: hard
+
 "@tiptap/extension-list-item@npm:^2.11.2":
   version: 2.11.2
   resolution: "@tiptap/extension-list-item@npm:2.11.2"
@@ -4850,6 +4862,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"linkifyjs@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "linkifyjs@npm:4.2.0"
+  checksum: 10c0/fda4fe3e98df94400fbc70ba38798094c6852e7f41e8cc9b8a2fcd3cb122daa20502aedfd1ecb996cf9d829f6fdddd9813858ca070f9cb246389a5b161c6ac8d
+  languageName: node
+  linkType: hard
+
 "locate-path@npm:^6.0.0":
   version: 6.0.0
   resolution: "locate-path@npm:6.0.0"
@@ -7698,6 +7717,7 @@ __metadata:
     "@tiptap/extension-color": "npm:^2.11.2"
     "@tiptap/extension-dropcursor": "npm:^2.11.2"
     "@tiptap/extension-image": "npm:^2.11.2"
+    "@tiptap/extension-link": "npm:^2.11.5"
     "@tiptap/pm": "npm:^2.11.2"
     "@tiptap/react": "npm:^2.11.2"
     "@tiptap/starter-kit": "npm:^2.11.2"

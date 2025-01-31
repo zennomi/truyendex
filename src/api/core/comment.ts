@@ -1,4 +1,4 @@
-import { CommentListResponse } from "@/types";
+import { CommentListResponse, CommentRepliesResponse } from "@/types";
 import { axios } from "./axios";
 
 export const storeComment = async (body: {
@@ -56,6 +56,17 @@ export const getCommentList = async (params: {
       type_id: params.typeId,
       page: params.page || 1,
     },
+  });
+  return data;
+};
+
+export const getCommentReplyList = async (params: { lastId: number }) => {
+  const { data } = await axios<CommentRepliesResponse>({
+    url: "/api/comment/fetch-reply",
+    data: {
+      last_id: params.lastId,
+    },
+    method: "POST",
   });
   return data;
 };

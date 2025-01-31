@@ -9,6 +9,7 @@ import ListItem from "@tiptap/extension-list-item";
 import TextStyle from "@tiptap/extension-text-style";
 import Dropcursor from "@tiptap/extension-dropcursor";
 import Image from "@tiptap/extension-image";
+import Link from "@tiptap/extension-link";
 import { Editor, EditorContent, useEditor } from "@tiptap/react";
 
 import Iconify from "@/components/iconify";
@@ -22,13 +23,42 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
   if (!editor) {
     return null;
   }
-  const addImage = () => {
+  const addImage = useCallback(() => {
     const url = window.prompt("URL");
 
     if (url) {
       editor.chain().focus().setImage({ src: url }).run();
     }
-  };
+  }, [editor]);
+
+  const setLink = useCallback(() => {
+    const previousUrl = editor.getAttributes("link").href;
+    const url = window.prompt("URL", previousUrl);
+
+    // cancelled
+    if (url === null) {
+      return;
+    }
+
+    // empty
+    if (url === "") {
+      editor.chain().focus().extendMarkRange("link").unsetLink().run();
+
+      return;
+    }
+
+    // update link
+    try {
+      editor
+        .chain()
+        .focus()
+        .extendMarkRange("link")
+        .setLink({ href: url })
+        .run();
+    } catch (e: any) {
+      alert(e.message);
+    }
+  }, [editor]);
 
   return (
     <div className="border-b px-3 py-2 dark:border-gray-600">
@@ -40,6 +70,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
             className={
               editor.isActive("bold") ? activedButtonClassName : buttonClassName
             }
+            title="Đậm"
           >
             <svg
               className="h-5 w-5"
@@ -67,6 +98,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
                 ? activedButtonClassName
                 : buttonClassName
             }
+            title="Nghiêng"
           >
             <svg
               className="h-5 w-5"
@@ -94,6 +126,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
                 ? activedButtonClassName
                 : buttonClassName
             }
+            title="Gạch ngang"
           >
             <svg
               className="h-5 w-5"
@@ -114,11 +147,53 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
             </svg>
           </button>
           <button
+            onClick={setLink}
+            className={
+              editor.isActive("link") ? activedButtonClassName : buttonClassName
+            }
+            title="Chèn liên kết"
+          >
+            <svg
+              className="h-5 w-5"
+              xmlns="http://www.w3.org/2000/svg"
+              width={24}
+              height={24}
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M9 11h6c.55 0 1 .45 1 1s-.45 1-1 1H9c-.55 0-1-.45-1-1s.45-1 1-1m11.93 1c.62 0 1.07-.59.93-1.19A5.01 5.01 0 0 0 17 7h-3.05c-.52 0-.95.43-.95.95s.43.95.95.95H17c1.45 0 2.67 1 3.01 2.34c.11.44.47.76.92.76m-16.97-.62C4.24 9.91 5.62 8.9 7.12 8.9h2.93c.52 0 .95-.43.95-.95S10.57 7 10.05 7H7.22c-2.61 0-4.94 1.91-5.19 4.51A4.995 4.995 0 0 0 7 17h3.05c.52 0 .95-.43.95-.95s-.43-.95-.95-.95H7a3.11 3.11 0 0 1-3.04-3.72M18 12c-.55 0-1 .45-1 1v2h-2c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1v-2h2c.55 0 1-.45 1-1s-.45-1-1-1h-2v-2c0-.55-.45-1-1-1"
+              ></path>
+            </svg>
+          </button>
+          <button
+            onClick={() => editor.chain().focus().unsetLink().run()}
+            className={
+              editor.isActive("link") ? activedButtonClassName : buttonClassName
+            }
+            disabled={!editor.isActive("link")}
+            title="Xoá liên kết"
+          >
+            <svg
+              className="h-5 w-5"
+              xmlns="http://www.w3.org/2000/svg"
+              width={24}
+              height={24}
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M14 9h2.87c1.46 0 2.8.98 3.08 2.42c.31 1.64-.74 3.11-2.22 3.48l1.53 1.53c1.77-.91 2.95-2.82 2.7-5.01C21.68 8.86 19.37 7 16.79 7H14c-.55 0-1 .45-1 1s.45 1 1 1M3.51 3.51A.996.996 0 1 0 2.1 4.92l2.64 2.64c-1.77.91-2.95 2.82-2.7 5.01C2.32 15.14 4.63 17 7.21 17H10c.55 0 1-.45 1-1s-.45-1-1-1H7.13c-1.46 0-2.8-.98-3.08-2.42c-.31-1.64.75-3.11 2.22-3.48l2.12 2.12c-.23.19-.39.46-.39.78c0 .55.45 1 1 1h1.17l8.9 8.9a.996.996 0 1 0 1.41-1.41zM14 11l1.71 1.71A1.003 1.003 0 0 0 15 11z"
+              ></path>
+            </svg>
+          </button>
+          <button
             onClick={() => editor.chain().focus().toggleCode().run()}
             disabled={!editor.can().chain().focus().toggleCode().run()}
             className={
               editor.isActive("code") ? activedButtonClassName : buttonClassName
             }
+            title="Mã"
           >
             <svg
               className="h-5 w-5"
@@ -141,6 +216,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
           <button
             onClick={() => editor.chain().focus().unsetAllMarks().run()}
             className={buttonClassName}
+            title="Xóa định dạng"
           >
             <Iconify icon="lucide:x" />
           </button>
@@ -151,6 +227,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
                 ? activedButtonClassName
                 : buttonClassName
             }
+            title="Danh sách"
           >
             <svg
               className="h-5 w-5"
@@ -176,6 +253,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
                 ? activedButtonClassName
                 : buttonClassName
             }
+            title="Danh sách số"
           >
             <svg
               className="h-5 w-5"
@@ -199,6 +277,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
             onClick={() => editor.chain().focus().undo().run()}
             disabled={!editor.can().chain().focus().undo().run()}
             className={buttonClassName}
+            title="Hoàn tác"
           >
             <Iconify icon="lucide:undo" />
           </button>
@@ -206,10 +285,11 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
             onClick={() => editor.chain().focus().redo().run()}
             disabled={!editor.can().chain().focus().redo().run()}
             className={buttonClassName}
+            title="Hủy hoàn tác"
           >
             <Iconify icon="lucide:redo" />
           </button>
-          <button onClick={addImage} className={buttonClassName}>
+          <button onClick={addImage} className={buttonClassName} title="Ảnh">
             <svg
               className="h-5 w-5"
               aria-hidden="true"
@@ -253,6 +333,47 @@ const extensions = [
   }),
   Image,
   Dropcursor,
+  Link.configure({
+    openOnClick: false,
+    autolink: true,
+    defaultProtocol: "https",
+    protocols: ["http", "https"],
+    isAllowedUri: (url, ctx) => {
+      try {
+        // construct URL
+        const parsedUrl = url.includes(":")
+          ? new URL(url)
+          : new URL(`${ctx.defaultProtocol}://${url}`);
+
+        // use default validation
+        if (!ctx.defaultValidate(parsedUrl.href)) {
+          return false;
+        }
+
+        // disallowed protocols
+        const disallowedProtocols = ["ftp", "file", "mailto"];
+        const protocol = parsedUrl.protocol.replace(":", "");
+
+        if (disallowedProtocols.includes(protocol)) {
+          return false;
+        }
+
+        // only allow protocols specified in ctx.protocols
+        const allowedProtocols = ctx.protocols.map((p) =>
+          typeof p === "string" ? p : p.scheme,
+        );
+
+        if (!allowedProtocols.includes(protocol)) {
+          return false;
+        }
+
+        // all checks have passed
+        return true;
+      } catch {
+        return false;
+      }
+    },
+  }),
 ];
 
 const CommentEditor = ({
