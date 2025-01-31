@@ -191,7 +191,7 @@ export function CommentItem({
                   <MenuItem>
                     <div
                       onClick={() => setEditMode(!editMode)}
-                      className="cursor-pointer bg-white px-4 py-2 hover:bg-slate-100"
+                      className="cursor-pointer bg-white px-4 py-2 text-black hover:bg-slate-100"
                     >
                       {editMode ? "Thoát sửa" : "Sửa"}
                     </div>
@@ -199,7 +199,7 @@ export function CommentItem({
                   <MenuItem>
                     <div
                       onClick={() => onDeleteComment()}
-                      className="cursor-pointer bg-white px-4 py-2 hover:bg-slate-100"
+                      className="cursor-pointer bg-white px-4 py-2 text-black hover:bg-slate-100"
                     >
                       Xoá
                     </div>
@@ -226,6 +226,12 @@ export function CommentItem({
               user={user}
             />
           ))}
+        {comment.parent_id === 0 && comment.reply_count > 0 && (
+          <div className="flex cursor-pointer justify-center gap-2">
+            <Iconify className="text-orange-500" icon="fa:angle-down" />
+            <div className="text-base font-bold text-orange-500">Xem thêm</div>
+          </div>
+        )}
       </div>
     </div>
   );

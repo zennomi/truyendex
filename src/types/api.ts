@@ -44,4 +44,5 @@ export type CommentResponse = {
   };
   parent_id: number;
   replies?: CommentResponse[];
+  reply_count: number;
 };

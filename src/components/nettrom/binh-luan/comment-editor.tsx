@@ -289,15 +289,15 @@ const CommentEditor = ({
 
   return (
     <div className="comment_form">
-      <div className="w-full rounded-lg border border-gray-200 bg-gray-50 dark:border-gray-600 dark:bg-gray-700">
+      <div className="w-full border border-gray-200 bg-gray-50 dark:border-gray-600 dark:bg-[#423e3e]">
         <MenuBar editor={editor} />
-        <div className="rounded-b-lg bg-white px-4 py-2 dark:bg-gray-800">
+        <div className="bg-white px-4 py-2 dark:bg-orange-900/30">
           <EditorContent editor={editor} />
         </div>
         <div className="comment-info px-2 pb-3">
           <button
             type="submit"
-            className="btn btn-primary rounded-lg"
+            className="btn btn-warning"
             onClick={submitCommentClick}
           >
             Gửi
