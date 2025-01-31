@@ -50,6 +50,7 @@
     "react-photo-album": "^2.2.2",
     "react-select": "^5.7.3",
     "react-toastify": "^10.0.6",
+    "react-turnstile": "^1.1.4",
     "rehype-highlight": "^7.0.1",
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.0",
@@ -80,6 +81,7 @@
     "prettier-plugin-tailwindcss": "^0.6.8",
     "sass": "^1.63.4",
     "serwist": "^9.0.11",
+    "turnstile-types": "^1.2.3",
     "typescript": "^5.6.3"
   }
 }

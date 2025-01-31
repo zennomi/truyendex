@@ -9,9 +9,11 @@ import { isAxiosError } from "axios";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "@/hooks/useAuth";
 import { Constants } from "@/constants";
+import TurnstileWidget from "@/components/turnstile-widget";
 
 interface IForgotPasswordForm {
   email: string;
+  "cf-turnstile-response": string;
 }
 
 // Define the validation schema using yup
@@ -20,6 +22,9 @@ const resetPasswordSchema = yup.object().shape({
     .string()
     .email("Không đúng định dạng email")
     .required("Vui lòng điền email"),
+  "cf-turnstile-response": yup
+    .string()
+    .required("Vui lòng xác minh bạn không phải robot"),
 });
 
 export default function ForgotPasswordForm() {
@@ -27,6 +32,7 @@ export default function ForgotPasswordForm() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<IForgotPasswordForm>({
     resolver: yupResolver(resetPasswordSchema),
@@ -60,6 +66,15 @@ export default function ForgotPasswordForm() {
             {...register("email")}
           />
           {errors.email && <p>{errors.email.message}</p>}
+        </div>
+
+        <div className="mb-4 flex justify-between">
+          <TurnstileWidget
+            onVerify={(token) => setValue("cf-turnstile-response", token)}
+          />
+          {errors["cf-turnstile-response"] && (
+            <p>{errors["cf-turnstile-response"].message}</p>
+          )}
         </div>
 
         <div className="mb-4">

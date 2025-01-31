@@ -52,6 +52,7 @@ export const useAuth = ({
     password: string;
     name: string;
     password_confirmation: string;
+    "cf-turnstile-response": string;
   }) => {
     await csrf();
 
@@ -66,6 +67,7 @@ export const useAuth = ({
     email: string;
     password: string;
     shouldRemember: boolean;
+    "cf-turnstile-response": string;
   }) => {
     await csrf();
 
@@ -78,11 +80,14 @@ export const useAuth = ({
     await mutate();
   };
 
-  const forgotPassword = async ({ email }: { email: string }) => {
+  const forgotPassword = async (data: {
+    email: string;
+    "cf-turnstile-response": string;
+  }) => {
     await csrf();
 
     try {
-      await axios.post("/forgot-password", { email });
+      await axios.post("/forgot-password", data);
     } catch (error) {
       throw error;
     }

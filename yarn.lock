@@ -6785,6 +6785,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-turnstile@npm:^1.1.4":
+  version: 1.1.4
+  resolution: "react-turnstile@npm:1.1.4"
+  peerDependencies:
+    react: ">= 16.13.1"
+    react-dom: ">= 16.13.1"
+  checksum: 10c0/2a03226eede070e56be597b1456d870eb7180b90ed46a256970374fa545151474a08cb00acfe65292e353f8a2d082e1b2f851696b714f164251928f3330d2dad
+  languageName: node
+  linkType: hard
+
 "react@npm:^18.3.1":
   version: 18.3.1
   resolution: "react@npm:18.3.1"
@@ -7725,6 +7735,7 @@ __metadata:
     react-photo-album: "npm:^2.2.2"
     react-select: "npm:^5.7.3"
     react-toastify: "npm:^10.0.6"
+    react-turnstile: "npm:^1.1.4"
     rehype-highlight: "npm:^7.0.1"
     rehype-raw: "npm:^7.0.0"
     remark-gfm: "npm:^4.0.0"
@@ -7735,6 +7746,7 @@ __metadata:
     tailwind-merge: "npm:^2.5.4"
     tailwindcss: "npm:^3.3.2"
     tailwindcss-animate: "npm:^1.0.7"
+    turnstile-types: "npm:^1.2.3"
     typescript: "npm:^5.6.3"
     yarn: "npm:^1.22.22"
     yup: "npm:^1.4.0"
@@ -7774,6 +7786,13 @@ __metadata:
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10c0/9c4759110a19c53f992d9aae23aac5ced636e99887b51b9e61def52611732872ff7668757d4e4c61f19691e36f4da981cd9485e869b4a7408d689f6bf1f14e62
+  languageName: node
+  linkType: hard
+
+"turnstile-types@npm:^1.2.3":
+  version: 1.2.3
+  resolution: "turnstile-types@npm:1.2.3"
+  checksum: 10c0/24002535bfb1716052758d1d1bdc587ddcf69290fbde2fcd19f9076b3ac10aa9b5438b1c38720da625ff090a5b4bea75708447931c9d2a0d7de5217f32cf3b2c
   languageName: node
   linkType: hard
 
