@@ -6,6 +6,7 @@ import { Button } from "../Button";
 import { MangadexApi } from "@/api";
 import { toast } from "react-toastify";
 import { Constants } from "@/constants";
+import Iconify from "@/components/iconify";
 
 export default function FirstChapterButton({ mangaId }: { mangaId: string }) {
   const router = useRouter();
@@ -29,7 +30,9 @@ export default function FirstChapterButton({ mangaId }: { mangaId: string }) {
     <Button
       onClick={readFirstChapter}
       className="w-full sm:w-auto"
-      icon={<i className="fa fa-eye" />}
+      icon={
+        loading ? <Iconify icon="uil:spinner" /> : <Iconify icon="fa:eye" />
+      }
       disabled={loading}
     >
       Đọc ngay

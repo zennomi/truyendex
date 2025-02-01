@@ -4,12 +4,12 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
-import { toast } from "react-toastify";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "@/hooks/useAuth";
 import { Constants } from "@/constants";
 import TurnstileWidget from "@/components/turnstile-widget";
+import { Utils } from "@/utils";
 
 // Define the form input types
 interface ILoginForm {
@@ -57,8 +57,7 @@ export default function LoginForm() {
     try {
       await login(data);
     } catch (error) {
-      console.error(error);
-      toast("Sai email hoặc mật khẩu!", { type: "error" });
+      Utils.Error.handleError(error);
     }
   };
 
@@ -91,7 +90,7 @@ export default function LoginForm() {
           />
           {errors.password && <p>{errors.password.message}</p>}
         </div>
-        <div className="mb-4 flex justify-between">
+        <div className="mb-4">
           <TurnstileWidget
             onVerify={(token) => setValue("cf-turnstile-response", token)}
           />

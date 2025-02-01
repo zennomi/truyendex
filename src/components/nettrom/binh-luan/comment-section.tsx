@@ -40,8 +40,7 @@ export default function CommentSection({
         toast("Bình luận thành công!");
         mutate();
       } catch (error) {
-        console.error(error);
-        toast("Có lỗi xảy ra khi bình luận!", { type: "error" });
+        Utils.Error.handleError(error);
       }
     },
     [mutate],
@@ -125,8 +124,7 @@ export function CommentItem({
       refresh();
       setOpenReply(false);
     } catch (error) {
-      console.error(error);
-      toast("Có lỗi xảy ra khi trả lời bình luận!", { type: "error" });
+      Utils.Error.handleError(error);
     }
   }, []);
 
@@ -138,8 +136,7 @@ export function CommentItem({
       toast("Xoá lời bình luận thành công!");
       refresh();
     } catch (error) {
-      console.error(error);
-      toast("Có lỗi xảy ra khi xoá bình luận!", { type: "error" });
+      Utils.Error.handleError(error);
     }
   }, []);
 
@@ -153,7 +150,7 @@ export function CommentItem({
       refresh();
       setEditMode(false);
     } catch (error) {
-      console.error(error);
+      Utils.Error.handleError(error);
     }
   }, []);
 

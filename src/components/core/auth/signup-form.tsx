@@ -146,7 +146,7 @@ export default function SignUpForm() {
             </label>
           </div>
         </div>
-        <div className="mb-4 flex justify-between">
+        <div className="mb-4">
           <TurnstileWidget
             onVerify={(token) => setValue("cf-turnstile-response", token)}
           />

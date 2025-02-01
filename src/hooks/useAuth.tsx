@@ -2,7 +2,6 @@ import useSWR from "swr";
 import { useCallback, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { isAxiosError } from "axios";
 
 import { axios } from "@/api/core";
 import { GetUserResponse } from "@/types";
@@ -29,17 +28,9 @@ export const useAuth = ({
     }
     try {
       const { data } = await axios.get<GetUserResponse>("/api/user");
-      if (!data.email_verified_at) {
-        router.push(Constants.Routes.verifyEmail);
-      }
+
       return data;
-    } catch (error) {
-      if (isAxiosError(error)) {
-        if (error.status === 409) {
-          router.push(Constants.Routes.verifyEmail);
-        }
-      }
-    }
+    } catch {}
     return null;
   });
 
@@ -108,8 +99,10 @@ export const useAuth = ({
     router.push(Constants.Routes.login);
   };
 
-  const resendEmailVerification = async () => {
-    await axios.post("/email/verification-notification");
+  const resendEmailVerification = async (data: {
+    "cf-turnstile-response": string;
+  }) => {
+    await axios.post("/email/verification-notification", data);
   };
 
   const logout = useCallback(async () => {
@@ -123,25 +116,11 @@ export const useAuth = ({
   useEffect(() => {
     if (middleware === "guest" && redirectIfAuthenticated && user) {
       toast("Đã đăng nhập, chuyển hướng...");
-      if (user.email_verified_at) router.push(redirectIfAuthenticated);
-      else router.push(Constants.Routes.verifyEmail);
+      router.push(redirectIfAuthenticated);
     }
 
-    if (middleware === "auth" && user && !user.email_verified_at)
-      router.push(Constants.Routes.verifyEmail);
-
-    if (
-      window.location.pathname === Constants.Routes.verifyEmail &&
-      user?.email_verified_at
-    )
-      router.push(redirectIfAuthenticated || Constants.Routes.nettrom.index);
-
-    if (window.location.pathname === Constants.Routes.verifyEmail && !user) {
-      router.push("/");
-    }
-
-    if (middleware === "auth" && redirectIfNotAuthenticated && user === null) {
-      router.push(redirectIfNotAuthenticated);
+    if (middleware === "auth" && user === null) {
+      router.push(redirectIfNotAuthenticated || Constants.Routes.login);
     }
     if (middleware === "auth" && error) logout();
   }, [
