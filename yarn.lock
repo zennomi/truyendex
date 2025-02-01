@@ -2005,13 +2005,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-lazy-load-image-component@npm:^1.6.4":
-  version: 1.6.4
-  resolution: "@types/react-lazy-load-image-component@npm:1.6.4"
+"@types/react-lazy-load-image-component@npm:1.6.3":
+  version: 1.6.3
+  resolution: "@types/react-lazy-load-image-component@npm:1.6.3"
   dependencies:
     "@types/react": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10c0/f0d6c02439bbd4b899fe78c5a518e121bb333af0f5b36179136551e5c03efd0e8abb20a96dbc70e367858f2268bfcd883c3b6278646c9a09685a53039b1d1da4
+  checksum: 10c0/40912e3f50f3d9984c20098d44a1ec1d81fc7f0053754c15199ea4eff9a4143df41736e168e08c00019e42e1dfc3b8e70f29bd93ef83a8e5cf11839cf3fcb7b0
   languageName: node
   linkType: hard
 
@@ -6652,7 +6652,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-lazy-load-image-component@npm:^1.6.3":
+"react-lazy-load-image-component@npm:1.6.3":
   version: 1.6.3
   resolution: "react-lazy-load-image-component@npm:1.6.3"
   dependencies:
@@ -7725,7 +7725,7 @@ __metadata:
     "@types/node": "npm:^20.17.0"
     "@types/react": "npm:^18.3.12"
     "@types/react-dom": "npm:^18.3.1"
-    "@types/react-lazy-load-image-component": "npm:^1.6.4"
+    "@types/react-lazy-load-image-component": "npm:1.6.3"
     "@typescript-eslint/parser": "npm:^8.11.0"
     add: "npm:^2.0.6"
     autoprefixer: "npm:^10.4.14"
@@ -7749,7 +7749,7 @@ __metadata:
     react-dom: "npm:^18.3.1"
     react-hook-form: "npm:^7.42.1"
     react-icons: "npm:^5.3.0"
-    react-lazy-load-image-component: "npm:^1.6.3"
+    react-lazy-load-image-component: "npm:1.6.3"
     react-markdown: "npm:^9.0.1"
     react-paginate: "npm:^8.2.0"
     react-photo-album: "npm:^2.2.2"
@@ -7767,7 +7767,7 @@ __metadata:
     tailwindcss: "npm:^3.3.2"
     tailwindcss-animate: "npm:^1.0.7"
     turnstile-types: "npm:^1.2.3"
-    typescript: "npm:^5.6.3"
+    typescript: "npm:^5.7.3"
     yarn: "npm:^1.22.22"
     yup: "npm:^1.4.0"
     zod: "npm:^3.23.8"
@@ -7892,23 +7892,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.6.3":
-  version: 5.7.2
-  resolution: "typescript@npm:5.7.2"
+"typescript@npm:^5.7.3":
+  version: 5.7.3
+  resolution: "typescript@npm:5.7.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/a873118b5201b2ef332127ef5c63fb9d9c155e6fdbe211cbd9d8e65877283797cca76546bad742eea36ed7efbe3424a30376818f79c7318512064e8625d61622
+  checksum: 10c0/b7580d716cf1824736cc6e628ab4cd8b51877408ba2be0869d2866da35ef8366dd6ae9eb9d0851470a39be17cbd61df1126f9e211d8799d764ea7431d5435afa
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.6.3#optional!builtin<compat/typescript>":
-  version: 5.7.2
-  resolution: "typescript@patch:typescript@npm%3A5.7.2#optional!builtin<compat/typescript>::version=5.7.2&hash=cef18b"
+"typescript@patch:typescript@npm%3A^5.7.3#optional!builtin<compat/typescript>":
+  version: 5.7.3
+  resolution: "typescript@patch:typescript@npm%3A5.7.3#optional!builtin<compat/typescript>::version=5.7.3&hash=cef18b"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/c891ccf04008bc1305ba34053db951f8a4584b4a1bf2f68fd972c4a354df3dc5e62c8bfed4f6ac2d12e5b3b1c49af312c83a651048f818cd5b4949d17baacd79
+  checksum: 10c0/3b56d6afa03d9f6172d0b9cdb10e6b1efc9abc1608efd7a3d2f38773d5d8cfb9bbc68dfb72f0a7de5e8db04fc847f4e4baeddcd5ad9c9feda072234f0d788896
   languageName: node
   linkType: hard
 
