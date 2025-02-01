@@ -85,6 +85,14 @@ export default function FollowingList() {
                   );
                 },
               )}
+              {
+                // Show empty state if no manga
+                !data?.data.length && (
+                  <div className="col-span-4 text-center">
+                    <p>Bạn chưa theo dõi truyện nào</p>
+                  </div>
+                )
+              }
             </div>
           </DataLoader>
         </div>

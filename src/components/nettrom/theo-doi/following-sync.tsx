@@ -1,11 +1,18 @@
 import { useState } from "react";
-import { Button } from "../Button";
+import { toast } from "react-toastify";
+import Link from "next/link";
+import Image from "next/image";
+
 import Iconify from "@/components/iconify";
 import useHostname from "@/hooks/useHostname";
 import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
-import { toast } from "react-toastify";
-import Link from "next/link";
 import { Constants } from "@/constants";
+
+import OpenDevToolsImage from "@/assets/sync-guide/open-dev-tools.jpg";
+import OpenConsoleImage from "@/assets/sync-guide/open-console.jpg";
+import CMangaSyncImage from "@/assets/sync-guide/cmanga-sync.png";
+
+import { Button } from "../Button";
 
 const headingClassName = "text-3xl text-orange-500 mt-3";
 
@@ -77,6 +84,15 @@ function Step2({ source }: { source: string }) {
   return (
     <div>
       Truy cập {source} và <b>đăng nhập</b>.
+      {source === "cmanga" && (
+        <>
+          <div>
+            Sau khi đăng nhập vào CManga, bạn có thể đồng bộ truyện từ NetTruyen
+            và TruyenQQ sang CManga trước.
+          </div>
+          <Image className="mt-1" src={CMangaSyncImage} alt="CManga" />
+        </>
+      )}
     </div>
   );
 }
@@ -88,7 +104,13 @@ function Step3({ source }: { source: string }) {
       <ul>
         <li>Windows: Ctrl + Shift + J</li>
         <li>Mac: Command (⌘) + Option (⌥) + J</li>
+        <li>Hoặc làm thủ công theo bước dưới để mở Developer Tools:</li>
       </ul>
+      <Image
+        className="mt-1"
+        src={OpenDevToolsImage}
+        alt="Mở Developer Tools"
+      />
     </div>
   );
 }
@@ -110,7 +132,9 @@ function Step4({ source }: { source: string }) {
 
   return (
     <div>
-      <div>Sao chép script phía dưới và patse vào tab Console.</div>
+      <div>
+        Mở tab Console, sao chép script phía dưới, dán vào Console và bấm Enter.
+      </div>
       <pre className="whitespace-pre-wrap break-words rounded bg-gray-800 p-4 text-white">
         <code className="whitespace-pre-wrap break-words">{script}</code>
       </pre>
@@ -121,6 +145,7 @@ function Step4({ source }: { source: string }) {
       >
         Sao chép
       </Button>
+      <Image className="mt-1" src={OpenConsoleImage} alt="Mở Console" />
     </div>
   );
 }
@@ -129,7 +154,7 @@ function Step5({ source }: { source: string }) {
   return (
     <div>
       <div>
-        Làm theo hướng dẫn của script. Nếu gặp bất cứ vấn đề nào, hãy nhắn tin
+        Làm theo các hướng dẫn còn lại. Nếu gặp bất cứ vấn đề nào, hãy nhắn tin
         để mình có thể hỗ trợ.
       </div>
       <Link href={Constants.Routes.report} target="_blank">
