@@ -6652,15 +6652,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-lazy-load-image-component@npm:^1.6.2":
-  version: 1.6.2
-  resolution: "react-lazy-load-image-component@npm:1.6.2"
+"react-lazy-load-image-component@npm:^1.6.3":
+  version: 1.6.3
+  resolution: "react-lazy-load-image-component@npm:1.6.3"
   dependencies:
     lodash.debounce: "npm:^4.0.8"
     lodash.throttle: "npm:^4.1.1"
   peerDependencies:
-    react: ^15.x.x || ^16.x.x || ^17.x.x || ^18.x.x
-  checksum: 10c0/e0bf069d734c9371cfcea6e9402b6327adf18c6e57c98616f48b38dbbeb5c8d1e9262ad4b8f5626fdd26d5ddfa7c547ff9d17419a9617306195f5fe577f0b430
+    react: ^15.x.x || ^16.x.x || ^17.x.x || ^18.x.x || ^19.x.x
+  checksum: 10c0/5237557d90b26aadcaf078ce8fa9b5d2270705d771c3f4cdb39375e7988257f6ba0705b558150b54c695d9a001fbeb3d690638df1bc85759d248a0f01d9659d1
   languageName: node
   linkType: hard
 
@@ -7749,7 +7749,7 @@ __metadata:
     react-dom: "npm:^18.3.1"
     react-hook-form: "npm:^7.42.1"
     react-icons: "npm:^5.3.0"
-    react-lazy-load-image-component: "npm:^1.6.2"
+    react-lazy-load-image-component: "npm:^1.6.3"
     react-markdown: "npm:^9.0.1"
     react-paginate: "npm:^8.2.0"
     react-photo-album: "npm:^2.2.2"
