@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import Iconify from "@/components/iconify";
+import { Constants } from "@/constants";
 
 export default function AuthLayout({
   children,
@@ -14,7 +15,7 @@ export default function AuthLayout({
         <div className="container-fluid relative">
           <div className="items-center md:flex">
             <div className="md:w-1/2 lg:w-1/3 xl:w-[30%]">
-              <div className="relative z-1 flex-col justify-center bg-white px-4 py-10 shadow md:flex md:min-h-screen md:px-10 dark:bg-slate-900 dark:shadow-gray-700">
+              <div className="relative z-1 min-h-screen flex-col justify-center bg-white px-4 py-10 shadow md:flex md:px-10 dark:bg-slate-900 dark:shadow-gray-700">
                 <div className="text-center">
                   <Link href="/">
                     <img
@@ -24,12 +25,21 @@ export default function AuthLayout({
                     />
                   </Link>
                 </div>
-                <div className="relative mt-2 block rounded-md border border-indigo-600/10 bg-indigo-600/10 px-4 py-2 font-medium text-indigo-600">
+                <div className="relative my-2 block rounded-md border border-indigo-600/10 bg-indigo-600/10 px-4 py-2 font-medium text-indigo-600">
                   <Iconify
                     icon="uil:exclamation-circle"
                     className="me-1 inline"
                   />{" "}
-                  Chức năng đăng nhập chưa được triển khai chính thức
+                  Nếu gặp bất cứ vấn đề gì khi đăng nhập/đăng ký, vui lòng liên
+                  hệ{" "}
+                  <Link
+                    className="underline"
+                    target="_blank"
+                    href={Constants.Routes.report}
+                  >
+                    tại đây
+                  </Link>
+                  .
                 </div>
                 <div className="title-heading my-20 text-center md:my-auto">
                   {children}
@@ -39,7 +49,7 @@ export default function AuthLayout({
                 </div>
               </div>
             </div>
-            <div className="mx-6 my-20 flex justify-center md:my-auto md:w-1/2 lg:w-2/3 xl:w-[70%]">
+            <div className="mx-6 my-20 hidden justify-center md:my-auto md:flex md:w-1/2 lg:w-2/3 xl:w-[70%]">
               <div>
                 <div className="relative">
                   <div className="absolute start-20 top-20 size-[1200px] rounded-full bg-indigo-600/[0.02]" />
@@ -48,16 +58,15 @@ export default function AuthLayout({
                 <div className="text-center">
                   <div>
                     <img
-                      src="/images/illustrations/contact.svg"
-                      className="mx-auto max-w-xl"
+                      src="/images/illustrations/auth-girl.png"
+                      className="mx-auto max-h-[400px] max-w-xl"
                       alt=""
                     />
                     <div className="relative mx-auto max-w-xl text-start">
                       <div className="relative rounded-[30px] border-2 border-indigo-600 p-8 before:absolute before:-bottom-1 before:start-16 before:z-2 before:w-28 before:border-[6px] before:border-white before:content-[''] after:absolute after:-bottom-[80px] after:start-[60px] after:z-3 after:h-20 after:w-20 after:rounded-none after:rounded-e-[50px] after:border-2 after:border-b-0 after:border-s-0 after:border-indigo-600 after:content-[''] dark:before:border-slate-900">
                         <span className="font-semibold leading-normal">
-                          Chức năng đăng nhập đang trong giai đoạn phát triển và
-                          thử nghiệm. Sẽ sớm ra mắt trong tháng này (hoặc tháng
-                          sau)...
+                          Tạo tài khoản ngay để tham gia cộng đồng truyện tranh
+                          văn minh nhất Đông Lào!
                         </span>
                         <div className="absolute -top-0 start-4 -z-1 text-8xl text-indigo-600/10 dark:text-indigo-600/20">
                           <Iconify icon="mdi:format-quote-open" />
