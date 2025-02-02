@@ -1,8 +1,8 @@
 import { AppApi } from "@/api";
 import useSWR from "swr";
 
-export const useCheckFollowed = (mangaId: string) => {
+export const useSeriesInfo = (mangaId: string) => {
   return useSWR(["followed-manga", mangaId], () =>
-    AppApi.Series.checkFollow(mangaId),
+    AppApi.Series.checkInfo(mangaId),
   );
 };
