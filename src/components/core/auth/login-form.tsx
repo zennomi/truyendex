@@ -4,34 +4,40 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
-import { toast } from "react-toastify";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "@/hooks/useAuth";
 import { Constants } from "@/constants";
+import TurnstileWidget from "@/components/turnstile-widget";
+import { Utils } from "@/utils";
 
 // Define the form input types
 interface ILoginForm {
   email: string;
   password: string;
   shouldRemember: boolean;
+  "cf-turnstile-response": string;
 }
 
 // Define the validation schema using yup
 const loginSchema = yup.object().shape({
   email: yup
     .string()
-    .email("Invalid email format")
-    .required("Email is required"),
+    .email("Email không hợp lệ")
+    .required("Vui lòng điền email"),
   password: yup
     .string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Password is required"),
+    .min(6, "Mật khẩu ít nhất 6 ký tự")
+    .required("Vui lòng điền mật khẩu"),
   shouldRemember: yup.boolean().default(true),
+  "cf-turnstile-response": yup
+    .string()
+    .required("Vui lòng xác minh bạn không phải robot"),
 });
 
 export default function LoginForm() {
   const searchParams = useSearchParams();
+
   const { login } = useAuth({
     middleware: "guest",
     redirectIfAuthenticated:
@@ -41,6 +47,7 @@ export default function LoginForm() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<ILoginForm>({
     resolver: yupResolver(loginSchema),
@@ -50,8 +57,7 @@ export default function LoginForm() {
     try {
       await login(data);
     } catch (error) {
-      console.error(error);
-      toast("Sai email hoặc mật khẩu!", { type: "error" });
+      Utils.Error.handleError(error);
     }
   };
 
@@ -83,6 +89,14 @@ export default function LoginForm() {
             {...register("password")}
           />
           {errors.password && <p>{errors.password.message}</p>}
+        </div>
+        <div className="mb-4">
+          <TurnstileWidget
+            onVerify={(token) => setValue("cf-turnstile-response", token)}
+          />
+          {errors["cf-turnstile-response"] && (
+            <p>{errors["cf-turnstile-response"].message}</p>
+          )}
         </div>
         <div className="mb-4 flex justify-between">
           <div className="mb-0 flex items-center">

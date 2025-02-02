@@ -1,6 +1,7 @@
 import FeaturedTitles from "@/components/nettrom/trang-chu/featured-titles";
 import NewUpdates from "@/components/nettrom/trang-chu/new-updated-titles";
 import ReadingHistory from "@/components/nettrom/trang-chu/reading-history";
+import RecentComments from "@/components/nettrom/trang-chu/recent-comments";
 import TopTitles from "@/components/nettrom/trang-chu/top-titles";
 
 export default function HomePage() {
@@ -14,6 +15,7 @@ export default function HomePage() {
         <div className="flex flex-col gap-[20px]">
           <ReadingHistory />
           <TopTitles />
+          <RecentComments />
         </div>
       </div>
     </div>

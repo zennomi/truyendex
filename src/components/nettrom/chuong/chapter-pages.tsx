@@ -5,11 +5,14 @@ import { useChapterContext } from "@/contexts/chapter";
 import { DataLoader } from "@/components/DataLoader";
 import { Button } from "../Button";
 import CommentSection from "../binh-luan/comment-section";
+import { Alert } from "../Alert";
+import ScanlationGroupInformation from "./scanlation-group-information";
 
 export default function ChapterPages() {
   const { height } = useWindowSize();
 
-  const { chapterId, canNext, canPrev, next, prev } = useChapterContext();
+  const { chapterId, canNext, canPrev, next, prev, chapter, group } =
+    useChapterContext();
 
   const { pages, isLoading } = useChapterPages(chapterId);
   return (
@@ -30,8 +33,19 @@ export default function ChapterPages() {
           Chương trước
         </Button>
       </div>
-      <DataLoader isLoading={!chapterId}>
-        {chapterId && <CommentSection type="chapter" typeId={chapterId} />}
+      <DataLoader isLoading={!group} loadingText="Đang tải nhóm dịch...">
+        {group && (
+          <ScanlationGroupInformation group={group} canNext={canNext} />
+        )}
+      </DataLoader>
+      <DataLoader isLoading={!chapter} loadingText="Đang tải bình luận...">
+        {chapterId &&
+          (!chapter || chapter.attributes.translatedLanguage === "vi") && (
+            <CommentSection type="chapter" typeId={chapterId} />
+          )}
+        {chapter && chapter.attributes.translatedLanguage !== "vi" && (
+          <Alert title="Chỉ hỗ trợ bình luận tại các chương tiếng Việt" />
+        )}
       </DataLoader>
     </div>
   );

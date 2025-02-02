@@ -44,7 +44,6 @@ async function main() {
           },
         },
       ).then((res) => res.json());
-      console.log(data);
       ids.push(...data.map((d) => d.id));
       if (_metadata.current_page >= _metadata.total_pages) break;
 

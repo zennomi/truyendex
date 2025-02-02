@@ -11,13 +11,16 @@ export const followOrUnfollow = async (seriesId: string) => {
   return data;
 };
 
-export const checkFollow = async (seriesId: string) => {
-  const { data } = await axios({
+export const checkInfo = async (seriesId: string) => {
+  const { data } = await axios<{
+    followed: boolean | null;
+    comment_count: number;
+  }>({
     method: "POST",
-    url: "/api/series/check-follow",
+    url: "/api/series/check-info",
     data: {
       series_uuid: seriesId,
     },
   });
-  return data.followed;
+  return data;
 };

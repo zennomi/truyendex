@@ -10,6 +10,8 @@ export class Constants {
   static readonly APP_NAME = "Truyendex";
   static readonly APP_VERSION = "1.0.0";
   static readonly GTM_ID = process.env.NEXT_PUBLIC_GTM_ID!;
+  static readonly TURNSTILE_SITE_KEY =
+    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!;
   static readonly Mangadex = new MangaDexConstants();
   static readonly Nettrom = new NettromConstants();
   static readonly Routes = {

@@ -3,13 +3,12 @@
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
-import { isAxiosError } from "axios";
-import { toast } from "react-toastify";
-import { useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "@/hooks/useAuth";
 import { Constants } from "@/constants";
+import { Utils } from "@/utils";
 
 // Define the form input types
 interface ISignupForm {
@@ -39,6 +38,7 @@ export default function ResetPasswordForm() {
     middleware: "guest",
   });
   const searchParams = useSearchParams();
+  const { token } = useParams();
 
   const {
     register,
@@ -56,15 +56,10 @@ export default function ResetPasswordForm() {
       await resetPassword({
         ...data,
         password_confirmation: data.confirmPassword,
-        token: searchParams.get("token") || "",
+        token: (token as string) || "",
       });
     } catch (error) {
-      console.error(error);
-      let message = "Đã có lỗi xảy ra";
-      if (isAxiosError(error)) {
-        message = error.response?.data.message || message;
-      }
-      toast(message, { type: "error" });
+      Utils.Error.handleError(error);
     }
   };
 

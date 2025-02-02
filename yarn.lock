@@ -1746,6 +1746,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tiptap/extension-link@npm:^2.11.5":
+  version: 2.11.5
+  resolution: "@tiptap/extension-link@npm:2.11.5"
+  dependencies:
+    linkifyjs: "npm:^4.2.0"
+  peerDependencies:
+    "@tiptap/core": ^2.7.0
+    "@tiptap/pm": ^2.7.0
+  checksum: 10c0/32282034c4c8698da31dba19e55ac1be0fe8e6ea487d213de23a06311ab808cecdd997963d4c7d71b6b9b5b856e99cdf6a41e0e59df9e6bcce03d8a6952cdfaa
+  languageName: node
+  linkType: hard
+
 "@tiptap/extension-list-item@npm:^2.11.2":
   version: 2.11.2
   resolution: "@tiptap/extension-list-item@npm:2.11.2"
@@ -1993,13 +2005,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-lazy-load-image-component@npm:^1.6.4":
-  version: 1.6.4
-  resolution: "@types/react-lazy-load-image-component@npm:1.6.4"
+"@types/react-lazy-load-image-component@npm:1.6.3":
+  version: 1.6.3
+  resolution: "@types/react-lazy-load-image-component@npm:1.6.3"
   dependencies:
     "@types/react": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10c0/f0d6c02439bbd4b899fe78c5a518e121bb333af0f5b36179136551e5c03efd0e8abb20a96dbc70e367858f2268bfcd883c3b6278646c9a09685a53039b1d1da4
+  checksum: 10c0/40912e3f50f3d9984c20098d44a1ec1d81fc7f0053754c15199ea4eff9a4143df41736e168e08c00019e42e1dfc3b8e70f29bd93ef83a8e5cf11839cf3fcb7b0
   languageName: node
   linkType: hard
 
@@ -4850,6 +4862,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"linkifyjs@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "linkifyjs@npm:4.2.0"
+  checksum: 10c0/fda4fe3e98df94400fbc70ba38798094c6852e7f41e8cc9b8a2fcd3cb122daa20502aedfd1ecb996cf9d829f6fdddd9813858ca070f9cb246389a5b161c6ac8d
+  languageName: node
+  linkType: hard
+
 "locate-path@npm:^6.0.0":
   version: 6.0.0
   resolution: "locate-path@npm:6.0.0"
@@ -6785,6 +6804,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-turnstile@npm:^1.1.4":
+  version: 1.1.4
+  resolution: "react-turnstile@npm:1.1.4"
+  peerDependencies:
+    react: ">= 16.13.1"
+    react-dom: ">= 16.13.1"
+  checksum: 10c0/2a03226eede070e56be597b1456d870eb7180b90ed46a256970374fa545151474a08cb00acfe65292e353f8a2d082e1b2f851696b714f164251928f3330d2dad
+  languageName: node
+  linkType: hard
+
 "react@npm:^18.3.1":
   version: 18.3.1
   resolution: "react@npm:18.3.1"
@@ -7688,6 +7717,7 @@ __metadata:
     "@tiptap/extension-color": "npm:^2.11.2"
     "@tiptap/extension-dropcursor": "npm:^2.11.2"
     "@tiptap/extension-image": "npm:^2.11.2"
+    "@tiptap/extension-link": "npm:^2.11.5"
     "@tiptap/pm": "npm:^2.11.2"
     "@tiptap/react": "npm:^2.11.2"
     "@tiptap/starter-kit": "npm:^2.11.2"
@@ -7695,7 +7725,7 @@ __metadata:
     "@types/node": "npm:^20.17.0"
     "@types/react": "npm:^18.3.12"
     "@types/react-dom": "npm:^18.3.1"
-    "@types/react-lazy-load-image-component": "npm:^1.6.4"
+    "@types/react-lazy-load-image-component": "npm:1.6.3"
     "@typescript-eslint/parser": "npm:^8.11.0"
     add: "npm:^2.0.6"
     autoprefixer: "npm:^10.4.14"
@@ -7725,6 +7755,7 @@ __metadata:
     react-photo-album: "npm:^2.2.2"
     react-select: "npm:^5.7.3"
     react-toastify: "npm:^10.0.6"
+    react-turnstile: "npm:^1.1.4"
     rehype-highlight: "npm:^7.0.1"
     rehype-raw: "npm:^7.0.0"
     remark-gfm: "npm:^4.0.0"
@@ -7735,7 +7766,8 @@ __metadata:
     tailwind-merge: "npm:^2.5.4"
     tailwindcss: "npm:^3.3.2"
     tailwindcss-animate: "npm:^1.0.7"
-    typescript: "npm:^5.6.3"
+    turnstile-types: "npm:^1.2.3"
+    typescript: "npm:^5.7.3"
     yarn: "npm:^1.22.22"
     yup: "npm:^1.4.0"
     zod: "npm:^3.23.8"
@@ -7774,6 +7806,13 @@ __metadata:
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10c0/9c4759110a19c53f992d9aae23aac5ced636e99887b51b9e61def52611732872ff7668757d4e4c61f19691e36f4da981cd9485e869b4a7408d689f6bf1f14e62
+  languageName: node
+  linkType: hard
+
+"turnstile-types@npm:^1.2.3":
+  version: 1.2.3
+  resolution: "turnstile-types@npm:1.2.3"
+  checksum: 10c0/24002535bfb1716052758d1d1bdc587ddcf69290fbde2fcd19f9076b3ac10aa9b5438b1c38720da625ff090a5b4bea75708447931c9d2a0d7de5217f32cf3b2c
   languageName: node
   linkType: hard
 
@@ -7853,23 +7892,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.6.3":
-  version: 5.7.2
-  resolution: "typescript@npm:5.7.2"
+"typescript@npm:^5.7.3":
+  version: 5.7.3
+  resolution: "typescript@npm:5.7.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/a873118b5201b2ef332127ef5c63fb9d9c155e6fdbe211cbd9d8e65877283797cca76546bad742eea36ed7efbe3424a30376818f79c7318512064e8625d61622
+  checksum: 10c0/b7580d716cf1824736cc6e628ab4cd8b51877408ba2be0869d2866da35ef8366dd6ae9eb9d0851470a39be17cbd61df1126f9e211d8799d764ea7431d5435afa
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.6.3#optional!builtin<compat/typescript>":
-  version: 5.7.2
-  resolution: "typescript@patch:typescript@npm%3A5.7.2#optional!builtin<compat/typescript>::version=5.7.2&hash=cef18b"
+"typescript@patch:typescript@npm%3A^5.7.3#optional!builtin<compat/typescript>":
+  version: 5.7.3
+  resolution: "typescript@patch:typescript@npm%3A5.7.3#optional!builtin<compat/typescript>::version=5.7.3&hash=cef18b"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/c891ccf04008bc1305ba34053db951f8a4584b4a1bf2f68fd972c4a354df3dc5e62c8bfed4f6ac2d12e5b3b1c49af312c83a651048f818cd5b4949d17baacd79
+  checksum: 10c0/3b56d6afa03d9f6172d0b9cdb10e6b1efc9abc1608efd7a3d2f38773d5d8cfb9bbc68dfb72f0a7de5e8db04fc847f4e4baeddcd5ad9c9feda072234f0d788896
   languageName: node
   linkType: hard
 

@@ -4,25 +4,13 @@ import { useChapterContext } from "@/contexts/chapter";
 import { Utils } from "@/utils";
 import { Constants } from "@/constants";
 import { DataLoader } from "@/components/DataLoader";
-import { Alert } from "../Alert";
 import { ChapterControlBar } from "./chapter-control-bar";
 import { useMemo } from "react";
-import { Button } from "../Button";
 import { FaClock } from "react-icons/fa";
+import RandomAlert from "./random-alert";
 
 export default function ChapterControl() {
-  const {
-    manga,
-    chapter,
-    canNext,
-    canPrev,
-    next,
-    prev,
-    chapters,
-    goTo,
-    others,
-    chapterId,
-  } = useChapterContext();
+  const { manga, chapter, others, group } = useChapterContext();
 
   const mangaTitle = useMemo(() => {
     return Utils.Mangadex.getMangaTitle(manga);
@@ -81,7 +69,7 @@ export default function ChapterControl() {
             );
           })}
         </ul> */}
-        <h1 className="mb-4 mt-0">
+        <h1 className="mb-1 mt-0 md:mb-4">
           <Link
             className="text-[16px] text-web-title transition hover:text-web-titleLighter"
             href={Constants.Routes.nettrom.manga(manga?.id || "")}
@@ -92,7 +80,7 @@ export default function ChapterControl() {
             {chapterTitle}{" "}
           </p>
         </h1>
-        <p className="mb-5">
+        <p className="mb-2 md:mb-5">
           <span className="text-[14px] text-muted-foreground">
             <FaClock className="mr-2 inline" />
             Cập nhật lúc:{" "}
@@ -103,6 +91,15 @@ export default function ChapterControl() {
                   "HH:mm dd/MM/yyyy",
                 )}
             </span>
+            {group && (
+              <span className="text-muted-foreground">
+                {" "}
+                bởi{" "}
+                <Link href={Constants.Routes.nettrom.scanlationGroup(group.id)}>
+                  {group.attributes.name}
+                </Link>
+              </span>
+            )}
           </span>
         </p>
         <i></i>
@@ -126,25 +123,7 @@ export default function ChapterControl() {
             </div>
           </div>
         )}
-        <Alert
-          classNames={{
-            alert: "[&>svg]:text-blue-500 text-blue-500 bg-blue-100",
-          }}
-          title=" TruyenDex là một website mã nguồn mở, trong quá trình trải nghiệm
-            rất mong nhận được phản hồi từ mọi người!"
-          action={
-            <Link
-              className="no-underline hover:no-underline"
-              href={Constants.Routes.report}
-              target="_blank"
-              rel="nofollow"
-            >
-              <Button className="bg-blue-500 hover:bg-blue-600">
-                Góp ý/Phản hồi
-              </Button>
-            </Link>
-          }
-        ></Alert>
+        <RandomAlert />
         <ChapterControlBar></ChapterControlBar>
         <div className="mb-4"></div>
       </div>

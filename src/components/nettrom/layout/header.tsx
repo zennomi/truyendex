@@ -45,7 +45,6 @@ export default function Header() {
             <div className="navbar-form navbar-left hidden-xs search-box comicsearchbox">
               <SearchInput />
             </div>
-            <i className="fa fa-lightbulb-o toggle-dark"></i>
             <Link
               href={Constants.Routes.nettrom.search}
               type="button"

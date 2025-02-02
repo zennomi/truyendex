@@ -8,6 +8,7 @@ import { isAxiosError } from "axios";
 import { toast } from "react-toastify";
 import { useAuth } from "@/hooks/useAuth";
 import { Constants } from "@/constants";
+import TurnstileWidget from "@/components/turnstile-widget";
 
 // Define the form input types
 interface ISignupForm {
@@ -16,6 +17,7 @@ interface ISignupForm {
   password: string;
   confirmPassword: string;
   acceptTerms: boolean;
+  "cf-turnstile-response": string;
 }
 
 // Define the validation schema using yup
@@ -37,6 +39,9 @@ const signupSchema = yup.object().shape({
     .boolean()
     .oneOf([true], "Đồng ý điều khoản giùm")
     .required("Đồng ý điều khoản giùm"),
+  "cf-turnstile-response": yup
+    .string()
+    .required("Vui lòng xác minh bạn không phải robot"),
 });
 
 export default function SignUpForm() {
@@ -47,6 +52,7 @@ export default function SignUpForm() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<ISignupForm>({
     resolver: yupResolver(signupSchema),
@@ -139,6 +145,14 @@ export default function SignUpForm() {
               </a>
             </label>
           </div>
+        </div>
+        <div className="mb-4">
+          <TurnstileWidget
+            onVerify={(token) => setValue("cf-turnstile-response", token)}
+          />
+          {errors["cf-turnstile-response"] && (
+            <p>{errors["cf-turnstile-response"].message}</p>
+          )}
         </div>
         <div className="mb-4">
           <button

@@ -11,6 +11,7 @@ import { Suspense } from "react";
 import { Alert } from "@/components/nettrom/Alert";
 import NextTopLoader from "nextjs-toploader";
 import SettingsDialog from "@/components/nettrom/settings-dialog";
+import VerifyMailAlert from "@/components/nettrom/verify-mail-alert";
 
 export const metadata: Metadata = {
   title: `${Constants.APP_NAME} - Truyện tranh chất lượng cao không quảng cáo`,
@@ -56,14 +57,17 @@ export default function NettromLayout({
       <Suspense>
         <Header />
       </Suspense>
+      <VerifyMailAlert />
       <nav className="main-nav hidden-xs" id="mainNav">
         <div className="inner">
           <div className="container">
             <div className="py-4">
-              <Alert
-                title="TruyenDex chỉ xây dựng giao diện tiếng Việt, toàn bộ dữ liệu
+              <div className="mb-0 md:mb-4">
+                <Alert
+                  title="TruyenDex chỉ xây dựng giao diện tiếng Việt, toàn bộ dữ liệu
                 thuộc về MangaDex."
-              />
+                />
+              </div>
               <MainNav />
             </div>
           </div>

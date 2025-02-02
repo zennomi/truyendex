@@ -4,14 +4,16 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import * as yup from "yup";
 import { toast } from "react-toastify";
 import Link from "next/link";
-import { isAxiosError } from "axios";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "@/hooks/useAuth";
 import { Constants } from "@/constants";
+import TurnstileWidget from "@/components/turnstile-widget";
+import { Utils } from "@/utils";
 
 interface IForgotPasswordForm {
   email: string;
+  "cf-turnstile-response": string;
 }
 
 // Define the validation schema using yup
@@ -20,6 +22,9 @@ const resetPasswordSchema = yup.object().shape({
     .string()
     .email("Không đúng định dạng email")
     .required("Vui lòng điền email"),
+  "cf-turnstile-response": yup
+    .string()
+    .required("Vui lòng xác minh bạn không phải robot"),
 });
 
 export default function ForgotPasswordForm() {
@@ -27,6 +32,7 @@ export default function ForgotPasswordForm() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<IForgotPasswordForm>({
     resolver: yupResolver(resetPasswordSchema),
@@ -37,11 +43,7 @@ export default function ForgotPasswordForm() {
       await forgotPassword(data);
       toast("Gửi yêu cầu thành công! Vui lòng kiểm tra mail của bạn!");
     } catch (error) {
-      let message = "Đã có lỗi xảy ra";
-      if (isAxiosError(error)) {
-        message = error.response?.data.message || message;
-      }
-      toast(message, { type: "error" });
+      Utils.Error.handleError(error, "Gửi yêu cầu thất bại");
     }
   };
 
@@ -60,6 +62,15 @@ export default function ForgotPasswordForm() {
             {...register("email")}
           />
           {errors.email && <p>{errors.email.message}</p>}
+        </div>
+
+        <div className="mb-4">
+          <TurnstileWidget
+            onVerify={(token) => setValue("cf-turnstile-response", token)}
+          />
+          {errors["cf-turnstile-response"] && (
+            <p>{errors["cf-turnstile-response"].message}</p>
+          )}
         </div>
 
         <div className="mb-4">

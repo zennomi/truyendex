@@ -2,11 +2,11 @@ import useSWR from "swr";
 import { useCallback, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { isAxiosError } from "axios";
 
 import { axios } from "@/api/core";
 import { GetUserResponse } from "@/types";
 import { Constants } from "@/constants";
+import { useCookies } from "./useCookies";
 
 export const useAuth = ({
   middleware,
@@ -19,27 +19,25 @@ export const useAuth = ({
 } = {}) => {
   const router = useRouter();
 
+  const userIdValues = useCookies<number>("userId", 0, 0, {
+    daysUntilExpiration: 1,
+  });
+
   const {
     data: user,
     error,
     mutate,
   } = useSWR("/api/user", async () => {
-    if (!Constants.BACKEND_URL) {
-      return null;
-    }
     try {
       const { data } = await axios.get<GetUserResponse>("/api/user");
-      if (!data.email_verified_at) {
-        router.push(Constants.Routes.verifyEmail);
+      if (data) {
+        userIdValues.setState(data.id);
+      } else {
+        userIdValues.resetState();
       }
       return data;
-    } catch (error) {
-      if (isAxiosError(error)) {
-        if (error.status === 409) {
-          router.push(Constants.Routes.verifyEmail);
-        }
-      }
-    }
+    } catch {}
+    userIdValues.resetState();
     return null;
   });
 
@@ -52,6 +50,7 @@ export const useAuth = ({
     password: string;
     name: string;
     password_confirmation: string;
+    "cf-turnstile-response": string;
   }) => {
     await csrf();
 
@@ -66,6 +65,7 @@ export const useAuth = ({
     email: string;
     password: string;
     shouldRemember: boolean;
+    "cf-turnstile-response": string;
   }) => {
     await csrf();
 
@@ -78,11 +78,14 @@ export const useAuth = ({
     await mutate();
   };
 
-  const forgotPassword = async ({ email }: { email: string }) => {
+  const forgotPassword = async (data: {
+    email: string;
+    "cf-turnstile-response": string;
+  }) => {
     await csrf();
 
     try {
-      await axios.post("/forgot-password", { email });
+      await axios.post("/forgot-password", data);
     } catch (error) {
       throw error;
     }
@@ -103,8 +106,10 @@ export const useAuth = ({
     router.push(Constants.Routes.login);
   };
 
-  const resendEmailVerification = async () => {
-    await axios.post("/email/verification-notification");
+  const resendEmailVerification = async (data: {
+    "cf-turnstile-response": string;
+  }) => {
+    await axios.post("/email/verification-notification", data);
   };
 
   const logout = useCallback(async () => {
@@ -116,27 +121,13 @@ export const useAuth = ({
   }, [mutate]);
 
   useEffect(() => {
-    if (middleware === "guest" && redirectIfAuthenticated && user) {
+    if (middleware === "guest" && user) {
       toast("Đã đăng nhập, chuyển hướng...");
-      if (user.email_verified_at) router.push(redirectIfAuthenticated);
-      else router.push(Constants.Routes.verifyEmail);
-    }
-
-    if (middleware === "auth" && user && !user.email_verified_at)
-      router.push(Constants.Routes.verifyEmail);
-
-    if (
-      window.location.pathname === Constants.Routes.verifyEmail &&
-      user?.email_verified_at
-    )
       router.push(redirectIfAuthenticated || Constants.Routes.nettrom.index);
-
-    if (window.location.pathname === Constants.Routes.verifyEmail && !user) {
-      router.push("/");
     }
 
-    if (middleware === "auth" && redirectIfNotAuthenticated && user === null) {
-      router.push(redirectIfNotAuthenticated);
+    if (middleware === "auth" && user === null) {
+      router.push(redirectIfNotAuthenticated || Constants.Routes.login);
     }
     if (middleware === "auth" && error) logout();
   }, [

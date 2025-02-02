@@ -8,7 +8,7 @@ import { useMangadex } from "@/contexts/mangadex";
 import { AppApi, MangadexApi } from "@/api";
 import { useAuth } from "@/hooks/useAuth";
 import Iconify from "@/components/iconify";
-import { useCheckFollowed } from "@/hooks/core";
+import { useSeriesInfo } from "@/hooks/core";
 import { Utils } from "@/utils";
 import ChapterList from "./chapter-list";
 import { Constants } from "@/constants";
@@ -36,7 +36,7 @@ export default function Manga({
     useMangadex();
   const { filteredLanguages } = useSettingsContext();
   const manga = mangas[mangaId] || prefetchedManga;
-  const { data: followed, mutate } = useCheckFollowed(mangaId);
+  const { data: seriesInfo, mutate } = useSeriesInfo(mangaId);
   const title = Utils.Mangadex.getMangaTitle(manga);
   const altTitles = Utils.Mangadex.getMangaAltTitles(manga);
   const url = Constants.Routes.nettrom.manga(mangaId);
@@ -153,6 +153,12 @@ export default function Manga({
                 {Utils.Number.formatViews(
                   mangaStatistics[mangaId]?.follows || 0,
                 )}
+              </span>
+            </span>
+            <span>
+              <i className="fa fa-comment mr-2" />
+              <span className="block text-foreground sm:inline">
+                {Utils.Number.formatViews(seriesInfo?.comment_count || 0)}
               </span>
             </span>
             <span className="lg:grow"></span>
@@ -274,27 +280,34 @@ export default function Manga({
             <div></div>
             <div className="grid flex-wrap gap-4 sm:flex sm:grid-cols-2">
               <FirstChapterButton mangaId={mangaId} />
-              {user ? (
-                <Button
-                  className="w-full border-red-500 text-red-500 hover:bg-red-300/10 hover:text-red-500 sm:w-auto"
-                  icon={
-                    <Iconify icon={followed ? "fa:times-circle" : "fa:heart"} />
-                  }
-                  variant={"outline"}
-                  onClick={followManga}
-                >
-                  <span>{followed ? "Bỏ theo dõi" : "Theo dõi"}</span>
-                </Button>
-              ) : (
-                <Button
-                  className="w-full sm:w-auto"
-                  icon={<Iconify icon="fa:heart" />}
-                  variant={"outline"}
-                  onClick={handleLogin}
-                >
-                  Đăng nhập để theo dõi
-                </Button>
-              )}
+              {seriesInfo &&
+                (seriesInfo.followed !== null ? (
+                  <Button
+                    className="w-full border-red-500 text-red-500 hover:bg-red-300/10 hover:text-red-500 sm:w-auto"
+                    icon={
+                      <Iconify
+                        icon={
+                          seriesInfo.followed ? "fa:times-circle" : "fa:heart"
+                        }
+                      />
+                    }
+                    variant={"outline"}
+                    onClick={followManga}
+                  >
+                    <span>
+                      {seriesInfo.followed ? "Bỏ theo dõi" : "Theo dõi"}
+                    </span>
+                  </Button>
+                ) : (
+                  <Button
+                    className="w-full sm:w-auto"
+                    icon={<Iconify icon="fa:heart" />}
+                    variant={"outline"}
+                    onClick={handleLogin}
+                  >
+                    Đăng nhập để theo dõi
+                  </Button>
+                ))}
             </div>
           </div>
         </div>

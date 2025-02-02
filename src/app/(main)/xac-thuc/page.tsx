@@ -1,5 +1,8 @@
+import Link from "next/link";
+
 import Iconify from "@/components/iconify";
 import Buttons from "@/components/core/auth/verify-email-buttons";
+import { Constants } from "@/constants";
 
 export default function VerifyEmailPage() {
   return (
@@ -9,13 +12,13 @@ export default function VerifyEmailPage() {
           <div className="justify-center md:flex">
             <div className="lg:w-2/5">
               <div className="relative overflow-hidden rounded-md bg-white shadow dark:bg-slate-900 dark:shadow-gray-700">
-                <div className="bg-emerald-600 px-6 py-12 text-center">
+                <div className="bg-yellow-600 px-6 py-12 text-center">
                   <Iconify
                     className="mx-auto text-8xl text-white"
-                    icon="uil:check-circle"
+                    icon="uil:question-circle"
                   />
                   <h5 className="mt-2 text-xl font-semibold uppercase tracking-wide text-white">
-                    Đăng ký thành công
+                    Chưa nhận được mail?
                   </h5>
                 </div>
                 <div className="px-6 py-12 text-center">
@@ -30,7 +33,12 @@ export default function VerifyEmailPage() {
                   <Buttons />
                 </div>
                 <div className="border-t border-gray-100 p-6 text-center dark:border-gray-700">
-                  <p className="mb-0 text-slate-400">© TruyenDex</p>
+                  <Link
+                    href={Constants.Routes.nettrom.index}
+                    className="mb-0 text-slate-400"
+                  >
+                    © TruyenDex
+                  </Link>
                 </div>
               </div>
             </div>

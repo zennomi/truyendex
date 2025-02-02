@@ -393,8 +393,8 @@ hr {
 }
 
 .row {
-  margin-left: -15px;
-  margin-right: -15px;
+  /* margin-left: -15px;
+  margin-right: -15px; */
 }
 
 .col-lg-1,
@@ -3039,8 +3039,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .container-fluid > .navbar-collapse,
 .container-fluid > .navbar-header,
-.container > .navbar-collapse,
-.container > .navbar-header {
+.container > .navbar-collapse
+/* .container > .navbar-header  */ {
   margin-right: -15px;
   margin-left: -15px;
 }

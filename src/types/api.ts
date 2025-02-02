@@ -44,4 +44,23 @@ export type CommentResponse = {
   };
   parent_id: number;
   replies?: CommentResponse[];
+  reply_count: number;
+};
+
+export type CommentRepliesResponse = {
+  replies: CommentResponse[];
+};
+
+export type RecentCommentResponse = CommentResponse & {
+  commentable: {
+    title: string;
+    type: string;
+    id: string;
+    uuid: string;
+  };
+  commentable_type: string;
+};
+
+export type RecentCommentListResponse = {
+  comments: RecentCommentResponse[];
 };

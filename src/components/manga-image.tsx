@@ -66,7 +66,7 @@ export default function MangaImage({
         onLoad={() => setLoaded(true)}
         onError={() => setError(true)}
         threshold={threshold}
-        {...other}
+        {...(other as any)}
       />
     </span>
   );

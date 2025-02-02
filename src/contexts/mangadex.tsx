@@ -111,7 +111,7 @@ export const MangadexContextProvider = ({
           });
         }
       } catch (error) {
-        console.error(error);
+        Utils.Error.handleError(error);
       }
     },
     [mangas, setMangas],
@@ -145,7 +145,7 @@ export const MangadexContextProvider = ({
           }));
         }
       } catch (error) {
-        console.error(error);
+        Utils.Error.handleError(error);
       }
     },
     [mangaStatistics, setMangaStatistics],

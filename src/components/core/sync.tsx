@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import Iconify from "../iconify";
 import { useSearchParams } from "next/navigation";
 import { twMerge } from "tailwind-merge";
+import { AppApi } from "@/api";
 
 export default function SyncView() {
   const { user } = useAuth();
@@ -23,14 +24,18 @@ export default function SyncView() {
     if (user === undefined) return ["Đang đăng nhập...", true];
     if (user === null) return ["Vui lòng đăng nhập để đồng bộ dữ liệu!", false];
     if (result === null) return [`Đang đồng bộ ${ids.length} manga...`, true];
-    return ["Bạn đã đồng bộ thành công!", false];
+    return [
+      "Bạn đã đồng bộ thành công! Bạn có thể đóng cửa sổ này để tiếp tục.",
+      false,
+    ];
   }, [user, ids, source]);
 
   useEffect(() => {
     if (!ids || !source || !user) return;
     if (["mangadex", "cuutruyen", "cmanga"].includes(source) === false) return;
-    // TODO: Implement sync logic here
-  }, [ids, source, user]);
+    if (result !== null) return;
+    AppApi.User.syncReadList({ ids, source }).then(setResult).catch(setResult);
+  }, [ids, source, user, result]);
 
   return (
     <div className="relative overflow-hidden rounded-md bg-white shadow dark:bg-slate-900 dark:shadow-gray-700">
