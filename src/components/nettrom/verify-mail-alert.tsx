@@ -8,7 +8,6 @@ import { Button } from "./Button";
 
 export default function VerifyMailAlert() {
   const { user } = useAuth();
-  console.log({ user });
   if (!user || user.email_verified_at) return null;
   return (
     <div className="container my-2">
