@@ -4,11 +4,10 @@ import { useChapterContext } from "@/contexts/chapter";
 import { Utils } from "@/utils";
 import { Constants } from "@/constants";
 import { DataLoader } from "@/components/DataLoader";
-import { Alert } from "../Alert";
 import { ChapterControlBar } from "./chapter-control-bar";
 import { useMemo } from "react";
-import { Button } from "../Button";
 import { FaClock } from "react-icons/fa";
+import RandomAlert from "./random-alert";
 
 export default function ChapterControl() {
   const { manga, chapter, others, group } = useChapterContext();
@@ -124,25 +123,7 @@ export default function ChapterControl() {
             </div>
           </div>
         )}
-        <Alert
-          classNames={{
-            alert: "[&>svg]:text-blue-500 text-blue-500 bg-blue-100",
-          }}
-          title=" TruyenDex là một website mã nguồn mở, trong quá trình trải nghiệm
-            rất mong nhận được phản hồi từ mọi người!"
-          action={
-            <Link
-              className="no-underline hover:no-underline"
-              href={Constants.Routes.report}
-              target="_blank"
-              rel="nofollow"
-            >
-              <Button className="bg-blue-500 hover:bg-blue-600">
-                Góp ý/Phản hồi
-              </Button>
-            </Link>
-          }
-        ></Alert>
+        <RandomAlert />
         <ChapterControlBar></ChapterControlBar>
         <div className="mb-4"></div>
       </div>
