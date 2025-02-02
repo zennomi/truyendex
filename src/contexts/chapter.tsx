@@ -10,8 +10,17 @@ import React, {
 } from "react";
 import { useParams } from "next/navigation";
 
-import { useChapter, useMangaAggregate } from "@/hooks/mangadex";
-import { ChapterItem, ExtendChapter, ExtendManga } from "@/types/mangadex";
+import {
+  useChapter,
+  useMangaAggregate,
+  useScanlationGroup,
+} from "@/hooks/mangadex";
+import {
+  ChapterItem,
+  ExtendChapter,
+  ExtendManga,
+  ScanlationGroup,
+} from "@/types/mangadex";
 import useReadingHistory from "@/hooks/useReadingHistory";
 
 import { useMangadex } from "./mangadex";
@@ -24,6 +33,7 @@ export const ChapterContext = createContext<{
   chapter: ExtendChapter | null;
   manga: ExtendManga | null;
   chapters: ChapterItem[];
+  group: ScanlationGroup | null;
   next: VoidFunction;
   prev: VoidFunction;
   goTo: (id: string) => void;
@@ -41,6 +51,7 @@ export const ChapterContext = createContext<{
   canNext: false,
   canPrev: false,
   others: [],
+  group: null,
 });
 
 export const ChapterContextProvider = ({
@@ -67,6 +78,9 @@ export const ChapterContextProvider = ({
   const groupId = chapter?.scanlation_group?.id
     ? chapter.scanlation_group.id
     : null;
+
+  const { data: group } = useScanlationGroup(groupId);
+
   const { chapterList: chapters } = useMangaAggregate(mangaId, {
     translatedLanguage: chapter
       ? [chapter.attributes.translatedLanguage]
@@ -119,7 +133,7 @@ export const ChapterContextProvider = ({
       "",
       newPath,
     );
-  }, [chapter]);
+  }, [chapter?.id]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -166,6 +180,7 @@ export const ChapterContextProvider = ({
         canNext,
         canPrev,
         others,
+        group,
       }}
     >
       {children}

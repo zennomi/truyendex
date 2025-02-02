@@ -14,20 +14,12 @@ import {
 import useScrollOffset from "@/hooks/useScrollOffset";
 import Link from "next/link";
 import { Constants } from "@/constants";
+import { useSettingsContext } from "@/contexts/settings";
 
-export const ChapterControlBar: FC<{}> = (props) => {
-  const {
-    manga,
-    chapter,
-    canNext,
-    canPrev,
-    next,
-    prev,
-    chapters,
-    goTo,
-    others,
-    chapterId,
-  } = useChapterContext();
+export const ChapterControlBar: FC<{}> = () => {
+  const { manga, canNext, canPrev, next, prev, chapters, goTo, chapterId } =
+    useChapterContext();
+  const { onToggleDrawer } = useSettingsContext();
   const scrollDirection = useScrollDirection();
   const { isAtBottom, isAtTop } = useScrollOffset();
 
@@ -91,7 +83,7 @@ export const ChapterControlBar: FC<{}> = (props) => {
             className="h-16 w-16 shrink-0 rounded-lg text-[40px] [&_svg]:size-8"
           ></Button>
           <Button
-            onClick={() => alert("Chức năng này đang được phát triển")}
+            onClick={onToggleDrawer}
             variant={"ghost"}
             className="h-16 w-16 shrink-0 bg-transparent text-[40px] [&_svg]:size-8"
             icon={<FaEllipsisV />}

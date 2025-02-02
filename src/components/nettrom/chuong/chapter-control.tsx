@@ -11,18 +11,7 @@ import { Button } from "../Button";
 import { FaClock } from "react-icons/fa";
 
 export default function ChapterControl() {
-  const {
-    manga,
-    chapter,
-    canNext,
-    canPrev,
-    next,
-    prev,
-    chapters,
-    goTo,
-    others,
-    chapterId,
-  } = useChapterContext();
+  const { manga, chapter, others, group } = useChapterContext();
 
   const mangaTitle = useMemo(() => {
     return Utils.Mangadex.getMangaTitle(manga);
@@ -81,7 +70,7 @@ export default function ChapterControl() {
             );
           })}
         </ul> */}
-        <h1 className="mb-4 mt-0">
+        <h1 className="mb-1 mt-0 md:mb-4">
           <Link
             className="text-[16px] text-web-title transition hover:text-web-titleLighter"
             href={Constants.Routes.nettrom.manga(manga?.id || "")}
@@ -92,7 +81,7 @@ export default function ChapterControl() {
             {chapterTitle}{" "}
           </p>
         </h1>
-        <p className="mb-5">
+        <p className="mb-2 md:mb-5">
           <span className="text-[14px] text-muted-foreground">
             <FaClock className="mr-2 inline" />
             Cập nhật lúc:{" "}
@@ -103,6 +92,15 @@ export default function ChapterControl() {
                   "HH:mm dd/MM/yyyy",
                 )}
             </span>
+            {group && (
+              <span className="text-muted-foreground">
+                {" "}
+                bởi{" "}
+                <Link href={Constants.Routes.nettrom.scanlationGroup(group.id)}>
+                  {group.attributes.name}
+                </Link>
+              </span>
+            )}
           </span>
         </p>
         <i></i>
