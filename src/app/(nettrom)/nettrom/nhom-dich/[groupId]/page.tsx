@@ -149,7 +149,7 @@ export default async function NhomDich({
               {group.attributes.discord && (
                 <a
                   className="btn btn-warning mrb5 mr-2"
-                  href={group.attributes.discord}
+                  href={`https://discord.gg/${group.attributes.discord}`}
                   target="_blank"
                 >
                   {" "}

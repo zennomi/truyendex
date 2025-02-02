@@ -7,6 +7,8 @@ import { Button } from "../Button";
 import CommentSection from "../binh-luan/comment-section";
 import { Alert } from "../Alert";
 import ScanlationGroupInformation from "./scanlation-group-information";
+import Link from "next/link";
+import Iconify from "@/components/iconify";
 
 export default function ChapterPages() {
   const { height } = useWindowSize();
@@ -14,17 +16,30 @@ export default function ChapterPages() {
   const { chapterId, canNext, canPrev, next, prev, chapter, group } =
     useChapterContext();
 
-  const { pages, isLoading } = useChapterPages(chapterId);
+  const { pages, isLoading } = useChapterPages(
+    chapter?.attributes.externalUrl ? null : chapterId,
+  );
+
   return (
     <div>
-      <DataLoader
-        isLoading={isLoading}
-        loadingText="Đang tải nội dung chương..."
-      >
-        <div className="reading-detail box_doc">
-          <LazyImages images={pages} threshold={(height || 1000) * 3} />
+      {chapter?.attributes.externalUrl ? (
+        <div className="flex justify-center">
+          <Link href={chapter.attributes.externalUrl} target="_blank">
+            <Button icon={<Iconify icon="fa:external-link" />}>
+              Đọc tại trang chủ của {group?.attributes.name}
+            </Button>
+          </Link>
         </div>
-      </DataLoader>
+      ) : (
+        <DataLoader
+          isLoading={isLoading}
+          loadingText="Đang tải nội dung chương..."
+        >
+          <div className="reading-detail box_doc">
+            <LazyImages images={pages} threshold={(height || 1000) * 3} />
+          </div>
+        </DataLoader>
+      )}
       <div className="mb-2 mt-4 flex flex-col gap-2">
         <Button disabled={!canNext} onClick={next}>
           Chương tiếp theo

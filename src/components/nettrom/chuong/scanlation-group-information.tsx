@@ -38,7 +38,7 @@ export default function ScanlationGroupInformation({
         {group.attributes.discord && (
           <Link
             className="btn bg-orange-500"
-            href={group.attributes.discord}
+            href={`https://discord.gg/${group.attributes.discord}`}
             target="_blank"
           >
             Discord
