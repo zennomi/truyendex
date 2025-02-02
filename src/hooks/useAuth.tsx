@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { axios } from "@/api/core";
 import { GetUserResponse } from "@/types";
 import { Constants } from "@/constants";
+import { useCookies } from "./useCookies";
 
 export const useAuth = ({
   middleware,
@@ -18,19 +19,25 @@ export const useAuth = ({
 } = {}) => {
   const router = useRouter();
 
+  const userIdValues = useCookies<number>("userId", 0, 0, {
+    daysUntilExpiration: 1,
+  });
+
   const {
     data: user,
     error,
     mutate,
   } = useSWR("/api/user", async () => {
-    if (!Constants.BACKEND_URL) {
-      return null;
-    }
     try {
       const { data } = await axios.get<GetUserResponse>("/api/user");
-
+      if (data) {
+        userIdValues.setState(data.id);
+      } else {
+        userIdValues.resetState();
+      }
       return data;
     } catch {}
+    userIdValues.resetState();
     return null;
   });
 
