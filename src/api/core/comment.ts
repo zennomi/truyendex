@@ -1,4 +1,8 @@
-import { CommentListResponse, CommentRepliesResponse } from "@/types";
+import {
+  CommentListResponse,
+  CommentRepliesResponse,
+  RecentCommentListResponse,
+} from "@/types";
 import { axios } from "./axios";
 
 export const storeComment = async (body: {
@@ -67,6 +71,16 @@ export const getCommentReplyList = async (params: { lastId: number }) => {
       last_id: params.lastId,
     },
     method: "POST",
+  });
+  return data;
+};
+
+export const getRecentCommentList = async (params: { limit: number }) => {
+  const { data } = await axios<RecentCommentListResponse>({
+    url: "/api/comment/recent",
+    params: {
+      limit: params.limit,
+    },
   });
   return data;
 };
