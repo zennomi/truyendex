@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { last } from "lodash";
 
 import { useAuth } from "@/hooks/useAuth";
 import Iconify from "@/components/iconify";
@@ -14,7 +15,7 @@ import { AppApi } from "@/api";
 import Pagination from "../Pagination";
 import Markdown from "../Markdown";
 import CommentEditor from "./comment-editor";
-import { last } from "lodash";
+import RoleBadge from "../role-badge";
 
 export default function CommentSection({
   typeId,
@@ -171,9 +172,13 @@ export function CommentItem({
           />
         ) : (
           <div className="info border-gray-600">
-            <div className="comment-header border-gray-600">
-              <span className="authorname name-1">{comment.user.name}</span>
-              <span className="cmchapter" />
+            <div className="comment-header flex gap-2 border-gray-600">
+              <div className="authorname name-1">{comment.user.name}</div>
+              <div>
+                {comment.user.display_roles.map((role) => (
+                  <RoleBadge role={role} />
+                ))}
+              </div>
             </div>
             <div className="comment-content">
               <Markdown content={comment.content} />
