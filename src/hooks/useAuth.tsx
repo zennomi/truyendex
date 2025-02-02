@@ -114,9 +114,9 @@ export const useAuth = ({
   }, [mutate]);
 
   useEffect(() => {
-    if (middleware === "guest" && redirectIfAuthenticated && user) {
+    if (middleware === "guest" && user) {
       toast("Đã đăng nhập, chuyển hướng...");
-      router.push(redirectIfAuthenticated);
+      router.push(redirectIfAuthenticated || Constants.Routes.nettrom.index);
     }
 
     if (middleware === "auth" && user === null) {
