@@ -16,14 +16,14 @@ export default function VerifyMailAlert() {
           alert: "[&>svg]:text-red-500 text-red-500 bg-red-100",
         }}
         title="Xác nhận email để sử dụng đầy đủ chức năng."
-        description="Vui lòng kiểm tra email (cả mục spam) để xác thực email và tiếp tục sử dụng TruyenDex!"
+        description="Lưu ý: Dùng TRÌNH DUYỆT HIỆN TẠI để mở email và nhấn vào liên kết xác nhận."
         action={
           <Link
             className="no-underline hover:no-underline"
             href={Constants.Routes.verifyEmail}
           >
             <Button className="bg-red-500 hover:bg-red-600">
-              Gửi lại mail
+              Chưa nhận được mail?
             </Button>
           </Link>
         }

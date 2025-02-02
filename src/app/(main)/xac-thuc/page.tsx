@@ -22,13 +22,15 @@ export default function VerifyEmailPage() {
                   </h5>
                 </div>
                 <div className="px-6 py-12 text-center">
-                  <p className="text-xl font-semibold text-black dark:text-white">
-                    Chúc mừng! 🎉
+                  <p className="text-slate-400">
+                    Vui lòng kiểm tra email (cả mục spam) để xác thực email và
+                    tiếp tục sử dụng TruyenDex! Thường email sẽ được gửi từ 1 ~
+                    10 phút sau khi đăng ký. Nếu vẫn không nhận được, vui lòng
+                    chọn gửi lại phía bên dưới.
                   </p>
-                  <p className="mt-4 text-slate-400">
-                    Tài khoản của bạn đã được tạo thành công <br /> Vui lòng
-                    kiểm tra email (cả mục spam) để xác thực email và tiếp tục
-                    sử dụng TruyenDex!
+                  <p>
+                    Lưu ý: Sử dụng <b>trình duyệt hiện tại</b> để mở liên kết
+                    đính kèm trong email!
                   </p>
                   <Buttons />
                 </div>
