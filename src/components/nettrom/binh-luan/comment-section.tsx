@@ -8,7 +8,7 @@ import { last } from "lodash";
 import { useAuth } from "@/hooks/useAuth";
 import Iconify from "@/components/iconify";
 import { useCommentList, useCommentReplyList } from "@/hooks/core";
-import { CommentResponse, GetUserResponse } from "@/types";
+import { CommentResponse, UserResponse } from "@/types";
 import { Utils } from "@/utils";
 import { AppApi } from "@/api";
 
@@ -97,7 +97,7 @@ export function CommentItem({
   comment: CommentResponse;
   typeId: string;
   type: "series" | "chapter";
-  user?: GetUserResponse | null;
+  user?: UserResponse | null;
   refresh: () => void;
 }) {
   const [openReply, setOpenReply] = useState(false);
