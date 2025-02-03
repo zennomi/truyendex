@@ -35,32 +35,32 @@ const MangaTile = (props: {
                 alt={props.title}
               />
             </AspectRatio>
+            <div className="absolute bottom-0 left-0 z-[2] w-full px-2 py-1.5">
+              <h3 className="mb-2 line-clamp-2 text-[14px] font-semibold leading-tight text-white transition group-hover:line-clamp-4">
+                {props.title}
+              </h3>
+              <span className="flex items-center justify-between gap-[4px] text-[11px] text-muted-foreground">
+                <span className="flex items-center gap-[4px]">
+                  <i className="fa fa-star"></i>
+                  {Utils.Number.formatViews(
+                    Math.round(
+                      (props.mangaStatistic?.rating?.bayesian || 0) * 10,
+                    ) / 10,
+                  )}
+                </span>
+                <span className="flex items-center gap-[4px]">
+                  <i className="fa fa-comment" />
+                  {Utils.Number.formatViews(
+                    props.mangaStatistic?.comments?.repliesCount || 0,
+                  )}
+                </span>
+                <span className="flex items-center gap-[4px]">
+                  <i className="fa fa-heart" />
+                  {Utils.Number.formatViews(props.mangaStatistic?.follows || 0)}
+                </span>
+              </span>
+            </div>
           </Link>
-          <div className="absolute bottom-0 left-0 z-[2] w-full px-2 py-1.5">
-            <h3 className="mb-2 line-clamp-2 text-[14px] font-semibold leading-tight text-white transition group-hover:line-clamp-4">
-              {props.title}
-            </h3>
-            <span className="flex items-center justify-between gap-[4px] text-[11px] text-muted-foreground">
-              <span className="flex items-center gap-[4px]">
-                <i className="fa fa-star"></i>
-                {Utils.Number.formatViews(
-                  Math.round(
-                    (props.mangaStatistic?.rating?.bayesian || 0) * 10,
-                  ) / 10,
-                )}
-              </span>
-              <span className="flex items-center gap-[4px]">
-                <i className="fa fa-comment" />
-                {Utils.Number.formatViews(
-                  props.mangaStatistic?.comments?.repliesCount || 0,
-                )}
-              </span>
-              <span className="flex items-center gap-[4px]">
-                <i className="fa fa-heart" />
-                {Utils.Number.formatViews(props.mangaStatistic?.follows || 0)}
-              </span>
-            </span>
-          </div>
         </div>
         <figcaption>
           <ul className="flex flex-col gap-[4px]">

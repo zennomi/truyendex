@@ -30,19 +30,36 @@ export default function RecentComments() {
 }
 
 function Comment({ comment }: { comment: RecentCommentResponse }) {
+  const type =
+    comment.commentable_type === "App\\Models\\Chapter" ? "chapter" : "manga";
   return (
     <div key={comment.id}>
       <div className="mb-2">
-        <Link
-          href={
-            comment.commentable_type === "App\\Models\\Chapter"
-              ? Constants.Routes.nettrom.chapter(comment.commentable.uuid)
-              : Constants.Routes.nettrom.manga(comment.commentable.uuid)
-          }
-          className="font-bold"
-        >
-          {comment.commentable.title}
-        </Link>
+        <div>
+          <Link
+            href={
+              type === "chapter"
+                ? Constants.Routes.nettrom.chapter(comment.commentable.uuid)
+                : Constants.Routes.nettrom.manga(comment.commentable.uuid)
+            }
+            className="font-bold"
+          >
+            {comment.commentable.title}
+          </Link>
+          {comment.commentable.series && (
+            <>
+              {" - "}
+              <Link
+                href={Constants.Routes.nettrom.manga(
+                  comment.commentable.series.uuid,
+                )}
+                className="font-bold"
+              >
+                {comment.commentable.series.title}
+              </Link>
+            </>
+          )}
+        </div>
       </div>
       <div className="overflow-hidden">
         <ReadMore maxHeight={150}>

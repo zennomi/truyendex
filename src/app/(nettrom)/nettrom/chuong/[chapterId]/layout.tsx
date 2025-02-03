@@ -69,8 +69,8 @@ export default async function Layout({
   ) as ExtendChapter;
   return (
     <ChapterContextProvider prefectchedChapter={extenedChapter}>
-      <div className="row mx-[-15px]">
-        <div className="full-width col-sm-12">{children}</div>
+      <div className="mx-[-12px]">
+        <div className="w-full">{children}</div>
       </div>
     </ChapterContextProvider>
   );
