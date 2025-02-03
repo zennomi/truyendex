@@ -30,12 +30,12 @@ export const useAuth = ({
   } = useSWR("/api/user", async () => {
     try {
       const { data } = await axios.get<GetUserResponse>("/api/user");
-      if (data) {
-        userIdValues.setState(data.id);
+      if (data?.user) {
+        userIdValues.setState(data.user.id);
       } else {
         userIdValues.resetState();
       }
-      return data;
+      return data.user;
     } catch {}
     userIdValues.resetState();
     return null;
