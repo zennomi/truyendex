@@ -15,7 +15,7 @@ import { Utils } from "@/utils";
 interface ILoginForm {
   email: string;
   password: string;
-  shouldRemember: boolean;
+  remember: boolean;
   "cf-turnstile-response": string;
 }
 
@@ -29,7 +29,7 @@ const loginSchema = yup.object().shape({
     .string()
     .min(6, "Mật khẩu ít nhất 6 ký tự")
     .required("Vui lòng điền mật khẩu"),
-  shouldRemember: yup.boolean().default(true),
+  remember: yup.boolean().required(),
   "cf-turnstile-response": yup
     .string()
     .required("Vui lòng xác minh bạn không phải robot"),
@@ -51,6 +51,12 @@ export default function LoginForm() {
     formState: { errors, isSubmitting },
   } = useForm<ILoginForm>({
     resolver: yupResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+      remember: true,
+      "cf-turnstile-response": "",
+    },
   });
 
   const onSubmit: SubmitHandler<ILoginForm> = async (data) => {
@@ -104,7 +110,7 @@ export default function LoginForm() {
               className="form-checkbox me-2 rounded border-gray-200 text-indigo-600 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:ring-offset-0 dark:border-gray-800"
               type="checkbox"
               id="RememberMe"
-              {...register("shouldRemember")}
+              {...register("remember")}
             />
             <label
               className="form-checkbox-label text-slate-400"
