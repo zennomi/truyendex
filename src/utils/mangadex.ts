@@ -58,8 +58,12 @@ export class MangaDexUtils {
           : "") +
         chapter.attributes.title
       );
-    if (chapter.attributes.volume)
-      return `Chương ${chapter.attributes.chapter} Tập ${chapter.attributes.volume}`;
+    if (chapter.attributes.volume) {
+      if (chapter.attributes.chapter) {
+        return `Chương ${chapter.attributes.chapter} Tập ${chapter.attributes.volume}`;
+      }
+      return `Oneshot Tập ${chapter.attributes.volume}`;
+    }
     if (chapter.attributes.chapter)
       return `Chương ${chapter.attributes.chapter}`;
     return "Oneshot";
