@@ -14,14 +14,16 @@ export type ReadListResponse = {
   }[];
 };
 
+export type UserResponse = {
+  email: string;
+  created_at: string;
+  email_verified_at: string | null;
+  id: number;
+  name: string;
+};
+
 export type GetUserResponse = {
-  user: {
-    email: string;
-    created_at: string;
-    email_verified_at: string | null;
-    id: number;
-    name: string;
-  };
+  user: UserResponse;
 };
 
 export type CommentListResponse = {
