@@ -64,7 +64,7 @@ export const useAuth = ({
   }: {
     email: string;
     password: string;
-    shouldRemember: boolean;
+    remember: boolean;
     "cf-turnstile-response": string;
   }) => {
     await csrf();
