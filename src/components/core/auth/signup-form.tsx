@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 import { useAuth } from "@/hooks/useAuth";
 import { Constants } from "@/constants";
 import TurnstileWidget from "@/components/turnstile-widget";
+import { Utils } from "@/utils";
+import Iconify from "@/components/iconify";
 
 // Define the form input types
 interface ISignupForm {
@@ -74,6 +76,17 @@ export default function SignUpForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="text-start">
       <div className="grid grid-cols-1">
+        <div className="my-4">
+          <Link
+            href={Utils.Url.getGoogleAuthUrl()}
+            type="submit"
+            className="flex w-full items-center justify-center gap-2 rounded-md border border-indigo-600 bg-indigo-600 px-5 py-2 text-center align-middle text-base tracking-wide text-white duration-500 hover:border-indigo-700 hover:bg-indigo-700"
+          >
+            <Iconify icon="devicon-plain:google" />
+            Đăng ký với Google
+          </Link>
+        </div>
+        <div className="text-white-400 text-center">Hoặc đăng ký thủ công:</div>
         <div className="mb-4">
           <label className="font-semibold" htmlFor="RegisterName">
             Tên:
@@ -163,6 +176,7 @@ export default function SignUpForm() {
             {isSubmitting ? "Đang đăng ký..." : "Đăng ký"}
           </button>
         </div>
+
         <div className="text-center">
           <span className="me-2 text-slate-400">Đã có tài khoản? </span>{" "}
           <Link

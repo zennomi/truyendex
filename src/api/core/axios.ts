@@ -1,4 +1,5 @@
 import { Constants } from "@/constants";
+import { Utils } from "@/utils";
 import Axios from "axios";
 
 const axios = Axios.create({
@@ -13,15 +14,7 @@ const axios = Axios.create({
 axios.interceptors.request.use(
   (config) => {
     // Dynamically set the baseURL before each request
-    if (typeof window !== "undefined") {
-      if (window.location.hostname !== "localhost") {
-        const hostname = window.location.hostname;
-        const domain = hostname.substring(
-          hostname.lastIndexOf(".", hostname.lastIndexOf(".") - 1) + 1,
-        );
-        config.baseURL = `https://api.${domain}`;
-      }
-    }
+    config.baseURL = Utils.Url.getBackendUrl();
     return config;
   },
   (error) => {
