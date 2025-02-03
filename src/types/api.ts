@@ -61,6 +61,10 @@ export type RecentCommentResponse = CommentResponse & {
     type: string;
     id: string;
     uuid: string;
+    series: {
+      title: string;
+      uuid: string;
+    };
   };
   commentable_type: string;
 };
