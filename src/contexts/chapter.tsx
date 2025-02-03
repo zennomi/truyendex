@@ -151,21 +151,23 @@ export const ChapterContextProvider = ({
   }, [manga, chapter, addHistory]);
 
   // user keyboard
-  // useEffect(() => {
-  //   const handleKeyDown = (event: KeyboardEvent) => {
-  //     if (event.key === "ArrowRight") {
-  //       next();
-  //     } else if (event.key === "ArrowLeft") {
-  //       prev();
-  //     }
-  //   };
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!event.target || (event.target as HTMLElement).tagName !== "BODY")
+        return;
+      if (event.key === "ArrowRight") {
+        next();
+      } else if (event.key === "ArrowLeft") {
+        prev();
+      }
+    };
 
-  //   window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
 
-  //   return () => {
-  //     window.removeEventListener("keydown", handleKeyDown);
-  //   };
-  // }, [next, prev]);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [next, prev]);
 
   return (
     <ChapterContext.Provider
