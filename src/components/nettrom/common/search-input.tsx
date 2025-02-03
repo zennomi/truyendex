@@ -1,7 +1,8 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { MouseEvent, useCallback, useState } from "react";
+import { useRouter } from "nextjs-toploader/app";
 
 import { Utils } from "@/utils";
 import useDebounce from "@/hooks/useDebounce";

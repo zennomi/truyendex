@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import { useCallback, useEffect } from "react";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 
 import { axios } from "@/api/core";
 import { GetUserResponse } from "@/types";

@@ -1,8 +1,9 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "nextjs-toploader/app";
 
 import { useSearchManga } from "@/hooks/mangadex";
 import { useMangadex } from "@/contexts/mangadex";

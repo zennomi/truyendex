@@ -2,10 +2,11 @@
 
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Select, { StylesConfig } from "react-select";
+import { useRouter } from "nextjs-toploader/app";
 
 import { MangadexApi } from "@/api";
 import { Tag } from "@/types/mangadex";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { Utils } from "@/utils";
 import { Constants } from "@/constants";
