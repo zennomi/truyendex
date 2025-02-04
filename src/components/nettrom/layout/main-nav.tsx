@@ -113,6 +113,11 @@ export default function MainNav() {
               Con trai
             </Link>
           </li>
+          <li>
+            <Link target="_blank" href={Constants.Routes.hako}>
+              Light Novel
+            </Link>
+          </li>
         </ul>
       </div>
     </div>
