@@ -118,9 +118,12 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
             {user ? (
               <>
                 <MenuItem>
-                  <a className={menuItemClassName}>
+                  <Link
+                    href={Constants.Routes.dashboard.index}
+                    className={menuItemClassName}
+                  >
                     <Iconify icon="fa:user" /> Trang cá nhân
-                  </a>
+                  </Link>
                 </MenuItem>
                 <MenuItem>
                   <Link
