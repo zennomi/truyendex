@@ -44,7 +44,7 @@ export default function CommentSection({
         Utils.Error.handleError(error);
       }
     },
-    [mutate],
+    [mutate, typeId, type],
   );
 
   useEffect(() => {
@@ -69,6 +69,7 @@ export default function CommentSection({
         <div className="comment-list comment-default">
           {data?.comments.data.map((comment) => (
             <CommentItem
+              key={comment.id}
               comment={comment}
               typeId={typeId}
               type={type}
@@ -113,21 +114,24 @@ export function CommentItem({
   const replies = data ? data.flatMap((page) => page.replies) : [];
   const isReachingEnd = comment.reply_count <= replies.length + 2;
 
-  const onSubmitComment = useCallback(async (content: string) => {
-    try {
-      await AppApi.Comment.storeComment({
-        content,
-        type,
-        typeId,
-        parentId: comment.id,
-      });
-      toast("Trả lời bình luận thành công!");
-      refresh();
-      setOpenReply(false);
-    } catch (error) {
-      Utils.Error.handleError(error);
-    }
-  }, []);
+  const onSubmitComment = useCallback(
+    async (content: string) => {
+      try {
+        await AppApi.Comment.storeComment({
+          content,
+          type,
+          typeId,
+          parentId: comment.id,
+        });
+        toast("Trả lời bình luận thành công!");
+        refresh();
+        setOpenReply(false);
+      } catch (error) {
+        Utils.Error.handleError(error);
+      }
+    },
+    [comment.id, type, typeId],
+  );
 
   const onDeleteComment = useCallback(async () => {
     try {
@@ -139,21 +143,24 @@ export function CommentItem({
     } catch (error) {
       Utils.Error.handleError(error);
     }
-  }, []);
+  }, [comment.id]);
 
-  const onSubmitEditedComment = useCallback(async (content: string) => {
-    try {
-      await AppApi.Comment.updateComment({
-        content,
-        id: comment.id,
-      });
-      toast("Sửa lời bình luận thành công!");
-      refresh();
-      setEditMode(false);
-    } catch (error) {
-      Utils.Error.handleError(error);
-    }
-  }, []);
+  const onSubmitEditedComment = useCallback(
+    async (content: string) => {
+      try {
+        await AppApi.Comment.updateComment({
+          content,
+          id: comment.id,
+        });
+        toast("Sửa lời bình luận thành công!");
+        refresh();
+        setEditMode(false);
+      } catch (error) {
+        Utils.Error.handleError(error);
+      }
+    },
+    [comment.id],
+  );
 
   return (
     <div className="item clearfix pb-0" key={comment.id}>
