@@ -16,6 +16,7 @@ export const Alert: FC<{
     title?: string;
     description?: string;
   };
+  icon?: React.ReactNode;
 }> = (props) => {
   return (
     <ShadCnAlert
@@ -26,7 +27,7 @@ export const Alert: FC<{
     >
       <div className="flex grow gap-3 sm:items-center">
         <span className="shrink-0">
-          <FaExclamationCircle className="inline text-[20px]" />
+          {props.icon || <FaExclamationCircle className="inline text-[20px]" />}
         </span>
         <div className="flex h-full grow flex-col justify-center">
           <AlertTitle
