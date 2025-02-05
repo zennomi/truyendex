@@ -82,7 +82,6 @@ const ALERTS = [
 
 export default function RandomAlert() {
   const { user } = useAuth();
-  if (user === null) return REGISTER_ALERT;
   return useMemo(
     () => (user === null ? REGISTER_ALERT : sample(ALERTS)),
     [user],
