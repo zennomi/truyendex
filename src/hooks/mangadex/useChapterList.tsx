@@ -31,8 +31,13 @@ export default function useChapterList(
   if (options.offset && options.offset > 10000) {
     options.offset = 10000 - options.limit;
   }
-  const { data, isLoading, error } = useSWR([mangaId, options], () =>
-    MangadexApi.Manga.getMangaIdFeed(mangaId, options),
+  const { data, isLoading, error } = useSWR(
+    [mangaId, options],
+    () => MangadexApi.Manga.getMangaIdFeed(mangaId, options),
+    {
+      revalidateOnFocus: false,
+      refreshInterval: 0,
+    },
   );
 
   data?.data.data.forEach(

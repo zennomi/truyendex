@@ -3,10 +3,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import Link from "next/link";
+import { useRouter } from "nextjs-toploader/app";
 
 import { useMangadex } from "@/contexts/mangadex";
 import { AppApi, MangadexApi } from "@/api";
-import { useAuth } from "@/hooks/useAuth";
 import Iconify from "@/components/iconify";
 import { useSeriesInfo } from "@/hooks/core";
 import { Utils } from "@/utils";
@@ -16,7 +16,6 @@ import { AspectRatio } from "@/components/shadcn/aspect-ratio";
 import { Button } from "../Button";
 import { DataLoader } from "@/components/DataLoader";
 import { useChapterList } from "@/hooks/mangadex";
-import { useRouter } from "nextjs-toploader/app";
 import { useSettingsContext } from "@/contexts/settings";
 import { ExtendManga } from "@/types/mangadex";
 
@@ -31,7 +30,6 @@ export default function Manga({
   mangaId: string;
   prefetchedManga: ExtendManga;
 }) {
-  const { user } = useAuth();
   const { mangas, updateMangas, updateMangaStatistics, mangaStatistics } =
     useMangadex();
   const { filteredLanguages } = useSettingsContext();

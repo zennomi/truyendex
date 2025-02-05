@@ -2,6 +2,8 @@ import { LayoutWrapper } from "@/components/LayoutWrapper";
 import "@/styles/core/index.scss";
 
 import { Metadata } from "next";
+import NextTopLoader from "nextjs-toploader";
+
 import { Constants } from "@/constants";
 
 export const metadata: Metadata = {
@@ -41,6 +43,16 @@ export default function CoreLayout({
 }) {
   return (
     <LayoutWrapper id="core">
+      <NextTopLoader
+        zIndex={1000}
+        easing="ease-in-out"
+        speed={400}
+        height={4}
+        showSpinner={false}
+        template={`
+        <div class="bar bg-indigo-500" role="bar"><div class="peg"></div></div> 
+  <div class="spinner text-indigo-500" role="spinner"><div class="spinner-icon"></div></div>`}
+      />
       <main>{children}</main>
     </LayoutWrapper>
   );

@@ -11,6 +11,7 @@ import MainNav from "./main-nav";
 import { Constants } from "@/constants";
 import SearchInput from "../common/search-input";
 import { useSettingsContext } from "@/contexts/settings";
+import { FaCaretDown, FaCat, FaList } from "react-icons/fa";
 
 export default function Header() {
   const [openMenu, setOpenMenu] = useState(false);
@@ -60,7 +61,7 @@ export default function Header() {
                 href="https://mangadex.org/"
                 target="_blank"
               >
-                <Iconify icon="fa6-solid:cat" />
+                <FaCat />
               </a>
             </div>
             <button
@@ -106,9 +107,8 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
               data-toggle="dropdown"
               className="user-menu fn-userbox dropdown-toggle flex items-center gap-2"
             >
-              <Iconify className="inline" icon="fa:list" />{" "}
-              <span>{user?.name || "Menu"}</span>{" "}
-              <Iconify className="inline" icon="fa:caret-down" />
+              <FaList className="inline" /> <span>{user?.name || "Menu"}</span>{" "}
+              <FaCaretDown className="inline" />
             </a>
           </MenuButton>
           <MenuItems

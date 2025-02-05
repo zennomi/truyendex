@@ -393,6 +393,7 @@ const CommentEditor = ({
       },
     },
   });
+
   const submitCommentClick = useCallback(async () => {
     if (!editor) return;
     const content = editor.getHTML();
@@ -406,7 +407,7 @@ const CommentEditor = ({
     } catch (error) {
       console.error(error);
     }
-  }, [editor]);
+  }, [editor, onSumbit]);
 
   return (
     <div className="comment_form">

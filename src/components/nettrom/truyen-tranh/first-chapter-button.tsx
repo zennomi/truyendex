@@ -1,7 +1,8 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
+import { useRouter } from "nextjs-toploader/app";
+
 import { Button } from "../Button";
 import { MangadexApi } from "@/api";
 import { toast } from "react-toastify";

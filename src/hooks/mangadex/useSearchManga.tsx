@@ -1,6 +1,6 @@
 "use client";
 
-import useSWR from "swr";
+import useSWR from "swr/immutable";
 import { useMemo } from "react";
 import { MangadexApi } from "@/api";
 import { ExtendManga, MangaList } from "@/types/mangadex";
