@@ -6,6 +6,8 @@ import { useRouter } from "nextjs-toploader/app";
 import { axios } from "@/api/core";
 import { GetUserResponse } from "@/types";
 import { Constants } from "@/constants";
+import { AppApi } from "@/api";
+
 import { useCookies } from "./useCookies";
 
 export const useAuth = ({
@@ -23,11 +25,7 @@ export const useAuth = ({
     daysUntilExpiration: 1,
   });
 
-  const {
-    data: user,
-    error,
-    mutate,
-  } = useSWR("/api/user", async () => {
+  const { data: user, mutate } = useSWR("/api/user", async () => {
     try {
       const { data } = await axios.get<GetUserResponse>("/api/user");
       if (data?.user) {
@@ -120,8 +118,31 @@ export const useAuth = ({
     await mutate();
   }, [mutate]);
 
+  const changePassword = useCallback(
+    async (data: {
+      oldPassword: string;
+      password: string;
+      confirmPassword: string;
+    }) => {
+      await AppApi.User.changePassword({
+        current_password: data.oldPassword,
+        password: data.password,
+        password_confirmation: data.confirmPassword,
+      });
+      await mutate();
+    },
+    [mutate],
+  );
+
   useEffect(() => {
     if (middleware === "guest" && user) {
+      console.log(
+        middleware,
+        user,
+        redirectIfAuthenticated,
+        redirectIfNotAuthenticated,
+      );
+      // debugger;
       toast("Đã đăng nhập, chuyển hướng...");
       router.push(redirectIfAuthenticated || Constants.Routes.nettrom.index);
     }
@@ -129,16 +150,7 @@ export const useAuth = ({
     if (middleware === "auth" && user === null) {
       router.push(redirectIfNotAuthenticated || Constants.Routes.login);
     }
-    if (middleware === "auth" && error) logout();
-  }, [
-    user,
-    error,
-    middleware,
-    logout,
-    redirectIfAuthenticated,
-    redirectIfNotAuthenticated,
-    router,
-  ]);
+  }, [!!user, middleware, redirectIfAuthenticated, redirectIfNotAuthenticated]);
 
   return {
     user,
@@ -148,5 +160,6 @@ export const useAuth = ({
     resetPassword,
     resendEmailVerification,
     logout,
+    changePassword,
   };
 };

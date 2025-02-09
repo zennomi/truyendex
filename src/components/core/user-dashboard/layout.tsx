@@ -11,7 +11,10 @@ import { twMerge } from "tailwind-merge";
 export default function UserDashboardLayoutView({
   children,
 }: PropsWithChildren) {
-  const { user, logout } = useAuth({ middleware: "auth" });
+  const { user, logout } = useAuth({
+    middleware: "auth",
+    redirectIfNotAuthenticated: Constants.Routes.login,
+  });
   const pathname = usePathname();
   return (
     <section className="relative pb-16 lg:pb-24">

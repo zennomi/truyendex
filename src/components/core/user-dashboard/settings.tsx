@@ -1,9 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import Iconify from "@/components/iconify";
+import * as yup from "yup";
 import { toast } from "react-toastify";
 import Link from "next/link";
+
+import Iconify from "@/components/iconify";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Utils } from "@/utils";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function UserSettingsView() {
   return (
@@ -14,18 +20,51 @@ export default function UserSettingsView() {
   );
 }
 
-function PasswordUpdate() {
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+const changePasswordSchema = yup.object().shape({
+  oldPassword: yup
+    .string()
+    .min(8, "Mật khẩu ít nhất 8 ký tự")
+    .required("Vui lòng nhập mật khẩu cũ"),
+  password: yup
+    .string()
+    .min(8, "Mật khẩu ít nhất 8 ký tự")
+    .notOneOf(
+      [yup.ref("oldPassword")],
+      "Mật khẩu mới không được trùng với mật khẩu cũ",
+    )
+    .required("Vui lòng nhập mật khẩu"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password")], "Nhập lại mật khẩu không khớp")
+    .required("Vui lòng nhập lại mật khẩu"),
+});
 
-  const handleUpdate = () => {
-    if (newPassword !== confirmPassword) {
-      toast.error("Mật khẩu xác nhận không khớp");
-      return;
+interface IChangePasswordForm {
+  oldPassword: string;
+  password: string;
+  confirmPassword: string;
+}
+
+function PasswordUpdate() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<IChangePasswordForm>({
+    resolver: yupResolver(changePasswordSchema),
+  });
+
+  const { changePassword } = useAuth();
+
+  const onSubmit: SubmitHandler<IChangePasswordForm> = async (data) => {
+    try {
+      await changePassword({
+        ...data,
+      });
+      toast.success("Đã cập nhật mật khẩu, bạn cần đăng nhập lại");
+    } catch (error) {
+      Utils.Error.handleError(error);
     }
-    // Call API to update password
-    toast.success("Đã cập nhật mật khẩu");
   };
 
   return (
@@ -45,10 +84,12 @@ function PasswordUpdate() {
             className="form-input h-10 w-full rounded border border-gray-200 bg-transparent px-3 py-2 ps-12 outline-none focus:border-indigo-600 focus:ring-0 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 dark:focus:border-indigo-600"
             placeholder="Mật khẩu cũ"
             id="old-password"
-            name="oldPassword"
-            onChange={(e) => setOldPassword(e.target.value)}
+            {...register("oldPassword")}
           />
         </div>
+        {errors.oldPassword && (
+          <p className="mt-2 text-red-600">{errors.oldPassword.message}</p>
+        )}
         <label className="form-label mt-4 font-medium">
           Mật khẩu mới : <span className="text-red-600">*</span>
         </label>
@@ -62,10 +103,12 @@ function PasswordUpdate() {
             className="form-input h-10 w-full rounded border border-gray-200 bg-transparent px-3 py-2 ps-12 outline-none focus:border-indigo-600 focus:ring-0 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 dark:focus:border-indigo-600"
             placeholder="Mật khẩu mới"
             id="new-password"
-            name="newPassword"
-            onChange={(e) => setNewPassword(e.target.value)}
+            {...register("password")}
           />
         </div>
+        {errors.password && (
+          <p className="mt-2 text-red-600">{errors.password.message}</p>
+        )}
         <label className="form-label mt-4 font-medium">
           Xác nhận mật khẩu mới : <span className="text-red-600">*</span>
         </label>
@@ -79,15 +122,18 @@ function PasswordUpdate() {
             className="form-input h-10 w-full rounded border border-gray-200 bg-transparent px-3 py-2 ps-12 outline-none focus:border-indigo-600 focus:ring-0 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 dark:focus:border-indigo-600"
             placeholder="Xác nhận mật khẩu mới"
             id="confirm-password"
-            name="confirmPassword"
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            {...register("confirmPassword")}
           />
         </div>
+        {errors.confirmPassword && (
+          <p className="mt-2 text-red-600">{errors.confirmPassword.message}</p>
+        )}
         <button
-          onClick={handleUpdate}
+          disabled={isSubmitting}
+          onClick={handleSubmit(onSubmit)}
           className="mt-5 inline-block rounded-md border border-indigo-600 bg-indigo-600 px-5 py-2 text-center align-middle text-base font-semibold tracking-wide text-white duration-500 hover:border-indigo-700 hover:bg-indigo-700"
         >
-          Lưu
+          {isSubmitting ? "Đang cập nhật mật khẩu" : "Lưu"}
         </button>
       </div>
     </div>
