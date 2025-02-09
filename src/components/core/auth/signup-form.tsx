@@ -22,7 +22,11 @@ interface ISignupForm {
 
 // Define the validation schema using yup
 const signupSchema = yup.object().shape({
-  name: yup.string().required("Vui lòng nhập tên"),
+  name: yup
+    .string()
+    .min(6, "Tên tối thiểu có 6 ký tự")
+    .max(8, "Tên tối đa có 8 ký tự")
+    .required("Vui lòng nhập tên"),
   email: yup
     .string()
     .email("Email không hợp lệ")
