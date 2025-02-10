@@ -28,6 +28,7 @@ jobs:
       - name: Create .env File from Secrets
         run: |
           echo "NEXT_PUBLIC_CORS_URL=${{ secrets.NEXT_PUBLIC_CORS_URL }}" >> .env.local
+          echo "NEXT_PUBLIC_CORS_V2_URL=${{ secrets.NEXT_PUBLIC_CORS_V2_URL }}" >> .env.local
           echo "NEXT_PUBLIC_APP_URL=${{ secrets.NEXT_PUBLIC_APP_URL }}" >> .env.local
           echo "NEXT_PUBLIC_BACKEND_URL=${{ secrets.NEXT_PUBLIC_BACKEND_URL }}" >> .env.local
           echo "NEXT_PUBLIC_GTM_ID=${{ secrets.NEXT_PUBLIC_GTM_ID }}" >> .env.local

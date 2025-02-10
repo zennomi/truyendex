@@ -5,6 +5,7 @@ import { SettingsConstants } from "./settings";
 
 export class Constants {
   static readonly CORS_URL = process.env.NEXT_PUBLIC_CORS_URL!;
+  static readonly CORS_V2_URL = process.env.NEXT_PUBLIC_CORS_V2_URL || "";
   static readonly APP_URL = process.env.NEXT_PUBLIC_APP_URL!;
   static readonly BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL!;
   static readonly APP_NAME = "Truyendex";
