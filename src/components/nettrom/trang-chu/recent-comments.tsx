@@ -49,15 +49,17 @@ function Comment({ comment }: { comment: RecentCommentResponse }) {
           <Markdown content={comment.content} />
         </ReadMore>
       </div>
-      <div className="mt-2 flex items-baseline justify-between gap-2">
+      <div className="mt-2 flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <img
             className="h-10 w-10 rounded-full"
             src="/nettruyen/images/default-avatar.jpg"
           />
-          <div className="font-bold">{comment.user.name}</div>
+          <div className="max-w-[200px] truncate font-bold">
+            {comment.user.name}
+          </div>
         </div>
-        <div className="text-lg text-gray-500">
+        <div className="whitespace-nowrap text-lg text-gray-500">
           {Utils.Date.formatNowDistance(new Date(comment.created_at))} trước
         </div>
       </div>

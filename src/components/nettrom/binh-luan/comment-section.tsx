@@ -173,7 +173,9 @@ export function CommentItem({
         ) : (
           <div className="info border-gray-600">
             <div className="comment-header flex gap-2 border-gray-600">
-              <div className="authorname name-1">{comment.user.name}</div>
+              <div className="authorname name-1 truncate">
+                {comment.user.name}
+              </div>
               <div>
                 {comment.user.display_roles.map((role) => (
                   <RoleBadge role={role} />
