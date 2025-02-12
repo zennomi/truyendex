@@ -107,7 +107,9 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
               className="user-menu fn-userbox dropdown-toggle flex items-center gap-2"
             >
               <Iconify className="inline" icon="fa:list" />{" "}
-              <span>{user?.name || "Menu"}</span>{" "}
+              <span className="max-w-[100px] truncate">
+                {user?.name || "Menu"}
+              </span>{" "}
               <Iconify className="inline" icon="fa:caret-down" />
             </a>
           </MenuButton>
