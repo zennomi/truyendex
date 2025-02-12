@@ -161,5 +161,6 @@ export const useAuth = ({
     resendEmailVerification,
     logout,
     changePassword,
+    mutate,
   };
 };

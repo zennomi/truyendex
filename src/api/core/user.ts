@@ -32,3 +32,13 @@ export const changePassword = async (body: {
 
   return data;
 };
+
+export const changeName = async (body: { password: string; name: string }) => {
+  const { data } = await axios({
+    url: "/api/user/change-name",
+    method: "POST",
+    data: body,
+  });
+
+  return data;
+};
