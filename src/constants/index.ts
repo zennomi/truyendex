@@ -35,7 +35,11 @@ export class Constants {
     signup: "/dang-ky",
     verifyEmail: "/xac-thuc",
     forgotPassword: "/quen-mat-khau",
-    resetPassword: "/doi-mat-khau",
+    resetPassword: "/password-reset",
+    dashboard: {
+      index: "/trang-ca-nhan",
+      settings: "/trang-ca-nhan/cai-dat",
+    },
   };
   static readonly AVALABLE_DOMAINS = DOMAINS;
   static readonly DOMAIN_LIST_URL =
