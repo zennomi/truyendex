@@ -398,7 +398,11 @@ const CommentEditor = ({
     if (!editor) return;
     const content = editor.getHTML();
     if (content.length <= 10) {
-      toast("Bình luận ít nhất 10 ký tự bro");
+      toast("Bình luận ít nhất 10 ký tự");
+      return;
+    }
+    if (content.length >= 5000) {
+      toast("Bình luận quá 5000 ký tự rồi");
       return;
     }
     try {

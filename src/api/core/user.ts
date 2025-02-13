@@ -18,3 +18,27 @@ export const syncReadList = async (body: { source: string; ids: string[] }) => {
 
   return data;
 };
+
+export const changePassword = async (body: {
+  current_password: string;
+  password: string;
+  password_confirmation: string;
+}) => {
+  const { data } = await axios({
+    url: "/api/user/change-password",
+    method: "POST",
+    data: body,
+  });
+
+  return data;
+};
+
+export const changeName = async (body: { password: string; name: string }) => {
+  const { data } = await axios({
+    url: "/api/user/change-name",
+    method: "POST",
+    data: body,
+  });
+
+  return data;
+};

@@ -12,4 +12,21 @@ export class UrlUtils {
   getResizeImgUrl(url: string, queryParams?: string) {
     return `${IMAGE_RESIZE_URL}/?url=${url}&${queryParams ?? ""}`;
   }
+
+  getBackendUrl() {
+    if (typeof window !== "undefined") {
+      if (window.location.hostname !== "localhost") {
+        const hostname = window.location.hostname;
+        const domain = hostname.substring(
+          hostname.lastIndexOf(".", hostname.lastIndexOf(".") - 1) + 1,
+        );
+        return `https://api.${domain}`;
+      }
+    }
+    return Constants.BACKEND_URL;
+  }
+
+  getGoogleAuthUrl() {
+    return this.getBackendUrl() + "/sso/google/redirect";
+  }
 }

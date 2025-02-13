@@ -5,6 +5,7 @@ import { SettingsConstants } from "./settings";
 
 export class Constants {
   static readonly CORS_URL = process.env.NEXT_PUBLIC_CORS_URL!;
+  static readonly CORS_V2_URL = process.env.NEXT_PUBLIC_CORS_V2_URL || "";
   static readonly APP_URL = process.env.NEXT_PUBLIC_APP_URL!;
   static readonly BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL!;
   static readonly APP_NAME = "Truyendex";
@@ -34,7 +35,11 @@ export class Constants {
     signup: "/dang-ky",
     verifyEmail: "/xac-thuc",
     forgotPassword: "/quen-mat-khau",
-    resetPassword: "/doi-mat-khau",
+    resetPassword: "/password-reset",
+    dashboard: {
+      index: "/trang-ca-nhan",
+      settings: "/trang-ca-nhan/cai-dat",
+    },
   };
   static readonly AVALABLE_DOMAINS = DOMAINS;
   static readonly DOMAIN_LIST_URL =

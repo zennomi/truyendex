@@ -20,6 +20,8 @@ export type UserResponse = {
   email_verified_at: string | null;
   id: number;
   name: string;
+  comment_count: number;
+  display_roles: string[];
 };
 
 export type GetUserResponse = {

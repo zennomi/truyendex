@@ -107,7 +107,10 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
               data-toggle="dropdown"
               className="user-menu fn-userbox dropdown-toggle flex items-center gap-2"
             >
-              <FaList className="inline" /> <span>{user?.name || "Menu"}</span>{" "}
+              <FaList className="inline" />{" "}
+              <span className="max-w-[100px] truncate">
+                {user?.name || "Menu"}
+              </span>{" "}
               <FaCaretDown className="inline" />
             </a>
           </MenuButton>
@@ -118,9 +121,12 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
             {user ? (
               <>
                 <MenuItem>
-                  <a className={menuItemClassName}>
+                  <Link
+                    href={Constants.Routes.dashboard.index}
+                    className={menuItemClassName}
+                  >
                     <Iconify icon="fa:user" /> Trang cá nhân
-                  </a>
+                  </Link>
                 </MenuItem>
                 <MenuItem>
                   <Link

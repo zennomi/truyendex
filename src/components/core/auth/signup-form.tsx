@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 import { useAuth } from "@/hooks/useAuth";
 import { Constants } from "@/constants";
 import TurnstileWidget from "@/components/turnstile-widget";
+import { Utils } from "@/utils";
+import Iconify from "@/components/iconify";
 
 // Define the form input types
 interface ISignupForm {
@@ -22,7 +24,11 @@ interface ISignupForm {
 
 // Define the validation schema using yup
 const signupSchema = yup.object().shape({
-  name: yup.string().required("Vui lòng nhập tên"),
+  name: yup
+    .string()
+    .min(6, "Tên tối thiểu có 6 ký tự")
+    .max(8, "Tên tối đa có 8 ký tự")
+    .required("Vui lòng nhập tên"),
   email: yup
     .string()
     .email("Email không hợp lệ")
@@ -74,6 +80,17 @@ export default function SignUpForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="text-start">
       <div className="grid grid-cols-1">
+        <div className="my-4">
+          <Link
+            href={Utils.Url.getGoogleAuthUrl()}
+            type="submit"
+            className="flex w-full items-center justify-center gap-2 rounded-md border border-indigo-600 bg-indigo-600 px-5 py-2 text-center align-middle text-base tracking-wide text-white duration-500 hover:border-indigo-700 hover:bg-indigo-700"
+          >
+            <Iconify icon="devicon-plain:google" />
+            Đăng ký với Google
+          </Link>
+        </div>
+        <div className="text-white-400 text-center">Hoặc đăng ký thủ công:</div>
         <div className="mb-4">
           <label className="font-semibold" htmlFor="RegisterName">
             Tên:
@@ -163,6 +180,7 @@ export default function SignUpForm() {
             {isSubmitting ? "Đang đăng ký..." : "Đăng ký"}
           </button>
         </div>
+
         <div className="text-center">
           <span className="me-2 text-slate-400">Đã có tài khoản? </span>{" "}
           <Link

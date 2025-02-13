@@ -23,6 +23,7 @@ import { ErrorResponse } from "../../types/mangadex";
 
 const MANGADEX_API_URL = "https://api.mangadex.org";
 const CORS = Constants.CORS_URL;
+const CORS_V2 = Constants.CORS_V2_URL;
 
 // process.env["NODE_TLS_REJECT_UNAUTHORIZED"] =
 //   process.env.NODE_ENV === "production" ? "1" : "0";
@@ -144,6 +145,12 @@ export const createHttpsRequestPromise = async function <T>(
     throw new Error(
       "ERROR - createHttpsRequestPromise: Parameter `path` cannot be blank",
     );
+  }
+
+  if (CORS_V2) {
+    const data = await customFetch(`${CORS_V2}/mangadex${path}`);
+
+    return { data };
   }
 
   const encodedUrl = btoa(`${MANGADEX_API_URL}${path}`)

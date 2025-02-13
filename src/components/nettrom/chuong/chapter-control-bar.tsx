@@ -68,8 +68,8 @@ export const ChapterControlBar: FC<{}> = () => {
               return {
                 label:
                   item.volume !== "none"
-                    ? item.chapter !== "none" 
-                      ? `Tập ${item.volume} Chương ${item.chapter}` 
+                    ? item.chapter !== "none"
+                      ? `Tập ${item.volume} Chương ${item.chapter}`
                       : `Oneshot Tập ${item.volume}`
                     : item.chapter !== "none"
                       ? `Chương ${item.chapter}`
