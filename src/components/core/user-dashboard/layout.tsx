@@ -104,6 +104,17 @@ export default function UserDashboardLayoutView({
                         <h6 className="mb-0 font-semibold">Cài đặt</h6>
                       </Link>
                     </li>
+                    <li className={"navbar-item account-menu"}>
+                      <Link
+                        href={Constants.Routes.nettrom.index}
+                        className="navbar-link flex items-center rounded py-2 text-slate-400"
+                      >
+                        <span className="mb-0 me-2 text-[18px]">
+                          <Iconify icon="uil-home" />
+                        </span>
+                        <h6 className="mb-0 font-semibold">Trang chủ</h6>
+                      </Link>
+                    </li>
                     <li className="navbar-item account-menu">
                       <button
                         onClick={logout}
