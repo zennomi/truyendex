@@ -9,10 +9,6 @@ import { AppApi } from "@/api";
 import { useAuth } from "@/hooks/useAuth";
 
 const changePasswordSchema = yup.object().shape({
-  password: yup
-    .string()
-    .min(8, "Mật khẩu ít nhất 8 ký tự")
-    .required("Vui lòng nhập mật khẩu"),
   name: yup
     .string()
     .required("Vui lòng nhập tên")
@@ -21,7 +17,6 @@ const changePasswordSchema = yup.object().shape({
 });
 
 interface IChangePasswordForm {
-  password: string;
   name: string;
 }
 
@@ -39,7 +34,6 @@ export default function UsernameUpdate() {
   const onSubmit: SubmitHandler<IChangePasswordForm> = async (data) => {
     try {
       await AppApi.User.changeName({
-        password: data.password,
         name: data.name,
       });
       await mutate();
@@ -53,25 +47,6 @@ export default function UsernameUpdate() {
     <div className="mt-5 rounded-md bg-white p-6 shadow dark:bg-slate-900 dark:shadow-gray-800">
       <h6 className="mb-4 text-lg font-semibold">Đổi tên người dùng</h6>
       <div>
-        <label className="form-label mt-4 font-medium">
-          Nhập lại mật khẩu : <span className="text-red-600">*</span>
-        </label>
-        <div className="form-icon relative my-2">
-          <Iconify
-            icon="feather:key"
-            className="absolute start-4 top-3 size-4"
-          />
-          <input
-            type="password"
-            className="form-input h-10 w-full rounded border border-gray-200 bg-transparent px-3 py-2 ps-12 outline-none focus:border-indigo-600 focus:ring-0 dark:border-gray-800 dark:bg-slate-900 dark:text-slate-200 dark:focus:border-indigo-600"
-            placeholder="Mật khẩu mới"
-            id="password"
-            {...register("password")}
-          />
-        </div>
-        {errors.password && (
-          <p className="mt-2 text-red-600">{errors.password.message}</p>
-        )}
         <label className="form-label font-medium">
           Tên mới : <span className="text-red-600">*</span>
         </label>
