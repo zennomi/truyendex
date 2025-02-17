@@ -45,19 +45,13 @@ export type CommentResponse = {
   created_at: string;
   id: number;
   user: {
+    id: number;
     name: string;
     display_roles: string[];
   };
   parent_id: number;
   replies?: CommentResponse[];
   reply_count: number;
-};
-
-export type CommentRepliesResponse = {
-  replies: CommentResponse[];
-};
-
-export type RecentCommentResponse = CommentResponse & {
   commentable: {
     title: string;
     type: string;
@@ -70,6 +64,12 @@ export type RecentCommentResponse = CommentResponse & {
   };
   commentable_type: string;
 };
+
+export type CommentRepliesResponse = {
+  replies: CommentResponse[];
+};
+
+export type RecentCommentResponse = CommentResponse;
 
 export type RecentCommentListResponse = {
   comments: RecentCommentResponse[];
