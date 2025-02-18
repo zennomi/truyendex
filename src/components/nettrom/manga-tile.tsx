@@ -1,5 +1,6 @@
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import Link from "next/link";
+import { twMerge } from "tailwind-merge";
 
 import { Constants } from "@/constants";
 import { ReadingHistory } from "@/types";
@@ -72,11 +73,12 @@ const MangaTile = (props: {
                 <Link
                   href={Constants.Routes.nettrom.chapter(chapter.id)}
                   title={chapter.title}
-                  className={
+                  className={twMerge(
+                    "flex-grow overflow-hidden text-ellipsis whitespace-nowrap transition visited:text-web-titleDisabled hover:text-web-titleLighter",
                     readedChaptersId === chapter.id
-                      ? "flex-grow overflow-hidden text-ellipsis whitespace-nowrap text-web-titleDisabled transition hover:text-web-titleLighter"
-                      : "flex-grow overflow-hidden text-ellipsis whitespace-nowrap text-web-title transition hover:text-web-titleLighter"
-                  }
+                      ? "text-web-titleDisabled"
+                      : "text-web-title",
+                  )}
                 >
                   {chapter.title}
                 </Link>
