@@ -3,7 +3,7 @@ import { Constants } from "@/constants";
 import { useAuth } from "@/hooks/useAuth";
 import { Alert } from "../Alert";
 import { Button } from "../Button";
-import { FaCat, FaGithub } from "react-icons/fa";
+import { FaCat, FaGithub, FaSync } from "react-icons/fa";
 import { useMemo } from "react";
 import { sample } from "lodash";
 
@@ -77,6 +77,23 @@ const ALERTS = [
       </Link>
     }
     icon={<FaCat className="inline text-[20px]" />}
+  />,
+  <Alert
+    classNames={{
+      alert: "[&>svg]:text-orange-500 text-orange-500 bg-orange-100",
+    }}
+    title=" Bạn có thể đồng bộ truyện theo dõi từ nhiều nguồn CManga (NetTruyen, TruyenQQ), MangaDex, CuuTruyen sang TruyenDex"
+    action={
+      <Link
+        className="no-underline hover:no-underline"
+        href={Constants.Routes.nettrom.sync}
+      >
+        <Button className="bg-orange-500 hover:bg-orange-600">
+          Đồng bộ ngay
+        </Button>
+      </Link>
+    }
+    icon={<FaSync className="inline text-[20px]" />}
   />,
 ];
 

@@ -1,9 +1,11 @@
 "use client";
+import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 import { Constants } from "@/constants";
 import { useAuth } from "@/hooks/useAuth";
+
 import FollowingList from "./following-list";
-import { useState } from "react";
 import FollowingSync from "./following-sync";
 
 export default function FollowingView() {
@@ -13,7 +15,11 @@ export default function FollowingView() {
       Constants.Routes.nettrom.following,
     ),
   });
-  const [tab, setTab] = useState<"following" | "sync">("following");
+
+  const params = useSearchParams();
+  const [tab, setTab] = useState<"following" | "sync">(
+    params.get("tab") === "sync" ? "sync" : "following",
+  );
 
   return (
     <div>

@@ -22,6 +22,7 @@ export default function FollowingList() {
 
   const unfollow = useCallback(
     async (mangaId: string) => {
+      if (!confirm("Bạn có chắc chắn muốn bỏ theo dõi truyện này?")) return;
       const { followed } = await AppApi.Series.followOrUnfollow(mangaId);
       toast(followed ? "Theo dõi thành công" : "Bỏ theo dõi thành công");
       await mutate();

@@ -24,6 +24,7 @@ export class Constants {
       history: "/nettrom/lich-su",
       scanlationGroup: (id: string) => `/nettrom/nhom-dich/${id}`,
       following: "/nettrom/theo-doi",
+      sync: "/nettrom/theo-doi?tab=sync",
     },
     scanlationGroup: (id: string) => `/nhom-dich/${id}`,
     report: `https://www.messenger.com/t/443260942921638`,

@@ -96,6 +96,8 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
   const { onToggleDrawer } = useSettingsContext();
   const menuItemClassName =
     "flex gap-2 items-center w-full text-[#333] py-1 px-5 text-nowrap hover:text-[#ae4ad9] hover:bg-[#f5f5f5]";
+
+  if (user === undefined) return null;
   return (
     <Menu>
       <ul
@@ -135,11 +137,6 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
                   >
                     <Iconify icon="fa:book" /> Truyện theo dõi
                   </Link>
-                </MenuItem>
-                <MenuItem>
-                  <a className={menuItemClassName} onClick={logout}>
-                    <Iconify icon="fa:sign-out" /> Đăng xuất
-                  </a>
                 </MenuItem>
               </>
             ) : (
@@ -193,6 +190,17 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
                 <Iconify icon="fa:cog" /> Cài đặt
               </button>
             </MenuItem>
+            {/* Divider */}
+            <MenuItem>
+              <hr className="my-1" />
+            </MenuItem>
+            {user && (
+              <MenuItem>
+                <a className={menuItemClassName} onClick={logout}>
+                  <Iconify icon="fa:sign-out" /> Đăng xuất
+                </a>
+              </MenuItem>
+            )}
           </MenuItems>
         </li>
       </ul>
