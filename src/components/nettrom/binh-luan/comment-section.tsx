@@ -188,15 +188,13 @@ export function CommentItem({
               <div className="authorname name-1 truncate">
                 {comment.user.name}
               </div>
-              <div>
-                {comment.user.display_roles.map((role) => (
-                  <RoleBadge role={role} />
-                ))}
-              </div>
+              {comment.user.display_roles.map((role) => (
+                <RoleBadge role={role} />
+              ))}
               {type === "series" &&
                 comment.commentable_type === "App\\Models\\Chapter" &&
                 comment.parent_id === 0 && (
-                  <div className="w-100 truncate">
+                  <div className="truncate">
                     tại chương{" "}
                     <Link
                       href={Constants.Routes.nettrom.chapter(
