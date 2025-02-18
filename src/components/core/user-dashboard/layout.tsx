@@ -3,6 +3,7 @@
 import Iconify from "@/components/iconify";
 import { Constants } from "@/constants";
 import { useAuth } from "@/hooks/useAuth";
+import { Utils } from "@/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { PropsWithChildren } from "react";
@@ -20,15 +21,9 @@ export default function UserDashboardLayoutView({
     <section className="relative pb-16 lg:pb-24">
       <div className="container-fluid relative">
         <div className="profile-banner relative text-transparent">
-          <input
-            id="pro-banner"
-            name="profile-banner"
-            type="file"
-            className="hidden"
-          />
           <div className="relative shrink-0">
             <img
-              src="/nettruyen/images/default-avatar.jpg"
+              src={Utils.Url.getAvatarUrl(user?.avatar_path)}
               className="h-80 w-full object-cover"
               id="profile-banner"
               alt=""
@@ -51,7 +46,7 @@ export default function UserDashboardLayoutView({
                   <div>
                     <div className="relative mx-auto size-28">
                       <img
-                        src="/nettruyen/images/default-avatar.jpg"
+                        src={Utils.Url.getAvatarUrl(user?.avatar_path)}
                         className="rounded-full shadow ring-4 ring-slate-50 dark:shadow-gray-800 dark:ring-slate-800"
                         id="profile-image"
                         alt=""

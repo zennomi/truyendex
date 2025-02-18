@@ -29,4 +29,9 @@ export class UrlUtils {
   getGoogleAuthUrl() {
     return this.getBackendUrl() + "/sso/google/redirect";
   }
+
+  getAvatarUrl(avatarPath?: string | null) {
+    if (!avatarPath) return "/nettruyen/images/default-avatar.jpg";
+    return `${Constants.APP_IMAGE_URL}/${avatarPath}`;
+  }
 }

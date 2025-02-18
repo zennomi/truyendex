@@ -15,6 +15,7 @@ export type ReadListResponse = {
 };
 
 export type UserResponse = {
+  avatar_path: string | null;
   email: string;
   created_at: string;
   email_verified_at: string | null;
@@ -48,6 +49,7 @@ export type CommentResponse = {
     id: number;
     name: string;
     display_roles: string[];
+    avatar_path: string | null;
   };
   parent_id: number;
   replies?: CommentResponse[];

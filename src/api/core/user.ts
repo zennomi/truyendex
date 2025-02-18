@@ -42,3 +42,19 @@ export const changeName = async (body: { name: string }) => {
 
   return data;
 };
+
+export const changeAvatar = async (file: File) => {
+  const formData = new FormData();
+  formData.append("avatar", file);
+
+  const { data } = await axios({
+    url: "/api/user/change-avatar",
+    method: "POST",
+    data: formData,
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  return data;
+};

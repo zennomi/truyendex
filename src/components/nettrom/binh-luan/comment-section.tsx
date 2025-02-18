@@ -171,7 +171,7 @@ export function CommentItem({
     <div className="item clearfix pb-0" key={comment.id}>
       <figure className="avatar avatar-wrap">
         <img
-          src={"/nettruyen/images/default-avatar.jpg"}
+          src={Utils.Url.getAvatarUrl(comment.user.avatar_path)}
           alt={comment.user.name}
           className="lazy"
         />
