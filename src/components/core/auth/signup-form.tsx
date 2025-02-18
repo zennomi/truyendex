@@ -32,6 +32,7 @@ const signupSchema = yup.object().shape({
   email: yup
     .string()
     .email("Email không hợp lệ")
+    .matches(/@(gmail\.com)$/, "Chỉ chấp nhận Gmail")
     .required("Vui lòng nhập email"),
   password: yup
     .string()
