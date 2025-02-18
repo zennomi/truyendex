@@ -15,6 +15,7 @@ export type ReadListResponse = {
 };
 
 export type UserResponse = {
+  avatar_path: string | null;
   email: string;
   created_at: string;
   email_verified_at: string | null;
@@ -45,19 +46,14 @@ export type CommentResponse = {
   created_at: string;
   id: number;
   user: {
+    id: number;
     name: string;
     display_roles: string[];
+    avatar_path: string | null;
   };
   parent_id: number;
   replies?: CommentResponse[];
   reply_count: number;
-};
-
-export type CommentRepliesResponse = {
-  replies: CommentResponse[];
-};
-
-export type RecentCommentResponse = CommentResponse & {
   commentable: {
     title: string;
     type: string;
@@ -70,6 +66,12 @@ export type RecentCommentResponse = CommentResponse & {
   };
   commentable_type: string;
 };
+
+export type CommentRepliesResponse = {
+  replies: CommentResponse[];
+};
+
+export type RecentCommentResponse = CommentResponse;
 
 export type RecentCommentListResponse = {
   comments: RecentCommentResponse[];

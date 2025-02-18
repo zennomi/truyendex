@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { last } from "lodash";
+import Link from "next/link";
 
 import { useAuth } from "@/hooks/useAuth";
 import Iconify from "@/components/iconify";
@@ -11,6 +12,7 @@ import { useCommentList, useCommentReplyList } from "@/hooks/core";
 import { CommentResponse, UserResponse } from "@/types";
 import { Utils } from "@/utils";
 import { AppApi } from "@/api";
+import { Constants } from "@/constants";
 
 import Pagination from "../Pagination";
 import Markdown from "../Markdown";
@@ -114,13 +116,16 @@ export function CommentItem({
   const replies = data ? data.flatMap((page) => page.replies) : [];
   const isReachingEnd = comment.reply_count <= replies.length + 2;
 
-  const onSubmitComment = useCallback(
+  const onSubmitReply = useCallback(
     async (content: string) => {
       try {
         await AppApi.Comment.storeComment({
           content,
-          type,
-          typeId,
+          type:
+            comment.commentable_type === "App\\Models\\Series"
+              ? "series"
+              : "chapter",
+          typeId: comment.commentable.uuid,
           parentId: comment.id,
         });
         toast("Trả lời bình luận thành công!");
@@ -166,7 +171,7 @@ export function CommentItem({
     <div className="item clearfix pb-0" key={comment.id}>
       <figure className="avatar avatar-wrap">
         <img
-          src={"/nettruyen/images/default-avatar.jpg"}
+          src={Utils.Url.getAvatarUrl(comment.user.avatar_path)}
           alt={comment.user.name}
           className="lazy"
         />
@@ -179,15 +184,27 @@ export function CommentItem({
           />
         ) : (
           <div className="info border-gray-600">
-            <div className="comment-header flex gap-2 border-gray-600">
+            <div className="comment-header flex items-center gap-2 border-gray-600">
               <div className="authorname name-1 truncate">
                 {comment.user.name}
               </div>
-              <div>
-                {comment.user.display_roles.map((role) => (
-                  <RoleBadge role={role} />
-                ))}
-              </div>
+              {comment.user.display_roles.map((role) => (
+                <RoleBadge role={role} />
+              ))}
+              {type === "series" &&
+                comment.commentable_type === "App\\Models\\Chapter" &&
+                comment.parent_id === 0 && (
+                  <div className="truncate">
+                    tại chương{" "}
+                    <Link
+                      href={Constants.Routes.nettrom.chapter(
+                        comment.commentable.uuid,
+                      )}
+                    >
+                      {comment.commentable.title}
+                    </Link>
+                  </div>
+                )}
             </div>
             <div className="comment-content">
               <Markdown content={comment.content} />
@@ -202,7 +219,7 @@ export function CommentItem({
               </span>
             </li>
           )}
-          {user && (
+          {user && user.id === comment.user.id && (
             <li className="comment-more-wrap">
               <Menu>
                 <MenuButton>
@@ -238,7 +255,7 @@ export function CommentItem({
             </abbr>
           </li>
         </ul>
-        {openReply && <CommentEditor onSumbit={onSubmitComment} />}
+        {openReply && <CommentEditor onSumbit={onSubmitReply} />}
         {comment.replies &&
           comment.replies.map((replyComment) => (
             <CommentItem

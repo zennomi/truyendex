@@ -41,7 +41,7 @@ export default function ListChapter({
                 >
                   <div className="" key={chapter.id}>
                     <Link
-                      className="text-web-title transition hover:text-web-titleLighter"
+                      className="text-web-title transition visited:text-web-titleDisabled hover:text-web-titleLighter"
                       href={Constants.Routes.nettrom.chapter(chapter.id)}
                     >
                       {Utils.Mangadex.getChapterTitle(chapter)}

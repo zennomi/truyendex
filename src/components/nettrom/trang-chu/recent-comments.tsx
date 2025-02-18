@@ -70,7 +70,7 @@ function Comment({ comment }: { comment: RecentCommentResponse }) {
         <div className="flex items-center gap-2">
           <img
             className="h-10 w-10 rounded-full"
-            src="/nettruyen/images/default-avatar.jpg"
+            src={Utils.Url.getAvatarUrl(comment.user.avatar_path)}
           />
           <div className="max-w-[200px] truncate font-bold">
             {comment.user.name}

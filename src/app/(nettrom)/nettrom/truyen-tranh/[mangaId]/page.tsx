@@ -15,8 +15,8 @@ export default async function TruyenTranh({
   } = await MangadexApi.Manga.getMangaId(params.mangaId);
 
   return (
-    <div className="grid gap-[40px] lg:grid-cols-[2fr_1fr]">
-      <div>
+    <div className="grid grid-cols-1 gap-[40px] lg:grid-cols-[2fr_1fr]">
+      <div className="w-full">
         <Manga
           mangaId={params.mangaId}
           prefetchedManga={
