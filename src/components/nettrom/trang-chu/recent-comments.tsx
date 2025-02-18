@@ -1,5 +1,7 @@
 "use client";
 
+import { twMerge } from "tailwind-merge";
+
 import { DataLoader } from "@/components/DataLoader";
 import useRecentComments from "@/hooks/core/useRecentCommentList";
 import { FaComment } from "react-icons/fa";
@@ -32,6 +34,10 @@ export default function RecentComments() {
 function Comment({ comment }: { comment: RecentCommentResponse }) {
   const type =
     comment.commentable_type === "App\\Models\\Chapter" ? "chapter" : "manga";
+
+  const userBanned = comment.user.display_roles.includes(
+    Constants.Roles.BANNED,
+  );
   return (
     <div key={comment.id}>
       <div className="mb-2">
@@ -62,17 +68,26 @@ function Comment({ comment }: { comment: RecentCommentResponse }) {
         </div>
       </div>
       <div className="overflow-hidden">
-        <ReadMore maxHeight={150}>
-          <Markdown content={comment.content} />
-        </ReadMore>
+        {userBanned ? (
+          <div className="text-muted-foreground">Bình luận đã bị xoá</div>
+        ) : (
+          <ReadMore maxHeight={150}>
+            <Markdown content={comment.content} />
+          </ReadMore>
+        )}
       </div>
       <div className="mt-2 flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <img
-            className="h-10 w-10 rounded-full"
+            className={twMerge("h-10 w-10 rounded-full", userBanned && "blur")}
             src={Utils.Url.getAvatarUrl(comment.user.avatar_path)}
           />
-          <div className="max-w-[200px] truncate font-bold">
+          <div
+            className={twMerge(
+              "max-w-[200px] truncate font-bold",
+              userBanned && "line-through",
+            )}
+          >
             {comment.user.name}
           </div>
         </div>

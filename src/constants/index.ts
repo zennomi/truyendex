@@ -16,6 +16,11 @@ export class Constants {
     process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!;
   static readonly Mangadex = new MangaDexConstants();
   static readonly Nettrom = new NettromConstants();
+  static readonly Roles = {
+    ADMIN: "admin",
+    MOD: "mod",
+    BANNED: "exile",
+  };
   static readonly Routes = {
     nettrom: {
       index: "/nettrom",

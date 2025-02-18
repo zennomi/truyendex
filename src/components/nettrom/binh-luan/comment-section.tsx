@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { last } from "lodash";
 import Link from "next/link";
+import { twMerge } from "tailwind-merge";
 
 import { useAuth } from "@/hooks/useAuth";
 import Iconify from "@/components/iconify";
@@ -18,6 +19,7 @@ import Pagination from "../Pagination";
 import Markdown from "../Markdown";
 import CommentEditor from "./comment-editor";
 import RoleBadge from "../role-badge";
+import ReadMore from "../see-more";
 
 export default function CommentSection({
   typeId,
@@ -167,13 +169,17 @@ export function CommentItem({
     [comment.id],
   );
 
+  const userBanned = comment.user.display_roles.includes(
+    Constants.Roles.BANNED,
+  );
+
   return (
     <div className="item clearfix pb-0" key={comment.id}>
       <figure className="avatar avatar-wrap">
         <img
           src={Utils.Url.getAvatarUrl(comment.user.avatar_path)}
           alt={comment.user.name}
-          className="lazy"
+          className={twMerge("lazy", userBanned && "blur")}
         />
       </figure>
       <div className="summary">
@@ -185,7 +191,12 @@ export function CommentItem({
         ) : (
           <div className="info border-gray-600">
             <div className="comment-header flex items-center gap-2 border-gray-600">
-              <div className="authorname name-1 truncate">
+              <div
+                className={twMerge(
+                  "authorname name-1 truncate",
+                  userBanned && "text-muted-foreground line-through",
+                )}
+              >
                 {comment.user.name}
               </div>
               {comment.user.display_roles.map((role) => (
@@ -207,7 +218,13 @@ export function CommentItem({
                 )}
             </div>
             <div className="comment-content">
-              <Markdown content={comment.content} />
+              {userBanned ? (
+                <div className="text-muted-foreground">Bình luận đã bị xoá</div>
+              ) : (
+                <ReadMore>
+                  <Markdown content={comment.content} />
+                </ReadMore>
+              )}
             </div>
           </div>
         )}
