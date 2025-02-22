@@ -4,93 +4,66 @@ import { useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "nextjs-toploader/app";
 
-import { useLastUpdates } from "@/hooks/mangadex";
 import { useMangadex } from "@/contexts/mangadex";
-
-import { ExtendChapter } from "@/types/mangadex";
 import { Constants } from "@/constants";
-import { FaClock } from "react-icons/fa";
 import { DataLoader } from "@/components/DataLoader";
 import { Utils } from "@/utils";
 import useReadingHistory from "@/hooks/useReadingHistory";
+import { useHomepageSeries } from "@/hooks/core/useHomepageSeries";
 import { useSettingsContext } from "@/contexts/settings";
 
 import Pagination from "../Pagination";
 import MangaTile from "../manga-tile";
+import { MangadexApi } from "@/api";
 
-export default function LastestChapters({
-  title,
-  groupId,
-}: {
-  title?: string;
-  groupId?: string;
-}) {
+export default function LastChapterUpdatedTitles() {
+  const { filteredContent } = useSettingsContext();
+
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
-  const page = Number(params.get("page")) || 0;
-  const [totalPage, setTotalPage] = useState(0);
+  const page = Number(params.get("page")) || 1;
+  const [totalPage, setTotalPage] = useState(1);
   const { history } = useReadingHistory();
-  const { filteredLanguages, filteredContent, originLanguages } =
-    useSettingsContext();
-  const { chapters, isLoading, error, total } = useLastUpdates({
+  const { data, isLoading, error } = useHomepageSeries({
+    limit: Constants.Mangadex.LAST_UPDATES_LIMIT,
     page,
-    groupId,
-    filteredLanguages,
-    filteredContentRating: filteredContent,
-    originLanguages,
   });
+
   const { mangas, mangaStatistics, updateMangas, updateMangaStatistics } =
     useMangadex();
-  const updates: Record<string, ExtendChapter[]> = {};
-
-  if (chapters) {
-    for (const chapter of chapters) {
-      const mangaId = chapter.manga?.id;
-      if (!mangaId) continue;
-      if (!updates[mangaId]) {
-        updates[mangaId] = [];
-      }
-      updates[mangaId].push(chapter);
-    }
-  }
 
   useEffect(() => {
-    if (chapters?.length > 0) {
+    if (data?.data && data.data.length > 0) {
       updateMangas({
-        ids: chapters.filter((c) => !!c?.manga?.id).map((c) => c.manga!.id),
+        ids: data?.data.map((c) => c.uuid),
       });
     }
-  }, [chapters]);
+  }, [data]);
 
   useEffect(() => {
-    if (chapters?.length > 0) {
+    if (data?.data && data.data.length > 0) {
       updateMangaStatistics({
-        manga: chapters.filter((c) => !!c?.manga?.id).map((c) => c.manga!.id!),
+        manga: data?.data.map((c) => c.uuid),
       });
     }
-  }, [chapters]);
+  }, [data]);
 
   useEffect(() => {
-    if (!total) return;
-    setTotalPage(Math.floor(total / Constants.Mangadex.LAST_UPDATES_LIMIT));
-  }, [total]);
+    if (!data?.total) return;
+    setTotalPage(
+      Math.floor(data.total / Constants.Mangadex.LAST_UPDATES_LIMIT),
+    );
+  }, [data]);
 
   return (
     <div className="Module Module-163" id="new-updates">
       <div className="ModuleContent">
         <div className="items">
-          {title && (
-            <div className="relative">
-              <h1 className="my-0 mb-5 flex items-center gap-3 text-[20px] text-web-title">
-                <FaClock />
-                <span>{title}</span>
-              </h1>
-            </div>
-          )}
           <DataLoader isLoading={isLoading} error={error}>
             <div className={`grid grid-cols-2 gap-[20px] lg:grid-cols-4`}>
-              {Object.entries(updates).map(([mangaId, chapterList]) => {
+              {data?.data.map((series) => {
+                const mangaId = series.uuid;
                 const coverArt = Utils.Mangadex.getCoverArt(mangas[mangaId]);
                 const mangaTitle = Utils.Mangadex.getMangaTitle(
                   mangas[mangaId],
@@ -102,15 +75,25 @@ export default function LastestChapters({
                     key={mangaId}
                     thumbnail={coverArt}
                     title={mangaTitle}
-                    chapters={chapterList.slice(0, 3).map((chapter) => ({
-                      id: chapter.id,
-                      title: Utils.Mangadex.getChapterTitle(chapter),
+                    chapters={series.chapters.map((chapter) => ({
+                      id: chapter.uuid,
+                      title: chapter.title,
+                      updatedAt: chapter.md_updated_at,
                       subTitle: Utils.Date.formatNowDistance(
-                        new Date(chapter.attributes.readableAt),
+                        new Date(chapter.md_updated_at),
                       ),
                     }))}
                     readedChapters={readedChapters}
                     mangaStatistic={mangaStatistics[mangaId]}
+                    className={
+                      !filteredContent.includes(
+                        MangadexApi.Static.MangaContentRating.PORNOGRAPHIC,
+                      ) &&
+                      mangas[mangaId]?.attributes.contentRating ===
+                        MangadexApi.Static.MangaContentRating.PORNOGRAPHIC
+                        ? "blur"
+                        : ""
+                    }
                   />
                 );
               })}
@@ -119,10 +102,10 @@ export default function LastestChapters({
         </div>
         <Pagination
           onPageChange={(event) => {
-            router.push(`${pathname}?page=${event.selected}#new-updates`);
+            router.push(`${pathname}?page=${event.selected + 1}#new-updates`);
           }}
           pageCount={totalPage}
-          forcePage={page}
+          forcePage={page - 1}
           marginPagesDisplayed={1}
           pageRangeDisplayed={2}
         />

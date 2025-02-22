@@ -76,3 +76,18 @@ export type RecentCommentResponse = CommentResponse;
 export type RecentCommentListResponse = {
   comments: RecentCommentResponse[];
 };
+
+export type SeriesHomepageResponse = {
+  data: {
+    title: string;
+    uuid: string;
+    last_chapter_updated_at: string;
+    chapters: {
+      uuid: string;
+      title: string;
+      md_updated_at: string;
+    }[];
+  }[];
+  total: number;
+  current_page: number;
+};

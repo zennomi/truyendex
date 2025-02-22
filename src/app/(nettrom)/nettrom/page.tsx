@@ -1,5 +1,5 @@
 import FeaturedTitles from "@/components/nettrom/trang-chu/featured-titles";
-import NewUpdates from "@/components/nettrom/trang-chu/new-updated-titles";
+import NewUpdates from "@/components/nettrom/trang-chu/new-updates";
 import ReadingHistory from "@/components/nettrom/trang-chu/reading-history";
 import RecentComments from "@/components/nettrom/trang-chu/recent-comments";
 import TopTitles from "@/components/nettrom/trang-chu/top-titles";
