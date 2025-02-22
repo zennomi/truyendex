@@ -256,7 +256,20 @@ export default function Manga({
                     <i className="fa fa-rss mr-2"></i> Tình trạng
                   </p>
                   <p className="pl-10 lg:pl-0">
+                    {manga?.attributes.year
+                      ? `${manga.attributes.year} - `
+                      : ""}
                     {Utils.Mangadex.translateStatus(manga?.attributes.status)}
+                  </p>
+                </li>
+                <li className="kind">
+                  <p className="name mb-2 text-muted-foreground lg:mb-0">
+                    <i className="fa fa-exclamation-triangle mr-2"></i> Nội dung
+                  </p>
+                  <p className="pl-10 lg:pl-0">
+                    {Utils.Mangadex.translateContentRating(
+                      manga?.attributes.contentRating,
+                    )}
                   </p>
                 </li>
                 <li className="kind">
@@ -287,7 +300,7 @@ export default function Manga({
                 </li>
                 <li className="">
                   <p className="name mb-2 text-muted-foreground lg:mb-0">
-                    <i className="fa fa-eye mr-2"></i> Ngôn ngữ gốc
+                    <i className="fa fa-globe mr-2"></i> Ngôn ngữ gốc
                   </p>
                   <p className="flex items-center gap-2 pl-10 lg:pl-0">
                     <Iconify
