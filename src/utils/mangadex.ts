@@ -218,4 +218,167 @@ export class MangaDexUtils {
         return "Không";
     }
   }
+
+  translateISOLanguage(isoLanguage: string) {
+    switch (isoLanguage) {
+      case "ja":
+        return "Nhật Bản";
+      case "en":
+        return "Tiếng Anh";
+      case "vi":
+        return "Việt Nam";
+      case "ko":
+        return "Hàn Quốc";
+      case "zh":
+        return "Trung Quốc";
+      case "fr":
+        return "Pháp";
+      case "de":
+        return "Đức";
+      case "es":
+        return "Tây Ban Nha";
+      case "it":
+        return "Ý";
+      case "ru":
+        return "Nga";
+      case "pt":
+        return "Bồ Đào Nha";
+      case "id":
+        return "Indonesia";
+      case "th":
+        return "Thái Lan";
+      case "ms":
+        return "Mã Lai";
+      case "hi":
+        return "Hindi";
+      case "ar":
+        return "Ả Rập";
+      case "bn":
+        return "Bengali";
+      case "pa":
+        return "Punjabi";
+      case "jv":
+        return "Javanese";
+      case "te":
+        return "Telugu";
+      case "mr":
+        return "Marathi";
+      case "ta":
+        return "Tamil";
+      case "ur":
+        return "Urdu";
+      case "gu":
+        return "Gujarati";
+      case "kn":
+        return "Kannada";
+      case "ml":
+        return "Malayalam";
+      case "or":
+        return "Odia";
+      case "fa":
+        return "Persian";
+      case "tr":
+        return "Turkish";
+      case "pl":
+        return "Polish";
+      case "uk":
+        return "Ukrainian";
+      case "ro":
+        return "Romanian";
+      case "nl":
+        return "Dutch";
+      case "sv":
+        return "Swedish";
+      case "fi":
+        return "Finnish";
+      case "no":
+        return "Norwegian";
+      case "da":
+        return "Danish";
+      case "hu":
+        return "Hungarian";
+      case "cs":
+        return "Czech";
+      case "sk":
+        return "Slovak";
+      case "bg":
+        return "Bulgarian";
+      case "sr":
+        return "Serbian";
+      case "hr":
+        return "Croatian";
+      case "lt":
+        return "Lithuanian";
+      case "lv":
+        return "Latvian";
+      case "et":
+        return "Estonian";
+      case "sl":
+        return "Slovenian";
+      case "he":
+        return "Hebrew";
+      case "el":
+        return "Greek";
+      case "hy":
+        return "Armenian";
+      case "ka":
+        return "Georgian";
+      case "az":
+        return "Azerbaijani";
+      case "kk":
+        return "Kazakh";
+      case "uz":
+        return "Uzbek";
+      case "mn":
+        return "Mongolian";
+      case "ne":
+        return "Nepali";
+      case "si":
+        return "Sinhala";
+      case "my":
+        return "Burmese";
+      case "km":
+        return "Khmer";
+      case "lo":
+        return "Lao";
+      case "am":
+        return "Amharic";
+      case "sw":
+        return "Swahili";
+      case "yo":
+        return "Yoruba";
+      case "ig":
+        return "Igbo";
+      case "zu":
+        return "Zulu";
+      case "xh":
+        return "Xhosa";
+      case "af":
+        return "Afrikaans";
+      case "st":
+        return "Sesotho";
+      case "tn":
+        return "Tswana";
+      case "ts":
+        return "Tsonga";
+      case "ve":
+        return "Venda";
+      case "nr":
+        return "Ndebele";
+      case "ss":
+        return "Swati";
+      case "tn":
+        return "Tswana";
+      case "ts":
+        return "Tsonga";
+      case "ve":
+        return "Venda";
+      case "nr":
+        return "Ndebele";
+      case "ss":
+        return "Swati";
+      default:
+        return isoLanguage;
+    }
+  }
 }

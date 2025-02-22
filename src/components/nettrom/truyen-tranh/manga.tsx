@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { useRouter } from "nextjs-toploader/app";
+import { FaExclamationTriangle } from "react-icons/fa";
 
 import { useMangadex } from "@/contexts/mangadex";
 import { AppApi, MangadexApi } from "@/api";
@@ -32,7 +33,7 @@ export default function Manga({
 }) {
   const { mangas, updateMangas, updateMangaStatistics, mangaStatistics } =
     useMangadex();
-  const { filteredLanguages } = useSettingsContext();
+  const { filteredLanguages, filteredContent } = useSettingsContext();
   const manga = mangas[mangaId] || prefetchedManga;
   const { data: seriesInfo, mutate } = useSeriesInfo(mangaId);
   const title = Utils.Mangadex.getMangaTitle(manga);
@@ -45,10 +46,15 @@ export default function Manga({
   });
   const chapterListData = useMemo(() => data?.data, [data]);
   const router = useRouter();
+  const [showPorngraphic, setShowPorngraphic] = useState(false);
 
   const handleLogin = () => {
     router.push(Constants.Routes.loginWithRedirect(window.location.pathname));
   };
+
+  const handleConfirmPorngraphic = useCallback(() => {
+    setShowPorngraphic(true);
+  }, [setShowPorngraphic]);
 
   const followManga = useCallback(async () => {
     try {
@@ -70,6 +76,31 @@ export default function Manga({
     });
     updateMangaStatistics({ manga: [mangaId] });
   }, [mangaId]);
+
+  if (
+    !showPorngraphic &&
+    !filteredContent.includes(
+      MangadexApi.Static.MangaContentRating.PORNOGRAPHIC,
+    ) &&
+    manga.attributes.contentRating ===
+      MangadexApi.Static.MangaContentRating.PORNOGRAPHIC
+  )
+    return (
+      <div className="mb-2">
+        <div className="flex flex-col justify-center">
+          <FaExclamationTriangle className="mx-auto text-[100px] text-red-600" />
+          <p className="text-center">
+            Truyện có thể có nội dung phản cảm và bạn đang thiết lập cài đặt lọc
+            những bộ truyện có nội dung "bùng lổ"
+          </p>
+        </div>
+        <div className="mt-4 flex justify-center">
+          <Button onClick={handleConfirmPorngraphic}>
+            Tôi chịu trách nhiệm với quyết định của mình
+          </Button>
+        </div>
+      </div>
+    );
 
   return (
     <DataLoader
@@ -256,9 +287,19 @@ export default function Manga({
                 </li>
                 <li className="">
                   <p className="name mb-2 text-muted-foreground lg:mb-0">
-                    <i className="fa fa-eye mr-2"></i> Lượt xem
+                    <i className="fa fa-eye mr-2"></i> Ngôn ngữ gốc
                   </p>
-                  <p className="pl-10 lg:pl-0">N/A</p>
+                  <p className="flex items-center gap-2 pl-10 lg:pl-0">
+                    <Iconify
+                      icon={`circle-flags:lang-${manga.attributes.originalLanguage}`}
+                      className="inline-block"
+                    />
+                    <span>
+                      {Utils.Mangadex.translateISOLanguage(
+                        manga.attributes.originalLanguage,
+                      )}
+                    </span>
+                  </p>
                 </li>
                 <li className="">
                   <p className="name mb-2 text-muted-foreground lg:mb-0">
