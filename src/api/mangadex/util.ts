@@ -30,7 +30,7 @@ const CORS_V2 = Constants.CORS_V2_URL;
 
 export class MangaDexError extends Error {
   status?: number;
-  response?: { data: ErrorResponse | any };
+  response?: { data: ErrorResponse | any; headers: Record<string, any> };
   constructor({
     message,
     status,
@@ -38,7 +38,7 @@ export class MangaDexError extends Error {
   }: {
     message: string;
     status?: number;
-    response?: { data: ErrorResponse | any };
+    response?: { data: ErrorResponse | any; headers: Record<string, any> };
   }) {
     super(message);
     this.status = status;
@@ -226,10 +226,7 @@ export const isErrorResponse = function (
   return (res as ErrorResponse).errors !== undefined;
 };
 
-async function customFetch<T = any>(
-  url: string,
-  options: RequestInit = {},
-): Promise<T> {
+async function customFetch(url: string, options: RequestInit = {}) {
   const response = await fetch(url, options);
 
   if (!response.ok) {
@@ -242,9 +239,11 @@ async function customFetch<T = any>(
     throw new MangaDexError({
       message: `Yêu cầu thất bại - Lỗi ${response.status}: ${response.statusText}`,
       status: response.status,
-      response: { data: errorData },
+      response: {
+        data: errorData,
+        headers: Object.fromEntries(response.headers.entries()),
+      },
     });
   }
-  // Return the parsed response as the generic type T
-  return (await response.json()) as T;
+  return await response.json();
 }
