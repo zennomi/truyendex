@@ -8,8 +8,8 @@ export default function HomePage() {
   return (
     <div className="flex flex-col gap-[40px]">
       <FeaturedTitles />
-      <div className="grid gap-[40px] lg:grid-cols-[2fr_1fr]">
-        <div>
+      <div className="grid grid-cols-1 gap-[40px] lg:grid-cols-3">
+        <div className="lg:col-span-2">
           <NewUpdates />
         </div>
         <div className="flex flex-col gap-[20px]">
