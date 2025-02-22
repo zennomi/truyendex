@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 export default function TestView() {
   const [result, setResult] = useState<any>();
   useEffect(() => {
-    AppApi.Comment.getRecentCommentList({
+    AppApi.Series.getHomepageSeries({
       limit: 10,
     })
       .then(setResult)

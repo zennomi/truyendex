@@ -1,3 +1,4 @@
+import { SeriesHomepageResponse } from "@/types";
 import { axios } from "./axios";
 
 export const followOrUnfollow = async (seriesId: string) => {
@@ -21,6 +22,18 @@ export const checkInfo = async (seriesId: string) => {
     data: {
       series_uuid: seriesId,
     },
+  });
+  return data;
+};
+
+export const getHomepageSeries = async (params: {
+  limit: number;
+  page?: number;
+}) => {
+  const { data } = await axios<SeriesHomepageResponse>({
+    method: "GET",
+    url: "/api/series/homepage",
+    params,
   });
   return data;
 };

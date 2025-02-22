@@ -14,10 +14,11 @@ const MangaTile = (props: {
   chapters: { id: string; title: string; subTitle: string }[];
   readedChapters?: ReadingHistory;
   mangaStatistic?: MangaStatistic;
+  className?: string;
 }) => {
   const readedChaptersId = props.readedChapters?.chapterId ?? null;
   return (
-    <div className="group">
+    <div className={twMerge("group", props.className)}>
       <figure className="clearfix">
         <div className="relative mb-2">
           <Link
