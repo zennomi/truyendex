@@ -47,7 +47,7 @@ export default function UserDashboardLayoutView({
                     <div className="relative mx-auto size-28">
                       <img
                         src={Utils.Url.getAvatarUrl(user?.avatar_path)}
-                        className="rounded-full shadow ring-4 ring-slate-50 dark:shadow-gray-800 dark:ring-slate-800"
+                        className="h-full w-full rounded-full shadow ring-4 ring-slate-50 dark:shadow-gray-800 dark:ring-slate-800"
                         id="profile-image"
                         alt=""
                       />
