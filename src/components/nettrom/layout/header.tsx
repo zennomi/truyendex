@@ -2,16 +2,32 @@
 
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import {
+  FaBook,
+  FaBug,
+  FaCaretDown,
+  FaCat,
+  FaCog,
+  FaGithub,
+  FaHistory,
+  FaHome,
+  FaList,
+  FaPencilAlt,
+  FaSignOutAlt,
+  FaUser,
+} from "react-icons/fa";
 import { useEffect, useState } from "react";
-import Iconify from "@/components/iconify";
+
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { useAuth } from "@/hooks/useAuth";
+import { Constants } from "@/constants";
+import { useSettingsContext } from "@/contexts/settings";
 
 import MainNav from "./main-nav";
-import { Constants } from "@/constants";
 import SearchInput from "../common/search-input";
-import { useSettingsContext } from "@/contexts/settings";
-import { FaCaretDown, FaCat, FaList } from "react-icons/fa";
+
+const menuItemClassName =
+  "flex gap-2 items-center w-full text-[#333] py-1 px-5 text-nowrap hover:text-[#ae4ad9] hover:bg-[#f5f5f5]";
 
 export default function Header() {
   const [openMenu, setOpenMenu] = useState(false);
@@ -94,8 +110,6 @@ export default function Header() {
 function AuthDropdown({ desktop }: { desktop?: boolean }) {
   const { user, logout } = useAuth();
   const { onToggleDrawer } = useSettingsContext();
-  const menuItemClassName =
-    "flex gap-2 items-center w-full text-[#333] py-1 px-5 text-nowrap hover:text-[#ae4ad9] hover:bg-[#f5f5f5]";
 
   if (user === undefined) return null;
   return (
@@ -127,7 +141,8 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
                     href={Constants.Routes.dashboard.index}
                     className={menuItemClassName}
                   >
-                    <Iconify icon="fa:user" /> Trang cá nhân
+                    <FaHome />
+                    Trang cá nhân
                   </Link>
                 </MenuItem>
                 <MenuItem>
@@ -135,7 +150,8 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
                     className={menuItemClassName}
                     href={Constants.Routes.nettrom.following}
                   >
-                    <Iconify icon="fa:book" /> Truyện theo dõi
+                    <FaBook />
+                    Truyện theo dõi
                   </Link>
                 </MenuItem>
               </>
@@ -146,7 +162,8 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
                     className={menuItemClassName}
                     href={Constants.Routes.login}
                   >
-                    <Iconify icon="fa:user" /> Đăng nhập
+                    <FaUser />
+                    Đăng nhập
                   </Link>
                 </MenuItem>
                 <MenuItem>
@@ -154,7 +171,8 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
                     className={menuItemClassName}
                     href={Constants.Routes.signup}
                   >
-                    <Iconify icon="fa:pencil" /> Đăng ký
+                    <FaPencilAlt />
+                    Đăng ký
                   </Link>
                 </MenuItem>
               </>
@@ -164,7 +182,8 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
                 className={menuItemClassName}
                 href={Constants.Routes.nettrom.history}
               >
-                <Iconify icon="fa:history" /> Lịch sử
+                <FaHistory />
+                Lịch sử
               </Link>
             </MenuItem>
             <MenuItem>
@@ -173,7 +192,8 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
                 href={Constants.Routes.report}
                 target="_blank"
               >
-                <Iconify icon="fa:mail-reply" /> Báo lỗi
+                <FaBug />
+                Báo lỗi
               </Link>
             </MenuItem>
             <MenuItem>
@@ -182,24 +202,28 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
                 href={Constants.Routes.github}
                 target="_blank"
               >
-                <Iconify icon="fa:github" /> GitHub
+                <FaGithub />
+                GitHub
               </Link>
             </MenuItem>
             <MenuItem>
               <button className={menuItemClassName} onClick={onToggleDrawer}>
-                <Iconify icon="fa:cog" /> Cài đặt
+                <FaCog /> Cài đặt
               </button>
             </MenuItem>
             {/* Divider */}
-            <MenuItem>
-              <hr className="my-1" />
-            </MenuItem>
             {user && (
-              <MenuItem>
-                <a className={menuItemClassName} onClick={logout}>
-                  <Iconify icon="fa:sign-out" /> Đăng xuất
-                </a>
-              </MenuItem>
+              <>
+                <MenuItem>
+                  <hr className="my-1" />
+                </MenuItem>
+                <MenuItem>
+                  <a className={menuItemClassName} onClick={logout}>
+                    <FaSignOutAlt />
+                    Đăng xuất
+                  </a>
+                </MenuItem>
+              </>
             )}
           </MenuItems>
         </li>

@@ -5,8 +5,6 @@ import { useFeaturedTitles } from "@/hooks/mangadex";
 import { useMangadex } from "@/contexts/mangadex";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Link from "next/link";
-import { formatDistance } from "date-fns";
-import { vi } from "date-fns/locale";
 import { AspectRatio } from "@/components/shadcn/aspect-ratio";
 import { Constants } from "@/constants";
 import { FaClock, FaFire } from "react-icons/fa";
@@ -86,10 +84,8 @@ export default function FeaturedTitles() {
                         <p className="time mb-0 mt-1 flex h-0 items-center gap-2 overflow-hidden text-[12px] text-muted-foreground group-hover:h-auto">
                           <FaClock />{" "}
                           <span>
-                            {formatDistance(
+                            {Utils.Date.formatNowDistance(
                               new Date(manga.attributes.updatedAt),
-                              new Date(),
-                              { locale: vi },
                             )}{" "}
                             trước
                           </span>
