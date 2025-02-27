@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { twMerge } from "tailwind-merge";
 
 type Option = {
   label: string;
@@ -9,12 +10,14 @@ type MultiSelectDropdownProps = {
   options: Option[];
   selectedValues: string[];
   onChange: (values: string[]) => void;
+  anyLabel?: string;
 };
 
 const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
   options,
   selectedValues,
   onChange,
+  anyLabel = "Tất cả",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -49,9 +52,9 @@ const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between rounded-md bg-gray-200 p-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="flex w-full items-center justify-between rounded-lg border-2 border-neutral-300 bg-neutral-50 p-4 text-neutral-900 focus:border-purple-500 focus:ring-purple-500 dark:border-neutral-600 dark:bg-neutral-700 dark:text-white dark:placeholder-neutral-400 dark:focus:border-purple-500 dark:focus:ring-purple-500"
       >
-        <span>
+        <span className="line-clamp-1">
           {selectedValues.length > 0
             ? selectedValues
                 .map(
@@ -59,7 +62,7 @@ const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
                     options.find((option) => option.value === v)?.label || "",
                 )
                 .join(", ")
-            : "Tất cả quốc gia"}
+            : anyLabel}
         </span>
         <svg
           className={`h-4 w-4 transition-transform ${
@@ -80,22 +83,43 @@ const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
       </button>
 
       {isOpen && (
-        <div className="absolute z-10 mt-2 w-full rounded-md border border-gray-300 bg-white shadow-lg">
+        <div className="absolute z-10 mt-2 w-full divide-y divide-neutral-100 rounded-lg bg-white shadow-sm dark:bg-neutral-700">
           <div className="max-h-60 overflow-y-auto p-2">
-            {options.map((option) => (
-              <label
-                key={option.value}
-                className="flex cursor-pointer items-center space-x-2 rounded-md p-2 hover:bg-gray-100"
-              >
-                <input
-                  type="checkbox"
-                  className="form-checkbox mt-0 h-4 w-4 text-blue-600"
-                  checked={selectedValues.includes(option.value)}
-                  onChange={() => handleCheckboxChange(option.value)}
-                />
-                <span className="text-gray-700">{option.label}</span>
-              </label>
-            ))}
+            <ul
+              className="py-2 text-neutral-700 dark:text-neutral-200"
+              aria-labelledby="states-button"
+            >
+              {options.map((option) => {
+                const active = selectedValues.includes(option.value);
+                return (
+                  <li key={option.value}>
+                    <button
+                      type="button"
+                      className="inline-flex w-full px-4 py-2 text-neutral-700 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-600 dark:hover:text-white"
+                      onClick={() => handleCheckboxChange(option.value)}
+                    >
+                      <div className="inline-flex items-center gap-2 md:gap-3">
+                        <div
+                          className={twMerge(
+                            "h-4 w-4 rounded-full border",
+                            active
+                              ? "border-purple-500 bg-purple-500"
+                              : "border-neutral-400",
+                          )}
+                        />
+                        <span
+                          className={twMerge(
+                            active ? "text-purple-500" : "text-neutral-400",
+                          )}
+                        >
+                          {option.label}
+                        </span>
+                      </div>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </div>
       )}
