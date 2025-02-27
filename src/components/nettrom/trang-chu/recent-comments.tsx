@@ -2,7 +2,6 @@
 
 import { twMerge } from "tailwind-merge";
 
-import { DataLoader } from "@/components/DataLoader";
 import useRecentComments from "@/hooks/core/useRecentCommentList";
 import { FaComment } from "react-icons/fa";
 import Markdown from "../Markdown";
@@ -11,6 +10,7 @@ import Link from "next/link";
 import { Constants } from "@/constants";
 import { Utils } from "@/utils";
 import ReadMore from "../see-more";
+import Skeleton from "react-loading-skeleton";
 
 export default function RecentComments() {
   const { data, error, isLoading } = useRecentComments();
@@ -22,11 +22,38 @@ export default function RecentComments() {
           Bình luận gần đây
         </h2>
       </div>
-      <DataLoader isLoading={isLoading} error={error}>
-        {data?.comments.map((comment) => (
-          <Comment key={comment.id} comment={comment} />
-        ))}
-      </DataLoader>
+
+      {isLoading
+        ? [...Array(15)].map((_, index) => <CommentSkeleton key={index} />)
+        : data?.comments.map((comment) => (
+            <Comment key={comment.id} comment={comment} />
+          ))}
+    </div>
+  );
+}
+
+function CommentSkeleton() {
+  return (
+    <div>
+      <div className="mb-2">
+        <Skeleton />
+        <Skeleton />
+      </div>
+      <div>
+        <Skeleton />
+      </div>
+      <div className="mt-2 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <Skeleton circle className="size-10" />
+          <div className={"w-[200px] font-bold"}>
+            <Skeleton />
+          </div>
+        </div>
+        <div className="whitespace-nowrap text-lg text-gray-500">
+          <Skeleton />
+        </div>
+      </div>
+      <div className="mb-2 mt-3 w-full border-b border-gray-700"></div>
     </div>
   );
 }
@@ -41,7 +68,7 @@ function Comment({ comment }: { comment: RecentCommentResponse }) {
   return (
     <div key={comment.id}>
       <div className="mb-2">
-        <div>
+        <div className="line-clamp-2 font-bold">
           <Link
             href={
               type === "chapter"
