@@ -2,6 +2,7 @@ import { DateUtils } from "./date";
 import { ErrorHandlerUtils } from "./error";
 import { MangaDexUtils } from "./mangadex";
 import { NumberUtils } from "./number";
+import { TanamoeUtils } from "./tanamoe";
 import { UrlUtils } from "./url";
 
 export class Utils {
@@ -10,4 +11,5 @@ export class Utils {
   static Url = new UrlUtils();
   static Number = new NumberUtils();
   static Error = new ErrorHandlerUtils();
+  static Tanamoe = new TanamoeUtils();
 }

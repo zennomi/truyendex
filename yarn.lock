@@ -6162,6 +6162,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pocketbase@npm:^0.25.1":
+  version: 0.25.1
+  resolution: "pocketbase@npm:0.25.1"
+  checksum: 10c0/02659c499d559c67b181068b95c63922077b6f452888852d98dd3ca0a7d006310a25a26805012b71b7c4d12f8bc7f555a58eb79fe304bf57dab31d3fdf738faf
+  languageName: node
+  linkType: hard
+
 "possible-typed-array-names@npm:^1.0.0":
   version: 1.0.0
   resolution: "possible-typed-array-names@npm:1.0.0"
@@ -7742,6 +7749,7 @@ __metadata:
     lucide-react: "npm:^0.453.0"
     next: "npm:^14.2.16"
     nextjs-toploader: "npm:^3.7.15"
+    pocketbase: "npm:^0.25.1"
     postcss: "npm:^8.4.47"
     prettier: "npm:^3.3.3"
     prettier-plugin-tailwindcss: "npm:^0.6.8"
