@@ -208,12 +208,14 @@ export class MangaDexUtils {
 
   translateContentRating(rating: string) {
     switch (rating) {
+      case "safe":
+        return "An toàn";
       case "suggestive":
-        return "Hơi hơi";
+        return "16+";
       case "erotica":
-        return "Yesss";
+        return "18+";
       case "pornographic":
-        return "Bùng lổ";
+        return "18+++";
       default:
         return "Không";
     }
@@ -379,6 +381,22 @@ export class MangaDexUtils {
         return "Swati";
       default:
         return isoLanguage;
+    }
+  }
+
+  translateTagGroup(format: string) {
+    // "content" | "format" | "genre" | "theme"
+    switch (format) {
+      case "content":
+        return "Cảnh báo nội dung";
+      case "format":
+        return "Định dạng";
+      case "genre":
+        return "Thể loại";
+      case "theme":
+        return "Chủ đề";
+      default:
+        return format;
     }
   }
 }

@@ -20,7 +20,7 @@ export default function useSearchManga(
   if (options.offset && options.offset > 10000) {
     options.offset = 10000 - (options.limit || 10);
   }
-  const { data, error, isLoading } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR(
     enable ? ["search-manga", options] : null,
     () => MangadexApi.Manga.getSearchManga(options),
     {},
@@ -36,5 +36,5 @@ export default function useSearchManga(
     return [];
   }, [successData]);
 
-  return { data: successData, error, isLoading, mangaList };
+  return { data: successData, error, isLoading, mangaList, mutate };
 }
