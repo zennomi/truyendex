@@ -296,9 +296,9 @@ a:hover {
 }
 
 a:focus {
-  outline: dotted thin;
+  /* outline: dotted thin;
   outline: -webkit-focus-ring-color auto 5px;
-  outline-offset: -2px;
+  outline-offset: -2px; */
 }
 
 .img-responsive,
@@ -9115,4 +9115,8 @@ button.close {
 
 .scroll-down .scroll-to-fixed-fixed {
   display: none;
+}
+
+:focus-visible {
+  outline: 0;
 }

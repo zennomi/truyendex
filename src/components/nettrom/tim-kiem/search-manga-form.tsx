@@ -3,7 +3,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "nextjs-toploader/app";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { twMerge } from "tailwind-merge";
 import { FaArrowDown, FaArrowUp, FaRedo, FaSearch } from "react-icons/fa";
 
@@ -40,6 +40,26 @@ export default function SearchMangaForm() {
     router.push(Utils.Url.getSearchNetTromUrl(data));
   };
   const values = watch();
+
+  const dirtyValues = useMemo(() => {
+    const result = [];
+    if (values.artists && values.artists.length) result.push("artists");
+    if (values.authors && values.authors.length) result.push("authors");
+    if (
+      values.availableTranslatedLanguage &&
+      values.availableTranslatedLanguage.length
+    )
+      result.push("availableTranslatedLanguage");
+    if (values.contentRating && values.contentRating.length)
+      result.push("contentRating");
+    if (values.originalLanguage && values.originalLanguage.length)
+      result.push("originalLanguage");
+    if (values.publicationDemographic && values.publicationDemographic.length)
+      result.push("publicationDemographic");
+    if (values.status && values.status.length) result.push("status");
+    if (values.year) result.push("year");
+    return result;
+  }, [values]);
 
   useEffect(() => {
     const normalizedParams: Inputs = Utils.Mangadex.normalizeParams(params);
@@ -244,15 +264,14 @@ export default function SearchMangaForm() {
               <label>Xếp theo</label>
               <div className="relative">
                 <select
-                  className="form-control block w-full appearance-none items-center justify-between rounded-lg border-2 border-neutral-300 bg-neutral-50 p-4 pr-10 leading-[21px] text-neutral-900 focus:border-purple-500 focus:ring-purple-500 dark:border-neutral-600 dark:bg-neutral-700 dark:text-white dark:focus:border-purple-500 dark:focus:ring-purple-500"
+                  className="form-control block w-full appearance-none items-center justify-between rounded-lg border-2 border-neutral-300 bg-neutral-50 p-4 pr-10 capitalize leading-[21px] text-neutral-900 focus:border-purple-500 focus:ring-purple-500 dark:border-neutral-600 dark:bg-neutral-700 dark:text-white dark:focus:border-purple-500 dark:focus:ring-purple-500"
                   {...register("orderType")}
                 >
-                  <option value={"0"}>Mới cập nhật</option>
-                  <option value={"1"}>Truyện mới</option>
-                  <option value={"2"}>Theo dõi nhiều nhất</option>
-                  <option value={"3"}>Bảng chữ cái</option>
-                  <option value={"4"}>Liên quan nhất</option>
-                  <option value={"5"}>Đánh giá cao nhất</option>
+                  {Object.entries(ORDER_TYPE).map(([key, value]) => (
+                    <option className="capitalize" key={key} value={key}>
+                      {value}
+                    </option>
+                  ))}
                 </select>
                 <div className="pointer-events-none absolute inset-y-0 end-0 flex h-full items-center pr-5">
                   <svg
@@ -274,22 +293,51 @@ export default function SearchMangaForm() {
             </div>
           </div>
         </div>
-        <div className="flex gap-2 md:justify-end">
-          <Button
-            className="rounded-lg"
-            type="button"
-            onClick={() => {
-              reset();
-            }}
-            icon={<FaRedo />}
-          >
-            Reset
-          </Button>
-          <Button icon={<FaSearch />} className="rounded-lg" type="submit">
-            Tìm kiếm
-          </Button>
+        <div className="flex flex-col items-baseline justify-between md:flex-row">
+          {!showFilter && dirtyValues.length > 0 && (
+            <div className="mb-2">
+              Bạn đang lọc theo{" "}
+              {dirtyValues.map((f) => TRANSLATED_FIELD[f] || f).join(", ")} và
+              sắp xếp theo thứ tự {ORDER_TYPE[values.orderType || "0"]}.
+            </div>
+          )}
+          <div className="flex gap-2 md:justify-end">
+            <Button
+              className="rounded-lg"
+              type="button"
+              onClick={() => {
+                reset();
+              }}
+              icon={<FaRedo />}
+            >
+              Reset
+            </Button>
+            <Button icon={<FaSearch />} className="rounded-lg" type="submit">
+              Tìm kiếm
+            </Button>
+          </div>
         </div>
       </form>
     </>
   );
 }
+
+const TRANSLATED_FIELD: Record<string, string> = {
+  artists: "hoạ sĩ",
+  authors: "tác giả",
+  availableTranslatedLanguage: "ngôn ngữ bản dịch",
+  contentRating: "nội dung",
+  originalLanguage: "quốc gia",
+  publicationDemographic: "đối tượng",
+  status: "tình trạng",
+  year: "năm phát hành",
+};
+
+const ORDER_TYPE: Record<string, string> = {
+  "0": "mới cập nhật",
+  "1": "truyện mới",
+  "2": "theo dõi nhiều nhất",
+  "3": "bảng chữ cái",
+  "4": "liên quan nhất",
+  "5": "đánh giá cao nhất",
+};

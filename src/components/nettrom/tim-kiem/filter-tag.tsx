@@ -87,7 +87,7 @@ export default function FilterTag({
           onClick={toggleShowTagFilter}
           className="flex w-full items-center justify-between rounded-lg border-2 border-neutral-300 bg-neutral-50 p-4 text-neutral-900 focus:border-purple-500 focus:ring-purple-500 dark:border-neutral-600 dark:bg-neutral-700 dark:text-white dark:placeholder-neutral-400 dark:focus:border-purple-500 dark:focus:ring-purple-500"
         >
-          <span className="line-clamp-1">
+          <div className="line-clamp-1 capitalize">
             {values.includedTags?.length ? (
               <span>chọn {values.includedTags.length} tag</span>
             ) : (
@@ -106,7 +106,7 @@ export default function FilterTag({
             {!values.includedTags?.length && !values.excludedTags?.length && (
               <span>Tất cả</span>
             )}
-          </span>
+          </div>
           <svg
             className={`h-4 w-4 transition-transform ${
               showTagFilter ? "rotate-180" : ""
