@@ -10,11 +10,14 @@ import { FaArrowDown, FaArrowUp, FaRedo, FaSearch } from "react-icons/fa";
 import { MangadexApi } from "@/api";
 import { Utils } from "@/utils";
 import { useToggle } from "@/hooks/useToggle";
+import { Constants } from "@/constants";
 
 import MultiSelectDropdown from "../multiselect-dropdown";
 import { Button } from "../Button";
 
 import FilterTag from "./filter-tag";
+import Input from "../input";
+import AuthorSearchInput from "./author-search-input";
 
 type Inputs = MangadexApi.Manga.GetSearchMangaRequestOptions & {
   orderType?: string;
@@ -105,32 +108,12 @@ export default function SearchMangaForm() {
             >
               Tựa đề
             </label>
-            <div className="relative">
-              <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-8">
-                <svg
-                  className="h-6 w-6 text-neutral-500 dark:text-neutral-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                  />
-                </svg>
-              </div>
-              <input
-                type="search"
-                id="default-search"
-                className="form-control block w-full rounded-lg border-2 border-neutral-300 bg-neutral-50 p-8 py-4 ps-20 text-neutral-900 focus:border-purple-500 focus:ring-purple-500 focus-visible:ring-purple-500 dark:border-neutral-600 dark:bg-neutral-700 dark:text-white dark:placeholder-neutral-400 dark:focus:border-purple-500 dark:focus:ring-purple-500"
-                placeholder="One Piece, Naruto, ..."
-                {...register("title")}
-              />
-            </div>
+            <Input
+              type="search"
+              id="default-search"
+              placeholder="Tìm kiếm truyện"
+              icon={<FaSearch />}
+            />
           </div>
           <Button
             className="rounded-lg"
@@ -195,6 +178,68 @@ export default function SearchMangaForm() {
                 }}
               />
             </div>
+
+            <div>
+              <FilterTag values={values} setValue={setValue} />
+            </div>
+            <div>
+              <label>Năm phát hành</label>
+              <Input
+                type="number"
+                {...register("year")}
+                placeholder="Năm phát hành"
+              />
+            </div>
+            <div>
+              <AuthorSearchInput
+                type="author"
+                values={values}
+                setValue={setValue}
+              />
+            </div>
+            <div>
+              <AuthorSearchInput
+                type="artist"
+                values={values}
+                setValue={setValue}
+              />
+            </div>
+            <div>
+              <label>Quốc gia</label>
+              <MultiSelectDropdown
+                options={Constants.Nettrom.languages.map((v) => ({
+                  value: v.code,
+                  label: v.name,
+                }))}
+                selectedValues={values.originalLanguage || []}
+                onChange={(newValue) => {
+                  setValue("originalLanguage", newValue);
+                }}
+                language
+                anyLabel="Tất cả quốc gia"
+              />
+            </div>
+            <div>
+              <label>Ngôn ngữ bản dịch</label>
+              <MultiSelectDropdown
+                options={[
+                  {
+                    value: "vi",
+                    label: "Tiếng Việt",
+                  },
+                  {
+                    value: "en",
+                    label: "Tiếng Anh",
+                  },
+                ]}
+                selectedValues={values.availableTranslatedLanguage || []}
+                onChange={(newValue) => {
+                  setValue("availableTranslatedLanguage", newValue);
+                }}
+                language
+                anyLabel="Tất cả ngôn ngữ"
+              />
+            </div>
             <div>
               <label>Xếp theo</label>
               <div className="relative">
@@ -226,9 +271,6 @@ export default function SearchMangaForm() {
                   </svg>
                 </div>
               </div>
-            </div>
-            <div>
-              <FilterTag values={values} setValue={setValue} />
             </div>
           </div>
         </div>

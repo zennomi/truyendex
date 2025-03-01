@@ -84,6 +84,8 @@ export default function SettingsDialog() {
           ]}
           selectedValues={originLanguages}
           onChange={(values) => onUpdateField("originLanguages", values)}
+          anyLabel="Tất cả quốc gia"
+          language
         />
         <div className="font-bold">Nội dung:</div>
         <CheckboxList
