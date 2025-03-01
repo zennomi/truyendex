@@ -5,16 +5,14 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "nextjs-toploader/app";
 
 import { useMangadex } from "@/contexts/mangadex";
-import { Constants } from "@/constants";
-import { DataLoader } from "@/components/DataLoader";
 import { Utils } from "@/utils";
 import useReadingHistory from "@/hooks/useReadingHistory";
 import { useHomepageSeries } from "@/hooks/core/useHomepageSeries";
 import { useSettingsContext } from "@/contexts/settings";
+import { MangadexApi } from "@/api";
 
 import Pagination from "../Pagination";
-import MangaTile from "../manga-tile";
-import { MangadexApi } from "@/api";
+import MangaTile, { MangaTileSkeleton } from "../manga-tile";
 
 export default function LastChapterUpdatedTitles() {
   const { filteredContent } = useSettingsContext();
@@ -26,7 +24,7 @@ export default function LastChapterUpdatedTitles() {
   const [totalPage, setTotalPage] = useState(1);
   const { history } = useReadingHistory();
   const { data, isLoading, error } = useHomepageSeries({
-    limit: Constants.Mangadex.LAST_UPDATES_LIMIT,
+    limit: 28,
     page,
   });
 
@@ -51,54 +49,56 @@ export default function LastChapterUpdatedTitles() {
 
   useEffect(() => {
     if (!data?.total) return;
-    setTotalPage(
-      Math.floor(data.total / Constants.Mangadex.LAST_UPDATES_LIMIT),
-    );
+    setTotalPage(Math.floor(data.total / 28));
   }, [data]);
 
   return (
     <div className="Module Module-163" id="new-updates">
       <div className="ModuleContent">
         <div className="items">
-          <DataLoader isLoading={isLoading} error={error}>
-            <div className={`grid grid-cols-2 gap-[20px] lg:grid-cols-4`}>
-              {data?.data.map((series) => {
-                const mangaId = series.uuid;
-                const coverArt = Utils.Mangadex.getCoverArt(mangas[mangaId]);
-                const mangaTitle = Utils.Mangadex.getMangaTitle(
-                  mangas[mangaId],
-                );
-                const readedChapters = history[mangaId];
-                return (
-                  <MangaTile
-                    id={mangaId}
-                    key={mangaId}
-                    thumbnail={coverArt}
-                    title={mangaTitle}
-                    chapters={series.chapters.map((chapter) => ({
-                      id: chapter.uuid,
-                      title: chapter.title,
-                      updatedAt: chapter.md_updated_at,
-                      subTitle: Utils.Date.formatNowDistance(
-                        new Date(chapter.md_updated_at),
-                      ),
-                    }))}
-                    readedChapters={readedChapters}
-                    mangaStatistic={mangaStatistics[mangaId]}
-                    className={
-                      !filteredContent.includes(
-                        MangadexApi.Static.MangaContentRating.PORNOGRAPHIC,
-                      ) &&
-                      mangas[mangaId]?.attributes.contentRating ===
-                        MangadexApi.Static.MangaContentRating.PORNOGRAPHIC
-                        ? "blur"
-                        : ""
-                    }
-                  />
-                );
-              })}
-            </div>
-          </DataLoader>
+          <div className={`grid grid-cols-2 gap-[20px] lg:grid-cols-4`}>
+            {isLoading
+              ? [...Array(28)].map((_, index) => (
+                  <div key={index}>
+                    <MangaTileSkeleton />
+                  </div>
+                ))
+              : data?.data.map((series) => {
+                  const mangaId = series.uuid;
+                  const coverArt = Utils.Mangadex.getCoverArt(mangas[mangaId]);
+                  const mangaTitle = Utils.Mangadex.getMangaTitle(
+                    mangas[mangaId],
+                  );
+                  const readedChapters = history[mangaId];
+                  return (
+                    <MangaTile
+                      id={mangaId}
+                      key={mangaId}
+                      thumbnail={coverArt}
+                      title={mangaTitle}
+                      chapters={series.chapters.map((chapter) => ({
+                        id: chapter.uuid,
+                        title: chapter.title,
+                        updatedAt: chapter.md_updated_at,
+                        subTitle: Utils.Date.formatNowDistance(
+                          new Date(chapter.md_updated_at),
+                        ),
+                      }))}
+                      readedChapters={readedChapters}
+                      mangaStatistic={mangaStatistics[mangaId]}
+                      className={
+                        !filteredContent.includes(
+                          MangadexApi.Static.MangaContentRating.PORNOGRAPHIC,
+                        ) &&
+                        mangas[mangaId]?.attributes.contentRating ===
+                          MangadexApi.Static.MangaContentRating.PORNOGRAPHIC
+                          ? "blur"
+                          : ""
+                      }
+                    />
+                  );
+                })}
+          </div>
         </div>
         <Pagination
           onPageChange={(event) => {

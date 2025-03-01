@@ -7,10 +7,12 @@ import "react-toastify/dist/ReactToastify.css";
 import "swiper/css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@/styles/base/index.scss";
+import "react-loading-skeleton/dist/skeleton.css";
 
 import { MangadexContextProvider } from "@/contexts/mangadex";
 import { Constants } from "@/constants";
 import { SettingsProvider } from "@/contexts/settings";
+import { SkeletonTheme } from "react-loading-skeleton";
 
 async function detectSettings() {
   const cookieStore = cookies();
@@ -30,9 +32,22 @@ export const LayoutWrapper = async ({
   return (
     <html lang="vi" className="dark" suppressHydrationWarning>
       <GoogleTagManager gtmId={Constants.GTM_ID} />
+      <head>
+        <link rel="dns-prefetch" href="https://mangadex.org" />
+        <link rel="dns-prefetch" href="https://api.truyendex.xyz" />
+        <link rel="dns-prefetch" href="https://api-proxy.truyendex.xyz" />
+        <link rel="dns-prefetch" href="https://cdn.truyendex.xyz" />
+
+        <link rel="dns-prefetch" href="https://api.truyendex.com" />
+
+        <link rel="dns-prefetch" href="https://www.google.com" />
+        <link rel="dns-prefetch" href="https://www.gstatic.com" />
+      </head>
       <body data-layout-id={props.id}>
         <SettingsProvider settings={settings}>
-          <MangadexContextProvider>{children}</MangadexContextProvider>
+          <SkeletonTheme baseColor="#202020" highlightColor="#444">
+            <MangadexContextProvider>{children}</MangadexContextProvider>
+          </SkeletonTheme>
         </SettingsProvider>
         <ToastContainer theme="dark" />
       </body>

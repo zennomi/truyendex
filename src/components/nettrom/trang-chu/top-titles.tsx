@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useMemo } from "react";
+import { twMerge } from "tailwind-merge";
+import Skeleton from "react-loading-skeleton";
 
 import { MangadexApi } from "@/api";
 import { useMangadex } from "@/contexts/mangadex";
@@ -15,12 +17,8 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/shadcn/tabs";
-import { DataLoader } from "@/components/DataLoader";
 import { Utils } from "@/utils";
 import { Constants } from "@/constants";
-import { twMerge } from "tailwind-merge";
-
-const loadingText = "Đang tải dữ liệu bảng xếp hạng...";
 
 const MangaTile = (props: {
   manga: ExtendManga;
@@ -77,6 +75,54 @@ const MangaTile = (props: {
             <span className="mt-1 flex shrink-0 items-center gap-2 text-muted-foreground">
               {props.icon}
               {Utils.Number.formatViews(props.counter || 0)}
+            </span>
+          )}
+        </div>
+      </div>
+    </li>
+  );
+};
+
+const MangaTileSkeleton = (props: {
+  order: number;
+  hideCounter?: boolean;
+  icon?: React.ReactNode;
+  counter?: number;
+}) => {
+  const inTop3 = useMemo(() => {
+    return props.order < 3;
+  }, [props.order]);
+
+  return (
+    <li className="relative flex w-full gap-[8px] py-2" key={props.order}>
+      <div className="absolute left-4 top-0 flex h-[64px] w-8 items-center justify-center text-right">
+        <span
+          className={twMerge(
+            `fn-order text-[64px] font-black leading-none text-muted-foreground/30 pos${props.order + 1}`,
+            inTop3 && "text-muted-foreground",
+          )}
+        >
+          {props.order + 1}
+        </span>
+      </div>
+      <div className="flex grow items-start gap-4 pl-12">
+        <div className="relative w-[64px] shrink-0 rounded shadow-[-5px_0_20px_rgba(0,0,0,0.5)]">
+          <AspectRatio ratio={1} className="overflow-hidden rounded">
+            <div className="h-full w-full">
+              <Skeleton height="100%" width="100%" />
+            </div>
+          </AspectRatio>
+        </div>
+        <div className="grow">
+          <h3>
+            <div className="line-clamp-2 font-semibold !text-white transition hover:no-underline">
+              <Skeleton />
+            </div>
+          </h3>
+          {!props.hideCounter && (
+            <span className="mt-1 flex shrink-0 items-center gap-2 text-muted-foreground">
+              {props.icon}
+              <Skeleton width={20} />
             </span>
           )}
         </div>
@@ -192,77 +238,83 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="top">
-              <DataLoader
-                isLoading={topMangaListLoading}
-                error={topMangaListError}
-                loadingText={loadingText}
-              >
-                <ul className="flex flex-col gap-4">
-                  {topMangaList.map((manga, index) => {
-                    const title = Utils.Mangadex.getMangaTitle(manga);
-                    return (
-                      <MangaTile
+              <ul className="flex flex-col gap-4">
+                {topMangaListLoading
+                  ? [...Array(7)].map((_, index) => (
+                      <MangaTileSkeleton
                         order={index}
-                        key={manga.id}
-                        title={title}
-                        manga={manga}
+                        key={index}
                         icon={<FaStar />}
-                        counter={mangaStatistics[manga.id]?.follows || 0}
-                      ></MangaTile>
-                    );
-                  })}
-                </ul>
-              </DataLoader>
+                      />
+                    ))
+                  : topMangaList.map((manga, index) => {
+                      const title = Utils.Mangadex.getMangaTitle(manga);
+                      return (
+                        <MangaTile
+                          order={index}
+                          key={manga.id}
+                          title={title}
+                          manga={manga}
+                          icon={<FaStar />}
+                          counter={mangaStatistics[manga.id]?.follows || 0}
+                        ></MangaTile>
+                      );
+                    })}
+              </ul>
             </TabsContent>
             <TabsContent value="favorite">
-              <DataLoader
-                isLoading={favoriteMangaListLoading}
-                error={favoriteMangaListError}
-                loadingText={loadingText}
-              >
-                <ul className="flex flex-col gap-4">
-                  {favoriteMangaList.map((manga, index) => {
-                    const title = Utils.Mangadex.getMangaTitle(manga);
-                    return (
-                      <MangaTile
+              <ul className="flex flex-col gap-4">
+                {favoriteMangaListLoading
+                  ? [...Array(7)].map((_, index) => (
+                      <MangaTileSkeleton
                         order={index}
-                        key={manga.id}
-                        title={title}
-                        manga={manga}
+                        key={index}
                         icon={<FaHeart />}
-                        counter={
-                          Math.round(
-                            (mangaStatistics[manga.id]?.rating?.bayesian || 0) *
-                              10,
-                          ) / 10
-                        }
-                      ></MangaTile>
-                    );
-                  })}
-                </ul>
-              </DataLoader>
+                      />
+                    ))
+                  : favoriteMangaList.map((manga, index) => {
+                      const title = Utils.Mangadex.getMangaTitle(manga);
+                      return (
+                        <MangaTile
+                          order={index}
+                          key={manga.id}
+                          title={title}
+                          manga={manga}
+                          icon={<FaHeart />}
+                          counter={
+                            Math.round(
+                              (mangaStatistics[manga.id]?.rating?.bayesian ||
+                                0) * 10,
+                            ) / 10
+                          }
+                        ></MangaTile>
+                      );
+                    })}
+              </ul>
             </TabsContent>
             <TabsContent value="new">
-              <DataLoader
-                isLoading={newMangaListLoading}
-                error={newMangaListError}
-                loadingText={loadingText}
-              >
-                <ul className="flex flex-col gap-4">
-                  {newMangaList.map((manga, index) => {
-                    const title = Utils.Mangadex.getMangaTitle(manga);
-                    return (
-                      <MangaTile
+              <ul className="flex flex-col gap-4">
+                {newMangaListLoading
+                  ? [...Array(7)].map((_, index) => (
+                      <MangaTileSkeleton
                         order={index}
-                        key={manga.id}
-                        title={title}
-                        manga={manga}
-                        hideCounter
-                      ></MangaTile>
-                    );
-                  })}
-                </ul>
-              </DataLoader>
+                        key={index}
+                        icon={<FaHeart />}
+                      />
+                    ))
+                  : newMangaList.map((manga, index) => {
+                      const title = Utils.Mangadex.getMangaTitle(manga);
+                      return (
+                        <MangaTile
+                          order={index}
+                          key={manga.id}
+                          title={title}
+                          manga={manga}
+                          hideCounter
+                        ></MangaTile>
+                      );
+                    })}
+              </ul>
             </TabsContent>
           </Tabs>
         </div>
