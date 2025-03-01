@@ -11,9 +11,10 @@ import { Constants } from "@/constants";
 import { Utils } from "@/utils";
 import ReadMore from "../see-more";
 import Skeleton from "react-loading-skeleton";
+import { ErrorDisplay } from "../error-display";
 
 export default function RecentComments() {
-  const { data, error, isLoading } = useRecentComments();
+  const { data, error, isLoading, mutate } = useRecentComments();
   return (
     <div>
       <div className="mb-4 flex items-center justify-between gap-3">
@@ -28,6 +29,8 @@ export default function RecentComments() {
         : data?.comments.map((comment) => (
             <Comment key={comment.id} comment={comment} />
           ))}
+
+      {error && <ErrorDisplay error={error} refresh={mutate} />}
     </div>
   );
 }

@@ -19,6 +19,7 @@ import {
 } from "@/components/shadcn/tabs";
 import { Utils } from "@/utils";
 import { Constants } from "@/constants";
+import { ErrorDisplay } from "../error-display";
 
 const MangaTile = (props: {
   manga: ExtendManga;
@@ -260,6 +261,9 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
                         ></MangaTile>
                       );
                     })}
+                {topMangaListError && (
+                  <ErrorDisplay error={topMangaListError} />
+                )}
               </ul>
             </TabsContent>
             <TabsContent value="favorite">
@@ -290,6 +294,9 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
                         ></MangaTile>
                       );
                     })}
+                {favoriteMangaListError && (
+                  <ErrorDisplay error={favoriteMangaListError} />
+                )}
               </ul>
             </TabsContent>
             <TabsContent value="new">
@@ -314,6 +321,9 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
                         ></MangaTile>
                       );
                     })}
+                {newMangaListError && (
+                  <ErrorDisplay error={newMangaListError} />
+                )}
               </ul>
             </TabsContent>
           </Tabs>

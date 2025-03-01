@@ -13,9 +13,15 @@ import { useMangadex } from "@/contexts/mangadex";
 import { AspectRatio } from "@/components/shadcn/aspect-ratio";
 import { Constants } from "@/constants";
 import { Utils } from "@/utils";
+import { ErrorDisplay } from "../error-display";
 
 export default function FeaturedTitles() {
-  const { mangaList: featuredTitles, isLoading } = useFeaturedTitles();
+  const {
+    mangaList: featuredTitles,
+    isLoading,
+    error,
+    mutate,
+  } = useFeaturedTitles();
   const { addMangas } = useMangadex();
 
   useEffect(() => {
@@ -135,6 +141,7 @@ export default function FeaturedTitles() {
             })}
           </Swiper>
         )}
+        {error && <ErrorDisplay error={error} refresh={mutate} />}
       </div>
     </div>
   );

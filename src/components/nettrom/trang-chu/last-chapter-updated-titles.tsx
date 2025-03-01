@@ -13,6 +13,7 @@ import { MangadexApi } from "@/api";
 
 import Pagination from "../Pagination";
 import MangaTile, { MangaTileSkeleton } from "../manga-tile";
+import { ErrorDisplay } from "../error-display";
 
 export default function LastChapterUpdatedTitles() {
   const { filteredContent } = useSettingsContext();
@@ -23,7 +24,7 @@ export default function LastChapterUpdatedTitles() {
   const page = Number(params.get("page")) || 1;
   const [totalPage, setTotalPage] = useState(1);
   const { history } = useReadingHistory();
-  const { data, isLoading, error } = useHomepageSeries({
+  const { data, isLoading, error, mutate } = useHomepageSeries({
     limit: 28,
     page,
   });
@@ -99,6 +100,7 @@ export default function LastChapterUpdatedTitles() {
                   );
                 })}
           </div>
+          {error && <ErrorDisplay error={error} refresh={mutate} />}
         </div>
         <Pagination
           onPageChange={(event) => {
