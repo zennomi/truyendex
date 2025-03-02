@@ -19,12 +19,12 @@ const ReadMore: React.FC<ReadMoreProps> = ({ children, maxHeight = 150 }) => {
 
   return (
     <div
-      className="relative overflow-hidden"
+      className="relative overflow-hidden transition-all duration-500"
       style={{ maxHeight: expanded ? "none" : maxHeight }}
     >
       <div
         ref={contentRef}
-        className={`relative overflow-hidden transition-all`}
+        className={`relative overflow-hidden transition-all duration-500`}
         style={{ maxHeight: expanded ? "none" : maxHeight }}
       >
         {children}

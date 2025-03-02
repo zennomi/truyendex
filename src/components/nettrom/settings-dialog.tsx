@@ -5,7 +5,6 @@ import { Switch } from "@headlessui/react";
 import { MouseEvent, useCallback } from "react";
 
 import { Button } from "./Button";
-import CheckboxList from "./checkbox-list";
 import MultiSelectDropdown from "./multiselect-dropdown";
 import Iconify from "../iconify";
 
@@ -36,10 +35,10 @@ export default function SettingsDialog() {
   return (
     <div
       id="settings-backdrop"
-      className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50 text-white"
+      className="fixed inset-0 z-10 flex items-center justify-center bg-neutral-950 bg-opacity-90 text-white"
       onClick={handleBackdropClick}
     >
-      <div className="max-w-lg space-y-4 rounded border bg-black p-12 shadow">
+      <div className="max-w-lg space-y-4 rounded border bg-neutral-900 p-12 shadow">
         <div className="font-bold">Tuỳ chỉnh</div>
         <div>Những tuỳ chỉnh này được lưu tại thiết bị hiện tại.</div>
         <div className="font-bold">Ngôn ngữ bản dịch:</div>
@@ -87,17 +86,19 @@ export default function SettingsDialog() {
           anyLabel="Tất cả quốc gia"
           language
         />
-        <div className="font-bold">Nội dung:</div>
-        <CheckboxList
+        <div className="font-bold">Lọc nội dung:</div>
+        <MultiSelectDropdown
           options={[
             { label: "An toàn", value: "safe" },
-            { label: "Hơi ấy", value: "suggestive" },
-            { label: "Không an toàn", value: "erotica" },
-            { label: "Bùng lổ", value: "pornographic" },
+            { label: "16+", value: "suggestive" },
+            { label: "18+", value: "erotica" },
+            { label: "18++", value: "pornographic" },
           ]}
           selectedValues={filteredContent}
-          onChange={(value) => onUpdateField("filteredContent", value)}
+          onChange={(values) => onUpdateField("filteredContent", values)}
+          anyLabel="Tất cả nội dung"
         />
+
         <div className="flex justify-end gap-4">
           <Button
             onClick={() => {
