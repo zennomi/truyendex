@@ -74,8 +74,9 @@ export default function FeaturedTitles() {
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
             autoplay={{ delay: 3000 }}
+            slidesPerView={2}
             breakpoints={{
-              540: {
+              0: {
                 slidesPerView: 2,
                 spaceBetween: 10,
               },

@@ -58,6 +58,11 @@ export default function SearchMangaForm() {
       result.push("publicationDemographic");
     if (values.status && values.status.length) result.push("status");
     if (values.year) result.push("year");
+    if (
+      (values.includedTags && values.includedTags.length) ||
+      (values.excludedTags && values.excludedTags.length)
+    )
+      result.push("tag");
     return result;
   }, [values]);
 
@@ -152,6 +157,9 @@ export default function SearchMangaForm() {
         >
           <div className="mb-2 grid grid-cols-1 gap-2 md:grid-cols-3 xl:grid-cols-4">
             <div>
+              <FilterTag values={values} setValue={setValue} />
+            </div>
+            <div>
               <label>Nội dung</label>
               <MultiSelectDropdown
                 options={Object.values(
@@ -199,9 +207,6 @@ export default function SearchMangaForm() {
               />
             </div>
 
-            <div>
-              <FilterTag values={values} setValue={setValue} />
-            </div>
             <div>
               <label>Năm phát hành</label>
               <Input
@@ -331,6 +336,7 @@ const TRANSLATED_FIELD: Record<string, string> = {
   publicationDemographic: "đối tượng",
   status: "tình trạng",
   year: "năm phát hành",
+  tag: "tag",
 };
 
 const ORDER_TYPE: Record<string, string> = {

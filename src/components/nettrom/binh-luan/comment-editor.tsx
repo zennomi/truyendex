@@ -15,10 +15,10 @@ import { Editor, EditorContent, useEditor } from "@tiptap/react";
 import Iconify from "@/components/iconify";
 
 const buttonClassName =
-  "cursor-pointer rounded p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white";
+  "cursor-pointer rounded p-1.5 text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-600 dark:hover:text-white";
 
 const activedButtonClassName =
-  "cursor-pointer rounded p-1.5 bg-gray-600 text-white";
+  "cursor-pointer rounded p-1.5 bg-neutral-600 text-white";
 const MenuBar = ({ editor }: { editor: Editor | null }) => {
   if (!editor) {
     return null;
@@ -61,7 +61,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
   }, [editor]);
 
   return (
-    <div className="border-b px-3 py-2 dark:border-gray-600">
+    <div className="border-b px-3 py-2 dark:border-neutral-600">
       <div className="flex flex-wrap items-center">
         <div className="flex flex-wrap items-center space-x-1 rtl:space-x-reverse">
           <button
@@ -415,9 +415,9 @@ const CommentEditor = ({
 
   return (
     <div className="comment_form">
-      <div className="w-full border border-gray-200 bg-gray-50 dark:border-gray-600 dark:bg-[#423e3e]">
+      <div className="w-full border border-neutral-200 bg-neutral-50 dark:border-neutral-600 dark:bg-[#423e3e]">
         <MenuBar editor={editor} />
-        <div className="bg-white px-4 py-2 dark:bg-orange-900/30">
+        <div className="bg-white px-4 py-2 dark:bg-neutral-800">
           <EditorContent editor={editor} />
         </div>
         <div className="comment-info px-2 pb-3">

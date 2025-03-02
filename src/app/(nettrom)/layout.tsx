@@ -59,7 +59,7 @@ export default function NettromLayout({
       </Suspense>
       <VerifyMailAlert />
       <nav className="main-nav hidden-xs" id="mainNav">
-        <div className="inner">
+        <div className="inner bg-neutral-900">
           <div className="container">
             <div className="py-4">
               <div className="mb-0 md:mb-4">
@@ -73,7 +73,12 @@ export default function NettromLayout({
           </div>
         </div>
       </nav>
-      <main className={twMerge("main text-foreground", inter.className)}>
+      <main
+        className={twMerge(
+          "main bg-neutral-900 text-foreground",
+          inter.className,
+        )}
+      >
         <div className="container">{children}</div>
       </main>
       <footer className="footer border-t bg-[#000]">
