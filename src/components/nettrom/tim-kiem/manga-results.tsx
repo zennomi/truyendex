@@ -57,7 +57,7 @@ export default function MangaResults() {
           return (
             <div key={manga.id}>
               <div className="h-auto min-h-0 rounded-lg bg-neutral-800 p-2">
-                <div className="flex gap-4">
+                <div className="flex w-full gap-4">
                   <div className="w-[50px] shrink-0 md:w-[100px]">
                     <AspectRatio
                       ratio={Constants.Nettrom.MANGA_COVER_RATIO}
@@ -73,9 +73,9 @@ export default function MangaResults() {
                       </Link>
                     </AspectRatio>
                   </div>
-                  <ReadMore maxHeight={150}>
-                    <div className="w-full">
-                      <div className="mb-1 flex flex-col items-baseline justify-between md:flex-row">
+                  <div className="w-full">
+                    <ReadMore maxHeight={150}>
+                      <div className="mb-1 flex flex-col items-start justify-between md:flex-row md:items-center">
                         <div className="flex items-center gap-2">
                           <div className="shink-0">
                             <LanguageIcon
@@ -128,8 +128,8 @@ export default function MangaResults() {
                           }
                         />
                       </div>
-                    </div>
-                  </ReadMore>
+                    </ReadMore>
+                  </div>
                 </div>
                 <div className="text-md block text-muted-foreground md:hidden">
                   <ReadMore maxHeight={150}>
@@ -207,7 +207,9 @@ function ListResultSkeleton() {
               </span>
             ))}
           </div>
-          <Skeleton count={3} />
+          <div className="hidden md:block">
+            <Skeleton count={3} />
+          </div>
         </div>
       </div>
       <div className="block md:hidden">
