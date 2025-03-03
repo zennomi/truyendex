@@ -35,7 +35,7 @@ export default function FollowingSync() {
         <select
           value={source}
           onChange={(e) => setSource(e.target.value)}
-          className="form-select"
+          className="form-select text-black"
         >
           <option value="">Chọn nguồn</option>
           <option value="cmanga">CManga</option>
