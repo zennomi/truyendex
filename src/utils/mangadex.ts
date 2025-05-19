@@ -175,7 +175,7 @@ export class MangaDexUtils {
   getCoverArt(manga: ExtendManga | undefined) {
     if (!manga) return defaultImage;
     if (manga.cover_art?.attributes) {
-      return `https://mangadex.org/covers/${manga.id}/${manga.cover_art.attributes.fileName}.256.jpg`;
+      return `https://resizer.f-ck.me/?url=https://mangadex.org/covers/${manga.id}/${manga.cover_art.attributes.fileName}.256.jpg`;
     }
     return defaultImage;
   }

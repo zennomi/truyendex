@@ -68,6 +68,8 @@ export default function ListChapter({
                 <li className="py-3 text-center text-muted-foreground">
                   Không có chương nào. Bạn hãy thử đổi ngôn ngữ trong phần cài
                   đặt.
+                  <br />
+                  Hoặc tệ hơn, bộ truyện này đã bị gỡ khỏi MangaDex.
                 </li>
               )}
             </ul>
