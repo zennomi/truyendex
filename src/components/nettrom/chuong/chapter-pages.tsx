@@ -9,20 +9,30 @@ import { Alert } from "../Alert";
 import ScanlationGroupInformation from "./scanlation-group-information";
 import Link from "next/link";
 import Iconify from "@/components/iconify";
+import { Constants } from "@/constants";
 
 export default function ChapterPages() {
   const { height } = useWindowSize();
 
-  const { chapterId, canNext, canPrev, next, prev, chapter, group } =
+  const { chapterId, canNext, canPrev, next, prev, chapter, group, manga } =
     useChapterContext();
 
-  const { pages, isLoading } = useChapterPages(
+  const { pages, isLoading, error } = useChapterPages(
     chapter?.attributes.externalUrl ? null : chapterId,
   );
 
   return (
     <div>
-      {chapter?.attributes.externalUrl ? (
+      {error ? (
+        <div className="container flex flex-col items-center justify-center gap-2">
+          <div className="text-2xl font-bold">Chương này đã bị xoá</div>
+          <Link href={Constants.Routes.nettrom.manga(manga?.id || "")}>
+            <Button icon={<Iconify icon="fa:arrow-left" />}>
+              Quay lại trang chủ
+            </Button>
+          </Link>
+        </div>
+      ) : chapter?.attributes.externalUrl ? (
         <div className="container flex justify-center">
           <Link href={chapter.attributes.externalUrl} target="_blank">
             <Button icon={<Iconify icon="fa:external-link" />}>
