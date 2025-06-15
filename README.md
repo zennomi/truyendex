@@ -4,7 +4,9 @@
   <img src="./src/app/opengraph-image.jpg" />
 </p>
 
-> TruyenDex đang trong giai đoạn phát triển, website [TruyenDex.com](https://truyendex.com/) chỉ là phiên bản thử nghiệm.
+> TruyenDex đã dừng phát triển bởi đội ngũ chính thức, tuy nhiên website [TruyenDex.com](https://truyendex.com/) vẫn sẽ được duy trì và hỗ trợ merge PR từ các bạn. [Chi tiết][mangadex-dmca].
+
+[mangadex-dmca]: #mangadex-dmca
 
 TruyenDex - Từ một dự án troll NetTruyen đến trở thành một dự án nghiêm túc, TruyenDex sẽ trở thành website đọc truyện đầy đủ chức năng phù hợp với độc giả Việt Nam.
 
@@ -16,14 +18,14 @@ Lời đầu tiên, TruyenDex xin gửi lời cảm ơn sâu sắc đến đội
 - Ghi nguồn nhóm dịch đầy đủ
 - Tôn trọng quyền tự quyết sản phẩm của nhóm dịch
 
-## Chức năng dự kiến
+## Chức năng
+
+> Những chức năng này độc lập với data của MangaDex.
 
 - Theo dõi truyện
 - Bình luận: Theo truyện, theo chương (trang)
-- Diễn đàn thảo luận
 - Lượt đọc (toàn thời gian, tháng, tuần,...)
-- Xếp hạng người dùng (Tu tiên phi thăng...)
-- Liên kết truyện bản quyền
+- Ủng hộ truyện bản quyền
 
 ## FAQs
 
@@ -42,6 +44,14 @@ Lời đầu tiên, TruyenDex xin gửi lời cảm ơn sâu sắc đến đội
 - Sao không dùng thẳng MangaDex?
 
   MangaDex rất tuyệt vời, nguồn lực rất mạnh, được phát triển bởi đội ngũ bài bản và chuyên nghiệp. Tuy nhiên giao diện và trải nghiệm người dùng của MangaDex không phù hợp với thị hiếu người VN, như lúc đọc truyện, bình luận, chương mới,... TruyenDex sẽ tạo ra giao diện thân thiện với độc giả VN, và là sân chơi dành riêng cho độc giả VN.
+
+## MangaDex DMCA
+
+- Lần đầu tiên MangaDex nhận được một lượng lớn yêu cầu DMCA gỡ manga trên nền tảng của mình từ các đơn vị bản quyền, con số đã lên tới hàng nghìn bộ manga và đang tăng dần, bao gồm bản dịch của nhiều ngôn ngữ chứ không chỉ tiếng Anh. [Chi tiết](https://www.facebook.com/share/p/1Z185AMbTq/).
+
+- Điều này chứng tỏ không một website nào tránh khỏi DMCA và sự chú ý từ các đơn vị bản quyền, kể cả MangaDex, một website đã tôn trọng bản quyền hết mức của thể của một web truyện fantrans.
+
+- Vậy nên MangaDex cũng không thể là ngôi nhà an toàn cho các nhóm dịch Việt Nam, nên chúng mình sẽ **dừng phát triển TruyenDex**. Tuy nhiên, chúng mình vẫn sẽ duy trì website TruyenDex.com để các bạn sử dụng, và sẵn sàng hỗ trợ các bạn trong việc đóng góp vào repo này.
 
 ## Development (English)
 
@@ -86,3 +96,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 - Anh Gián admin Hako
 - Zennomi
+- Và cảm ơn tất cả các anh em đã mở PR
