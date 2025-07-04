@@ -109,7 +109,7 @@ export default function FeaturedTitles() {
                         <div className="relative h-full w-full">
                           <div className="absolute bottom-0 left-0 z-[1] h-2/5 w-full bg-gradient-to-t from-neutral-900 from-[10%] to-transparent transition-all duration-500 group-hover:h-3/5"></div>
                           <img
-                            src={Utils.Mangadex.getCoverArt(manga)}
+                            src={Utils.Mangadex.getCoverArt(manga, 512)}
                             alt={title}
                             className="h-full w-full object-cover transition duration-500 group-hover:scale-[102%]"
                           />

@@ -66,7 +66,10 @@ export default function LastChapterUpdatedTitles() {
                 ))
               : data?.data.map((series) => {
                   const mangaId = series.uuid;
-                  const coverArt = Utils.Mangadex.getCoverArt(mangas[mangaId]);
+                  const coverArt = Utils.Mangadex.getCoverArt(
+                    mangas[mangaId],
+                    512,
+                  );
                   const mangaTitle = Utils.Mangadex.getMangaTitle(
                     mangas[mangaId],
                   );

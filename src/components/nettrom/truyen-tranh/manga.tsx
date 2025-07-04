@@ -217,7 +217,7 @@ export default function Manga({
                 >
                   <img
                     className="h-full w-full object-cover"
-                    src={Utils.Mangadex.getCoverArt(manga)}
+                    src={Utils.Mangadex.getCoverArt(manga, 512)}
                     alt={title}
                   />
                 </AspectRatio>

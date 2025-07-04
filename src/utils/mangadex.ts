@@ -172,10 +172,10 @@ export class MangaDexUtils {
     return result;
   }
 
-  getCoverArt(manga: ExtendManga | undefined) {
+  getCoverArt(manga: ExtendManga | undefined, size: 256 | 512 = 256) {
     if (!manga) return defaultImage;
     if (manga.cover_art?.attributes) {
-      return `https://resizer.f-ck.me/?url=https://mangadex.org/covers/${manga.id}/${manga.cover_art.attributes.fileName}.256.jpg`;
+      return `https://resizer.f-ck.me/?url=https://mangadex.org/covers/${manga.id}/${manga.cover_art.attributes.fileName}.${size}.jpg`;
     }
     return defaultImage;
   }
