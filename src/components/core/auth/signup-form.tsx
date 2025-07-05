@@ -8,7 +8,7 @@ import { isAxiosError } from "axios";
 import { toast } from "react-toastify";
 import { useAuth } from "@/hooks/useAuth";
 import { Constants } from "@/constants";
-import TurnstileWidget from "@/components/turnstile-widget";
+// import TurnstileWidget from "@/components/turnstile-widget";
 import { Utils } from "@/utils";
 import Iconify from "@/components/iconify";
 
@@ -91,7 +91,7 @@ export default function SignUpForm() {
             Đăng ký với Google
           </Link>
         </div>
-        <div className="text-white-400 text-center">Hoặc đăng ký thủ công:</div>
+        {/* <div className="text-white-400 text-center">Hoặc đăng ký thủ công:</div>
         <div className="mb-4">
           <label className="font-semibold" htmlFor="RegisterName">
             Tên:
@@ -180,7 +180,7 @@ export default function SignUpForm() {
           >
             {isSubmitting ? "Đang đăng ký..." : "Đăng ký"}
           </button>
-        </div>
+        </div> */}
 
         <div className="text-center">
           <span className="me-2 text-slate-400">Đã có tài khoản? </span>{" "}
