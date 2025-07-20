@@ -1,30 +1,10 @@
 import Link from "next/link";
 import { Constants } from "@/constants";
-import { useAuth } from "@/hooks/useAuth";
 import { Alert } from "../Alert";
 import { Button } from "../Button";
-import { FaCat, FaGithub, FaSync } from "react-icons/fa";
+import { FaCat, FaCog, FaGithub, FaSync } from "react-icons/fa";
 import { useMemo } from "react";
 import { sample } from "lodash";
-
-const REGISTER_ALERT = (
-  <Alert
-    classNames={{
-      alert: "[&>svg]:text-purple-500 text-purple-500 bg-purple-100",
-    }}
-    title=" Chính thức triển khai chức năng bình luận/theo dõi truyện"
-    action={
-      <Link
-        className="no-underline hover:no-underline"
-        href={Constants.Routes.signup}
-      >
-        <Button className="bg-purple-500 hover:bg-purple-600">
-          Mở tài khoản ngay
-        </Button>
-      </Link>
-    }
-  ></Alert>
-);
 
 const ALERTS = [
   <Alert
@@ -95,12 +75,15 @@ const ALERTS = [
     }
     icon={<FaSync className="inline text-[20px]" />}
   />,
+  <Alert
+    classNames={{
+      alert: "[&>svg]:text-purple-500 text-purple-500 bg-purple-100",
+    }}
+    title=" Ảnh quá lớn? Bạn có thể giới hạn chiều rộng ảnh trong cài đặt"
+    icon={<FaCog className="inline text-[20px]" />}
+  />,
 ];
 
 export default function RandomAlert() {
-  const { user } = useAuth();
-  return useMemo(
-    () => (user === null ? REGISTER_ALERT : sample(ALERTS)),
-    [user === null],
-  );
+  return useMemo(() => sample(ALERTS), []);
 }
