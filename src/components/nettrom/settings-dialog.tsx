@@ -1,12 +1,14 @@
 "use client";
 
-import { useSettingsContext } from "@/contexts/settings";
-import { Switch } from "@headlessui/react";
 import { MouseEvent, useCallback } from "react";
 
 import { Button } from "./Button";
 import MultiSelectDropdown from "./multiselect-dropdown";
 import Iconify from "../iconify";
+import { Slider } from "../shadcn/slider";
+import { Switch } from "../shadcn/switch";
+import { useSettingsContext } from "@/contexts/settings";
+import useWindowSize from "@/hooks/useWindowSize";
 
 export default function SettingsDialog() {
   const {
@@ -16,10 +18,13 @@ export default function SettingsDialog() {
     filteredContent,
     originLanguages,
     dataSaver,
+    maxImageWidth,
     onUpdateField,
     onReset,
     onUpdate,
   } = useSettingsContext();
+
+  const { width: windowWidth } = useWindowSize();
 
   const handleBackdropClick = useCallback(
     (e: MouseEvent) => {
@@ -46,16 +51,10 @@ export default function SettingsDialog() {
           <div>Tiếng Anh</div>
           <Switch
             checked={filteredLanguages.includes("vi")}
-            onChange={(value) =>
+            onCheckedChange={(value) =>
               onUpdateField("filteredLanguages", value ? ["vi"] : ["en"])
             }
-            className="group relative flex h-7 w-14 cursor-pointer rounded-full bg-white/10 p-1 transition-colors duration-200 ease-in-out focus:outline-none data-[checked]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white"
-          >
-            <span
-              aria-hidden="true"
-              className="pointer-events-none inline-block size-5 translate-x-0 rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out group-data-[checked]:translate-x-7"
-            />
-          </Switch>
+          />
           <div>Tiếng Việt</div>
         </div>
         <div className="font-bold">Chất lượng ảnh:</div>
@@ -63,14 +62,8 @@ export default function SettingsDialog() {
           <div>Nét căng</div>
           <Switch
             checked={dataSaver}
-            onChange={(value) => onUpdateField("dataSaver", value)}
-            className="group relative flex h-7 w-14 cursor-pointer rounded-full bg-white/10 p-1 transition-colors duration-200 ease-in-out focus:outline-none data-[checked]:bg-white/10 data-[focus]:outline-1 data-[focus]:outline-white"
-          >
-            <span
-              aria-hidden="true"
-              className="pointer-events-none inline-block size-5 translate-x-0 rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out group-data-[checked]:translate-x-7"
-            />
-          </Switch>
+            onCheckedChange={(value) => onUpdateField("dataSaver", value)}
+          />
           <div>Tiết kiệm</div>
         </div>
         <div className="font-bold">Truyện của quốc gia:</div>
@@ -98,7 +91,32 @@ export default function SettingsDialog() {
           onChange={(values) => onUpdateField("filteredContent", values)}
           anyLabel="Tất cả nội dung"
         />
-
+        <div className="flex items-center gap-2">
+          <Switch
+            checked={maxImageWidth !== undefined}
+            onCheckedChange={(value) =>
+              onUpdateField("maxImageWidth", value ? 0 : undefined)
+            }
+          />
+          <div className="font-bold">Chiều rộng ảnh</div>
+          {maxImageWidth !== undefined && (
+            <span className="font-normal text-muted-foreground">
+              {"(" + maxImageWidth + "px)"}
+            </span>
+          )}
+        </div>
+        {maxImageWidth !== undefined && (
+          <Slider
+            min={0}
+            max={windowWidth || 0}
+            value={
+              maxImageWidth ? [maxImageWidth] : [(windowWidth || 0) * 0.8 || 0]
+            }
+            onValueChange={(value) =>
+              onUpdateField("maxImageWidth", value[0] || 0)
+            }
+          />
+        )}
         <div className="flex justify-end gap-4">
           <Button
             onClick={() => {
