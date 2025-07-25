@@ -15,6 +15,7 @@ interface Props extends IProps {
   fullWidth?: boolean;
   dataSaver: boolean;
   onDataSaverChange: () => void;
+  maxImageWidth?: number;
 }
 
 export default function MangaImage({
@@ -24,6 +25,7 @@ export default function MangaImage({
   threshold = 0,
   dataSaver,
   onDataSaverChange,
+  maxImageWidth,
   ...other
 }: Props) {
   const [loaded, setLoaded] = useState(false);
@@ -59,10 +61,11 @@ export default function MangaImage({
       className={`block overflow-hidden ${loaded ? "min-h-0" : "min-h-[100vh]"} ${className}`}
     >
       <LazyLoadImage
-        wrapperClassName="block"
+        wrapperClassName="block mx-auto"
         effect={disabledEffect ? undefined : effect}
         placeholderSrc={"/images/truyendex-loading.jpg"}
-        className="h-full w-full object-cover"
+        className="mx-auto h-full object-cover"
+        width={maxImageWidth || "100%"}
         onLoad={() => setLoaded(true)}
         onError={() => setError(true)}
         threshold={threshold}

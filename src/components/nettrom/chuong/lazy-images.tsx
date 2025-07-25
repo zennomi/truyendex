@@ -15,7 +15,7 @@ const Gallery = ({
   scrollPosition: ScrollPosition;
   threshold: number;
 }) => {
-  const { dataSaver, onUpdateField } = useSettingsContext();
+  const { dataSaver, maxImageWidth, onUpdateField } = useSettingsContext();
 
   const toggleDataServer = useCallback(() => {
     onUpdateField("dataSaver", !dataSaver);
@@ -37,6 +37,7 @@ const Gallery = ({
             threshold={threshold}
             index={index}
             dataSaver={dataSaver}
+            maxImageWidth={maxImageWidth}
             onDataSaverChange={toggleDataServer}
           />
         </div>

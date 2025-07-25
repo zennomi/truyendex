@@ -3,6 +3,7 @@ export type SettingsState = {
   originLanguages: string[];
   filteredContent: string[];
   dataSaver: boolean;
+  maxImageWidth?: number;
 };
 
 export type SettingsContextValue = SettingsState & {

@@ -7,5 +7,6 @@ export class SettingsConstants {
     originLanguages: [],
     filteredContent: ["safe", "suggestive", "erotica"],
     dataSaver: false,
+    maxImageWidth: undefined,
   };
 }
