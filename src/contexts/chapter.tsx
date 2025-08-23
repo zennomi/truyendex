@@ -36,6 +36,8 @@ interface ChapterContextType {
   canPrev: boolean;
   others: any[];
   group: any;
+  isLoading: boolean;
+  setIsLoading: (loading: boolean) => void;
 }
 
 export const ChapterContext = createContext<ChapterContextType>({
@@ -50,6 +52,8 @@ export const ChapterContext = createContext<ChapterContextType>({
   canPrev: false,
   others: [],
   group: null,
+  isLoading: false,
+  setIsLoading: () => {},
 });
 
 export const ChapterContextProvider = ({
@@ -62,6 +66,7 @@ export const ChapterContextProvider = ({
   const params = useParams<{ chapterId: string }>();
   const [chapterId, setChapterId] = useState(params.chapterId);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   // Sync chapterId with URL params when navigation occurs
   useEffect(() => {
@@ -120,7 +125,7 @@ export const ChapterContextProvider = ({
       // Optimistic update: Update UI immediately
       setChapterId(prevChapterId);
       // Then update URL in background
-      router.replace(Constants.Routes.nettrom.chapter(prevChapterId));
+      router.push(Constants.Routes.nettrom.chapter(prevChapterId));
     }
   }, [currentChapterIndex, chapters, canPrev, router]);
 
@@ -130,14 +135,15 @@ export const ChapterContextProvider = ({
       // Optimistic update: Update UI immediately
       setChapterId(nextChapterId);
       // Then update URL in background
-      router.replace(Constants.Routes.nettrom.chapter(nextChapterId));
+      router.push(Constants.Routes.nettrom.chapter(nextChapterId));
     }
   }, [currentChapterIndex, chapters, canNext, router]);
 
   const goTo = useCallback(
     (desId: string) => {
-      // Use replace for chapter navigation to avoid history stack buildup
-      router.replace(Constants.Routes.nettrom.chapter(desId));
+      setChapterId(desId);
+      // Use push for chapter navigation to maintain history stack
+      router.push(Constants.Routes.nettrom.chapter(desId));
     },
     [router],
   );
@@ -170,6 +176,7 @@ export const ChapterContextProvider = ({
 
   // user keyboard
   useEffect(() => {
+    if (isLoading) return;
     const handleKeyDown = (event: KeyboardEvent) => {
       if (!event.target || (event.target as HTMLElement).tagName !== "BODY")
         return;
@@ -201,6 +208,8 @@ export const ChapterContextProvider = ({
         canPrev,
         others,
         group,
+        isLoading,
+        setIsLoading,
       }}
     >
       {children}
