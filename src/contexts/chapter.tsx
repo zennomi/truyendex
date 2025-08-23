@@ -71,6 +71,7 @@ export const ChapterContextProvider = ({
   }, [params.chapterId, chapterId]);
 
   const { chapter } = useChapter(chapterId, prefectchedChapter);
+
   const { updateMangas, mangas } = useMangadex();
 
   const { addHistory } = useReadingHistory();
