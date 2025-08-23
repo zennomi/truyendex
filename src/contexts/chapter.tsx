@@ -116,7 +116,9 @@ export const ChapterContextProvider = ({
   const prev = useCallback(() => {
     if (canPrev) {
       const prevChapterId = chapters[currentChapterIndex - 1].id;
-      // Use replace instead of push to avoid adding to history stack
+      // Optimistic update: Update UI immediately
+      setChapterId(prevChapterId);
+      // Then update URL in background
       router.replace(Constants.Routes.nettrom.chapter(prevChapterId));
     }
   }, [currentChapterIndex, chapters, canPrev, router]);
@@ -124,7 +126,9 @@ export const ChapterContextProvider = ({
   const next = useCallback(() => {
     if (canNext) {
       const nextChapterId = chapters[currentChapterIndex + 1].id;
-      // Use replace instead of push to avoid adding to history stack
+      // Optimistic update: Update UI immediately
+      setChapterId(nextChapterId);
+      // Then update URL in background
       router.replace(Constants.Routes.nettrom.chapter(nextChapterId));
     }
   }, [currentChapterIndex, chapters, canNext, router]);

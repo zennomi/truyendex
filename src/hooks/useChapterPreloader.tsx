@@ -29,7 +29,7 @@ export function useChapterPreloader({
 
       try {
         // Prefetch the route
-        await router.prefetch(Constants.Routes.nettrom.chapter(chapterId));
+        router.prefetch(Constants.Routes.nettrom.chapter(chapterId));
         preloadedRef.current.add(chapterId);
       } catch (error) {
         console.warn(`Failed to preload chapter ${chapterId}:`, error);
@@ -58,7 +58,6 @@ export function useChapterPreloader({
       const prevPrevChapterId = chapters[currentChapterIndex - 2].id;
       preloadChapter(prevPrevChapterId);
     }
-    console.log(preloadedRef);
   }, [chapters, currentChapterIndex, canNext, canPrev, router]);
 
   // Cleanup preloaded chapters when component unmounts
