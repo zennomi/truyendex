@@ -1,21 +1,23 @@
+import { Constants } from "@/constants";
 import { useChapterContext } from "@/contexts/chapter";
 import { useSettingsContext } from "@/contexts/settings";
 import { useScrollDirection } from "@/hooks/useScrollDirection";
 import useScrollOffset from "@/hooks/useScrollOffset";
+import Link from "next/link";
 import { FC } from "react";
 import {
   FaArrowLeft,
   FaArrowRight,
   FaArrowUp,
   FaEllipsisV,
+  FaList,
 } from "react-icons/fa";
 import { twMerge } from "tailwind-merge";
 import { Button } from "../Button";
 import { Select } from "../Select";
-import { ChapterControlList } from "./chapter-control-list";
 
 export const ChapterControlBar: FC<{}> = () => {
-  const { canNext, canPrev, next, prev, chapters, goTo, chapterId } =
+  const { canNext, canPrev, next, prev, chapters, goTo, chapterId, manga } =
     useChapterContext();
   const { onToggleDrawer } = useSettingsContext();
   const scrollDirection = useScrollDirection();
@@ -40,7 +42,14 @@ export const ChapterControlBar: FC<{}> = () => {
             icon={<FaArrowUp />}
             className="h-16 w-16 shrink-0 rounded-full text-[40px] [&_svg]:size-8"
           ></Button>
-          <ChapterControlList />
+          {/* <ChapterControlList /> */}
+          <Link href={Constants.Routes.nettrom.manga(manga?.id || "")}>
+            <Button
+              variant={"ghost"}
+              className="h-16 w-16 shrink-0 bg-transparent text-[40px] [&_svg]:size-8"
+              icon={<FaList />}
+            ></Button>
+          </Link>
           <Button
             disabled={!canPrev}
             onClick={() => prev()}
