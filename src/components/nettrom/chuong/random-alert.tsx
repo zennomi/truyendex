@@ -3,7 +3,7 @@ import { Constants } from "@/constants";
 import { Alert } from "../Alert";
 import { Button } from "../Button";
 import { FaCat, FaCog, FaGithub, FaSync } from "react-icons/fa";
-import { useMemo } from "react";
+import { useState, useEffect } from "react";
 import { sample } from "lodash";
 
 const ALERTS = [
@@ -85,5 +85,22 @@ const ALERTS = [
 ];
 
 export default function RandomAlert() {
-  return useMemo(() => sample(ALERTS), []);
+  // Sử dụng useEffect để đảm bảo chỉ chạy trên client
+  const [selectedAlert, setSelectedAlert] = useState<React.ReactElement | null>(
+    null,
+  );
+
+  useEffect(() => {
+    const alert = sample(ALERTS);
+    if (alert) {
+      setSelectedAlert(alert);
+    }
+  }, []);
+
+  // Trả về null trên server để tránh hydration mismatch
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  return selectedAlert;
 }

@@ -1,31 +1,31 @@
 "use client";
 
+import { useParams, useRouter } from "next/navigation";
 import React, {
   createContext,
-  useState,
-  useEffect,
-  useContext,
-  useMemo,
   useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
 } from "react";
-import { useParams } from "next/navigation";
 
 import {
   useChapter,
   useMangaAggregate,
   useScanlationGroup,
 } from "@/hooks/mangadex";
+import useReadingHistory from "@/hooks/useReadingHistory";
 import {
   ChapterItem,
   ExtendChapter,
   ExtendManga,
   ScanlationGroup,
 } from "@/types/mangadex";
-import useReadingHistory from "@/hooks/useReadingHistory";
 
-import { useMangadex } from "./mangadex";
-import { Utils } from "@/utils";
 import { Constants } from "@/constants";
+import { Utils } from "@/utils";
+import { useMangadex } from "./mangadex";
 import { useSettingsContext } from "./settings";
 
 export const ChapterContext = createContext<{
@@ -63,7 +63,14 @@ export const ChapterContextProvider = ({
 }) => {
   const params = useParams<{ chapterId: string }>();
   const [chapterId, setChapterId] = useState(params.chapterId);
+  const router = useRouter();
 
+  // Sync chapterId with URL params when navigation occurs
+  useEffect(() => {
+    if (params.chapterId && params.chapterId !== chapterId) {
+      setChapterId(params.chapterId);
+    }
+  }, [params.chapterId, chapterId]);
   const { chapter } = useChapter(chapterId, prefectchedChapter);
   const { updateMangas, mangas } = useMangadex();
 
@@ -101,21 +108,23 @@ export const ChapterContextProvider = ({
 
   const prev = useCallback(() => {
     if (canPrev) {
-      setChapterId(chapters[currentChapterIndex - 1].id);
+      const prevChapterId = chapters[currentChapterIndex - 1].id;
+      router.push(Constants.Routes.nettrom.chapter(prevChapterId));
     }
-  }, [currentChapterIndex, chapters, setChapterId, canPrev]);
+  }, [currentChapterIndex, chapters, canPrev, router]);
 
   const next = useCallback(() => {
     if (canNext) {
-      setChapterId(chapters[currentChapterIndex + 1].id);
+      const nextChapterId = chapters[currentChapterIndex + 1].id;
+      router.push(Constants.Routes.nettrom.chapter(nextChapterId));
     }
-  }, [currentChapterIndex, chapters, setChapterId, canNext]);
+  }, [currentChapterIndex, chapters, canNext, router]);
 
   const goTo = useCallback(
     (desId: string) => {
-      setChapterId(desId);
+      router.push(Constants.Routes.nettrom.chapter(desId));
     },
-    [setChapterId],
+    [router],
   );
 
   useEffect(() => {
@@ -126,13 +135,7 @@ export const ChapterContextProvider = ({
 
   useEffect(() => {
     if (!chapter) return;
-    const newPath = Constants.Routes.nettrom.chapter(chapter.id);
     document.title = `Đọc ${Utils.Mangadex.getChapterTitle(chapter)} - ${Utils.Mangadex.getMangaTitle(manga)}`;
-    window.history.pushState(
-      { ...window.history.state, as: newPath, url: newPath },
-      "",
-      newPath,
-    );
   }, [chapter?.id]);
 
   useEffect(() => {

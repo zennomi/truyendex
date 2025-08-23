@@ -200,7 +200,7 @@ export function CommentItem({
                 {comment.user.name}
               </div>
               {comment.user.display_roles.map((role) => (
-                <RoleBadge role={role} />
+                <RoleBadge key={role} role={role} />
               ))}
               {type === "series" &&
                 comment.commentable_type === "App\\Models\\Chapter" &&
@@ -268,9 +268,7 @@ export function CommentItem({
           <li>
             <abbr>
               <i className="fa fa-clock-o"> </i>
-              {Utils.Date.formatNowDistance(
-                new Date(comment.created_at),
-              )} trước
+              {Utils.Date.formatNowDistance(new Date(comment.created_at))} trước
             </abbr>
           </li>
         </ul>
