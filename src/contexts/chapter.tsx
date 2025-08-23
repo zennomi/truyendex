@@ -1,7 +1,8 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
-import React, {
+import { useParams } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
+import {
   createContext,
   useCallback,
   useContext,
@@ -10,44 +11,41 @@ import React, {
   useState,
 } from "react";
 
+import { Constants } from "@/constants";
+import { useMangadex } from "@/contexts/mangadex";
+import { useSettingsContext } from "@/contexts/settings";
 import {
   useChapter,
   useMangaAggregate,
   useScanlationGroup,
 } from "@/hooks/mangadex";
+import { useChapterPreloader } from "@/hooks/useChapterPreloader";
 import useReadingHistory from "@/hooks/useReadingHistory";
-import {
-  ChapterItem,
-  ExtendChapter,
-  ExtendManga,
-  ScanlationGroup,
-} from "@/types/mangadex";
-
-import { Constants } from "@/constants";
+import { ExtendChapter } from "@/types/mangadex";
 import { Utils } from "@/utils";
-import { useMangadex } from "./mangadex";
-import { useSettingsContext } from "./settings";
 
-export const ChapterContext = createContext<{
+interface ChapterContextType {
   chapterId: string | null;
   chapter: ExtendChapter | null;
-  manga: ExtendManga | null;
-  chapters: ChapterItem[];
-  group: ScanlationGroup | null;
-  next: VoidFunction;
-  prev: VoidFunction;
-  goTo: (id: string) => void;
+  manga: any;
+  chapters: any[];
+  next: () => void;
+  prev: () => void;
+  goTo: (desId: string) => void;
   canNext: boolean;
   canPrev: boolean;
-  others: string[];
-}>({
+  others: any[];
+  group: any;
+}
+
+export const ChapterContext = createContext<ChapterContextType>({
   chapterId: null,
   chapter: null,
-  chapters: [],
   manga: null,
-  next: () => null,
-  prev: () => null,
-  goTo: () => null,
+  chapters: [],
+  next: () => {},
+  prev: () => {},
+  goTo: () => {},
   canNext: false,
   canPrev: false,
   others: [],
@@ -71,6 +69,7 @@ export const ChapterContextProvider = ({
       setChapterId(params.chapterId);
     }
   }, [params.chapterId, chapterId]);
+
   const { chapter } = useChapter(chapterId, prefectchedChapter);
   const { updateMangas, mangas } = useMangadex();
 
@@ -106,23 +105,34 @@ export const ChapterContextProvider = ({
   const others =
     (currentChapterIndex >= 0 && chapters[currentChapterIndex]?.others) || [];
 
+  // Use the preloader hook for better chapter preloading
+  useChapterPreloader({
+    chapters,
+    currentChapterIndex,
+    canNext,
+    canPrev,
+  });
+
   const prev = useCallback(() => {
     if (canPrev) {
       const prevChapterId = chapters[currentChapterIndex - 1].id;
-      router.push(Constants.Routes.nettrom.chapter(prevChapterId));
+      // Use replace instead of push to avoid adding to history stack
+      router.replace(Constants.Routes.nettrom.chapter(prevChapterId));
     }
   }, [currentChapterIndex, chapters, canPrev, router]);
 
   const next = useCallback(() => {
     if (canNext) {
       const nextChapterId = chapters[currentChapterIndex + 1].id;
-      router.push(Constants.Routes.nettrom.chapter(nextChapterId));
+      // Use replace instead of push to avoid adding to history stack
+      router.replace(Constants.Routes.nettrom.chapter(nextChapterId));
     }
   }, [currentChapterIndex, chapters, canNext, router]);
 
   const goTo = useCallback(
     (desId: string) => {
-      router.push(Constants.Routes.nettrom.chapter(desId));
+      // Use replace for chapter navigation to avoid history stack buildup
+      router.replace(Constants.Routes.nettrom.chapter(desId));
     },
     [router],
   );
