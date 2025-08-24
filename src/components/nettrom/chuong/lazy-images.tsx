@@ -6,15 +6,13 @@ import {
   trackWindowScroll,
 } from "react-lazy-load-image-component";
 
-const Gallery = ({
-  images,
-  threshold,
-  scrollPosition,
-}: {
+interface GalleryProps {
   images: string[];
   scrollPosition: ScrollPosition;
   threshold: number;
-}) => {
+}
+
+const Gallery = ({ images, threshold, scrollPosition }: GalleryProps) => {
   const { dataSaver, maxImageWidth, onUpdateField } = useSettingsContext();
 
   const toggleDataServer = useCallback(() => {
@@ -46,4 +44,6 @@ const Gallery = ({
   );
 };
 
-export default trackWindowScroll(Gallery);
+const LazyImages = trackWindowScroll(Gallery) as any;
+
+export default LazyImages;

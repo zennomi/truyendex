@@ -119,12 +119,9 @@ export default function FeaturedTitles() {
                         <h3 className="mb-1 line-clamp-2 text-[16px] font-semibold leading-tight text-white group-hover:line-clamp-4">
                           {title}
                         </h3>
-                        <Link
-                          href={Constants.Routes.nettrom.manga(manga.id)}
-                          className="text-web-title transition hover:text-web-titleLighter"
-                        >
+                        <span className="text-web-title transition hover:text-web-titleLighter">
                           {manga.author?.attributes?.name || ""}
-                        </Link>
+                        </span>
                         <p className="time mb-0 mt-1 flex h-0 items-center gap-2 overflow-hidden text-[12px] text-muted-foreground group-hover:h-auto">
                           <FaClock />{" "}
                           <span>
