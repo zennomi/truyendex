@@ -1,5 +1,5 @@
-import useSWR from "swr/immutable";
 import { useEffect, useState } from "react";
+import useSWR from "swr/immutable";
 
 import { MangadexApi } from "@/api";
 import { Chapter, ExtendChapter } from "@/types/mangadex";
@@ -15,6 +15,12 @@ export default function useChapter(
       MangadexApi.Chapter.getChapterId(chapterId!, {
         includes: [MangadexApi.Static.Includes.SCANLATION_GROUP],
       }),
+    {
+      // Disable revalidation for initial load to avoid duplicate API calls
+      revalidateOnMount: false,
+      revalidateOnFocus: true,
+      revalidateOnReconnect: true,
+    },
   );
 
   const [chapter, setChapter] = useState<ExtendChapter | null>(

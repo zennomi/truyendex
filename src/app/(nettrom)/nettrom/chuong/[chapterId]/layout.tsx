@@ -1,9 +1,9 @@
-import { Metadata, ResolvingMetadata } from "next";
-import { ChapterContextProvider } from "@/contexts/chapter";
 import { MangadexApi } from "@/api";
 import { Constants } from "@/constants";
-import { Utils } from "@/utils";
+import { ChapterContextProvider } from "@/contexts/chapter";
 import { ExtendChapter, ExtendManga } from "@/types/mangadex";
+import { Utils } from "@/utils";
+import { Metadata, ResolvingMetadata } from "next";
 
 export async function generateMetadata(
   { params }: { params: { chapterId: string } },

@@ -1,7 +1,8 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
-import React, {
+import { useParams } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
+import {
   createContext,
   useCallback,
   useContext,
@@ -10,48 +11,49 @@ import React, {
   useState,
 } from "react";
 
+import { Constants } from "@/constants";
+import { useMangadex } from "@/contexts/mangadex";
+import { useSettingsContext } from "@/contexts/settings";
 import {
   useChapter,
   useMangaAggregate,
   useScanlationGroup,
 } from "@/hooks/mangadex";
+import { useChapterPreloader } from "@/hooks/useChapterPreloader";
 import useReadingHistory from "@/hooks/useReadingHistory";
-import {
-  ChapterItem,
-  ExtendChapter,
-  ExtendManga,
-  ScanlationGroup,
-} from "@/types/mangadex";
-
-import { Constants } from "@/constants";
+import { ExtendChapter } from "@/types/mangadex";
 import { Utils } from "@/utils";
-import { useMangadex } from "./mangadex";
-import { useSettingsContext } from "./settings";
 
-export const ChapterContext = createContext<{
+interface ChapterContextType {
   chapterId: string | null;
   chapter: ExtendChapter | null;
-  manga: ExtendManga | null;
-  chapters: ChapterItem[];
-  group: ScanlationGroup | null;
-  next: VoidFunction;
-  prev: VoidFunction;
-  goTo: (id: string) => void;
+  manga: any;
+  chapters: any[];
+  next: () => void;
+  prev: () => void;
+  goTo: (desId: string) => void;
   canNext: boolean;
   canPrev: boolean;
-  others: string[];
-}>({
+  others: any[];
+  group: any;
+  isLoading: boolean;
+  setIsLoading: (loading: boolean) => void;
+}
+
+export const ChapterContext = createContext<ChapterContextType>({
   chapterId: null,
   chapter: null,
-  chapters: [],
   manga: null,
-  next: () => null,
-  prev: () => null,
-  goTo: () => null,
+  chapters: [],
+  next: () => {},
+  prev: () => {},
+  goTo: () => {},
   canNext: false,
   canPrev: false,
   others: [],
   group: null,
+  isLoading: false,
+  setIsLoading: () => {},
 });
 
 export const ChapterContextProvider = ({
@@ -64,6 +66,7 @@ export const ChapterContextProvider = ({
   const params = useParams<{ chapterId: string }>();
   const [chapterId, setChapterId] = useState(params.chapterId);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   // Sync chapterId with URL params when navigation occurs
   useEffect(() => {
@@ -71,7 +74,9 @@ export const ChapterContextProvider = ({
       setChapterId(params.chapterId);
     }
   }, [params.chapterId, chapterId]);
+
   const { chapter } = useChapter(chapterId, prefectchedChapter);
+
   const { updateMangas, mangas } = useMangadex();
 
   const { addHistory } = useReadingHistory();
@@ -106,9 +111,20 @@ export const ChapterContextProvider = ({
   const others =
     (currentChapterIndex >= 0 && chapters[currentChapterIndex]?.others) || [];
 
+  // Use the preloader hook for better chapter preloading
+  useChapterPreloader({
+    chapters,
+    currentChapterIndex,
+    canNext,
+    canPrev,
+  });
+
   const prev = useCallback(() => {
     if (canPrev) {
       const prevChapterId = chapters[currentChapterIndex - 1].id;
+      // Optimistic update: Update UI immediately
+      setChapterId(prevChapterId);
+      // Then update URL in background
       router.push(Constants.Routes.nettrom.chapter(prevChapterId));
     }
   }, [currentChapterIndex, chapters, canPrev, router]);
@@ -116,12 +132,17 @@ export const ChapterContextProvider = ({
   const next = useCallback(() => {
     if (canNext) {
       const nextChapterId = chapters[currentChapterIndex + 1].id;
+      // Optimistic update: Update UI immediately
+      setChapterId(nextChapterId);
+      // Then update URL in background
       router.push(Constants.Routes.nettrom.chapter(nextChapterId));
     }
   }, [currentChapterIndex, chapters, canNext, router]);
 
   const goTo = useCallback(
     (desId: string) => {
+      setChapterId(desId);
+      // Use push for chapter navigation to maintain history stack
       router.push(Constants.Routes.nettrom.chapter(desId));
     },
     [router],
@@ -155,6 +176,7 @@ export const ChapterContextProvider = ({
 
   // user keyboard
   useEffect(() => {
+    if (isLoading) return;
     const handleKeyDown = (event: KeyboardEvent) => {
       if (!event.target || (event.target as HTMLElement).tagName !== "BODY")
         return;
@@ -186,6 +208,8 @@ export const ChapterContextProvider = ({
         canPrev,
         others,
         group,
+        isLoading,
+        setIsLoading,
       }}
     >
       {children}
