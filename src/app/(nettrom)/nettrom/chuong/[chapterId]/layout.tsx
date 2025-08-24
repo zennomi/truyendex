@@ -1,9 +1,11 @@
 import { MangadexApi } from "@/api";
+import { MangaDexError } from "@/api/mangadex/util";
 import { Constants } from "@/constants";
 import { ChapterContextProvider } from "@/contexts/chapter";
 import { ExtendChapter, ExtendManga } from "@/types/mangadex";
 import { Utils } from "@/utils";
 import { Metadata, ResolvingMetadata } from "next";
+import { notFound } from "next/navigation";
 
 export async function generateMetadata(
   { params }: { params: { chapterId: string } },
@@ -38,18 +40,13 @@ export async function generateMetadata(
       },
     };
   } catch (error) {
-    console.error(error);
+    if (error instanceof MangaDexError) {
+      if (error.status === 404) {
+        return notFound();
+      }
+    }
+    throw error;
   }
-
-  return {
-    title: `Đọc chương mới nhất tại ${Constants.APP_NAME}`,
-    openGraph: {
-      images: [mdImage, ...previousImages],
-    },
-    twitter: {
-      images: [mdImage, ...previousImages],
-    },
-  };
 }
 
 export default async function Layout({
@@ -59,19 +56,28 @@ export default async function Layout({
   children: React.ReactNode;
   params: { chapterId: string };
 }) {
-  const {
-    data: { data: chapter },
-  } = await MangadexApi.Chapter.getChapterId(params.chapterId, {
-    includes: ["manga"],
-  });
-  const extenedChapter = Utils.Mangadex.extendRelationship(
-    chapter,
-  ) as ExtendChapter;
-  return (
-    <ChapterContextProvider prefectchedChapter={extenedChapter}>
-      <div className="mx-[-12px]">
-        <div className="w-full">{children}</div>
-      </div>
-    </ChapterContextProvider>
-  );
+  try {
+    const {
+      data: { data: chapter },
+    } = await MangadexApi.Chapter.getChapterId(params.chapterId, {
+      includes: ["manga"],
+    });
+    const extenedChapter = Utils.Mangadex.extendRelationship(
+      chapter,
+    ) as ExtendChapter;
+    return (
+      <ChapterContextProvider prefectchedChapter={extenedChapter}>
+        <div className="mx-[-12px]">
+          <div className="w-full">{children}</div>
+        </div>
+      </ChapterContextProvider>
+    );
+  } catch (error) {
+    if (error instanceof MangaDexError) {
+      if (error.status === 404) {
+        return notFound();
+      }
+    }
+    throw error;
+  }
 }

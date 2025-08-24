@@ -60,17 +60,18 @@ export default function MangaImage({
     <span
       className={`block overflow-hidden ${loaded ? "min-h-0" : "min-h-[100vh]"} ${className}`}
     >
-      <LazyLoadImage
-        wrapperClassName="block mx-auto"
-        effect={disabledEffect ? undefined : effect}
-        placeholderSrc={"/images/truyendex-loading.jpg"}
-        className="mx-auto h-full object-cover"
-        width={maxImageWidth || "100%"}
-        onLoad={() => setLoaded(true)}
-        onError={() => setError(true)}
-        threshold={threshold}
-        {...(other as any)}
-      />
+      {/* Todo: Fix compatibility issue */}
+      {React.createElement(LazyLoadImage as any, {
+        wrapperClassName: "block mx-auto",
+        effect: disabledEffect ? undefined : effect,
+        placeholderSrc: "/images/truyendex-loading.jpg",
+        className: "mx-auto h-full object-cover",
+        width: maxImageWidth || "100%",
+        onLoad: () => setLoaded(true),
+        onError: () => setError(true),
+        threshold: threshold,
+        ...(other as any),
+      })}
     </span>
   );
 }

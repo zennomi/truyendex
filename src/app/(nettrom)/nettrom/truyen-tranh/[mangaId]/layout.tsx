@@ -2,6 +2,8 @@ import { Metadata, ResolvingMetadata } from "next";
 import { MangadexApi } from "@/api";
 import { Utils } from "@/utils";
 import { Constants } from "@/constants";
+import { MangaDexError } from "@/api/mangadex/util";
+import { notFound } from "next/navigation";
 
 export async function generateMetadata(
   { params }: { params: { mangaId: string } },
@@ -33,8 +35,14 @@ export async function generateMetadata(
         images: [mdImage],
       },
     };
-  } catch {}
-  // optionally access and extend (rather than replace) parent metadata
+  } catch (error) {
+    if (error instanceof MangaDexError) {
+      if (error.status === 404) {
+        return notFound();
+      }
+    }
+    throw error;
+  }
 
   return {
     title: "Đọc ngay tại NetTrom",
