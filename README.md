@@ -20,12 +20,15 @@ Lời đầu tiên, TruyenDex xin gửi lời cảm ơn sâu sắc đến đội
 
 ## Chức năng
 
-> Những chức năng này độc lập với data của MangaDex.
+> Những chức năng này độc lập với data của MangaDex. Source code của các chức này vui lòng xem tại: [TruyenDex-Backend](https://github.com/baoanhng/truyendex-api).
 
-- Theo dõi truyện
-- Bình luận: Theo truyện, theo chương (trang)
-- Lượt đọc (toàn thời gian, tháng, tuần,...)
-- Ủng hộ truyện bản quyền
+- [x] Theo dõi truyện
+
+- [x] Bình luận: Theo truyện, theo chương (trang)
+
+- [ ] Lượt đọc (toàn thời gian, tháng, tuần,...)
+
+- [ ] Ủng hộ truyện bản quyền
 
 ## FAQs
 
@@ -36,10 +39,6 @@ Lời đầu tiên, TruyenDex xin gửi lời cảm ơn sâu sắc đến đội
 - Ăn trộm data của MangaDex à?
 
   TruyenDex sẽ tuân thủ yêu cầu của MangaDex để được sử dụng API của họ, bao gồm: Không gắn quảng cáo, kiếm lợi nhuận, ghi nguồn nhóm dịch, cho họ quyền được tự quyết công sức của họ,...
-
-- Liệu có bị nhà mạng chặn rồi phải dùng tên miền TruyenDexZ, TruyenDexCo,... không?
-
-  TruyenDex chỉ lưu trữ dữ liệu người dùng, bình luận,... và cung cấp giao diện đọc truyện từ API của MangaDex, không hề lưu trữ bất cứ trang truyện nào. Đồng thời không có quảng cáo phạm pháp, và TruyenDex sẽ hạn chế xuất hiện trên kết quả tìm kiếm Google.
 
 - Sao không dùng thẳng MangaDex?
 
