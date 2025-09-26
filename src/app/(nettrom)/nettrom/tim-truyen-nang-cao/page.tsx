@@ -6,6 +6,7 @@ import { Constants } from "@/constants";
 
 export const metadata: Metadata = {
   title: `Tìm truyện đọc tại ${Constants.APP_NAME}`,
+  metadataBase: new URL(Constants.APP_URL),
 };
 
 export default function AdvancedSearch() {

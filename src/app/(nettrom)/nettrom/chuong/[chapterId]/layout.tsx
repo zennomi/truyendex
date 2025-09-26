@@ -32,6 +32,7 @@ export async function generateMetadata(
     );
     return {
       title: `Đọc chương ${Utils.Mangadex.getChapterTitle(chapter)} - ${mangaTitle} tại ${Constants.APP_NAME}`,
+      metadataBase: new URL(Constants.APP_URL),
       openGraph: {
         images: [mdImage, ...previousImages],
       },

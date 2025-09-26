@@ -1,8 +1,10 @@
 import { Metadata } from "next";
+import { Constants } from "@/constants";
 
 export const metadata: Metadata = {
   title: "Điều khoản Dịch vụ - TruyenDex",
   description: "Điều khoản và điều kiện sử dụng dịch vụ TruyenDex",
+  metadataBase: new URL(Constants.APP_URL),
 };
 
 export default function TermsOfServicePage() {
