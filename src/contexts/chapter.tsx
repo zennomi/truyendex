@@ -21,13 +21,13 @@ import {
 } from "@/hooks/mangadex";
 import { useChapterPreloader } from "@/hooks/useChapterPreloader";
 import useReadingHistory from "@/hooks/useReadingHistory";
-import { ExtendChapter } from "@/types/mangadex";
+import { ExtendChapter, ExtendManga } from "@/types/mangadex";
 import { Utils } from "@/utils";
 
 interface ChapterContextType {
   chapterId: string | null;
   chapter: ExtendChapter | null;
-  manga: any;
+  manga: ExtendManga | null;
   chapters: any[];
   next: () => void;
   prev: () => void;

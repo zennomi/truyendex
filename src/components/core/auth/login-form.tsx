@@ -17,6 +17,7 @@ interface ILoginForm {
   email: string;
   password: string;
   remember: boolean;
+  acceptTerms: boolean;
   "cf-turnstile-response": string;
 }
 
@@ -31,6 +32,10 @@ const loginSchema = yup.object().shape({
     .min(6, "Mật khẩu ít nhất 6 ký tự")
     .required("Vui lòng điền mật khẩu"),
   remember: yup.boolean().required(),
+  acceptTerms: yup
+    .boolean()
+    .oneOf([true], "Vui lòng đồng ý với điều khoản dịch vụ")
+    .required("Vui lòng đồng ý với điều khoản dịch vụ"),
   "cf-turnstile-response": yup
     .string()
     .required("Vui lòng xác minh bạn không phải robot"),
@@ -56,6 +61,7 @@ export default function LoginForm() {
       email: "",
       password: "",
       remember: true,
+      acceptTerms: false,
       "cf-turnstile-response": "",
     },
   });
@@ -128,6 +134,35 @@ export default function LoginForm() {
               Quên mật khẩu?
             </Link>
           </p>
+        </div>
+        <div className="mb-4">
+          <div className="mb-0 flex w-full items-center">
+            <input
+              className="form-checkbox me-2 rounded border-gray-200 text-indigo-600 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 focus:ring-offset-0 dark:border-gray-800"
+              type="checkbox"
+              id="AcceptTerms"
+              {...register("acceptTerms")}
+            />
+            <label
+              className="form-check-label text-slate-400"
+              htmlFor="AcceptTerms"
+            >
+              Đồng ý với{" "}
+              <Link
+                href={Constants.Routes.termsOfService}
+                className="text-indigo-600 hover:text-indigo-800"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                điều khoản dịch vụ
+              </Link>
+            </label>
+          </div>
+          {errors.acceptTerms && (
+            <p className="mt-1 text-sm text-red-500">
+              {errors.acceptTerms.message}
+            </p>
+          )}
         </div>
         <div className="mb-4">
           <button

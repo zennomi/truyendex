@@ -47,6 +47,7 @@ export class Constants {
       index: "/trang-ca-nhan",
       settings: "/trang-ca-nhan/cai-dat",
     },
+    termsOfService: "/dieu-khoan",
   };
   static readonly AVALABLE_DOMAINS = DOMAINS;
   static readonly DOMAIN_LIST_URL =

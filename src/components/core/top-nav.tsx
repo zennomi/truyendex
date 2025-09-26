@@ -72,6 +72,14 @@ export default function TopNav() {
                 Bản thử nghiệm
               </Link>
             </li>
+            <li>
+              <Link
+                href={Constants.Routes.termsOfService}
+                className="sub-menu-item"
+              >
+                Điều khoản dịch vụ
+              </Link>
+            </li>
             <li className="has-submenu parent-parent-menu-item hidden md:block">
               <a href="#">Tìm truyện</a>
               <span className="menu-arrow" />

@@ -22,53 +22,6 @@ export default function ChapterControl() {
   return (
     <DataLoader isLoading={!chapter} loadingText="Đang tải thông tin chương...">
       <div className="flex flex-col gap-0">
-        {/* <ul
-          className="mb-2 inline-flex items-center gap-4"
-          itemType="http://schema.org/BreadcrumbList"
-        >
-          {[
-            {
-              href: Constants.Routes.nettrom.index,
-              name: "Trang chủ",
-              position: 1,
-            },
-            {
-              href: Constants.Routes.nettrom.search,
-              name: "Truyện Tranh",
-              position: 2,
-            },
-          ].map((item, index, arr) => {
-            const isLast = index === arr.length - 1;
-            return (
-              <>
-                <li
-                  key={index}
-                  itemProp="itemListElement"
-                  itemType="http://schema.org/ListItem"
-                >
-                  <Link
-                    href={item.href}
-                    className="text-web-title transition hover:text-web-titleLighter"
-                  >
-                    <span itemProp="name">{item.name}</span>
-                  </Link>
-                  <meta
-                    itemProp="position"
-                    content={item.position.toString()}
-                  />
-                </li>
-                {!isLast && (
-                  <li
-                    className="text-muted-foreground"
-                    key={"divider_" + index}
-                  >
-                    /
-                  </li>
-                )}
-              </>
-            );
-          })}
-        </ul> */}
         <h1 className="mb-1 mt-0 md:mb-4">
           <Link
             className="text-[16px] text-web-title transition hover:text-web-titleLighter"
