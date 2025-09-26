@@ -17,4 +17,8 @@ export class DateUtils {
   formatDateTime(date: Date | number, options?: { locale?: Locale }) {
     return format(date, "dd/MM/yyyy HH:mm", options);
   }
+
+  formatDate(date: Date | number, options?: { locale?: Locale }) {
+    return format(date, "dd/MM/yyyy", options);
+  }
 }

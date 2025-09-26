@@ -74,6 +74,17 @@ export default function LastChapterUpdatedTitles() {
                     mangas[mangaId],
                   );
                   const readedChapters = history[mangaId];
+                  const isBlur =
+                    (!filteredContent.includes(
+                      MangadexApi.Static.MangaContentRating.PORNOGRAPHIC,
+                    ) &&
+                      mangas[mangaId]?.attributes.contentRating ===
+                        MangadexApi.Static.MangaContentRating.PORNOGRAPHIC) ||
+                    (!filteredContent.includes(
+                      MangadexApi.Static.MangaContentRating.EROTICA,
+                    ) &&
+                      mangas[mangaId]?.attributes.contentRating ===
+                        MangadexApi.Static.MangaContentRating.EROTICA);
                   return (
                     <MangaTile
                       id={mangaId}
@@ -90,15 +101,7 @@ export default function LastChapterUpdatedTitles() {
                       }))}
                       readedChapters={readedChapters}
                       mangaStatistic={mangaStatistics[mangaId]}
-                      className={
-                        !filteredContent.includes(
-                          MangadexApi.Static.MangaContentRating.PORNOGRAPHIC,
-                        ) &&
-                        mangas[mangaId]?.attributes.contentRating ===
-                          MangadexApi.Static.MangaContentRating.PORNOGRAPHIC
-                          ? "blur"
-                          : ""
-                      }
+                      className={isBlur ? "blur" : ""}
                     />
                   );
                 })}

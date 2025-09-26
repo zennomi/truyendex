@@ -5,6 +5,7 @@ import { Constants } from "@/constants";
 
 export const metadata: Metadata = {
   title: `Lịch sử đọc truyện tại ${Constants.APP_NAME}`,
+  metadataBase: new URL(Constants.APP_URL),
 };
 
 export default function History() {

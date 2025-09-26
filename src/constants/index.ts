@@ -32,6 +32,9 @@ export class Constants {
       following: "/nettrom/theo-doi",
       sync: "/nettrom/theo-doi?tab=sync",
     },
+    tanamoe: {
+      title: (id: string) => `/nettrom/truyen-ban-quyen/${id}`,
+    },
     scanlationGroup: (id: string) => `/nhom-dich/${id}`,
     report: `https://www.messenger.com/t/443260942921638`,
     github: "https://github.com/zennomi/truyendex",
@@ -47,6 +50,7 @@ export class Constants {
       index: "/trang-ca-nhan",
       settings: "/trang-ca-nhan/cai-dat",
     },
+    termsOfService: "/dieu-khoan",
   };
   static readonly AVALABLE_DOMAINS = DOMAINS;
   static readonly DOMAIN_LIST_URL =

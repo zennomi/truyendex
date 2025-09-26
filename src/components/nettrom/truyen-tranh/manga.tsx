@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { useRouter } from "nextjs-toploader/app";
-import { FaExclamationTriangle } from "react-icons/fa";
+import { FaExclamationTriangle, FaExternalLinkAlt } from "react-icons/fa";
 
 import { useMangadex } from "@/contexts/mangadex";
 import { AppApi, MangadexApi } from "@/api";
@@ -23,6 +23,7 @@ import { ExtendManga } from "@/types/mangadex";
 import FirstChapterButton from "./first-chapter-button";
 import ExternalLinks from "./external-links";
 import Markdown from "../Markdown";
+import { Alert } from "../Alert";
 
 export default function Manga({
   mangaId,
@@ -46,15 +47,25 @@ export default function Manga({
   });
   const chapterListData = useMemo(() => data?.data, [data]);
   const router = useRouter();
-  const [showPorngraphic, setShowPorngraphic] = useState(false);
+
+  const shouldBlock = useMemo(() => {
+    return (
+      (!filteredContent.includes(
+        MangadexApi.Static.MangaContentRating.PORNOGRAPHIC,
+      ) &&
+        manga.attributes.contentRating ===
+          MangadexApi.Static.MangaContentRating.PORNOGRAPHIC) ||
+      (!filteredContent.includes(
+        MangadexApi.Static.MangaContentRating.EROTICA,
+      ) &&
+        manga.attributes.contentRating ===
+          MangadexApi.Static.MangaContentRating.EROTICA)
+    );
+  }, [filteredContent, manga.attributes.contentRating]);
 
   const handleLogin = () => {
     router.push(Constants.Routes.loginWithRedirect(window.location.pathname));
   };
-
-  const handleConfirmPorngraphic = useCallback(() => {
-    setShowPorngraphic(true);
-  }, [setShowPorngraphic]);
 
   const followManga = useCallback(async () => {
     try {
@@ -77,26 +88,24 @@ export default function Manga({
     updateMangaStatistics({ manga: [mangaId] });
   }, [mangaId]);
 
-  if (
-    !showPorngraphic &&
-    !filteredContent.includes(
-      MangadexApi.Static.MangaContentRating.PORNOGRAPHIC,
-    ) &&
-    manga.attributes.contentRating ===
-      MangadexApi.Static.MangaContentRating.PORNOGRAPHIC
-  )
+  if (shouldBlock)
     return (
       <div className="mb-2">
         <div className="flex flex-col justify-center">
           <FaExclamationTriangle className="mx-auto text-[100px] text-red-600" />
           <p className="text-center">
-            Truyện có thể có nội dung phản cảm và bạn đang thiết lập cài đặt lọc
-            những bộ truyện có nội dung "bùng lổ"
+            TruyenDex phát hiện truyện có thể có nội dung phản cảm không phù hợp
+            với thiết lập của bạn.
           </p>
         </div>
         <div className="mt-4 flex justify-center">
-          <Button onClick={handleConfirmPorngraphic}>
-            Tôi chịu trách nhiệm với quyết định của mình
+          <Button
+            icon={<FaExternalLinkAlt />}
+            onClick={() =>
+              window.open(`https://mangadex.org/title/${mangaId}`, "_blank")
+            }
+          >
+            Đọc trên MangaDex
           </Button>
         </div>
       </div>
@@ -363,6 +372,19 @@ export default function Manga({
             </div>
           </div>
         </div>
+        {(manga.attributes.contentRating ===
+          MangadexApi.Static.MangaContentRating.PORNOGRAPHIC ||
+          manga.attributes.contentRating ===
+            MangadexApi.Static.MangaContentRating.EROTICA) && (
+          <div className="mb-10">
+            <Alert
+              title="Phát hiện truyện có thể có nội dung phản cảm theo đánh giá của MangaDex. TruyenDex không chịu trách nhiệm với nội dung của truyện."
+              classNames={{
+                alert: "[&>svg]:text-red-500 text-red-500 bg-red-100",
+              }}
+            />
+          </div>
+        )}
         <div className="detail-content mb-10">
           <h2 className="mb-4 flex items-center gap-4 text-[20px] font-medium text-web-title">
             <i className="fa fa-pen"></i>

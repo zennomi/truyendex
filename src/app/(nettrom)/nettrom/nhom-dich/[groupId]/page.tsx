@@ -34,6 +34,7 @@ export async function generateMetadata(
     return {
       title: `Nhóm dịch ${group.attributes.name} - Đọc ngay tại ${Constants.APP_NAME}`,
       description: `${group.attributes.description}`,
+      metadataBase: new URL(Constants.APP_URL),
       openGraph: {
         images: [mdImage],
       },
@@ -49,6 +50,7 @@ export async function generateMetadata(
   return {
     title: "Đọc ngay tại NetTrom",
     description: "NetTrom - Website Trộm Truyện Văn Minh",
+    metadataBase: new URL(Constants.APP_URL),
     openGraph: {
       images: [...previousImages],
     },

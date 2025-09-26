@@ -20,13 +20,14 @@ export const metadata: Metadata = {
   authors: [{ name: "TruyenDex", url: "https://github.com/zennomi/truyendex" }],
   keywords: [
     "truyện tranh",
+    "truyendex",
     "manga",
     "manhwa",
     "manhua",
     "nettruyen",
     "nettrom",
     "blogtruyen",
-    "truyendex",
+    "cuutruyen",
   ],
   metadataBase: new URL(Constants.APP_URL),
   other: {
@@ -91,24 +92,30 @@ export default function NettromLayout({
               <Link itemProp="url" href="/">
                 <img
                   itemProp="logo"
-                  src={"/nettruyen/images/logo.png"}
-                  style={{ aspectRatio: 5 }}
+                  src={"/images/logo.png"}
                   alt={`${Constants.APP_NAME} - Truyện tranh Online`}
+                  className="max-w-[200px]"
                 />
               </Link>
               <div className="mrt10 row">
                 <div className="col-xs-6">
-                  {/* <a
+                  <Link
+                    href={Constants.Routes.termsOfService}
+                    className="text-web-title transition hover:!bg-transparent hover:bg-web-titleLighter hover:underline"
+                  >
+                    Điều khoản dịch vụ
+                  </Link>
+                </div>
+                <div className="col-xs-6">
+                  <a
                     href="https://mangadex.org/about"
                     rel="nofollow noopener"
                     target="_blank"
+                    className="text-web-title transition hover:!bg-transparent hover:bg-web-titleLighter hover:underline"
                   >
                     MangaDex
-                  </a> */}
+                  </a>
                 </div>
-                {/* <div className="col-xs-6">
-                      <a href="/chinh-sach-bao-mat">Chính sách bảo mật</a>
-                    </div> */}
               </div>
               <p></p>
               <p>
@@ -123,105 +130,14 @@ export default function NettromLayout({
             </div>
             <div className="col-sm-8">
               <div className="link-footer">
-                <h4>Từ khóa</h4>
-                <ul>
-                  <li>
-                    <Link target="_self" href="/">
-                      Truyện tranh
-                    </Link>
-                  </li>
-                  <li>
-                    <Link target="_self" href="/">
-                      Truyen tranh online
-                    </Link>
-                  </li>
-                  <li>
-                    <Link target="_self" href="/">
-                      Đọc truyện tranh
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      target="_self"
-                      href={`${Constants.Routes.nettrom.search}?order[followedCount]=desc#results`}
-                    >
-                      Truyện tranh hot
-                    </Link>
-                  </li>
-                  <li>
-                    <Link target="_self" href="/">
-                      Truyện tranh hay
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      target="_self"
-                      href={`${Constants.Routes.nettrom.search}?publicationDemographic=josei&publicationDemographic=shoujo#results`}
-                    >
-                      Truyện ngôn tình
-                    </Link>
-                  </li>
-                  <li>
-                    <Link target="_self" href="/">
-                      Manhwa
-                    </Link>
-                  </li>
-                  <li>
-                    <Link target="_self" href="/">
-                      Manga
-                    </Link>
-                  </li>
-                  <li>
-                    <Link target="_self" href="/">
-                      Manhua
-                    </Link>
-                  </li>
-                  <li>
-                    <Link target="_self" href="/">
-                      truyenqq
-                    </Link>
-                  </li>
-                  <li>
-                    <Link target="_self" href="/">
-                      mi2manga
-                    </Link>
-                  </li>
-                  <li>
-                    <Link target="_self" href="/">
-                      doctruyen3q
-                    </Link>
-                  </li>
-                  <li>
-                    <Link target="_self" href="/">
-                      toptruyen
-                    </Link>
-                  </li>
-                  <li>
-                    <Link target="_self" href="/">
-                      cmanga
-                    </Link>
-                  </li>
-                  <li>
-                    <Link target="_self" href="/">
-                      vlogtruyen
-                    </Link>
-                  </li>
-                  <li>
-                    <Link target="_self" href="/">
-                      blogtruyen
-                    </Link>
-                  </li>
-                  <li>
-                    <Link target="_self" href="/">
-                      truyentranhaudio
-                    </Link>
-                  </li>
-                  <li>
-                    <Link target="_self" href="/">
-                      vcomi
-                    </Link>
-                  </li>
-                </ul>
+                <h4>Tuyên bố bãi trừ trách nhiệm</h4>
+                <p>
+                  {Constants.APP_NAME} chỉ cung cấp giao diện và tổng hợp dữ
+                  liệu từ MangaDex; chúng tôi không lưu trữ hay sở hữu nội dung.
+                  Thông tin chỉ mang tính tham khảo; chúng tôi không chịu trách
+                  nhiệm về độ chính xác, liên kết ngoài hoặc nội dung do bên thứ
+                  ba cung cấp.
+                </p>
               </div>
             </div>
           </div>

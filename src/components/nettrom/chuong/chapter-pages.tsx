@@ -10,12 +10,33 @@ import ScanlationGroupInformation from "./scanlation-group-information";
 import Link from "next/link";
 import Iconify from "@/components/iconify";
 import { Constants } from "@/constants";
+import { useMemo } from "react";
+import { MangadexApi } from "@/api";
+import { useSettingsContext } from "@/contexts/settings";
 
 export default function ChapterPages() {
   const { height } = useWindowSize();
 
   const { chapterId, canNext, canPrev, next, prev, chapter, group, manga } =
     useChapterContext();
+
+  const { filteredContent } = useSettingsContext();
+
+  const shouldBlock = useMemo(() => {
+    if (!manga) return false;
+    return (
+      (!filteredContent.includes(
+        MangadexApi.Static.MangaContentRating.PORNOGRAPHIC,
+      ) &&
+        manga?.attributes.contentRating ===
+          MangadexApi.Static.MangaContentRating.PORNOGRAPHIC) ||
+      (!filteredContent.includes(
+        MangadexApi.Static.MangaContentRating.EROTICA,
+      ) &&
+        manga?.attributes.contentRating ===
+          MangadexApi.Static.MangaContentRating.EROTICA)
+    );
+  }, [manga, filteredContent]);
 
   const { pages, isLoading, error } = useChapterPages(
     chapter?.attributes.externalUrl ? null : chapterId,
@@ -40,11 +61,39 @@ export default function ChapterPages() {
             </Button>
           </Link>
         </div>
+      ) : shouldBlock ? (
+        <div className="container flex flex-col items-center justify-center gap-2">
+          <div className="text-2xl font-bold">
+            Chương này có thể có nội dung phản cảm, vui lòng đọc trên MangaDex
+          </div>
+          <Link
+            href={`https://mangadex.org/chapter/${chapterId}`}
+            target="_blank"
+          >
+            <Button icon={<Iconify icon="fa:external-link" />}>
+              Đọc trên MangaDex
+            </Button>
+          </Link>
+        </div>
       ) : (
         <DataLoader
           isLoading={isLoading}
           loadingText="Đang tải nội dung chương..."
         >
+          {manga &&
+            (manga.attributes.contentRating ===
+              MangadexApi.Static.MangaContentRating.PORNOGRAPHIC ||
+              manga.attributes.contentRating ===
+                MangadexApi.Static.MangaContentRating.EROTICA) && (
+              <div className="mb-10">
+                <Alert
+                  title="Phát hiện truyện có thể có nội dung phản cảm theo đánh giá của MangaDex. TruyenDex không chịu trách nhiệm với nội dung của truyện."
+                  classNames={{
+                    alert: "[&>svg]:text-red-500 text-red-500 bg-red-100",
+                  }}
+                />
+              </div>
+            )}
           <div className="reading-detail box_doc">
             <LazyImages images={pages} threshold={(height || 1000) * 3} />
           </div>

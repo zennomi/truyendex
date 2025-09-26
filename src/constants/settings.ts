@@ -5,7 +5,7 @@ export class SettingsConstants {
   readonly DEFAULT_SETTINGS: SettingsState = {
     filteredLanguages: ["vi"],
     originLanguages: [],
-    filteredContent: ["safe", "suggestive", "erotica"],
+    filteredContent: ["safe", "suggestive"],
     dataSaver: false,
     maxImageWidth: undefined,
   };

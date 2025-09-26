@@ -9,6 +9,7 @@ import { Slider } from "../shadcn/slider";
 import { Switch } from "../shadcn/switch";
 import { useSettingsContext } from "@/contexts/settings";
 import useWindowSize from "@/hooks/useWindowSize";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function SettingsDialog() {
   const {
@@ -25,6 +26,8 @@ export default function SettingsDialog() {
   } = useSettingsContext();
 
   const { width: windowWidth } = useWindowSize();
+
+  const { user } = useAuth();
 
   const handleBackdropClick = useCallback(
     (e: MouseEvent) => {
@@ -79,18 +82,26 @@ export default function SettingsDialog() {
           anyLabel="Tất cả quốc gia"
           language
         />
-        <div className="font-bold">Lọc nội dung:</div>
-        <MultiSelectDropdown
-          options={[
-            { label: "An toàn", value: "safe" },
-            { label: "16+", value: "suggestive" },
-            { label: "18+", value: "erotica" },
-            { label: "18++", value: "pornographic" },
-          ]}
-          selectedValues={filteredContent}
-          onChange={(values) => onUpdateField("filteredContent", values)}
-          anyLabel="Tất cả nội dung"
-        />
+        {user && (
+          <div>
+            <div className="font-bold">Lọc nội dung:</div>
+            <div className="mb-2 text-sm text-muted-foreground">
+              Nội dung này được lọc dựa trên đánh giá của MangaDex. TruyenDex
+              không chịu trách nhiệm với nội dung của các truyện được lọc.
+            </div>
+            <MultiSelectDropdown
+              options={[
+                { label: "An toàn", value: "safe" },
+                { label: "Khơi gợi", value: "suggestive" },
+                { label: "Không an toàn", value: "erotica" },
+                { label: "Nguy hiểm", value: "pornographic" },
+              ]}
+              selectedValues={filteredContent}
+              onChange={(values) => onUpdateField("filteredContent", values)}
+              anyLabel="Tất cả nội dung"
+            />
+          </div>
+        )}
         <div className="flex items-center gap-2">
           <Switch
             checked={maxImageWidth !== undefined}
@@ -98,7 +109,7 @@ export default function SettingsDialog() {
               onUpdateField("maxImageWidth", value ? 0 : undefined)
             }
           />
-          <div className="font-bold">Chiều rộng ảnh</div>
+          <div className="font-bold">Giới hạn chiều rộng ảnh</div>
           {maxImageWidth !== undefined && (
             <span className="font-normal text-muted-foreground">
               {"(" + maxImageWidth + "px)"}

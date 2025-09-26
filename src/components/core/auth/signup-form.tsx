@@ -182,6 +182,19 @@ export default function SignUpForm() {
           </button>
         </div> */}
 
+        <div className="mb-4 text-center">
+          Khi đăng ký, đồng nghĩa với việc bạn đồng ý với{" "}
+          <Link
+            href={Constants.Routes.termsOfService}
+            className="text-indigo-600 hover:text-indigo-800"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            điều khoản dịch vụ
+          </Link>{" "}
+          của chúng tôi.
+        </div>
+
         <div className="text-center">
           <span className="me-2 text-slate-400">Đã có tài khoản? </span>{" "}
           <Link

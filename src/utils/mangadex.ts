@@ -175,7 +175,9 @@ export class MangaDexUtils {
   getCoverArt(manga: ExtendManga | undefined, size: 256 | 512 = 256) {
     if (!manga) return defaultImage;
     if (manga.cover_art?.attributes) {
-      return `https://resizer.f-ck.me/?url=https://mangadex.org/covers/${manga.id}/${manga.cover_art.attributes.fileName}.${size}.jpg`;
+      const originalUrl = `https://mangadex.org/covers/${manga.id}/${manga.cover_art.attributes.fileName}.${size}.jpg`;
+      // use proxy because mangadex is blocked in some countries
+      return `https://services.f-ck.me/v1/image/${btoa(originalUrl).replace(/\+/g, "-").replace(/\//g, "_")}`;
     }
     return defaultImage;
   }
