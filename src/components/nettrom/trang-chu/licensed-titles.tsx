@@ -13,7 +13,7 @@ import { useUpcomingBooks } from "@/hooks/tanamoe";
 export default function LicensedTitles() {
   const { data, isLoading, error } = useUpcomingBooks({
     page: 1,
-    perPage: 100,
+    perPage: 12,
   });
 
   return (
@@ -52,9 +52,7 @@ export default function LicensedTitles() {
                   item.expand.assets_via_book?.[0]?.resizedImage["480w"],
                 );
 
-                const url = Constants.Routes.tanamoe.title(
-                  item.expand.publication.expand.release.expand.title.id,
-                );
+                const url = Utils.Tanamoe.getOriginalTitleUrl(item);
                 return (
                   <SwiperSlide key={item.id}>
                     <div key={item.id} className={`item bg-black bg-cover`}>
@@ -62,6 +60,7 @@ export default function LicensedTitles() {
                         href={url}
                         title={title}
                         className="transtion group relative block h-full w-full"
+                        target="_blank"
                       >
                         <AspectRatio
                           ratio={Constants.Nettrom.MANGA_COVER_RATIO}
