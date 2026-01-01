@@ -34,11 +34,11 @@ export const LayoutWrapper = async ({
       <GoogleTagManager gtmId={Constants.GTM_ID} />
       <head>
         <link rel="dns-prefetch" href="https://mangadex.org" />
-        <link rel="dns-prefetch" href="https://api.truyendex.xyz" />
-        <link rel="dns-prefetch" href="https://api-proxy.truyendex.xyz" />
-        <link rel="dns-prefetch" href="https://cdn.truyendex.xyz" />
+        <link rel="dns-prefetch" href="https://api.truyendex.cc" />
+        <link rel="dns-prefetch" href="https://api-proxy.truyendex.cc" />
+        <link rel="dns-prefetch" href="https://cdn.truyendex.cc" />
 
-        <link rel="dns-prefetch" href="https://api.truyendex.com" />
+        <link rel="dns-prefetch" href="https://api.truyendex.cc" />
 
         <link rel="dns-prefetch" href="https://www.google.com" />
         <link rel="dns-prefetch" href="https://www.gstatic.com" />
