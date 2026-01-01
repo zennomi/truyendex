@@ -4,7 +4,7 @@
   <img src="./src/app/opengraph-image.jpg" />
 </p>
 
-> TruyenDex đã dừng phát triển bởi đội ngũ chính thức, tuy nhiên website [TruyenDex.com](https://truyendex.com/) vẫn sẽ được duy trì và hỗ trợ merge PR từ các bạn. [Chi tiết][mangadex-dmca].
+> TruyenDex đã dừng phát triển bởi đội ngũ chính thức, tuy nhiên website [TruyenDex.cc](https://truyendex.cc/) vẫn sẽ được duy trì và hỗ trợ merge PR từ các bạn. [Chi tiết][mangadex-dmca].
 
 [mangadex-dmca]: #mangadex-dmca
 
@@ -50,7 +50,7 @@ Lời đầu tiên, TruyenDex xin gửi lời cảm ơn sâu sắc đến đội
 
 - Điều này chứng tỏ không một website nào tránh khỏi DMCA và sự chú ý từ các đơn vị bản quyền, kể cả MangaDex, một website đã tôn trọng bản quyền hết mức của thể của một web truyện fantrans.
 
-- Vậy nên MangaDex cũng không thể là ngôi nhà an toàn cho các nhóm dịch Việt Nam, nên chúng mình sẽ **dừng phát triển TruyenDex**. Tuy nhiên, chúng mình vẫn sẽ duy trì website TruyenDex.com để các bạn sử dụng, và sẵn sàng hỗ trợ các bạn trong việc đóng góp vào repo này.
+- Vậy nên MangaDex cũng không thể là ngôi nhà an toàn cho các nhóm dịch Việt Nam, nên chúng mình sẽ **dừng phát triển TruyenDex**. Tuy nhiên, chúng mình vẫn sẽ duy trì website TruyenDex.cc để các bạn sử dụng, và sẵn sàng hỗ trợ các bạn trong việc đóng góp vào repo này.
 
 ## Development (English)
 

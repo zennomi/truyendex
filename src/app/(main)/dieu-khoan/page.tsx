@@ -171,12 +171,12 @@ export default function TermsOfServicePage() {
                 <li>
                   Website:{" "}
                   <a
-                    href="https://truyendex.com"
+                    href="https://truyendex.cc"
                     className="text-blue-600 underline hover:text-blue-800"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    https://truyendex.com
+                    https://truyendex.cc
                   </a>
                 </li>
               </ul>
