@@ -18,7 +18,13 @@ import {
 } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@/components/shadcn/dropdown-menu";
 import { useAuth } from "@/hooks/useAuth";
 import { Constants } from "@/constants";
 import { useSettingsContext } from "@/contexts/settings";
@@ -27,7 +33,7 @@ import MainNav from "./main-nav";
 import SearchInput from "../common/search-input";
 
 const menuItemClassName =
-  "flex gap-2 items-center w-full text-[#333] py-1 px-5 text-nowrap hover:text-[#ae4ad9] hover:bg-[#f5f5f5]";
+  "flex gap-2 items-center w-full text-[#333] py-2 px-4 text-nowrap hover:text-[#ae4ad9] hover:bg-[#f5f5f5] !text-[15px] [&>svg]:!size-[16px]";
 
 export default function Header() {
   const [openMenu, setOpenMenu] = useState(false);
@@ -113,15 +119,15 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
 
   if (user === undefined) return null;
   return (
-    <Menu>
+    <DropdownMenu>
       <ul
         className={`nav-account list-inline ${desktop ? "hidden-xs pull-right mt-[14px]" : ""}`}
       >
         <li className="dropdown open">
-          <MenuButton>
+          <DropdownMenuTrigger asChild>
             <a
               data-toggle="dropdown"
-              className="user-menu fn-userbox dropdown-toggle flex items-center gap-2"
+              className="user-menu fn-userbox dropdown-toggle flex cursor-pointer items-center gap-2"
             >
               <FaList className="inline" />{" "}
               <span className="max-w-[100px] truncate">
@@ -129,14 +135,14 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
               </span>{" "}
               <FaCaretDown className="inline" />
             </a>
-          </MenuButton>
-          <MenuItems
-            className="z-3 my-2 min-w-[160px] rounded bg-white py-1"
-            anchor="bottom start"
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            className="z-50 my-2 min-w-[160px] rounded bg-white py-1"
+            align="start"
           >
             {user ? (
               <>
-                <MenuItem>
+                <DropdownMenuItem asChild>
                   <Link
                     href={Constants.Routes.dashboard.index}
                     className={menuItemClassName}
@@ -144,8 +150,8 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
                     <FaHome />
                     Trang cá nhân
                   </Link>
-                </MenuItem>
-                <MenuItem>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
                   <Link
                     className={menuItemClassName}
                     href={Constants.Routes.nettrom.following}
@@ -153,11 +159,11 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
                     <FaBook />
                     Truyện theo dõi
                   </Link>
-                </MenuItem>
+                </DropdownMenuItem>
               </>
             ) : (
               <>
-                <MenuItem>
+                <DropdownMenuItem asChild>
                   <Link
                     className={menuItemClassName}
                     href={Constants.Routes.login}
@@ -165,8 +171,8 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
                     <FaUser />
                     Đăng nhập
                   </Link>
-                </MenuItem>
-                <MenuItem>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
                   <Link
                     className={menuItemClassName}
                     href={Constants.Routes.signup}
@@ -174,10 +180,10 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
                     <FaPencilAlt />
                     Đăng ký
                   </Link>
-                </MenuItem>
+                </DropdownMenuItem>
               </>
             )}
-            <MenuItem>
+            <DropdownMenuItem asChild>
               <Link
                 className={menuItemClassName}
                 href={Constants.Routes.nettrom.history}
@@ -185,8 +191,8 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
                 <FaHistory />
                 Lịch sử
               </Link>
-            </MenuItem>
-            <MenuItem>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
               <Link
                 className={menuItemClassName}
                 href={Constants.Routes.report}
@@ -195,8 +201,8 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
                 <FaBug />
                 Báo lỗi
               </Link>
-            </MenuItem>
-            <MenuItem>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
               <Link
                 className={menuItemClassName}
                 href={Constants.Routes.github}
@@ -205,29 +211,30 @@ function AuthDropdown({ desktop }: { desktop?: boolean }) {
                 <FaGithub />
                 GitHub
               </Link>
-            </MenuItem>
-            <MenuItem>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
               <button className={menuItemClassName} onClick={onToggleDrawer}>
                 <FaCog /> Cài đặt
               </button>
-            </MenuItem>
+            </DropdownMenuItem>
             {/* Divider */}
             {user && (
               <>
-                <MenuItem>
-                  <hr className="my-1" />
-                </MenuItem>
-                <MenuItem>
-                  <a className={menuItemClassName} onClick={logout}>
+                <DropdownMenuSeparator className="my-1" />
+                <DropdownMenuItem asChild>
+                  <a
+                    className={`${menuItemClassName} cursor-pointer`}
+                    onClick={logout}
+                  >
                     <FaSignOutAlt />
                     Đăng xuất
                   </a>
-                </MenuItem>
+                </DropdownMenuItem>
               </>
             )}
-          </MenuItems>
+          </DropdownMenuContent>
         </li>
       </ul>
-    </Menu>
+    </DropdownMenu>
   );
 }

@@ -2,7 +2,12 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/shadcn/dropdown-menu";
 import { last } from "lodash";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
@@ -238,31 +243,27 @@ export function CommentItem({
           )}
           {user && user.id === comment.user.id && (
             <li className="comment-more-wrap">
-              <Menu>
-                <MenuButton>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="border-none bg-transparent p-0 outline-none">
                   <span className="more-action">
                     <i className="fa fa-ellipsis-h"> </i>
                   </span>
-                </MenuButton>
-                <MenuItems anchor="bottom">
-                  <MenuItem>
-                    <div
-                      onClick={() => setEditMode(!editMode)}
-                      className="cursor-pointer bg-white px-4 py-2 text-black hover:bg-slate-100"
-                    >
-                      {editMode ? "Thoát sửa" : "Sửa"}
-                    </div>
-                  </MenuItem>
-                  <MenuItem>
-                    <div
-                      onClick={() => onDeleteComment()}
-                      className="cursor-pointer bg-white px-4 py-2 text-black hover:bg-slate-100"
-                    >
-                      Xoá
-                    </div>
-                  </MenuItem>
-                </MenuItems>
-              </Menu>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-40">
+                  <DropdownMenuItem
+                    onClick={() => setEditMode(!editMode)}
+                    className="cursor-pointer px-4 py-2 text-base"
+                  >
+                    {editMode ? "Thoát sửa" : "Sửa"}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => onDeleteComment()}
+                    className="cursor-pointer px-4 py-2 text-base"
+                  >
+                    Xoá
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </li>
           )}
           <li>
