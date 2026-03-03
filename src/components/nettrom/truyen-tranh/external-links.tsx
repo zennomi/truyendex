@@ -85,7 +85,7 @@ export default function ExternalLinks({
     ...parsedLinks.filter((l) => !!l),
   ];
   return (
-    <p className="pl-10 lg:pl-0">
+    <p className="pl-6 text-sm lg:pl-0">
       {parsedLinks.map((i, idx) => {
         if (!i) return null;
         return (

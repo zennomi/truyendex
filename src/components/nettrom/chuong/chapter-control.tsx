@@ -22,7 +22,7 @@ export default function ChapterControl() {
   return (
     <DataLoader isLoading={!chapter} loadingText="Đang tải thông tin chương...">
       <div className="flex flex-col gap-0">
-        <h1 className="mb-1 mt-0 md:mb-4">
+        <h1 className="mb-1 mt-0 md:mb-2.5">
           <Link
             className="text-[16px] text-web-title transition hover:text-web-titleLighter"
             href={Constants.Routes.nettrom.manga(manga?.id || "")}
@@ -33,7 +33,7 @@ export default function ChapterControl() {
             {chapterTitle}{" "}
           </p>
         </h1>
-        <p className="mb-2 md:mb-5">
+        <p className="mb-2 md:mb-3">
           <span className="text-[14px] text-muted-foreground">
             <FaClock className="mr-2 inline" />
             Cập nhật lúc:{" "}
@@ -78,7 +78,7 @@ export default function ChapterControl() {
         )}
         <RandomAlert />
         <ChapterControlBar></ChapterControlBar>
-        <div className="mb-4"></div>
+        <div className="mb-2.5"></div>
       </div>
     </DataLoader>
   );

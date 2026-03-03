@@ -21,7 +21,7 @@ export default function LicensedTitleView() {
                 <h1 className="text-4xl font-bold lg:text-6xl">{data.name}</h1>
               </div>
             </div>
-            <div className="relative mb-5 ml-auto w-[256px] flex-shrink-0 md:mb-0 xl:w-[320px]">
+            <div className="relative mb-3 ml-auto w-[256px] flex-shrink-0 md:mb-0 xl:w-[320px]">
               <div className="absolute inset-0 z-10 bg-gradient-to-t from-gray-50 to-transparent to-50% sm:hidden dark:from-[#252525]" />
               <img
                 src={Utils.Tanamoe.getCoverImage(
@@ -47,7 +47,7 @@ export default function LicensedTitleView() {
               <div className="hover:prose-a:text-orange-400 dark:hover:prose-a:text-orange-400 prose prose-sm dark:prose-invert prose-h4:my-0 prose-a:text-gray-700 hover:prose-a:underline prose-img:my-0 prose-hr:my-3 dark:prose-a:text-gray-200 max-w-none divide-y divide-gray-200 rounded-lg shadow ring-1 ring-gray-200 dark:divide-white dark:bg-none dark:ring-white">
                 {/**/}
                 <div className="divide-y divide-gray-200 p-0 sm:p-0 dark:divide-gray-100">
-                  <div className="space-y-3 p-4">
+                  <div className="space-y-3 p-2.5">
                     <div>
                       <h4 className="mb-1">Trạng thái</h4>
                       <span className="inline-flex items-center rounded-md bg-orange-500 px-2 py-1 font-medium text-white dark:bg-orange-400 dark:text-gray-900">
@@ -55,7 +55,7 @@ export default function LicensedTitleView() {
                       </span>
                     </div>
                   </div>
-                  <div className="space-y-3 p-4">
+                  <div className="space-y-3 p-2.5">
                     <div>
                       <h4>Tựa truyện</h4>
                       <Link

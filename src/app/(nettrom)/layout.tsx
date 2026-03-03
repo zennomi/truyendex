@@ -62,8 +62,8 @@ export default function NettromLayout({
       <nav className="main-nav hidden-xs" id="mainNav">
         <div className="inner bg-neutral-900">
           <div className="container">
-            <div className="py-4">
-              <div className="mb-0 md:mb-4">
+            <div className="py-2.5">
+              <div className="mb-0 md:mb-2.5">
                 <Alert
                   title="TruyenDex chỉ xây dựng giao diện tiếng Việt, toàn bộ dữ liệu
                 thuộc về MangaDex."

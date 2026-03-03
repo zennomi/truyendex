@@ -128,7 +128,7 @@ export default function SettingsDialog() {
             }
           />
         )}
-        <div className="flex justify-end gap-4">
+        <div className="flex justify-end gap-2.5">
           <Button
             onClick={() => {
               onCloseDrawer();

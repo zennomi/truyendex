@@ -17,8 +17,8 @@ export default function RecentComments() {
   const { data, error, isLoading, mutate } = useRecentComments();
   return (
     <div>
-      <div className="mb-4 flex items-center justify-between gap-3">
-        <h2 className="flex items-center gap-4 text-[20px] font-medium text-web-title">
+      <div className="mb-2.5 flex items-center justify-between gap-3">
+        <h2 className="flex items-center gap-2.5 text-[20px] font-medium text-web-title">
           <FaComment />
           Bình luận gần đây
         </h2>
@@ -52,7 +52,7 @@ function CommentSkeleton() {
             <Skeleton />
           </div>
         </div>
-        <div className="whitespace-nowrap text-lg text-gray-500">
+        <div className="whitespace-nowrap text-xs text-gray-500">
           <Skeleton />
         </div>
       </div>
@@ -71,7 +71,7 @@ function Comment({ comment }: { comment: RecentCommentResponse }) {
   return (
     <div key={comment.id}>
       <div className="mb-2">
-        <div className="line-clamp-2 font-bold">
+        <div className="line-clamp-2 text-sm font-bold">
           <Link
             href={
               type === "chapter"
@@ -89,7 +89,7 @@ function Comment({ comment }: { comment: RecentCommentResponse }) {
                 href={Constants.Routes.nettrom.manga(
                   comment.commentable.series.uuid,
                 )}
-                className="font-bold"
+                className="text-sm font-bold"
               >
                 {comment.commentable.series.title}
               </Link>
@@ -109,19 +109,19 @@ function Comment({ comment }: { comment: RecentCommentResponse }) {
       <div className="mt-2 flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <img
-            className={twMerge("h-10 w-10 rounded-full", userBanned && "blur")}
+            className={twMerge("size-6 rounded-full", userBanned && "blur")}
             src={Utils.Url.getAvatarUrl(comment.user.avatar_path)}
           />
           <div
             className={twMerge(
-              "max-w-[200px] truncate font-bold",
+              "max-w-[200px] truncate text-sm font-bold",
               userBanned && "line-through",
             )}
           >
             {comment.user.name}
           </div>
         </div>
-        <div className="whitespace-nowrap text-lg text-gray-500">
+        <div className="whitespace-nowrap text-xs text-gray-500">
           {Utils.Date.formatNowDistance(new Date(comment.created_at))} trước
         </div>
       </div>

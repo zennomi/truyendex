@@ -12,7 +12,7 @@ export default function ScanlationGroupInformation({
   return (
     <div className="my-4 rounded-lg px-2 py-2">
       {!canNext && (
-        <div className="text-center text-lg text-gray-500">
+        <div className="text-center text-xs text-gray-500">
           Mãi không thấy chương mới? Giục tại đây 👇🏻
         </div>
       )}

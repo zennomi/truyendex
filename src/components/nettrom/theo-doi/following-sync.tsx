@@ -135,7 +135,7 @@ function Step4({ source }: { source: string }) {
       <div>
         Mở tab Console, sao chép script phía dưới, dán vào Console và bấm Enter.
       </div>
-      <pre className="whitespace-pre-wrap break-words rounded bg-gray-800 p-4 text-white">
+      <pre className="whitespace-pre-wrap break-words rounded bg-gray-800 p-2.5 text-white">
         <code className="whitespace-pre-wrap break-words">{script}</code>
       </pre>
       <Button

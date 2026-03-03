@@ -39,7 +39,7 @@ export default function NotFound() {
         </p>
       </div>
 
-      <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:gap-2.5">
         <Button onClick={handleGoBack} icon={<ArrowLeft className="size-6" />}>
           Quay lại trang trước
         </Button>

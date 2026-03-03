@@ -78,7 +78,7 @@ export default function SearchInput() {
               <h3 className="mb-1 text-xl font-semibold text-gray-700">
                 Kết quả tìm kiếm
               </h3>
-              <p className="text-lg text-gray-500">
+              <p className="text-xs text-gray-500">
                 {isLoading ? "Đang tìm kiếm..." : `${mangaList.length} kết quả`}
               </p>
             </div>
@@ -100,7 +100,7 @@ export default function SearchInput() {
                           <Link
                             href={Constants.Routes.nettrom.manga(manga.id)}
                             onClick={clearTitle}
-                            className="block p-4 text-inherit no-underline hover:text-inherit focus:text-inherit active:text-inherit"
+                            className="block p-2.5 text-inherit no-underline hover:text-inherit focus:text-inherit active:text-inherit"
                           >
                             <div className="float-left mr-3 h-32 w-24 overflow-hidden rounded shadow-sm">
                               <img

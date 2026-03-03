@@ -118,7 +118,7 @@ export default function Manga({
       error={error}
     >
       <ul
-        className="mb-2 inline-flex items-center gap-4"
+        className="mb-2 inline-flex items-center gap-2.5 text-sm"
         itemType="http://schema.org/BreadcrumbList"
       >
         {[
@@ -171,18 +171,18 @@ export default function Manga({
       </ul>
       <article id="" className="dark:text-foreground">
         <div className="mb-[16px]">
-          <h1 className="my-0 mb-4 text-[32px] font-semibold leading-tight">
+          <h1 className="my-0 mb-2.5 text-[32px] font-semibold leading-tight">
             {title}
           </h1>
-          <p className="inline-flex w-full gap-8 text-muted-foreground">
+          <p className="inline-flex w-full gap-8 text-sm text-muted-foreground">
             <span>
               <i className="fa fa-star mr-2"></i>
               <span className="block sm:inline">
                 <span className="text-foreground">
-                  {mangaStatistics[mangaId]?.rating.bayesian.toFixed(2) || 10}
+                  {mangaStatistics[mangaId]?.rating.bayesian.toFixed(2) || 6}
                 </span>
                 <span className="mx-2">/</span>
-                <span itemProp="bestRating">10</span>
+                <span itemProp="bestRating">6</span>
               </span>
             </span>
             <span>
@@ -216,8 +216,8 @@ export default function Manga({
             </span>
           </p>
         </div>
-        <div className="detail-info mb-10">
-          <div className="grid grid-cols-[1fr_2fr] gap-10">
+        <div className="detail-info mb-6">
+          <div className="grid grid-cols-[1fr_2fr] gap-6">
             <div className="">
               <div className="relative w-full">
                 <AspectRatio
@@ -236,10 +236,10 @@ export default function Manga({
               <ul className="[&>li]:grid [&>li]:lg:grid-cols-[1fr_2fr]">
                 {altTitles.length > 0 && (
                   <li className="">
-                    <p className="name mb-2 text-muted-foreground lg:mb-0">
+                    <p className="name mb-2 text-sm text-muted-foreground lg:mb-0">
                       <i className="fa fa-plus-square mr-2"></i> Tên khác
                     </p>
-                    <p className="other-name inline-flex flex-wrap gap-4 pl-10 lg:pl-0">
+                    <p className="other-name inline-flex flex-wrap gap-2.5 pl-6 text-sm lg:pl-0">
                       {altTitles.map((altTitle, idx) => {
                         return <span key={idx}>{altTitle}</span>;
                       })}
@@ -247,10 +247,10 @@ export default function Manga({
                   </li>
                 )}
                 <li className="author">
-                  <p className="name mb-2 text-muted-foreground lg:mb-0">
+                  <p className="name mb-2 text-sm text-muted-foreground lg:mb-0">
                     <i className="fa fa-user mr-2"></i> Tác giả
                   </p>
-                  <p className="pl-10 lg:pl-0">
+                  <p className="pl-6 text-sm lg:pl-0">
                     {manga?.author?.attributes
                       ? manga?.author?.attributes.name
                       : "N/A"}{" "}
@@ -261,10 +261,10 @@ export default function Manga({
                   </p>
                 </li>
                 <li className="status">
-                  <p className="name mb-2 text-muted-foreground lg:mb-0">
+                  <p className="name mb-2 text-sm text-muted-foreground lg:mb-0">
                     <i className="fa fa-rss mr-2"></i> Tình trạng
                   </p>
-                  <p className="pl-10 lg:pl-0">
+                  <p className="pl-6 text-sm lg:pl-0">
                     {manga?.attributes.year
                       ? `${manga.attributes.year} - `
                       : ""}
@@ -272,20 +272,21 @@ export default function Manga({
                   </p>
                 </li>
                 <li className="kind">
-                  <p className="name mb-2 text-muted-foreground lg:mb-0">
-                    <i className="fa fa-exclamation-triangle mr-2"></i> Nội dung
+                  <p className="name mb-2 text-sm text-muted-foreground lg:mb-0">
+                    <i className="fa fa-exclamation-triangle mr-2 text-sm"></i>{" "}
+                    Nội dung
                   </p>
-                  <p className="pl-10 lg:pl-0">
+                  <p className="pl-6 text-sm lg:pl-0">
                     {Utils.Mangadex.translateContentRating(
                       manga?.attributes.contentRating,
                     )}
                   </p>
                 </li>
                 <li className="kind">
-                  <p className="name mb-2 text-muted-foreground lg:mb-0">
-                    <i className="fa fa-tags mr-2"></i> Thể loại
+                  <p className="name mb-2 text-sm text-muted-foreground lg:mb-0">
+                    <i className="fa fa-tags mr-2 text-sm"></i> Thể loại
                   </p>
-                  <p className="pl-10 lg:pl-0">
+                  <p className="pl-6 text-sm lg:pl-0">
                     {manga?.attributes.tags.map((tag, idx) => (
                       <>
                         <Link
@@ -308,10 +309,10 @@ export default function Manga({
                   </p>
                 </li>
                 <li className="">
-                  <p className="name mb-2 text-muted-foreground lg:mb-0">
+                  <p className="name mb-2 text-sm text-muted-foreground lg:mb-0">
                     <i className="fa fa-globe mr-2"></i> Ngôn ngữ gốc
                   </p>
-                  <p className="flex items-center gap-2 pl-10 lg:pl-0">
+                  <p className="flex items-center gap-2 pl-6 text-sm lg:pl-0">
                     <Iconify
                       icon={`circle-flags:lang-${manga.attributes.originalLanguage}`}
                       className="inline-block"
@@ -324,7 +325,7 @@ export default function Manga({
                   </p>
                 </li>
                 <li className="">
-                  <p className="name mb-2 text-muted-foreground lg:mb-0">
+                  <p className="name mb-2 text-sm text-muted-foreground lg:mb-0">
                     <i className="fa fa-chain mr-2"></i> Nguồn
                   </p>
                   {manga && (
@@ -337,14 +338,14 @@ export default function Manga({
               </ul>
             </div>
           </div>
-          <div className="mt-4 grid sm:grid-cols-[1fr_2fr] sm:gap-10">
+          <div className="mt-4 grid sm:grid-cols-[1fr_2fr] sm:gap-6">
             <div></div>
-            <div className="grid flex-wrap gap-4 sm:flex sm:grid-cols-2">
+            <div className="grid flex-wrap gap-2.5 sm:flex sm:grid-cols-2">
               <FirstChapterButton mangaId={mangaId} />
               {seriesInfo &&
                 (seriesInfo.followed !== null ? (
                   <Button
-                    className="w-full border-red-500 text-red-500 hover:bg-red-300/10 hover:text-red-500 sm:w-auto"
+                    className="hover:bg-red-300/6 w-full border-red-500 text-red-500 hover:text-red-500 sm:w-auto"
                     icon={
                       <Iconify
                         icon={
@@ -376,7 +377,7 @@ export default function Manga({
           MangadexApi.Static.MangaContentRating.PORNOGRAPHIC ||
           manga.attributes.contentRating ===
             MangadexApi.Static.MangaContentRating.EROTICA) && (
-          <div className="mb-10">
+          <div className="mb-6">
             <Alert
               title="Phát hiện truyện có thể có nội dung phản cảm theo đánh giá của MangaDex. TruyenDex không chịu trách nhiệm với nội dung của truyện."
               classNames={{
@@ -385,8 +386,8 @@ export default function Manga({
             />
           </div>
         )}
-        <div className="detail-content mb-10">
-          <h2 className="mb-4 flex items-center gap-4 text-[20px] font-medium text-web-title">
+        <div className="detail-content mb-6">
+          <h2 className="mb-2.5 flex items-center gap-2.5 text-[20px] font-medium text-web-title">
             <i className="fa fa-pen"></i>
             <span>Nội dung</span>
           </h2>

@@ -17,8 +17,8 @@ export default function ReadingHistory() {
   return (
     <div>
       <div>
-        <div className="mb-4 flex items-center justify-between gap-3">
-          <h2 className="flex items-center gap-4 text-[20px] font-medium text-web-title">
+        <div className="mb-2.5 flex items-center justify-between gap-3">
+          <h2 className="flex items-center gap-2.5 text-[20px] font-medium text-web-title">
             <FaHistory />
             Lịch sử đọc truyện
           </h2>
@@ -29,7 +29,7 @@ export default function ReadingHistory() {
             Xem tất cả
           </Link>
         </div>
-        <ul className="grid grid-cols-4 gap-4">
+        <ul className="grid grid-cols-4 gap-2.5">
           {historyEntries.slice(0, 4).map(([mangaId, manga]) => (
             <li className="group" key={mangaId}>
               <div className="flex gap-3">
@@ -55,7 +55,7 @@ export default function ReadingHistory() {
         </ul>
         {historyEntries.length === 0 && (
           <AspectRatio ratio={8 / 3}>
-            <div className="flex h-full w-full items-center justify-center text-lg text-gray-500">
+            <div className="flex h-full w-full items-center justify-center text-xs text-gray-500">
               Không có lịch sử đọc truyện
             </div>
           </AspectRatio>

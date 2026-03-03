@@ -20,8 +20,8 @@ module.exports = {
         DEFAULT: "12px",
         sm: "1rem",
         lg: "45px",
-        xl: "5rem",
-        "2xl": "13rem",
+        xl: "50px",
+        "2xl": "130px",
       },
     },
     extend: {
@@ -96,8 +96,8 @@ module.exports = {
           DEFAULT: "12px",
           sm: "1rem",
           lg: "45px",
-          xl: "5rem",
-          "2xl": "13rem",
+          xl: "50px",
+          "2xl": "130px",
         },
       },
       zIndex: {

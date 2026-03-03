@@ -20,7 +20,7 @@ export const ErrorDisplay = (props: { error?: any; refresh?: Function }) => {
   } else errorMessage = "Đã có lỗi xảy ra khi tải dữ liệu này";
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4 text-center text-muted-foreground">
+    <div className="flex flex-col items-center justify-center gap-2.5 text-center text-muted-foreground">
       <span>{errorMessage}</span>
       {props.refresh && (
         <button

@@ -18,7 +18,7 @@ export default function ListChapter({
 }) {
   return (
     <div id="nt_listchapter">
-      <h2 className="mb-4 flex items-center gap-4 text-[20px] font-medium text-web-title">
+      <h2 className="mb-2.5 flex items-center gap-2.5 text-[20px] font-medium text-web-title">
         <i className="fa fa-list"></i>
         <span>Danh sách chương</span>
       </h2>
@@ -26,7 +26,7 @@ export default function ListChapter({
         isLoading={!props.data}
         loadingText="Đang tải danh sách chương"
       >
-        <div className="rounded-xl border border-muted-foreground p-4">
+        <div className="rounded-xl border border-muted-foreground p-2.5">
           <div className="heading grid grid-cols-[5fr_4fr_3fr] border-b border-muted-foreground pb-4 text-muted-foreground">
             <div className="no-wrap">Tên chương</div>
             <div className="no-wrap text-center">Cập nhật</div>
@@ -76,7 +76,7 @@ export default function ListChapter({
           </nav>
         </div>
       </DataLoader>
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex items-center justify-between gap-2.5">
         <Pagination
           onPageChange={(event) => {
             props.onPageChange?.(event.selected);
@@ -88,7 +88,7 @@ export default function ListChapter({
           }
           forcePage={props.page}
         />
-        <p className="mb-0 ml-auto py-4 text-muted-foreground">
+        <p className="mb-0 ml-auto py-2.5 text-sm text-muted-foreground">
           Đã hiển thị{" "}
           <span className="text-foreground">
             {(props.data?.offset || 0) + (props.data?.data.length || 0)} /{" "}
