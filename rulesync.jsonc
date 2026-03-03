@@ -1,0 +1,13 @@
+{
+  "targets": ["cursor", "claudecode", "antigravity"],
+  "features": ["rules"],
+  "baseDirs": ["."],
+  "delete": true,
+  "verbose": false,
+  "silent": false,
+  "global": false,
+  "simulateCommands": false,
+  "simulateSubagents": false,
+  "simulateSkills": false,
+  "modularMcp": false,
+}
