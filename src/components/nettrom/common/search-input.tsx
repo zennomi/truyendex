@@ -2,7 +2,8 @@
 
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "nextjs-toploader/app";
-import { MouseEvent, useCallback, useState } from "react";
+import { useCallback, useState, useRef, useEffect } from "react";
+import { Search } from "lucide-react";
 
 import { MangadexApi } from "@/api";
 import { DataLoader } from "@/components/DataLoader";
@@ -12,6 +13,8 @@ import { useSearchManga } from "@/hooks/mangadex";
 import useDebounce from "@/hooks/useDebounce";
 import { Utils } from "@/utils";
 import Link from "next/link";
+import { Input } from "@/components/shadcn/input";
+import { Button } from "@/components/shadcn/button";
 
 export default function SearchInput() {
   const params = useSearchParams();
@@ -30,7 +33,7 @@ export default function SearchInput() {
     { enable: !!deboucedTitle },
   );
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const options = Utils.Mangadex.normalizeParams(params);
     options.title = title;
@@ -40,146 +43,156 @@ export default function SearchInput() {
 
   const clearTitle = useCallback(() => setTitle(""), [setTitle]);
 
-  const handleBackdropClick = useCallback(
-    (e: MouseEvent) => {
-      if ((e.target as HTMLElement)?.id === "suggest-backdrop") {
+  const wrapperRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: globalThis.MouseEvent) {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
         clearTitle();
       }
-    },
-    [clearTitle],
-  );
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [clearTitle]);
 
   return (
-    <form onSubmit={handleSubmit} className="input-group">
-      <input
+    <form
+      ref={wrapperRef}
+      onSubmit={handleSubmit}
+      className="relative flex w-full max-w-sm items-center"
+    >
+      <Input
         type="text"
-        className="searchinput form-control"
         placeholder="Tìm truyện..."
         value={title}
         onChange={(event) => setTitle(event.target.value)}
+        className="h-9 border-transparent bg-white/10 pr-10 text-white placeholder:text-neutral-400 focus-visible:border-transparent focus-visible:ring-1 focus-visible:ring-neutral-600"
       />
-      <div className="input-group-btn z-2">
-        <input
-          type="submit"
-          value=""
-          className="searchbutton btn btn-default"
-          onClick={handleSubmit}
-        />
-      </div>
+      <Button
+        type="submit"
+        size="icon"
+        variant="ghost"
+        className="absolute right-0 top-0 h-9 w-9 px-3 py-2 text-neutral-400 hover:bg-transparent hover:text-white"
+        onClick={handleSubmit as any}
+      >
+        <Search className="h-4 w-4" />
+      </Button>
+
       {title && (
-        <>
-          <div
-            id="suggest-backdrop"
-            className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25 backdrop-blur-sm"
-            onClick={handleBackdropClick}
-          ></div>
-          <div className="absolute left-0 top-full z-[1000] max-h-[350px] w-full overflow-hidden border border-gray-200 bg-white shadow-lg transition-all duration-300 ease-out md:max-h-[400px] md:w-[295px] lg:w-[455px]">
-            <div className="border-b border-gray-100 bg-gray-50 px-4 py-3">
-              <h3 className="mb-1 text-xl font-semibold text-gray-700">
-                Kết quả tìm kiếm
-              </h3>
-              <p className="text-xs text-gray-500">
-                {isLoading ? "Đang tìm kiếm..." : `${mangaList.length} kết quả`}
+        <div className="absolute left-0 top-full z-50 mt-1 max-h-[350px] w-full overflow-hidden rounded-md border border-neutral-800 bg-neutral-900 text-neutral-200 shadow-xl transition-all duration-300 ease-out md:max-h-[400px] md:w-[295px] lg:w-[455px]">
+          <div className="border-b border-neutral-800 bg-black/20 px-4 py-3">
+            <h3 className="mb-1 text-sm font-semibold text-white">
+              Kết quả tìm kiếm
+            </h3>
+            <p className="text-xs text-muted-foreground">
+              {isLoading ? "Đang tìm kiếm..." : `${mangaList.length} kết quả`}
+            </p>
+          </div>
+
+          <div className="max-h-[270px] overflow-y-auto md:max-h-[320px]">
+            <DataLoader isLoading={isLoading} error={error}>
+              {mangaList.length > 0 ? (
+                <ul className="m-0 list-none p-0">
+                  {mangaList.map((manga) => {
+                    const title = Utils.Mangadex.getMangaTitle(manga);
+                    const altTitles = Utils.Mangadex.getMangaAltTitles(manga);
+                    const cover = Utils.Mangadex.getCoverArt(manga);
+                    const tags = manga.attributes.tags.map(
+                      (t) => t.attributes.name.en,
+                    );
+
+                    return (
+                      <li
+                        key={manga.id}
+                        className="border-b border-neutral-800 transition-colors duration-150 last:border-b-0 hover:bg-neutral-800"
+                      >
+                        <Link
+                          href={Constants.Routes.nettrom.manga(manga.id)}
+                          onClick={clearTitle}
+                          className="block p-2.5 text-inherit no-underline hover:text-inherit focus:text-inherit active:text-inherit"
+                        >
+                          <div className="float-left mr-3 h-32 w-24 overflow-hidden rounded shadow-sm">
+                            <img
+                              className="h-full w-full object-cover"
+                              src={cover}
+                              alt={title}
+                              loading="lazy"
+                            />
+                          </div>
+                          <div className="overflow-hidden">
+                            <h3 className="mb-1 overflow-hidden text-ellipsis whitespace-nowrap text-xl font-semibold leading-tight text-neutral-200">
+                              <TooltipComponent
+                                size="xl"
+                                content={title}
+                                side="top"
+                              >
+                                <span className="text-xl font-semibold leading-tight">
+                                  {title}
+                                </span>
+                              </TooltipComponent>
+                            </h3>
+                            {altTitles.length > 0 && (
+                              <p className="mb-1.5 overflow-hidden text-ellipsis whitespace-nowrap text-base text-neutral-400">
+                                {altTitles.join(", ")}
+                              </p>
+                            )}
+                            <div className="mb-1.5 text-[11px] text-neutral-400">
+                              {manga.author?.attributes?.name && (
+                                <span className="mb-0.5 block overflow-hidden text-ellipsis whitespace-nowrap">
+                                  Tác giả: {manga.author.attributes.name}
+                                </span>
+                              )}
+                              {manga.artist?.attributes?.name && (
+                                <span className="mb-0.5 block overflow-hidden text-ellipsis whitespace-nowrap">
+                                  Họa sĩ: {manga.artist.attributes.name}
+                                </span>
+                              )}
+                            </div>
+                            {tags.length > 0 && (
+                              <div className="flex flex-wrap gap-1">
+                                {tags.map((tag, index) => (
+                                  <span
+                                    key={index}
+                                    className="whitespace-nowrap rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-medium text-primary"
+                                  >
+                                    {tag}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              ) : !isLoading ? (
+                <div className="px-4 py-8 text-center">
+                  <div className="mb-3 text-3xl">📚</div>
+                  <h3 className="mb-1 text-sm font-semibold">
+                    Không tìm thấy truyện
+                  </h3>
+                  <p className="text-xs text-muted-foreground">
+                    Thử tìm kiếm với từ khóa khác
+                  </p>
+                </div>
+              ) : null}
+            </DataLoader>
+          </div>
+
+          {mangaList.length > 0 && (
+            <div className="border-t border-border bg-muted/50 px-4 py-2 text-center">
+              <p className="text-[11px] text-muted-foreground">
+                Nhấn Enter để tìm kiếm nâng cao
               </p>
             </div>
-
-            <div className="max-h-[270px] overflow-y-auto md:max-h-[320px]">
-              <DataLoader isLoading={isLoading} error={error}>
-                {mangaList.length > 0 ? (
-                  <ul className="m-0 list-none p-0">
-                    {mangaList.map((manga) => {
-                      const title = Utils.Mangadex.getMangaTitle(manga);
-                      const altTitles = Utils.Mangadex.getMangaAltTitles(manga);
-                      const cover = Utils.Mangadex.getCoverArt(manga);
-                      const tags = manga.attributes.tags.map(
-                        (t) => t.attributes.name.en,
-                      );
-
-                      return (
-                        <li className="border-b border-gray-100 transition-colors duration-150 last:border-b-0 hover:bg-gray-50">
-                          <Link
-                            href={Constants.Routes.nettrom.manga(manga.id)}
-                            onClick={clearTitle}
-                            className="block p-2.5 text-inherit no-underline hover:text-inherit focus:text-inherit active:text-inherit"
-                          >
-                            <div className="float-left mr-3 h-32 w-24 overflow-hidden rounded shadow-sm">
-                              <img
-                                className="h-full w-full object-cover"
-                                src={cover}
-                                alt={title}
-                                loading="lazy"
-                              />
-                            </div>
-                            <div className="overflow-hidden">
-                              <h3 className="mb-1 overflow-hidden text-ellipsis whitespace-nowrap text-xl font-semibold leading-tight text-gray-900">
-                                <TooltipComponent
-                                  size="xl"
-                                  content={title}
-                                  side="top"
-                                >
-                                  <span className="text-xl font-semibold leading-tight text-gray-900">
-                                    {title}
-                                  </span>
-                                </TooltipComponent>
-                              </h3>
-                              {altTitles.length > 0 && (
-                                <p className="mb-1.5 overflow-hidden text-ellipsis whitespace-nowrap text-base text-gray-500">
-                                  {altTitles.join(", ")}
-                                </p>
-                              )}
-                              <div className="mb-1.5 text-[11px] text-gray-500">
-                                {manga.author?.attributes?.name && (
-                                  <span className="mb-0.5 block overflow-hidden text-ellipsis whitespace-nowrap">
-                                    Tác giả: {manga.author.attributes.name}
-                                  </span>
-                                )}
-                                {manga.artist?.attributes?.name && (
-                                  <span className="mb-0.5 block overflow-hidden text-ellipsis whitespace-nowrap">
-                                    Họa sĩ: {manga.artist.attributes.name}
-                                  </span>
-                                )}
-                              </div>
-                              {tags.length > 0 && (
-                                <div className="flex flex-wrap gap-1">
-                                  {tags.map((tag, index) => (
-                                    <span
-                                      key={index}
-                                      className="whitespace-nowrap rounded-full bg-blue-100 px-1.5 py-0.5 text-[10px] font-medium text-blue-700"
-                                    >
-                                      {tag}
-                                    </span>
-                                  ))}
-                                </div>
-                              )}
-                            </div>
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                ) : !isLoading ? (
-                  <div className="px-4 py-8 text-center">
-                    <div className="mb-3 text-3xl">📚</div>
-                    <h3 className="mb-1 text-sm font-semibold text-gray-700">
-                      Không tìm thấy truyện
-                    </h3>
-                    <p className="text-xs text-gray-500">
-                      Thử tìm kiếm với từ khóa khác
-                    </p>
-                  </div>
-                ) : null}
-              </DataLoader>
-            </div>
-
-            {mangaList.length > 0 && (
-              <div className="border-t border-gray-100 bg-gray-50 px-4 py-2 text-center">
-                <p className="text-[11px] text-gray-500">
-                  Nhấn Enter để tìm kiếm nâng cao
-                </p>
-              </div>
-            )}
-          </div>
-        </>
+          )}
+        </div>
       )}
     </form>
   );
