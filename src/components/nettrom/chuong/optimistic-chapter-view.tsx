@@ -46,7 +46,7 @@ export default function OptimisticChapterView({
       {/* Beautiful loading overlay */}
       {isTransitioning && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
-          <div className="rounded-2xl border border-gray-200/20 bg-white/95 p-8 shadow-2xl backdrop-blur-md">
+          <div className="rounded-xl border border-gray-200/20 bg-white/95 p-8 shadow-2xl backdrop-blur-md">
             <div className="flex flex-col items-center space-y-4">
               {/* Animated loading spinner */}
               <div className="relative">
@@ -56,7 +56,7 @@ export default function OptimisticChapterView({
 
               {/* Loading text with animation */}
               <div className="text-center">
-                <h3 className="mb-2 text-lg font-semibold text-gray-800">
+                <h3 className="mb-2 text-xs font-semibold text-gray-800">
                   Đang chuyển chương
                 </h3>
                 <p className="animate-pulse text-sm text-gray-600">
@@ -85,7 +85,7 @@ export default function OptimisticChapterView({
       {!chapter && !isTransitioning && (
         <div className="flex min-h-[400px] items-center justify-center">
           <div className="text-center">
-            <div className="mx-auto mb-4 h-16 w-16 animate-spin rounded-full border-4 border-gray-200 border-t-web-title"></div>
+            <div className="mx-auto mb-2.5 h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-web-title"></div>
             <p className="font-medium text-gray-600">Đang tải chương...</p>
           </div>
         </div>

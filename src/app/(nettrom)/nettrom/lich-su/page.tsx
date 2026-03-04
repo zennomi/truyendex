@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import HistoryList from "@/components/nettrom/lich-su/history-list";
-import TopTitles from "@/components/nettrom/common/top-titles-table";
+import TopTitles from "@/components/nettrom/trang-chu/top-titles";
 import { Constants } from "@/constants";
 
 export const metadata: Metadata = {
@@ -11,32 +11,7 @@ export const metadata: Metadata = {
 export default function History() {
   return (
     <>
-      <div id="ctl00_Breadcrumbs_pnlWrapper">
-        <ul className="breadcrumb" itemType="http://schema.org/BreadcrumbList">
-          <li itemProp="itemListElement" itemType="http://schema.org/ListItem">
-            <a
-              href="https://www.nettruyenmax.com"
-              className="itemcrumb"
-              itemProp="item"
-              itemType="http://schema.org/Thing"
-            >
-              <span itemProp="name">Trang chủ</span>
-            </a>
-            <meta itemProp="position" content={"1"} />
-          </li>
-          <li itemProp="itemListElement" itemType="http://schema.org/ListItem">
-            <a
-              href="https://www.nettruyenmax.com/lich-su"
-              className="itemcrumb active"
-              itemProp="item"
-              itemType="http://schema.org/Thing"
-            >
-              <span itemProp="name">Lịch sử</span>
-            </a>
-            <meta itemProp="position" content={"2"} />
-          </li>
-        </ul>
-      </div>
+      <div id="ctl00_Breadcrumbs_pnlWrapper"></div>
       <div className="row">
         <div id="ctl00_divCenter" className="center-side col-md-8">
           <div className="mrb10 Module Module-233">

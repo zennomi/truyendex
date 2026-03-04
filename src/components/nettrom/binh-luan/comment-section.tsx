@@ -1,8 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/shadcn/dropdown-menu";
 import { last } from "lodash";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
@@ -31,6 +36,7 @@ export default function CommentSection({
   const { user } = useAuth();
   const [page, setPage] = useState(0);
   const [pageTotal, setPageTotal] = useState(1);
+  const commentListRef = useRef<HTMLDivElement>(null);
   const { data, mutate } = useCommentList({ type, typeId, page: page + 1 });
 
   const onSubmitComment = useCallback(
@@ -59,18 +65,14 @@ export default function CommentSection({
   }, [data, setPageTotal]);
 
   return (
-    <div>
-      <ul className="nav nav-tabs main-tab lazy-module">
-        <li className="active">
-          <a data-toggle="tab" href="#nt_comments">
-            <Iconify className="mr-2 inline" icon="fa:comments" />
-            Bình luận
-          </a>
-        </li>
-      </ul>
-      <div className="comment-wrapper">
-        {user ? <CommentEditor onSumbit={onSubmitComment} /> : <></>}
-        <div className="comment-list comment-default">
+    <div ref={commentListRef} className="mt-8 flex flex-col gap-6">
+      <div className="flex items-center gap-3 border-b border-neutral-200 pb-3 dark:border-neutral-800">
+        <Iconify className="text-xl text-primary" icon="fa6-solid:comments" />
+        <h3 className="text-xl font-bold uppercase text-primary">Bình luận</h3>
+      </div>
+      <div className="flex flex-col gap-6">
+        {user ? <CommentEditor onSumbit={onSubmitComment} /> : null}
+        <div className="flex flex-col gap-6">
           {data?.comments.data.map((comment) => (
             <CommentItem
               key={comment.id}
@@ -85,7 +87,13 @@ export default function CommentSection({
         <Pagination
           forcePage={page}
           pageCount={pageTotal}
-          onPageChange={(event) => setPage(event.selected)}
+          onPageChange={(event) => {
+            setPage(event.selected);
+            commentListRef.current?.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }}
         />
       </div>
     </div>
@@ -174,27 +182,31 @@ export function CommentItem({
   );
 
   return (
-    <div className="item clearfix pb-0" key={comment.id}>
-      <figure className="avatar avatar-wrap">
+    <div className="group flex gap-3 md:gap-4" key={comment.id}>
+      <div className="flex-shrink-0">
         <img
           src={Utils.Url.getAvatarUrl(comment.user.avatar_path)}
           alt={comment.user.name}
-          className={twMerge("lazy", userBanned && "blur")}
+          className={twMerge(
+            "h-10 w-10 rounded-full object-cover shadow-sm md:h-12 md:w-12",
+            userBanned && "blur",
+          )}
         />
-      </figure>
-      <div className="summary">
+      </div>
+      <div className="flex min-w-0 flex-1 flex-col">
         {editMode ? (
           <CommentEditor
             content={comment.content}
             onSumbit={onSubmitEditedComment}
           />
         ) : (
-          <div className="info border-gray-600">
-            <div className="comment-header flex items-center gap-2 border-gray-600">
+          <div className="rounded-2xl rounded-tl-none bg-neutral-100 px-4 pb-4 pt-2 dark:bg-neutral-800/50">
+            <div className="mb-2 flex items-center gap-2">
               <div
                 className={twMerge(
-                  "authorname name-1 truncate",
-                  userBanned && "text-muted-foreground line-through",
+                  "truncate text-sm font-semibold text-neutral-900 md:text-base dark:text-neutral-100",
+                  userBanned &&
+                    "text-neutral-500 line-through dark:text-neutral-400",
                 )}
               >
                 {comment.user.name}
@@ -205,21 +217,24 @@ export function CommentItem({
               {type === "series" &&
                 comment.commentable_type === "App\\Models\\Chapter" &&
                 comment.parent_id === 0 && (
-                  <div className="truncate">
+                  <div className="truncate text-xs text-neutral-500 md:text-sm">
                     tại chương{" "}
                     <Link
                       href={Constants.Routes.nettrom.chapter(
                         comment.commentable.uuid,
                       )}
+                      className="font-medium text-primary hover:underline"
                     >
                       {comment.commentable.title}
                     </Link>
                   </div>
                 )}
             </div>
-            <div className="comment-content">
+            <div className="prose prose-sm dark:prose-invert md:prose-base prose-p:my-1 max-w-none text-neutral-700 dark:text-neutral-300">
               {userBanned ? (
-                <div className="text-muted-foreground">Bình luận đã bị xoá</div>
+                <div className="italic text-neutral-500">
+                  Bình luận đã bị xoá
+                </div>
               ) : (
                 <ReadMore>
                   <Markdown content={comment.content} />
@@ -228,84 +243,99 @@ export function CommentItem({
             </div>
           </div>
         )}
-        <ul className="comment-footer">
+        <div className="mt-2 flex items-center gap-4 px-2 text-xs font-medium text-neutral-500 md:text-sm">
           {user && comment.parent_id === 0 && (
-            <li>
-              <span onClick={() => setOpenReply(!openReply)}>
-                <i className="fa fa-comment"> </i> Trả lời
-              </span>
-            </li>
+            <button
+              onClick={() => setOpenReply(!openReply)}
+              className="flex items-center gap-1.5 transition-colors hover:text-primary"
+            >
+              <Iconify icon="lucide:reply" className="h-4 w-4" />
+              Trả lời
+            </button>
           )}
+
+          <div className="flex items-center gap-1.5">
+            <Iconify icon="lucide:clock" className="h-4 w-4" />
+            {Utils.Date.formatNowDistance(new Date(comment.created_at))} trước
+          </div>
+
           {user && user.id === comment.user.id && (
-            <li className="comment-more-wrap">
-              <Menu>
-                <MenuButton>
-                  <span className="more-action">
-                    <i className="fa fa-ellipsis-h"> </i>
-                  </span>
-                </MenuButton>
-                <MenuItems anchor="bottom">
-                  <MenuItem>
-                    <div
-                      onClick={() => setEditMode(!editMode)}
-                      className="cursor-pointer bg-white px-4 py-2 text-black hover:bg-slate-100"
-                    >
-                      {editMode ? "Thoát sửa" : "Sửa"}
-                    </div>
-                  </MenuItem>
-                  <MenuItem>
-                    <div
-                      onClick={() => onDeleteComment()}
-                      className="cursor-pointer bg-white px-4 py-2 text-black hover:bg-slate-100"
-                    >
-                      Xoá
-                    </div>
-                  </MenuItem>
-                </MenuItems>
-              </Menu>
-            </li>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1.5 outline-none transition-colors hover:text-primary focus:outline-none">
+                <Iconify icon="lucide:more-horizontal" className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-40">
+                <DropdownMenuItem
+                  onClick={() => setEditMode(!editMode)}
+                  className="cursor-pointer gap-2 px-4 py-2"
+                >
+                  <Iconify
+                    icon={editMode ? "lucide:x" : "lucide:edit-2"}
+                    className="h-4 w-4"
+                  />
+                  {editMode ? "Thoát sửa" : "Sửa"}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => onDeleteComment()}
+                  className="cursor-pointer gap-2 px-4 py-2 text-red-600 focus:text-red-700 dark:text-red-400 focus:dark:text-red-300"
+                >
+                  <Iconify icon="lucide:trash-2" className="h-4 w-4" />
+                  Xoá
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           )}
-          <li>
-            <abbr>
-              <i className="fa fa-clock-o"> </i>
-              {Utils.Date.formatNowDistance(new Date(comment.created_at))} trước
-            </abbr>
-          </li>
-        </ul>
-        {openReply && <CommentEditor onSumbit={onSubmitReply} />}
-        {comment.replies &&
-          comment.replies.map((replyComment) => (
-            <CommentItem
-              comment={replyComment}
-              refresh={refresh}
-              type={type}
-              typeId={typeId}
-              user={user}
-            />
-          ))}
-        {replies.map((replyComment) => (
-          <CommentItem
-            comment={replyComment}
-            refresh={refresh}
-            type={type}
-            typeId={typeId}
-            user={user}
-          />
-        ))}
+        </div>
+
+        {openReply && (
+          <div className="mt-4">
+            <CommentEditor onSumbit={onSubmitReply} />
+          </div>
+        )}
+
+        {((comment.replies && comment.replies.length > 0) ||
+          replies.length > 0) && (
+          <div className="mt-4 flex flex-col gap-4">
+            {comment.replies &&
+              comment.replies.map((replyComment) => (
+                <CommentItem
+                  key={replyComment.id}
+                  comment={replyComment}
+                  refresh={refresh}
+                  type={type}
+                  typeId={typeId}
+                  user={user}
+                />
+              ))}
+            {replies.map((replyComment) => (
+              <CommentItem
+                key={replyComment.id}
+                comment={replyComment}
+                refresh={refresh}
+                type={type}
+                typeId={typeId}
+                user={user}
+              />
+            ))}
+          </div>
+        )}
+
         {!isReachingEnd &&
           comment.parent_id === 0 &&
           comment.reply_count > 2 && (
-            <div className="flex cursor-pointer justify-center gap-2">
-              <Iconify className="text-orange-500" icon="fa:angle-down" />
-              <div
-                onClick={() =>
-                  !viewMore ? setViewMore(true) : setSize(size + 1)
-                }
-                className="text-base font-bold text-orange-500"
-              >
-                {isLoading ? "Đang tải..." : "Xem thêm"}
-              </div>
-            </div>
+            <button
+              onClick={() =>
+                !viewMore ? setViewMore(true) : setSize(size + 1)
+              }
+              disabled={isLoading}
+              className="mt-4 flex items-center gap-2 self-start rounded-full bg-neutral-100 px-4 py-1.5 text-sm font-semibold text-primary transition-colors hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700"
+            >
+              <Iconify
+                icon={isLoading ? "lucide:loader-2" : "lucide:chevron-down"}
+                className={twMerge("h-4 w-4", isLoading && "animate-spin")}
+              />
+              {isLoading ? "Đang tải..." : "Xem thêm câu trả lời"}
+            </button>
           )}
       </div>
     </div>

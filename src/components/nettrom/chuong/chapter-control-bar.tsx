@@ -33,20 +33,20 @@ export const ChapterControlBar: FC<{}> = () => {
       >
         <div
           className={twMerge(
-            "flex w-full items-center gap-2 bg-neutral-900 p-2 shadow-2xl sm:max-w-[500px] sm:rounded-2xl sm:p-4",
+            "flex w-full items-center gap-2 bg-neutral-900 p-2 shadow-2xl sm:max-w-[500px] sm:rounded-xl sm:p-2.5",
           )}
         >
           <Button
             disabled={isAtTop}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             icon={<FaArrowUp />}
-            className="h-16 w-16 shrink-0 rounded-full text-[40px] [&_svg]:size-8"
+            className="h-10 w-10 shrink-0 rounded-full text-[40px] [&_svg]:size-5"
           ></Button>
           {/* <ChapterControlList /> */}
           <Link href={Constants.Routes.nettrom.manga(manga?.id || "")}>
             <Button
               variant={"ghost"}
-              className="h-16 w-16 shrink-0 bg-transparent text-[40px] [&_svg]:size-8"
+              className="h-10 w-10 shrink-0 bg-transparent text-[40px] [&_svg]:size-5"
               icon={<FaList />}
             ></Button>
           </Link>
@@ -54,11 +54,11 @@ export const ChapterControlBar: FC<{}> = () => {
             disabled={!canPrev}
             onClick={() => prev()}
             icon={<FaArrowLeft />}
-            className="h-16 w-16 shrink-0 rounded-lg text-[40px] [&_svg]:size-8"
+            className="h-10 w-10 shrink-0 rounded-lg text-[40px] [&_svg]:size-5"
           ></Button>
           <Select
             classNames={{
-              trigger: "h-16 grow rounded-lg",
+              trigger: "h-10 grow rounded-lg",
               content: "max-h-[500px] w-[95vw] sm:w-full",
             }}
             value={chapterId || "Đang tải..."}
@@ -83,12 +83,12 @@ export const ChapterControlBar: FC<{}> = () => {
             disabled={!canNext}
             icon={<FaArrowRight />}
             onClick={() => next()}
-            className="h-16 w-16 shrink-0 rounded-lg text-[40px] [&_svg]:size-8"
+            className="h-10 w-10 shrink-0 rounded-lg text-[40px] [&_svg]:size-5"
           ></Button>
           <Button
             onClick={onToggleDrawer}
             variant={"ghost"}
-            className="h-16 w-16 shrink-0 bg-transparent text-[40px] [&_svg]:size-8"
+            className="h-10 w-10 shrink-0 bg-transparent text-[40px] [&_svg]:size-5"
             icon={<FaEllipsisV />}
           ></Button>
         </div>

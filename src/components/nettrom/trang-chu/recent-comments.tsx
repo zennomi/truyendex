@@ -12,23 +12,26 @@ import { Utils } from "@/utils";
 import ReadMore from "../see-more";
 import Skeleton from "react-loading-skeleton";
 import { ErrorDisplay } from "../error-display";
+import { Clock, ChevronRight, MessageSquare } from "lucide-react";
 
 export default function RecentComments() {
   const { data, error, isLoading, mutate } = useRecentComments();
   return (
-    <div>
-      <div className="mb-4 flex items-center justify-between gap-3">
-        <h2 className="flex items-center gap-4 text-[20px] font-medium text-web-title">
-          <FaComment />
+    <div className="flex flex-col space-y-4">
+      <div className="flex items-center justify-between pb-2">
+        <h2 className="flex items-center gap-2.5 text-xl font-bold tracking-tight text-foreground">
+          <FaComment className="text-primary" />
           Bình luận gần đây
         </h2>
       </div>
 
-      {isLoading
-        ? [...Array(15)].map((_, index) => <CommentSkeleton key={index} />)
-        : data?.comments.map((comment) => (
-            <Comment key={comment.id} comment={comment} />
-          ))}
+      <div className="flex flex-col gap-4">
+        {isLoading
+          ? [...Array(10)].map((_, index) => <CommentSkeleton key={index} />)
+          : data?.comments
+              .slice(0, 10)
+              .map((comment) => <Comment key={comment.id} comment={comment} />)}
+      </div>
 
       {error && <ErrorDisplay error={error} refresh={mutate} />}
     </div>
@@ -37,26 +40,20 @@ export default function RecentComments() {
 
 function CommentSkeleton() {
   return (
-    <div>
-      <div className="mb-2">
-        <Skeleton />
-        <Skeleton />
+    <div className="flex flex-col gap-3 rounded-xl border bg-card p-4 shadow-sm">
+      <div className="flex items-center gap-3">
+        <Skeleton circle className="size-10 shrink-0" />
+        <div className="flex w-full max-w-[200px] flex-col gap-1">
+          <Skeleton className="h-4 w-3/4" />
+          <Skeleton className="h-3 w-1/2" />
+        </div>
       </div>
       <div>
-        <Skeleton />
+        <Skeleton count={2} className="h-4 w-full" />
       </div>
-      <div className="mt-2 flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2">
-          <Skeleton circle className="size-10" />
-          <div className={"w-[200px] font-bold"}>
-            <Skeleton />
-          </div>
-        </div>
-        <div className="whitespace-nowrap text-lg text-gray-500">
-          <Skeleton />
-        </div>
+      <div className="mt-1 h-9 w-full rounded-md">
+        <Skeleton className="h-full w-full rounded-md" />
       </div>
-      <div className="mb-2 mt-3 w-full border-b border-gray-700"></div>
     </div>
   );
 }
@@ -69,63 +66,78 @@ function Comment({ comment }: { comment: RecentCommentResponse }) {
     Constants.Roles.BANNED,
   );
   return (
-    <div key={comment.id}>
-      <div className="mb-2">
-        <div className="line-clamp-2 font-bold">
-          <Link
-            href={
-              type === "chapter"
-                ? Constants.Routes.nettrom.chapter(comment.commentable.uuid)
-                : Constants.Routes.nettrom.manga(comment.commentable.uuid)
-            }
-            className="font-bold"
-          >
-            {comment.commentable.title}
-          </Link>
-          {comment.commentable.series && (
-            <>
-              {" - "}
-              <Link
-                href={Constants.Routes.nettrom.manga(
-                  comment.commentable.series.uuid,
-                )}
-                className="font-bold"
-              >
-                {comment.commentable.series.title}
-              </Link>
-            </>
-          )}
+    <div className="group relative flex flex-col gap-3 rounded-xl border bg-card p-4 text-card-foreground shadow-sm transition-all hover:border-primary/50 hover:shadow-md">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <img
+            alt={comment.user.name}
+            className={twMerge(
+              "size-10 shrink-0 rounded-full object-cover shadow-sm ring-1 ring-border",
+              userBanned && "blur-sm",
+            )}
+            src={Utils.Url.getAvatarUrl(comment.user.avatar_path)}
+            loading="lazy"
+          />
+          <div className="flex flex-col items-start gap-1">
+            <div
+              className={twMerge(
+                "text-sm font-semibold leading-none tracking-tight",
+                userBanned && "text-muted-foreground line-through",
+              )}
+              title={comment.user.name}
+            >
+              {comment.user.name}
+            </div>
+            <div className="flex items-center gap-1 text-xs font-medium text-muted-foreground">
+              <Clock className="size-3" />
+              {Utils.Date.formatNowDistance(new Date(comment.created_at))} trước
+            </div>
+          </div>
         </div>
       </div>
-      <div className="overflow-hidden">
+
+      <div className="break-words text-sm leading-relaxed text-foreground/90">
         {userBanned ? (
-          <div className="text-muted-foreground">Bình luận đã bị xoá</div>
+          <div className="italic text-muted-foreground">
+            Bình luận đã bị xoá
+          </div>
         ) : (
           <ReadMore maxHeight={150}>
             <Markdown content={comment.content} />
           </ReadMore>
         )}
       </div>
-      <div className="mt-2 flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2">
-          <img
-            className={twMerge("h-10 w-10 rounded-full", userBanned && "blur")}
-            src={Utils.Url.getAvatarUrl(comment.user.avatar_path)}
-          />
-          <div
-            className={twMerge(
-              "max-w-[200px] truncate font-bold",
-              userBanned && "line-through",
-            )}
+
+      <div className="mt-1 flex items-center gap-2 rounded-lg bg-muted/50 px-3 py-2.5 text-xs font-medium text-muted-foreground transition-colors group-hover:bg-muted group-hover:text-foreground">
+        <MessageSquare className="size-3.5 shrink-0 opacity-70" />
+        <div className="flex flex-wrap items-center gap-1.5 leading-snug">
+          {comment.commentable.series && (
+            <>
+              <Link
+                href={Constants.Routes.nettrom.manga(
+                  comment.commentable.series.uuid,
+                )}
+                className="line-clamp-1 transition-colors hover:text-primary hover:underline"
+                title={comment.commentable.series.title}
+              >
+                {comment.commentable.series.title}
+              </Link>
+              <ChevronRight className="size-3 shrink-0 opacity-50" />
+            </>
+          )}
+          <Link
+            href={
+              type === "chapter"
+                ? Constants.Routes.nettrom.chapter(comment.commentable.uuid)
+                : Constants.Routes.nettrom.manga(comment.commentable.uuid)
+            }
+            className="line-clamp-1 transition-colors hover:text-primary hover:underline"
+            title={comment.commentable.title}
           >
-            {comment.user.name}
-          </div>
-        </div>
-        <div className="whitespace-nowrap text-lg text-gray-500">
-          {Utils.Date.formatNowDistance(new Date(comment.created_at))} trước
+            {comment.commentable.title}
+          </Link>
         </div>
       </div>
-      <div className="mb-2 mt-3 w-full border-b border-gray-700"></div>
     </div>
   );
 }

@@ -42,7 +42,7 @@ export default function UserDashboardLayoutView({
           <div className="md:w-1/3 md:px-3 lg:w-1/4">
             <div className="relative -mt-32 md:-mt-32">
               <div className="rounded-md bg-white p-6 shadow dark:bg-slate-900 dark:shadow-gray-800">
-                <div className="profile-pic mb-5 text-center">
+                <div className="profile-pic mb-3 text-center">
                   <div>
                     <div className="relative mx-auto size-28">
                       <img
@@ -53,7 +53,7 @@ export default function UserDashboardLayoutView({
                       />
                     </div>
                     <div className="mt-4">
-                      <h5 className="text-lg font-semibold">{user?.name}</h5>
+                      <h5 className="text-xs font-semibold">{user?.name}</h5>
                       <p className="text-slate-400">{user?.email}</p>
                     </div>
                   </div>

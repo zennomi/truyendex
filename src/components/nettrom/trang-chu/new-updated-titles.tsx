@@ -82,7 +82,7 @@ export default function LastestChapters({
         <div className="items">
           {title && (
             <div className="relative">
-              <h1 className="my-0 mb-5 flex items-center gap-3 text-[20px] text-web-title">
+              <h1 className="my-0 mb-3 flex items-center gap-3 text-[20px] text-web-title">
                 <FaClock />
                 <span>{title}</span>
               </h1>

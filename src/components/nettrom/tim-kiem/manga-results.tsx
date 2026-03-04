@@ -57,7 +57,7 @@ export default function MangaResults() {
           return (
             <div key={manga.id}>
               <div className="h-auto min-h-0 rounded-lg bg-neutral-800 p-2">
-                <div className="flex w-full gap-4">
+                <div className="flex w-full gap-2.5">
                   <div className="w-[50px] shrink-0 md:w-[100px]">
                     <AspectRatio
                       ratio={Constants.Nettrom.MANGA_COVER_RATIO}
@@ -82,11 +82,11 @@ export default function MangaResults() {
                               languageCode={manga.attributes.originalLanguage}
                             />
                           </div>
-                          <h1 className="line-clamp-1 font-bold md:text-2xl">
+                          <h1 className="line-clamp-1 font-bold md:text-base">
                             <Link href={url}>{mangaTitle}</Link>
                           </h1>
                         </div>
-                        <div className="flex items-center justify-between gap-4 text-[11px] text-muted-foreground">
+                        <div className="flex items-center justify-between gap-2.5 text-[11px] text-muted-foreground">
                           <span className="flex items-center gap-[4px]">
                             <i className="fa fa-star"></i>
                             {Utils.Number.formatViews(
@@ -113,7 +113,7 @@ export default function MangaResults() {
                         {manga.attributes.tags.map((tag) => (
                           <span
                             key={tag.id}
-                            className="mb-2 mr-2 whitespace-nowrap rounded bg-purple-500 px-2 py-1 text-sm text-white md:text-lg"
+                            className="mb-1 mr-1 whitespace-nowrap rounded bg-purple-500 px-1 py-0.5 text-xs text-white md:text-sm"
                           >
                             {tag.attributes.name.en}
                           </span>
@@ -163,7 +163,7 @@ export default function MangaResults() {
 function ListResultSkeleton() {
   return [...Array(LIMIT)].map((_, index) => (
     <div key={index} className="rounded-lg bg-neutral-800 p-2">
-      <div className="flex gap-4">
+      <div className="flex gap-2.5">
         <div className="w-[50px] shrink-0 md:w-[100px]">
           <AspectRatio
             ratio={Constants.Nettrom.MANGA_COVER_RATIO}
@@ -178,11 +178,11 @@ function ListResultSkeleton() {
               <div>
                 <Skeleton circle width={14} height={14} />
               </div>
-              <h1 className="block font-bold md:text-2xl">
+              <h1 className="block font-bold md:text-base">
                 <Skeleton width="100%" />
               </h1>
             </div>
-            <div className="flex items-center justify-between gap-4 text-[11px] text-muted-foreground">
+            <div className="flex items-center justify-between gap-2.5 text-[11px] text-muted-foreground">
               <span className="flex items-center gap-[4px]">
                 <i className="fa fa-star"></i>
                 <Skeleton width={20} />
@@ -201,7 +201,7 @@ function ListResultSkeleton() {
             {[...Array(3)].map((_, tag) => (
               <span
                 key={tag}
-                className="mb-2 mr-2 whitespace-nowrap rounded text-sm text-white md:text-lg"
+                className="mb-1 mr-1 whitespace-nowrap rounded text-xs text-white md:text-sm"
               >
                 <Skeleton width={35} />
               </span>
