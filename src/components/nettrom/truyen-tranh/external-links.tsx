@@ -1,3 +1,4 @@
+import React from "react";
 import { MangadexApi } from "@/api";
 
 export default function ExternalLinks({
@@ -85,23 +86,22 @@ export default function ExternalLinks({
     ...parsedLinks.filter((l) => !!l),
   ];
   return (
-    <p className="pl-6 text-sm lg:pl-0">
+    <div className="flex flex-wrap gap-x-2 gap-y-1">
       {parsedLinks.map((i, idx) => {
         if (!i) return null;
         return (
-          <>
-            {idx !== 0 && ", "}
+          <React.Fragment key={idx}>
+            {idx !== 0 && <span className="text-muted-foreground">,</span>}
             <a
-              key={idx}
               href={i.url}
               target="_blank"
               className="text-web-title transition hover:text-web-titleLighter"
             >
               {i.name}
             </a>
-          </>
+          </React.Fragment>
         );
       })}
-    </p>
+    </div>
   );
 }
