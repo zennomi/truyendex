@@ -30,7 +30,7 @@ export default function FeaturedTitles() {
 
   return (
     <div className="flex flex-col gap-5">
-      <h2 className="flex items-center gap-4 text-[20px] font-medium text-web-title">
+      <h2 className="flex items-center gap-2.5 text-[20px] font-medium text-web-title">
         <FaFire />
         Truyện đề cử
       </h2>

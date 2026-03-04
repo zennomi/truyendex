@@ -34,7 +34,7 @@ const MangaTile = (props: {
   }, [props.order]);
   return (
     <li className="relative flex w-full gap-[8px] py-2" key={props.manga.id}>
-      <div className="absolute left-4 top-0 flex h-[64px] w-8 items-center justify-center text-right">
+      <div className="absolute left-2.5 top-0 flex h-[64px] w-5 items-center justify-center text-right">
         <span
           className={twMerge(
             `fn-order text-[64px] font-black leading-none text-muted-foreground/30 pos${props.order + 1}`,
@@ -44,7 +44,7 @@ const MangaTile = (props: {
           {props.order + 1}
         </span>
       </div>
-      <div className="flex grow items-start gap-4 pl-12">
+      <div className="flex grow items-start gap-2.5 pl-[30px]">
         <Link
           className="relative w-[64px] shrink-0 rounded shadow-[-5px_0_20px_rgba(0,0,0,0.5)]"
           title={props.title}
@@ -62,7 +62,7 @@ const MangaTile = (props: {
           <h3>
             <Link
               href={Constants.Routes.nettrom.manga(props.manga.id)}
-              className="line-clamp-2 font-semibold !text-white transition hover:no-underline"
+              className="line-clamp-2 text-[14px] font-semibold !text-white transition hover:no-underline"
             >
               {props.title}
             </Link>
@@ -96,7 +96,7 @@ const MangaTileSkeleton = (props: {
 
   return (
     <li className="relative flex w-full gap-[8px] py-2" key={props.order}>
-      <div className="absolute left-4 top-0 flex h-[64px] w-8 items-center justify-center text-right">
+      <div className="absolute left-2.5 top-0 flex h-[64px] w-5 items-center justify-center text-right">
         <span
           className={twMerge(
             `fn-order text-[64px] font-black leading-none text-muted-foreground/30 pos${props.order + 1}`,
@@ -106,7 +106,7 @@ const MangaTileSkeleton = (props: {
           {props.order + 1}
         </span>
       </div>
-      <div className="flex grow items-start gap-4 pl-12">
+      <div className="flex grow items-start gap-2.5 pl-[30px]">
         <div className="relative w-[64px] shrink-0 rounded shadow-[-5px_0_20px_rgba(0,0,0,0.5)]">
           <AspectRatio ratio={1} className="overflow-hidden rounded">
             <div className="h-full w-full">
@@ -116,7 +116,7 @@ const MangaTileSkeleton = (props: {
         </div>
         <div className="grow">
           <h3>
-            <div className="line-clamp-2 font-semibold !text-white transition hover:no-underline">
+            <div className="line-clamp-2 text-[14px] font-semibold !text-white transition hover:no-underline">
               <Skeleton />
             </div>
           </h3>
@@ -208,14 +208,14 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
     <div className="">
       <div className="">
         <div className="">
-          <div className="mb-4 flex items-center justify-between gap-3">
-            <h2 className="flex items-center gap-4 text-[20px] font-medium text-web-title">
+          <div className="mb-2.5 flex items-center justify-between gap-3">
+            <h2 className="flex items-center gap-2.5 text-[20px] font-medium text-web-title">
               <FaTrophy />
               Bảng xếp hạng tháng này
             </h2>
           </div>
           <Tabs defaultValue="top" className="w-full">
-            <TabsList className="mb-4 grid h-[48px] grid-cols-3 bg-white/10 p-2">
+            <TabsList className="mb-2.5 grid h-[48px] grid-cols-3 bg-white/10 p-1.5">
               <TabsTrigger
                 value="top"
                 className="flex h-full items-center gap-3 rounded text-[12px]"
@@ -239,7 +239,7 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="top">
-              <ul className="flex flex-col gap-4">
+              <ul className="flex flex-col gap-2.5">
                 {topMangaListLoading
                   ? [...Array(7)].map((_, index) => (
                       <MangaTileSkeleton
@@ -267,7 +267,7 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
               </ul>
             </TabsContent>
             <TabsContent value="favorite">
-              <ul className="flex flex-col gap-4">
+              <ul className="flex flex-col gap-2.5">
                 {favoriteMangaListLoading
                   ? [...Array(7)].map((_, index) => (
                       <MangaTileSkeleton
@@ -300,7 +300,7 @@ export default function TopTitles({ groupId }: { groupId?: string }) {
               </ul>
             </TabsContent>
             <TabsContent value="new">
-              <ul className="flex flex-col gap-4">
+              <ul className="flex flex-col gap-2.5">
                 {newMangaListLoading
                   ? [...Array(7)].map((_, index) => (
                       <MangaTileSkeleton

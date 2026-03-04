@@ -124,7 +124,7 @@ export default function SearchMangaForm() {
 
   return (
     <>
-      <form className="mb-2 md:mb-4" onSubmit={handleSubmit(onSubmit)}>
+      <form className="mb-2 md:mb-2.5" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-2 flex flex-col gap-2 md:flex-row">
           <div className="w-full">
             <label
@@ -269,7 +269,7 @@ export default function SearchMangaForm() {
               <label>Xếp theo</label>
               <div className="relative">
                 <select
-                  className="form-control block w-full appearance-none items-center justify-between rounded-lg border-2 border-neutral-300 bg-neutral-50 p-4 pr-10 capitalize leading-[21px] text-neutral-900 focus:border-purple-500 focus:ring-purple-500 dark:border-neutral-600 dark:bg-neutral-700 dark:text-white dark:focus:border-purple-500 dark:focus:ring-purple-500"
+                  className="form-control block w-full appearance-none items-center justify-between rounded-lg border-2 border-neutral-300 bg-neutral-50 p-2.5 pr-10 capitalize leading-[21px] text-neutral-900 focus:border-purple-500 focus:ring-purple-500 dark:border-neutral-600 dark:bg-neutral-700 dark:text-white dark:focus:border-purple-500 dark:focus:ring-purple-500"
                   {...register("orderType")}
                 >
                   {Object.entries(ORDER_TYPE).map(([key, value]) => (

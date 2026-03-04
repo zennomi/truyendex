@@ -10,7 +10,7 @@ export const Button = (
     <ShadcnButton
       {...props}
       className={twMerge(
-        "flex h-auto items-center gap-4 bg-web-title px-4 py-3 text-[14px] text-primary-foreground text-white hover:bg-web-titleLighter",
+        "flex h-auto items-center gap-2.5 bg-web-title px-2.5 py-2 text-[14px] text-primary-foreground text-white hover:bg-web-titleLighter",
         props.variant === "outline" &&
           "border border-web-title bg-transparent text-web-title hover:bg-web-titleLighter/10 hover:text-web-title",
         props.variant === "ghost" &&

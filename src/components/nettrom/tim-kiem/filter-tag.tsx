@@ -85,7 +85,7 @@ export default function FilterTag({
         <button
           type="button"
           onClick={toggleShowTagFilter}
-          className="flex w-full items-center justify-between rounded-lg border-2 border-neutral-300 bg-neutral-50 p-4 text-neutral-900 focus:border-purple-500 focus:ring-purple-500 dark:border-neutral-600 dark:bg-neutral-700 dark:text-white dark:placeholder-neutral-400 dark:focus:border-purple-500 dark:focus:ring-purple-500"
+          className="flex w-full items-center justify-between rounded-lg border-2 border-neutral-300 bg-neutral-50 p-2.5 text-neutral-900 focus:border-purple-500 focus:ring-purple-500 dark:border-neutral-600 dark:bg-neutral-700 dark:text-white dark:placeholder-neutral-400 dark:focus:border-purple-500 dark:focus:ring-purple-500"
         >
           <div className="line-clamp-1 capitalize">
             {values.includedTags?.length ? (
@@ -193,7 +193,7 @@ export default function FilterTag({
                               type="button"
                               key={tag.id}
                               className={twMerge(
-                                "rounded-xl border p-2 text-lg dark:bg-neutral-800",
+                                "rounded-xl border p-2 text-xs dark:bg-neutral-800",
                                 state === 1 &&
                                   "border-emerald-500 text-emerald-500",
                                 state === -1 &&

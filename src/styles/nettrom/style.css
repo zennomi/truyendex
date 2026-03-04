@@ -271,9 +271,9 @@ th {
   box-sizing: border-box;
 }
 
-html {
+/* html {
   font-size: 10px;
-}
+} */
 
 body {
   line-height: 1.42857143;
@@ -292,7 +292,7 @@ textarea {
 a:focus,
 a:hover {
   color: #23527c;
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 
 a:focus {
@@ -4557,7 +4557,7 @@ ul.ActionMenuBody li ul li a.ActionLink {
 body {
   font-family: Tahoma, sans-serif, Helvetica, Arial;
   font-weight: 400;
-  font-size: 14px;
+  /* font-size: 14px; */
   background-color: #ebebeb;
 }
 

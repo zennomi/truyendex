@@ -1,6 +1,7 @@
 ---
 trigger: always_on
 ---
+
 # Project Overview
 
 ## Development commands

@@ -68,7 +68,7 @@ export const ChapterControlList: FC<{}> = () => {
       <Link href={Constants.Routes.nettrom.manga(manga?.id || "")}>
         <Button
           variant={"ghost"}
-          className="h-16 w-16 shrink-0 bg-transparent text-[40px] [&_svg]:size-8"
+          className="h-10 w-10 shrink-0 bg-transparent text-[40px] [&_svg]:size-5"
           icon={<FaList />}
         ></Button>
       </Link>

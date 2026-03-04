@@ -25,7 +25,7 @@ export const Alert: FC<{
         props.classNames?.alert,
       )}
     >
-      <div className="flex grow gap-3 sm:items-center">
+      <div className="flex grow gap-2 sm:items-center">
         <span className="shrink-0">
           {props.icon || <FaExclamationCircle className="inline text-[20px]" />}
         </span>
@@ -44,7 +44,7 @@ export const Alert: FC<{
           )}
         </div>
       </div>
-      <div className="shrink-0 pl-10 sm:pl-5">{props.action}</div>
+      <div className="shrink-0 pl-6 sm:pl-3">{props.action}</div>
     </ShadCnAlert>
   );
 };
