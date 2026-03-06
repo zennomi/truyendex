@@ -26,11 +26,20 @@ export default function MangaImage({
   dataSaver,
   onDataSaverChange,
   maxImageWidth,
+  src,
   ...other
 }: Props) {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
-  if (error)
+  const [imgSrc, setImgSrc] = useState(src);
+
+  React.useEffect(() => {
+    setImgSrc(src);
+    setError(false);
+    setLoaded(false);
+  }, [src]);
+
+  if (error) {
     return (
       <div className="flex flex-col justify-center gap-2 bg-white/10 px-2 py-5">
         <div className="text-center">
@@ -40,7 +49,11 @@ export default function MangaImage({
           <Button
             icon={<Iconify icon="fa:refresh" />}
             className="w-full min-w-0"
-            onClick={() => setError(false)}
+            onClick={() => {
+              setImgSrc(src);
+              setError(false);
+              setLoaded(false);
+            }}
           >
             Tải lại ảnh
           </Button>
@@ -56,6 +69,7 @@ export default function MangaImage({
         </div>
       </div>
     );
+  }
   return (
     <span
       className={`block overflow-hidden ${loaded ? "min-h-0" : "min-h-[100vh]"} ${className}`}
@@ -68,8 +82,25 @@ export default function MangaImage({
         className: "mx-auto h-full object-cover",
         width: maxImageWidth || "100%",
         onLoad: () => setLoaded(true),
-        onError: () => setError(true),
+        onError: () => {
+          if (
+            imgSrc &&
+            typeof imgSrc === "string" &&
+            !imgSrc.includes("uploads.mangadex.org")
+          ) {
+            try {
+              const url = new URL(imgSrc);
+              url.hostname = "uploads.mangadex.org";
+              setImgSrc(url.toString());
+              return;
+            } catch (e) {
+              console.error(e);
+            }
+          }
+          setError(true);
+        },
         threshold: threshold,
+        src: imgSrc,
         ...(other as any),
       })}
     </span>
