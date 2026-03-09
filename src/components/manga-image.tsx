@@ -83,16 +83,21 @@ export default function MangaImage({
         width: maxImageWidth || "100%",
         onLoad: () => setLoaded(true),
         onError: () => {
-          if (
-            imgSrc &&
-            typeof imgSrc === "string" &&
-            !imgSrc.includes("uploads.mangadex.org")
-          ) {
+          if (imgSrc && typeof imgSrc === "string") {
             try {
               const url = new URL(imgSrc);
-              url.hostname = "uploads.mangadex.org";
-              setImgSrc(url.toString());
-              return;
+              if (
+                url.hostname !== "uploads.mangadex.org" &&
+                url.hostname !== "uploads.mangadex.dev"
+              ) {
+                url.hostname = "uploads.mangadex.org";
+                setImgSrc(url.toString());
+                return;
+              } else if (url.hostname === "uploads.mangadex.org") {
+                url.hostname = "uploads.mangadex.dev";
+                setImgSrc(url.toString());
+                return;
+              }
             } catch (e) {
               console.error(e);
             }
