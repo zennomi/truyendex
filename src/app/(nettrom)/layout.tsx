@@ -33,6 +33,13 @@ export const metadata: Metadata = {
   other: {
     referrer: "same-origin",
   },
+  robots:
+    process.env.NEXT_PUBLIC_MAINTENANCE_MODE === "true"
+      ? {
+          index: false,
+          follow: false,
+        }
+      : undefined,
 };
 
 const inter = Inter({ subsets: ["latin"] });
