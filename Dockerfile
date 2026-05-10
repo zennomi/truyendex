@@ -4,8 +4,10 @@ FROM node:20-alpine
 # Create and set the working directory
 WORKDIR /app
 
+RUN corepack enable
+
 # Copy the package.json and yarn.lock files to the working directory
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock .yarnrc.yml ./
 
 # Install dependencies
 RUN yarn install
@@ -14,7 +16,7 @@ RUN yarn install
 COPY . .
 
 # Set environment variables from the .env file
-COPY .env.docker.local .env
+COPY .env.example .env
 
 # Build the Next.js application
 RUN yarn build
