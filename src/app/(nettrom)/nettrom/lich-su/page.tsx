@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(Constants.APP_URL),
 };
 
+const isMaintenanceMode = process.env.NEXT_PUBLIC_MAINTENANCE_MODE === "true";
+
 export default function History() {
   return (
     <>
@@ -33,9 +35,11 @@ export default function History() {
           </div>
           <HistoryList />
         </div>
-        <div id="ctl00_divRight" className="right-side col-md-4 cmszone">
-          <TopTitles />
-        </div>
+        {!isMaintenanceMode && (
+          <div id="ctl00_divRight" className="right-side col-md-4 cmszone">
+            <TopTitles />
+          </div>
+        )}
       </div>
     </>
   );
