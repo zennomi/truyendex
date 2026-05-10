@@ -17,6 +17,15 @@ export function middleware(request: NextRequest) {
       return NextResponse.next();
     }
 
+    // Do not intercept specific nettrom pages
+    if (
+      pathname === "/nettrom/theo-doi" ||
+      pathname === "/nettrom/lich-su" ||
+      pathname === "/dang-nhap"
+    ) {
+      return NextResponse.next();
+    }
+
     // Ignore API routes, Next.js static files, and other assets
     if (
       pathname.startsWith("/api/") ||
@@ -27,7 +36,14 @@ export function middleware(request: NextRequest) {
     }
 
     // Rewrite all other requests to the /maintenance page
-    return NextResponse.rewrite(new URL("/maintenance", request.url));
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set("x-original-path", pathname);
+
+    return NextResponse.rewrite(new URL("/maintenance", request.url), {
+      request: {
+        headers: requestHeaders,
+      },
+    });
   }
 
   return NextResponse.next();
