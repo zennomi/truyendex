@@ -76,6 +76,38 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Docker
+
+### Prerequisites
+
+- [Docker](https://www.docker.com/get-started) installed on your machine
+
+### Getting Started
+
+Build and run with Docker Compose:
+
+```bash
+docker compose up -d --build
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+### Useful Commands
+
+```bash
+# View logs
+docker compose logs -f
+
+# Stop containers
+docker compose down
+
+# Rebuild after code changes
+docker compose up -d --build
+
+# Restart without rebuilding
+docker compose restart
+```
+
 ### Learn More
 
 To learn more about Next.js, take a look at the following resources:
