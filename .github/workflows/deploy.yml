@@ -46,23 +46,31 @@ jobs:
           tar -czf build.tar.gz -C build .
 
       - name: Deploy to VPS
+        env:
+          SSH_USERNAME: ${{ secrets.VPS_USERNAME }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_PORT: ${{ secrets.VPS_PORT }}
+          APP_DIR: ${{ secrets.APP_DIR }}
+          SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          PORT: ${{ secrets.PORT }}
         run: |
-          SSH_USERNAME="${{ secrets.VPS_USERNAME }}"
-          SSH_PASSWORD="${{ secrets.VPS_PASSWORD }}"
-          VPS_HOST="${{ secrets.VPS_HOST }}"
-          APP_DIR="${{ secrets.APP_DIR }}"
+          # Materialize the deploy key with permissions required by OpenSSH.
+          umask 077
+          mkdir -p "$HOME/.ssh"
+          SSH_KEY_FILE="$HOME/.ssh/vps_deploy_key"
+          printf '%s\n' "$SSH_PRIVATE_KEY" > "$SSH_KEY_FILE"
 
-          # Install sshpass for password-based authentication
-          sudo apt-get update && sudo apt-get install -y sshpass
+          SSH_OPTIONS=(-i "$SSH_KEY_FILE" -p "$VPS_PORT" -o IdentitiesOnly=yes -o StrictHostKeyChecking=no)
+          SCP_OPTIONS=(-i "$SSH_KEY_FILE" -P "$VPS_PORT" -o IdentitiesOnly=yes -o StrictHostKeyChecking=no)
 
           # Create target directory on VPS
-          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$SSH_USERNAME@$VPS_HOST" "mkdir -p $APP_DIR"
+          ssh "${SSH_OPTIONS[@]}" "$SSH_USERNAME@$VPS_HOST" "mkdir -p $APP_DIR"
 
           # Copy build files to VPS
-          sshpass -p "$SSH_PASSWORD" scp -o StrictHostKeyChecking=no build.tar.gz "$SSH_USERNAME@$VPS_HOST:$APP_DIR/"
+          scp "${SCP_OPTIONS[@]}" build.tar.gz "$SSH_USERNAME@$VPS_HOST:$APP_DIR/"
 
           # SSH into VPS and deploy
-          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$SSH_USERNAME@$VPS_HOST" << EOF
+          ssh "${SSH_OPTIONS[@]}" "$SSH_USERNAME@$VPS_HOST" << EOF
             source ~/.nvm/nvm.sh
 
             nvm use --lts
@@ -79,6 +87,6 @@ jobs:
 
             # Restart app (use pm2 or a similar process manager)
             pm2 delete truyendex || true
-            pm2 start "yarn start -p ${{ secrets.PORT }}" --name truyendex
+            pm2 start "yarn start -p $PORT" --name truyendex
             pm2 save
           EOF
